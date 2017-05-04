@@ -9,7 +9,7 @@ import org.test.sms.common.entities.university.Faculty;
 import org.test.sms.common.enums.TabType;
 import org.test.sms.common.enums.Translations;
 import org.test.sms.common.enums.university.ExamType;
-import org.test.sms.common.filters.ExamFilter;
+import org.test.sms.common.filters.university.ExamFilter;
 import org.test.sms.common.service.university.ExamService;
 import org.test.sms.common.utils.DateUtils;
 import org.test.sms.web.customComponents.CSearchComboBox;

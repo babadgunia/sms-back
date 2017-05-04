@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 import org.test.sms.common.entities.university.Auditorium;
 import org.test.sms.common.entities.university.Building;
 import org.test.sms.common.filters.AbstractFilter;
-import org.test.sms.common.filters.AuditoriumFilter;
+import org.test.sms.common.filters.university.AuditoriumFilter;
 import org.test.sms.server.dao.impl.AbstractDaoImpl;
 import org.test.sms.server.dao.interfaces.university.AuditoriumDao;
 

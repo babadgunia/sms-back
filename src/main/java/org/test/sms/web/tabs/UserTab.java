@@ -2,12 +2,12 @@ package org.test.sms.web.tabs;
 
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
-import org.test.sms.common.entities.User;
-import org.test.sms.common.entities.UserGroup;
+import org.test.sms.common.entities.general.User;
+import org.test.sms.common.entities.general.UserGroup;
 import org.test.sms.common.enums.TabType;
 import org.test.sms.common.enums.Translations;
-import org.test.sms.common.filters.UserFilter;
-import org.test.sms.common.service.common.UserService;
+import org.test.sms.common.filters.general.UserFilter;
+import org.test.sms.common.service.general.UserService;
 import org.test.sms.common.utils.Utils;
 import org.test.sms.web.customComponents.CSearchComboBox;
 import org.test.sms.web.customComponents.CSearchTextField;

@@ -2,8 +2,8 @@ package org.test.sms.web.forms;
 
 import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.ui.FormLayout;
-import org.test.sms.common.entities.Tab;
-import org.test.sms.common.entities.UserGroup;
+import org.test.sms.common.entities.general.Tab;
+import org.test.sms.common.entities.general.UserGroup;
 import org.test.sms.common.enums.TabPermissionType;
 import org.test.sms.common.enums.TabType;
 import org.test.sms.common.enums.Translations;

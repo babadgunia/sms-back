@@ -2,8 +2,8 @@ package org.test.sms.web.forms;
 
 import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.ui.FormLayout;
-import org.test.sms.common.entities.User;
-import org.test.sms.common.entities.UserGroup;
+import org.test.sms.common.entities.general.User;
+import org.test.sms.common.entities.general.UserGroup;
 import org.test.sms.common.enums.Translations;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.utils.SecurityUtils;

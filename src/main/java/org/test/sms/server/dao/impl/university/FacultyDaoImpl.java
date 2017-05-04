@@ -6,7 +6,7 @@ import org.test.sms.common.entities.university.Faculty;
 import org.test.sms.common.enums.ErrorCode;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filters.AbstractFilter;
-import org.test.sms.common.filters.CourseFilter;
+import org.test.sms.common.filters.university.CourseFilter;
 import org.test.sms.common.utils.Utils;
 import org.test.sms.server.dao.impl.AbstractDaoImpl;
 import org.test.sms.server.dao.interfaces.university.CourseDao;

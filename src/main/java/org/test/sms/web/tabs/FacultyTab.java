@@ -5,7 +5,7 @@ import org.test.sms.common.entities.university.Course;
 import org.test.sms.common.entities.university.Faculty;
 import org.test.sms.common.enums.TabType;
 import org.test.sms.common.enums.Translations;
-import org.test.sms.common.filters.FacultyFilter;
+import org.test.sms.common.filters.university.FacultyFilter;
 import org.test.sms.common.service.university.FacultyService;
 import org.test.sms.common.utils.Utils;
 import org.test.sms.web.customComponents.CSearchTextField;

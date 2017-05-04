@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 import org.test.sms.common.entities.university.Course;
 import org.test.sms.common.entities.university.Faculty;
 import org.test.sms.common.filters.AbstractFilter;
-import org.test.sms.common.filters.CourseFilter;
+import org.test.sms.common.filters.university.CourseFilter;
 import org.test.sms.server.dao.impl.AbstractDaoImpl;
 import org.test.sms.server.dao.interfaces.university.CourseDao;
 

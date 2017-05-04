@@ -7,7 +7,7 @@ import org.test.sms.common.entities.university.Exam;
 import org.test.sms.common.entities.university.Faculty;
 import org.test.sms.common.enums.university.ExamType;
 import org.test.sms.common.filters.AbstractFilter;
-import org.test.sms.common.filters.ExamFilter;
+import org.test.sms.common.filters.university.ExamFilter;
 import org.test.sms.server.dao.impl.AbstractDaoImpl;
 import org.test.sms.server.dao.interfaces.university.ExamDao;
 

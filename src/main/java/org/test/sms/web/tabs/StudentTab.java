@@ -8,7 +8,7 @@ import com.vaadin.ui.Window;
 import org.test.sms.common.entities.university.Student;
 import org.test.sms.common.enums.TabType;
 import org.test.sms.common.enums.Translations;
-import org.test.sms.common.filters.StudentFilter;
+import org.test.sms.common.filters.university.StudentFilter;
 import org.test.sms.common.service.university.StudentService;
 import org.test.sms.common.utils.Utils;
 import org.test.sms.web.customComponents.CSearchTextField;

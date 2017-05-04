@@ -5,7 +5,7 @@ import com.vaadin.server.ErrorEvent;
 import org.test.sms.common.enums.Translations;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.log.AppLogger;
-import org.test.sms.common.service.common.ExceptionLogService;
+import org.test.sms.common.service.general.ExceptionLogService;
 import org.test.sms.web.utils.UIUtils;
 
 public class CErrorHandler extends DefaultErrorHandler {

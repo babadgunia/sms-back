@@ -15,14 +15,14 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
-import org.test.sms.common.entities.User;
+import org.test.sms.common.entities.general.User;
 import org.test.sms.common.enums.ActionType;
 import org.test.sms.common.enums.LanguageType;
 import org.test.sms.common.enums.Translations;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.service.CachingService;
-import org.test.sms.common.service.common.ActionLogService;
-import org.test.sms.common.service.common.UserService;
+import org.test.sms.common.service.general.ActionLogService;
+import org.test.sms.common.service.general.UserService;
 import org.test.sms.common.utils.DateUtils;
 import org.test.sms.web.utils.UIUtils;
 

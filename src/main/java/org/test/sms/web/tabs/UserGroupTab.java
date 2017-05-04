@@ -1,11 +1,11 @@
 package org.test.sms.web.tabs;
 
 import com.vaadin.ui.HorizontalLayout;
-import org.test.sms.common.entities.UserGroup;
+import org.test.sms.common.entities.general.UserGroup;
 import org.test.sms.common.enums.TabType;
 import org.test.sms.common.enums.Translations;
-import org.test.sms.common.filters.UserGroupFilter;
-import org.test.sms.common.service.common.UserGroupService;
+import org.test.sms.common.filters.general.UserGroupFilter;
+import org.test.sms.common.service.general.UserGroupService;
 import org.test.sms.common.utils.Utils;
 import org.test.sms.web.customComponents.CSearchTextField;
 import org.test.sms.web.forms.UserGroupForm;
