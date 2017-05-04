@@ -1,4 +1,4 @@
-package org.test.sms;
+package org.test.sms.config;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +20,12 @@ import javax.sql.DataSource;
 @ComponentScan("org.test.sms")
 @EnableTransactionManagement
 @PropertySource(value = {"classpath:database.properties"})
-public class Config {
+public class AppConfig {
 
     private Environment environment;
 
     @Autowired
-    public Config(Environment environment) {
+    public AppConfig(Environment environment) {
         this.environment = environment;
     }
 
@@ -47,7 +47,7 @@ public class Config {
 
         factory.setDataSource(dataSource());
         factory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        factory.setPackagesToScan("org.test.sms.entities");
+        factory.setPackagesToScan("org.test.sms.common.entities");
 
         return factory;
     }
