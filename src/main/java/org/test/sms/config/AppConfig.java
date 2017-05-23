@@ -25,7 +25,7 @@ import javax.sql.DataSource;
 @ComponentScan("org.test.sms")
 @EnableWebMvc
 @EnableTransactionManagement
-@PropertySource(value = {"classpath:database.properties"})
+@PropertySource("classpath:database.properties")
 public class AppConfig extends WebMvcConfigurerAdapter {
 
     private Environment environment;
@@ -71,14 +71,15 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     @Bean
     public ViewResolver getViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+
         resolver.setPrefix("/ng/");
         resolver.setSuffix(".html");
+
         return resolver;
     }
 
     @Override
-    public void configureDefaultServletHandling(
-            DefaultServletHandlerConfigurer configurer) {
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
 }
