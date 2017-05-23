@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.test.sms.common.entities.general.ActionLog;
-import org.test.sms.common.enums.ActionType;
+import org.test.sms.common.enums.general.ActionType;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filters.AbstractFilter;
 import org.test.sms.common.service.general.ActionLogService;

@@ -2,9 +2,9 @@ package org.test.sms.server.dao.impl.general;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.test.sms.common.entities.general.Tab;
+import org.test.sms.common.entities.general.Permission;
 import org.test.sms.common.entities.general.UserGroup;
-import org.test.sms.common.enums.ErrorCode;
+import org.test.sms.common.enums.general.ErrorCode;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filters.AbstractFilter;
 import org.test.sms.common.utils.Utils;
@@ -57,9 +57,9 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<UserGroup> implements User
         Optional<UserGroup> result = super.get(id);
 
         result.ifPresent(e -> {
-            List<Tab> tabs = e.getTabs();
-            tabs.size();
-            tabs.forEach(f -> f.getPermissions().size());
+            List<Permission> permissions = e.getPermissions();
+            permissions.size();
+            permissions.forEach(f -> f.getPermissions().size());
         });
 
         return result;

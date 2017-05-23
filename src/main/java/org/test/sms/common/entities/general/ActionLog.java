@@ -1,7 +1,7 @@
 package org.test.sms.common.entities.general;
 
 import org.test.sms.common.entities.AppEntity;
-import org.test.sms.common.enums.ActionType;
+import org.test.sms.common.enums.general.ActionType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

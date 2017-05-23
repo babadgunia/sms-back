@@ -27,7 +27,7 @@ public class UserGroup extends AppEntity {
     private String name;
 
     @OneToMany(mappedBy = "userGroup", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Tab> tabs = new ArrayList<>();
+    private List<Permission> permissions = new ArrayList<>();
 
     public UserGroup() {
     }
@@ -59,11 +59,11 @@ public class UserGroup extends AppEntity {
         this.name = name;
     }
 
-    public List<Tab> getTabs() {
-        return tabs;
+    public List<Permission> getPermissions() {
+        return permissions;
     }
 
-    public void setTabs(List<Tab> tabs) {
-        this.tabs = tabs;
+    public void setPermissions(List<Permission> permissions) {
+        this.permissions = permissions;
     }
 }

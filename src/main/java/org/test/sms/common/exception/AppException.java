@@ -1,6 +1,6 @@
 package org.test.sms.common.exception;
 
-import org.test.sms.common.enums.ErrorCode;
+import org.test.sms.common.enums.general.ErrorCode;
 
 public class AppException extends Exception {
 

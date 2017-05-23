@@ -1,4 +1,4 @@
-package org.test.sms.common.enums;
+package org.test.sms.common.enums.general;
 
 public enum ErrorCode {
 

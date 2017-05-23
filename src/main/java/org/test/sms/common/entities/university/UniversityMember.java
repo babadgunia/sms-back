@@ -1,7 +1,7 @@
 package org.test.sms.common.entities.university;
 
 import org.test.sms.common.entities.AppEntity;
-import org.test.sms.common.enums.university.GenderType;
+import org.test.sms.common.enums.general.GenderType;
 
 import javax.persistence.Column;
 import javax.persistence.EnumType;

@@ -2,7 +2,7 @@ package org.test.sms.server.dao.impl.general;
 
 import org.springframework.stereotype.Repository;
 import org.test.sms.common.entities.general.Text;
-import org.test.sms.common.enums.ErrorCode;
+import org.test.sms.common.enums.general.ErrorCode;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filters.AbstractFilter;
 import org.test.sms.common.utils.Utils;

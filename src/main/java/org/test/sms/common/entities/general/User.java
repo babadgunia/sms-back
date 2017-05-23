@@ -1,7 +1,7 @@
 package org.test.sms.common.entities.general;
 
 import org.test.sms.common.entities.AppEntity;
-import org.test.sms.common.enums.LanguageType;
+import org.test.sms.common.enums.general.LanguageType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -94,19 +94,19 @@ public class User extends AppEntity {
         this.name = name;
     }
 
-    public UserGroup getUserGroup() {
-        return userGroup;
-    }
-
-    public void setUserGroup(UserGroup userGroup) {
-        this.userGroup = userGroup;
-    }
-
     public LanguageType getLanguage() {
         return language;
     }
 
     public void setLanguage(LanguageType language) {
         this.language = language;
+    }
+
+    public UserGroup getUserGroup() {
+        return userGroup;
+    }
+
+    public void setUserGroup(UserGroup userGroup) {
+        this.userGroup = userGroup;
     }
 }

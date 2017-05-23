@@ -1,4 +1,4 @@
-package org.test.sms.common.enums.university;
+package org.test.sms.common.enums.general;
 
 public enum GenderType {
 

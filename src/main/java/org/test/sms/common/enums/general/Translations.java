@@ -1,4 +1,4 @@
-package org.test.sms.common.enums;
+package org.test.sms.common.enums.general;
 
 import org.test.sms.common.log.AppLogger;
 import org.test.sms.common.utils.Utils;

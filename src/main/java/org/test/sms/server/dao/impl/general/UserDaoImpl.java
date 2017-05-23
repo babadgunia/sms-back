@@ -1,10 +1,10 @@
 package org.test.sms.server.dao.impl.general;
 
 import org.springframework.stereotype.Repository;
-import org.test.sms.common.entities.general.Tab;
+import org.test.sms.common.entities.general.Permission;
 import org.test.sms.common.entities.general.User;
 import org.test.sms.common.entities.general.UserGroup;
-import org.test.sms.common.enums.ErrorCode;
+import org.test.sms.common.enums.general.ErrorCode;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filters.AbstractFilter;
 import org.test.sms.common.filters.general.UserFilter;
@@ -45,9 +45,9 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
         Optional<User> result = super.get(id);
 
         result.ifPresent(e -> {
-            List<Tab> tabs = e.getUserGroup().getTabs();
-            tabs.size();
-            tabs.forEach(f -> f.getPermissions().size());
+            List<Permission> permissions = e.getUserGroup().getPermissions();
+            permissions.size();
+            permissions.forEach(f -> f.getPermissions().size());
         });
 
         return result;
@@ -108,9 +108,9 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
         try {
             User user = query.getSingleResult();
 
-            List<Tab> tabs = user.getUserGroup().getTabs();
-            tabs.size();
-            tabs.forEach(e -> e.getPermissions().size());
+            List<Permission> permissions = user.getUserGroup().getPermissions();
+            permissions.size();
+            permissions.forEach(e -> e.getPermissions().size());
 
             return Optional.of(user);
         } catch (NoResultException e) {
