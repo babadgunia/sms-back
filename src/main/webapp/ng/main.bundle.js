@@ -93,7 +93,7 @@ module.exports = module.exports.toString();
 /***/ 153:
 /***/ (function(module, exports) {
 
-module.exports = "<section class=\"todoapp\">\n  <app-todo-list-header (add)=\"onAddTodo($event)\"></app-todo-list-header>\n  <app-todo-list [todos]=\"todos\" (toggleComplete)=\"onToggleTodoComplete($event)\" (remove)=\"onRemoveTodo($event)\"></app-todo-list>\n  <app-todo-list-footer [todos]=\"todos\"></app-todo-list-footer>\n</section>"
+module.exports = "<section class=\"todoapp\">\n\t<app-todo-list-header (add)=\"onAddTodo($event)\"></app-todo-list-header>\n\t<app-todo-list [todos]=\"todos\" (toggleComplete)=\"onToggleTodoComplete($event)\" (remove)=\"onRemoveTodo($event)\"></app-todo-list>\n\t<app-todo-list-footer [todos]=\"todos\"></app-todo-list-footer>\n</section>"
 
 /***/ }),
 
