@@ -60,7 +60,7 @@
                             <executable>ng</executable>
                             <arguments>
                                 <argument>build</argument>
-                                <argument>--base-href=/ng/</argument>
+                                <argument>--base-href=/ngdist/</argument>
                             </arguments>
                         </configuration>
                         <goals>

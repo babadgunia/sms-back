@@ -1,6 +1,7 @@
 .idea/
 target/
 node_modules/
+ngdist/
 *.iml
 rebel.xml
 .rebel.xml.bak
