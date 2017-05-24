@@ -72,7 +72,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     public ViewResolver getViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 
-        resolver.setPrefix("/ng/");
+        resolver.setPrefix("/ngdist/");
         resolver.setSuffix(".html");
 
         return resolver;
