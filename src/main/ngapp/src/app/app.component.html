@@ -1,11 +1,20 @@
-<div class="jumbotron">
-	<div class="container">
-		<div class="col-sm-8 col-sm-offset-2">
-			<alert></alert>
-			<router-outlet></router-outlet>
-		</div>
-	</div>
-</div>
- <!--<app-todo-list-header (add)="onAddTodo($event)"></app-todo-list-header>-->
- <!--<app-todo-list [todos]="todos" (toggleComplete)="onToggleTodoComplete($event)" (remove)="onRemoveTodo($event)"></app-todo-list>-->
- <!--<app-todo-list-footer [todos]="todos"></app-todo-list-footer>-->
+<!--<div class="jumbotron">-->
+<!--<div class="container">-->
+<!--<div class="col-sm-8 col-sm-offset-2">-->
+<!--<alert></alert>-->
+<!--<router-outlet></router-outlet>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<app-todo-list-header (add)="onAddTodo($event)"></app-todo-list-header>-->
+<!--<app-todo-list [todos]="todos" (toggleComplete)="onToggleTodoComplete($event)" (remove)="onRemoveTodo($event)"></app-todo-list>-->
+<!--<app-todo-list-footer [todos]="todos"></app-todo-list-footer>-->
+
+<h1>{{title}}</h1>
+<h2>My Heroes</h2>
+<ul class="heroes">
+	<li *ngFor="let hero of heroes" (click)="onSelect(hero)" [class.selected]="hero === selectedHero">
+		<span class="badge">{{hero?.id}}</span>{{hero?.name}}
+	</li>
+</ul>
+<hero-detail [hero]="selectedHero"></hero-detail>

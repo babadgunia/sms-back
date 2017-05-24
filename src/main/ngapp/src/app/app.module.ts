@@ -17,6 +17,7 @@ import {AlertComponent} from "./component/alert/alert.component";
 import {HomeComponent} from "./component/home/home.component";
 import {LoginComponent} from "./component/login/login.component";
 import {RegisterComponent} from "./component/register/register.component";
+import {HeroDetailComponent} from "./component/hero-detail/hero-detail.component";
 // utils
 import {AuthGuard} from "./utils/auth.guard";
 import {fakeBackendProvider} from "./utils/fake-backend";
@@ -34,7 +35,8 @@ import {routing} from "./app.routing";
 		AlertComponent,
 		HomeComponent,
 		LoginComponent,
-		RegisterComponent
+		RegisterComponent,
+		HeroDetailComponent
 	],
 	imports: [
 		BrowserModule,
