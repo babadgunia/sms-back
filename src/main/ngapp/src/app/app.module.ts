@@ -2,11 +2,13 @@ import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {BaseRequestOptions, HttpModule} from "@angular/http";
+import {MockBackend} from "@angular/http/testing";
 // services
 import {TodoDataService} from "./service/todo-data.service";
 import {AlertService} from "./service/alert.service";
 import {AuthenticationService} from "./service/authentication.service";
 import {UserService} from "./service/user.service";
+import {HeroService} from "./service/hero.service";
 // components
 import {AppComponent} from "./app.component";
 import {TodoListHeaderComponent} from "./component/todo-list-header/todo-list-header.component";
@@ -18,12 +20,12 @@ import {HomeComponent} from "./component/home/home.component";
 import {LoginComponent} from "./component/login/login.component";
 import {RegisterComponent} from "./component/register/register.component";
 import {HeroDetailComponent} from "./component/hero-detail/hero-detail.component";
+import {HeroesComponent} from "./component/heroes/heroes.component";
+import {DashboardComponent} from "./component/dashboard/dashboard.component";
 // utils
 import {AuthGuard} from "./utils/auth.guard";
 import {fakeBackendProvider} from "./utils/fake-backend";
-import {MockBackend} from "@angular/http/testing";
-
-import {routing} from "./app.routing";
+import {AppRoutingModule} from "./heroes-routing.model";
 
 @NgModule({
 	declarations: [
@@ -36,16 +38,19 @@ import {routing} from "./app.routing";
 		HomeComponent,
 		LoginComponent,
 		RegisterComponent,
-		HeroDetailComponent
+		HeroDetailComponent,
+		HeroesComponent,
+		DashboardComponent
 	],
 	imports: [
 		BrowserModule,
 		FormsModule,
 		HttpModule,
-		routing
+		AppRoutingModule
 	],
 	providers: [
 		TodoDataService,
+		HeroService,
 		AlertService,
 		AuthenticationService,
 		UserService,
