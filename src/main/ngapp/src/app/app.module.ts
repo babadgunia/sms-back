@@ -9,6 +9,7 @@ import {AlertService} from "./service/alert.service";
 import {AuthenticationService} from "./service/authentication.service";
 import {UserService} from "./service/user.service";
 import {HeroService} from "./service/hero.service";
+import {InMemoryDataService} from "./service/in-memory-data.service";
 // components
 import {AppComponent} from "./app.component";
 import {TodoListHeaderComponent} from "./component/todo-list-header/todo-list-header.component";
@@ -22,10 +23,12 @@ import {RegisterComponent} from "./component/register/register.component";
 import {HeroDetailComponent} from "./component/hero-detail/hero-detail.component";
 import {HeroesComponent} from "./component/heroes/heroes.component";
 import {DashboardComponent} from "./component/dashboard/dashboard.component";
+import {SearchComponent} from "./component/search/search.component";
 // utils
 import {AuthGuard} from "./utils/auth.guard";
 import {fakeBackendProvider} from "./utils/fake-backend";
 import {AppRoutingModule} from "./heroes-routing.model";
+import {InMemoryWebApiModule} from "angular-in-memory-web-api";
 
 @NgModule({
 	declarations: [
@@ -40,12 +43,14 @@ import {AppRoutingModule} from "./heroes-routing.model";
 		RegisterComponent,
 		HeroDetailComponent,
 		HeroesComponent,
-		DashboardComponent
+		DashboardComponent,
+		SearchComponent
 	],
 	imports: [
 		BrowserModule,
 		FormsModule,
 		HttpModule,
+		InMemoryWebApiModule.forRoot(InMemoryDataService),
 		AppRoutingModule
 	],
 	providers: [
