@@ -23,7 +23,7 @@ export class SearchComponent implements OnInit {
 
 	private searchTerms = new Subject<string>();
 
-	constructor(private heroSearchService: HeroService, private router: Router) {
+	constructor(private heroService: HeroService, private router: Router) {
 	}
 
 	search(term: string): void {
@@ -31,14 +31,7 @@ export class SearchComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.heroes = this.searchTerms
-			.debounceTime(300)        // wait 300ms after each keystroke before considering the term
-			.distinctUntilChanged()   // ignore if next search term is same as previous
-			.switchMap(term => term   // switch to new observable each time the term changes
-				// return the http search observable
-				? this.heroSearchService.search(term)
-				// or the observable of empty heroes if there was no search term
-				: Observable.of<Hero[]>([]))
+		this.heroes = this.searchTerms.debounceTime(300).distinctUntilChanged().switchMap(term => term ? this.heroService.search(term) : Observable.of<Hero[]>([]))
 			.catch(error => {
 				console.log(error);
 

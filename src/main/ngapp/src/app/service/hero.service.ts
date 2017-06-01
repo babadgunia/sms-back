@@ -59,6 +59,8 @@ export class HeroService {
 	}
 
 	search(term: string): Observable<Hero[]> {
-		return this.http.get(`${HEROES_URL}/?name=${term}`).map(response => response.json().data as Hero[]);
+		const url = `${HEROES_URL}/?name=${term}`;
+
+		return this.http.get(url).map(response => response.json().data as Hero[]);
 	}
 }
