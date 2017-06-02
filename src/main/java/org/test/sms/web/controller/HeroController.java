@@ -20,11 +20,6 @@ public class HeroController {
         this.service = service;
     }
 
-    @RequestMapping("hello")
-    public String greet() {
-        return "Hello from the other side!!!";
-    }
-
     @RequestMapping(value = "getList")
     public List<Hero> getList() throws AppException {
         return service.getList(null);
