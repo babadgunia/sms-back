@@ -2,7 +2,6 @@ package org.test.sms.common.utils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
@@ -16,10 +15,6 @@ public class DateUtils {
     public static final long MINUTE = SECOND * 60;
 
     public static final long HOUR = MINUTE * 60;
-
-    public static final long DAYLIGHT_LOWER_THRESHOLD = 6;
-
-    public static final long DAYLIGHT_UPPER_THRESHOLD = 18;
 
     private DateUtils() {
     }
@@ -78,14 +73,6 @@ public class DateUtils {
                 throw new IllegalArgumentException("unsupported timeUnit type");
             }
         }
-    }
-
-    public static boolean isDaylight() {
-        LocalTime now = LocalTime.now();
-
-        int hour = now.getHour();
-
-        return hour >= DAYLIGHT_LOWER_THRESHOLD && hour < DAYLIGHT_UPPER_THRESHOLD;
     }
 
     public static Date converToDate(LocalDateTime localDateTime) {

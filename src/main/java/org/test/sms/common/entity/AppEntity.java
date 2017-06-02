@@ -1,6 +1,7 @@
 package org.test.sms.common.entity;
 
-import javax.persistence.Column;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 import java.io.Serializable;
@@ -18,12 +19,11 @@ public abstract class AppEntity implements Serializable {
 
     protected static final int STRING_FIELD_MAX_LENGTH = 4000;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSSSSS")
     private LocalDateTime creationTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSSSSS")
     private LocalDateTime lastModifiedTime;
-
-    @Column(length = STRING_FIELD_MAX_LENGTH)
-    private String description;
 
     @Version
     private int version;
@@ -42,14 +42,6 @@ public abstract class AppEntity implements Serializable {
 
     public void setLastModifiedTime(LocalDateTime lastModifiedTime) {
         this.lastModifiedTime = lastModifiedTime;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public int getVersion() {

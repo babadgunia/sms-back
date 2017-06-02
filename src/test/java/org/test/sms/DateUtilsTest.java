@@ -4,12 +4,9 @@ import org.junit.Test;
 import org.test.sms.common.utils.DateUtils;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.temporal.ChronoField;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.test.sms.common.exception.ExceptionAsserter.assertThrows;
 
 public class DateUtilsTest {
@@ -48,17 +45,5 @@ public class DateUtilsTest {
         assertEquals("2016-06-01T00:00", (DateUtils.truncateDate(now, ChronoField.DAY_OF_MONTH)).toString());
 
         assertEquals("2016-01-01T00:00", (DateUtils.truncateDate(now, ChronoField.MONTH_OF_YEAR)).toString());
-    }
-
-    @Test
-    public void testIsDaylight() {
-        LocalTime now = LocalTime.now();
-
-        int hour = now.getHour();
-        if (hour >= DateUtils.DAYLIGHT_LOWER_THRESHOLD && hour < DateUtils.DAYLIGHT_UPPER_THRESHOLD) {
-            assertTrue(DateUtils.isDaylight());
-        } else {
-            assertFalse(DateUtils.isDaylight());
-        }
     }
 }
