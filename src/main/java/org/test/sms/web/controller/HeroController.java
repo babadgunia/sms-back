@@ -2,6 +2,7 @@ package org.test.sms.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.test.sms.common.entity.general.Hero;
 import org.test.sms.common.exception.AppException;
@@ -20,7 +21,7 @@ public class HeroController {
         this.service = service;
     }
 
-    @RequestMapping(value = "getList")
+    @RequestMapping(value = "getList", method = RequestMethod.GET)
     public List<Hero> getList() throws AppException {
         return service.getList(null);
     }
