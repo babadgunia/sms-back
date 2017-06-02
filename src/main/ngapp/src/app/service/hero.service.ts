@@ -10,7 +10,7 @@ import {Hero} from "../model/hero";
 
 const DELAY = 5000;
 
-const HEROES_URL = 'api/heroes';
+const HEROES_URL = '/api/hero';
 
 @Injectable()
 export class HeroService {
@@ -21,7 +21,8 @@ export class HeroService {
 	}
 
 	getHeroes(): Promise<Hero[]> {
-		return this.http.get(HEROES_URL).toPromise().then(response => response.json().data as Hero[]).catch(this.handleError);
+		const url = `${HEROES_URL}/getList`;
+		return this.http.get(url).toPromise().then(response => response.json() as Hero[]).catch(this.handleError);
 	}
 
 	private handleError(error: any): Promise<any> {

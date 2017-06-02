@@ -2,11 +2,11 @@ package org.test.sms.server.dao.impl.general;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.test.sms.common.entities.general.Permission;
-import org.test.sms.common.entities.general.UserGroup;
+import org.test.sms.common.entity.general.Permission;
+import org.test.sms.common.entity.general.UserGroup;
 import org.test.sms.common.enums.general.ErrorCode;
 import org.test.sms.common.exception.AppException;
-import org.test.sms.common.filters.AbstractFilter;
+import org.test.sms.common.filter.AbstractFilter;
 import org.test.sms.common.utils.Utils;
 import org.test.sms.server.dao.impl.AbstractDaoImpl;
 import org.test.sms.server.dao.interfaces.general.UserDao;

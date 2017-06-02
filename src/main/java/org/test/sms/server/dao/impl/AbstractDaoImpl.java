@@ -1,10 +1,10 @@
 package org.test.sms.server.dao.impl;
 
 import org.jboss.logging.Logger;
-import org.test.sms.common.entities.AppEntity;
+import org.test.sms.common.entity.AppEntity;
 import org.test.sms.common.enums.general.ErrorCode;
 import org.test.sms.common.exception.AppException;
-import org.test.sms.common.filters.AbstractFilter;
+import org.test.sms.common.filter.AbstractFilter;
 import org.test.sms.server.dao.AbstractDao;
 
 import javax.persistence.EntityManager;

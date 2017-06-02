@@ -1,8 +1,8 @@
 package org.test.sms.common.service;
 
-import org.test.sms.common.entities.AppEntity;
+import org.test.sms.common.entity.AppEntity;
 import org.test.sms.common.exception.AppException;
-import org.test.sms.common.filters.AbstractFilter;
+import org.test.sms.common.filter.AbstractFilter;
 
 import java.util.List;
 import java.util.Optional;

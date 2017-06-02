@@ -1,16 +1,16 @@
 package org.test.sms.common.service;
 
-import org.test.sms.common.entities.general.Text;
-import org.test.sms.common.entities.general.UserGroup;
-import org.test.sms.common.entities.university.Building;
-import org.test.sms.common.entities.university.Course;
-import org.test.sms.common.entities.university.Faculty;
-import org.test.sms.common.entities.university.Lecturer;
-import org.test.sms.common.filters.general.TextFilter;
-import org.test.sms.common.filters.general.UserGroupFilter;
-import org.test.sms.common.filters.university.CourseFilter;
-import org.test.sms.common.filters.university.FacultyFilter;
-import org.test.sms.common.filters.university.LecturerFilter;
+import org.test.sms.common.entity.general.Text;
+import org.test.sms.common.entity.general.UserGroup;
+import org.test.sms.common.entity.university.Building;
+import org.test.sms.common.entity.university.Course;
+import org.test.sms.common.entity.university.Faculty;
+import org.test.sms.common.entity.university.Lecturer;
+import org.test.sms.common.filter.general.TextFilter;
+import org.test.sms.common.filter.general.UserGroupFilter;
+import org.test.sms.common.filter.university.CourseFilter;
+import org.test.sms.common.filter.university.FacultyFilter;
+import org.test.sms.common.filter.university.LecturerFilter;
 
 import java.util.List;
 

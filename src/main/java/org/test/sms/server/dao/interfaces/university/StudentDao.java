@@ -1,6 +1,6 @@
 package org.test.sms.server.dao.interfaces.university;
 
-import org.test.sms.common.entities.university.Student;
+import org.test.sms.common.entity.university.Student;
 import org.test.sms.server.dao.AbstractDao;
 
 import java.util.Optional;

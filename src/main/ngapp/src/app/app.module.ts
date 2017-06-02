@@ -9,7 +9,6 @@ import {AlertService} from "./service/alert.service";
 import {AuthenticationService} from "./service/authentication.service";
 import {UserService} from "./service/user.service";
 import {HeroService} from "./service/hero.service";
-import {InMemoryDataService} from "./service/in-memory-data.service";
 // components
 import {AppComponent} from "./app.component";
 import {TodoListHeaderComponent} from "./component/todo-list-header/todo-list-header.component";
@@ -28,7 +27,6 @@ import {SearchComponent} from "./component/search/search.component";
 import {AuthGuard} from "./utils/auth.guard";
 import {fakeBackendProvider} from "./utils/fake-backend";
 import {AppRoutingModule} from "./heroes-routing.model";
-import {InMemoryWebApiModule} from "angular-in-memory-web-api";
 
 @NgModule({
 	declarations: [
@@ -50,7 +48,6 @@ import {InMemoryWebApiModule} from "angular-in-memory-web-api";
 		BrowserModule,
 		FormsModule,
 		HttpModule,
-		InMemoryWebApiModule.forRoot(InMemoryDataService),
 		AppRoutingModule
 	],
 	providers: [

@@ -53,7 +53,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 
         factory.setDataSource(dataSource());
         factory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        factory.setPackagesToScan("org.test.sms.common.entities");
+        factory.setPackagesToScan("org.test.sms.common.entity");
 
         return factory;
     }
