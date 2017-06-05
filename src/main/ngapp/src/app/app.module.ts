@@ -9,6 +9,10 @@ import {AlertService} from "./service/alert.service";
 import {AuthenticationService} from "./service/authentication.service";
 import {UserService} from "./service/user.service";
 import {HeroService} from "./service/hero.service";
+// utils
+import {AuthGuard} from "./utils/auth.guard";
+import {fakeBackendProvider} from "./utils/fake-backend";
+import {AppRoutingModule} from "./heroes-routing.model";
 // components
 import {AppComponent} from "./app.component";
 import {TodoListHeaderComponent} from "./component/todo-list-header/todo-list-header.component";
@@ -23,10 +27,7 @@ import {HeroDetailComponent} from "./component/hero-detail/hero-detail.component
 import {HeroesComponent} from "./component/heroes/heroes.component";
 import {DashboardComponent} from "./component/dashboard/dashboard.component";
 import {SearchComponent} from "./component/search/search.component";
-// utils
-import {AuthGuard} from "./utils/auth.guard";
-import {fakeBackendProvider} from "./utils/fake-backend";
-import {AppRoutingModule} from "./heroes-routing.model";
+import {HomepageComponent} from "./component/homepage/homepage.component";
 
 @NgModule({
 	declarations: [
@@ -42,7 +43,8 @@ import {AppRoutingModule} from "./heroes-routing.model";
 		HeroDetailComponent,
 		HeroesComponent,
 		DashboardComponent,
-		SearchComponent
+		SearchComponent,
+		HomepageComponent
 	],
 	imports: [
 		BrowserModule,
