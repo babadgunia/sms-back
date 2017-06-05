@@ -10,7 +10,7 @@ import {Hero} from "../model/hero";
 
 const DELAY = 5000;
 
-const HEROES_URL = '/api/hero';
+const HEROES_URL = 'api/hero';
 
 @Injectable()
 export class HeroService {
@@ -20,48 +20,51 @@ export class HeroService {
 	constructor(private http: Http) {
 	}
 
-	getHeroes(): Promise<Hero[]> {
-		const url = `${HEROES_URL}/getList`;
-		return this.http.get(url).toPromise().then(response => response.json() as Hero[]).catch(this.handleError);
+	add(name: string): Promise<Hero> {
+		const url = `${HEROES_URL}/add`;
+
+		return this.http.post(url, JSON.stringify({name: name}), {headers: this.headers}).toPromise().then(result => result.json() as Hero).catch(HeroService.handleError);
 	}
 
-	private handleError(error: any): Promise<any> {
+	private static handleError(error: any): Promise<any> {
 		console.error('An error occurred', error);
 
 		return Promise.reject(error.message || error);
 	}
 
-	getHeroesSlowly(): Promise<Hero[]> {
-		return new Promise(resolve => {
-			setTimeout(() => resolve(this.getHeroes()), DELAY);
-		});
-	}
-
-	getHero(id: number): Promise<Hero> {
-		const url = `${HEROES_URL}/${id}`;
-
-		return this.http.get(url).toPromise().then(response => response.json().data as Hero).catch(this.handleError);
-	}
-
 	update(hero: Hero): Promise<Hero> {
-		const url = `${HEROES_URL}/${hero.id}`;
+		const url = `${HEROES_URL}/update`;
 
-		return this.http.put(url, JSON.stringify(hero), {headers: this.headers}).toPromise().then(() => hero).catch(this.handleError);
-	}
-
-	create(name: string): Promise<Hero> {
-		return this.http.post(HEROES_URL, JSON.stringify({name: name}), {headers: this.headers}).toPromise().then(result => result.json().data as Hero).catch(this.handleError);
+		return this.http.put(url, JSON.stringify(hero), {headers: this.headers}).toPromise().then(result => result.json() as Hero).catch(HeroService.handleError);
 	}
 
 	delete(id: number): Promise<void> {
-		const url = `${HEROES_URL}/${id}`;
+		const url = `${HEROES_URL}/delete/${id}`;
 
-		return this.http.delete(url, {headers: this.headers}).toPromise().then(() => null).catch(this.handleError);
+		return this.http.delete(url, {headers: this.headers}).toPromise().then(() => null).catch(HeroService.handleError);
+	}
+
+	get(id: number): Promise<Hero> {
+		const url = `${HEROES_URL}/get/${id}`;
+
+		return this.http.get(url).toPromise().then(response => response.json() as Hero).catch(HeroService.handleError);
+	}
+
+	getList(): Promise<Hero[]> {
+		const url = `${HEROES_URL}/getList?name=${''}`;
+
+		return this.http.get(url).toPromise().then(response => response.json() as Hero[]).catch(HeroService.handleError);
+	}
+
+	getListSlowly(): Promise<Hero[]> {
+		return new Promise(resolve => {
+			setTimeout(() => resolve(this.getList()), DELAY);
+		});
 	}
 
 	search(term: string): Observable<Hero[]> {
-		const url = `${HEROES_URL}/?name=${term}`;
+		const url = `${HEROES_URL}/getList?name=${term}`;
 
-		return this.http.get(url).map(response => response.json().data as Hero[]);
+		return this.http.get(url).map(response => response.json() as Hero[]).catch(HeroService.handleError);
 	}
 }

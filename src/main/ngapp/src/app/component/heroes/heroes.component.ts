@@ -19,7 +19,7 @@ export class HeroesComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.heroService.getHeroes().then(heroes => this.heroes = heroes);
+		this.heroService.getList().then(heroes => this.heroes = heroes);
 	}
 
 	onSelect(hero: Hero): void {
@@ -36,7 +36,7 @@ export class HeroesComponent implements OnInit {
 			return;
 		}
 
-		this.heroService.create(name).then(hero => {
+		this.heroService.add(name).then(hero => {
 			this.heroes.push(hero);
 			this.selectedHero = null;
 		});

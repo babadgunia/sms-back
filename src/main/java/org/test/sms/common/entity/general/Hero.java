@@ -27,7 +27,8 @@ public class Hero extends AppEntity {
         this.id = id;
     }
 
-    public Hero(String name) {
+    public Hero(long id, String name) {
+        this.id = id;
         this.name = name;
     }
 

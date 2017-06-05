@@ -6,6 +6,13 @@ public class HeroFilter extends AbstractFilter {
 
     private String name;
 
+    public HeroFilter() {
+    }
+
+    public HeroFilter(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
