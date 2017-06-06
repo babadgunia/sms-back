@@ -10,7 +10,7 @@ import {Hero} from "../model/hero";
 
 const DELAY = 5000;
 
-const HEROES_URL = 'api/hero';
+const HEROES_URL = 'auth/api/hero';
 
 @Injectable()
 export class HeroService {
