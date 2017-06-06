@@ -223,11 +223,10 @@ public enum Translations {
 
         String filename = "/translations_" + language.toString().toLowerCase() + ".properties";
         InputStream inputStream = Translations.class.getResourceAsStream(filename);
-        String encoding = SystemProperties.APP_ENCODING.getValue();
 
         String key = toString();
 
-        try (Reader reader = new InputStreamReader(inputStream, encoding)) {
+        try (Reader reader = new InputStreamReader(inputStream, "UTF-8")) {
             properties.load(reader);
         } catch (IOException e) {
             logger.error(e);

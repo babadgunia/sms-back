@@ -102,7 +102,8 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 
     @Override
     public Optional<User> get(String username) {
-        TypedQuery<User> query = em.createQuery("SELECT new User(id, username, password, name, userGroup, language) FROM User WHERE UPPER(username) = :username", User.class);
+        TypedQuery<User> query = em.createQuery
+                ("SELECT new User(id, username, password, name, status, language, userGroup) FROM User WHERE UPPER(username) = :username", User.class);
         query.setParameter("username", username.toUpperCase());
 
         try {

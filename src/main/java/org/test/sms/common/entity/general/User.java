@@ -2,6 +2,7 @@ package org.test.sms.common.entity.general;
 
 import org.test.sms.common.entity.AppEntity;
 import org.test.sms.common.enums.general.LanguageType;
+import org.test.sms.common.enums.general.StatusType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,6 +34,9 @@ public class User extends AppEntity {
     private String name;
 
     @Enumerated(EnumType.STRING)
+    private StatusType status;
+
+    @Enumerated(EnumType.STRING)
     private LanguageType language = LanguageType.EN;
 
     @ManyToOne
@@ -45,12 +49,14 @@ public class User extends AppEntity {
         this.id = id;
     }
 
-    public User(long id, String password, String name, UserGroup userGroup, LanguageType language) {
+    public User(long id, String username, String password, String name, StatusType status, LanguageType language, UserGroup userGroup) {
         this.id = id;
+        this.username = username;
         this.password = password;
         this.name = name;
-        this.userGroup = userGroup;
+        this.status = status;
         this.language = language;
+        this.userGroup = userGroup;
     }
 
     public User(long id, String name, String username, long userGroupId, String userGroupName) {
@@ -100,6 +106,14 @@ public class User extends AppEntity {
 
     public void setLanguage(LanguageType language) {
         this.language = language;
+    }
+
+    public StatusType getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusType status) {
+        this.status = status;
     }
 
     public UserGroup getUserGroup() {

@@ -19,7 +19,7 @@ import org.test.sms.common.utils.Utils;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "api/hero")
+@RequestMapping(value = "auth/api/hero")
 public class HeroController {
 
     private HeroService service;

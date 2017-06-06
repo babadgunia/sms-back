@@ -5,19 +5,19 @@ import java.io.Serializable;
 public class JwtAuthenticationRequest implements Serializable {
 
     private String username;
+
     private String password;
 
     public JwtAuthenticationRequest() {
-        super();
     }
 
     public JwtAuthenticationRequest(String username, String password) {
-        this.setUsername(username);
-        this.setPassword(password);
+        this.username = username;
+        this.password = password;
     }
 
     public String getUsername() {
-        return this.username;
+        return username;
     }
 
     public void setUsername(String username) {
@@ -25,7 +25,7 @@ public class JwtAuthenticationRequest implements Serializable {
     }
 
     public String getPassword() {
-        return this.password;
+        return password;
     }
 
     public void setPassword(String password) {
