@@ -25,7 +25,7 @@ import javax.sql.DataSource;
 @ComponentScan("org.test.sms")
 @EnableWebMvc
 @EnableTransactionManagement
-@PropertySource("classpath:database.properties")
+@PropertySource({"classpath:database.properties", "classpath:jwt.properties"})
 public class AppConfig extends WebMvcConfigurerAdapter {
 
     private Environment environment;
