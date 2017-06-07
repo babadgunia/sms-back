@@ -26,31 +26,23 @@ import org.test.sms.web.jwt.JwtAuthenticationTokenFilter;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private JwtAuthenticationEntryPoint unauthorizedHandler;
-
     private UserDetailsService userDetailsService;
 
+    private JwtAuthenticationTokenFilter authenticationTokenFilter;
+
+    private JwtAuthenticationEntryPoint unauthorizedHandler;
+
     @Autowired
-    public WebSecurityConfig(JwtAuthenticationEntryPoint unauthorizedHandler, UserDetailsService userDetailsService) {
-        this.unauthorizedHandler = unauthorizedHandler;
+    public WebSecurityConfig(UserDetailsService userDetailsService, JwtAuthenticationTokenFilter authenticationTokenFilter,
+                             JwtAuthenticationEntryPoint unauthorizedHandler) {
         this.userDetailsService = userDetailsService;
+        this.authenticationTokenFilter = authenticationTokenFilter;
+        this.unauthorizedHandler = unauthorizedHandler;
     }
 
     @Autowired
     public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public JwtAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
-        return new JwtAuthenticationTokenFilter();
+        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -59,22 +51,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
+    protected void configure(HttpSecurity http) throws Exception {
+        http
                 .csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                // don't create session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers("/auth/**").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated();
 
-        // Custom JWT based security filter
-        httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
-
-        // disable page caching
-        httpSecurity.headers().cacheControl();
+        http.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .headers().cacheControl();
     }
 }

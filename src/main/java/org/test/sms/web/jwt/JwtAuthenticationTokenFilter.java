@@ -1,7 +1,5 @@
 package org.test.sms.web.jwt;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -17,28 +16,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@SuppressWarnings("SpringJavaAutowiringInspection")
+@Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
-    private final Log logger = LogFactory.getLog(this.getClass());
+    private Environment environment;
 
-    @Autowired
     private UserDetailsService userDetailsService;
 
-    @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    private String tokenHeader;
-
     @Autowired
-    private Environment environment;
+    public JwtAuthenticationTokenFilter(Environment environment, UserDetailsService userDetailsService, JwtTokenUtil jwtTokenUtil) {
+        this.environment = environment;
+        this.userDetailsService = userDetailsService;
+        this.jwtTokenUtil = jwtTokenUtil;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-        tokenHeader = environment.getRequiredProperty("jwt.header");
-        String authToken = request.getHeader(this.tokenHeader);
-        // authToken.startsWith("Bearer ")
-        // String authToken = header.substring(7);
+        String authToken = request.getHeader(environment.getRequiredProperty("jwt.header"));
 
         if (authToken != null && authToken.startsWith("Bearer ")) {
             authToken = authToken.substring(7);
@@ -46,20 +42,12 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
         String username = jwtTokenUtil.getUsernameFromToken(authToken);
 
-        logger.info("checking authentication für user " + username);
-
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-
-            // It is not compelling necessary to load the use details from the database. You could also store the information
-            // in the token and read it from it. It's up to you ;)
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-
-            // For simple validation it is completely sufficient to just check the token integrity. You don't have to call
-            // the database compellingly. Again it's up to you ;)
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             if (jwtTokenUtil.validateToken(authToken, userDetails)) {
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                logger.info("authenticated user " + username + ", setting security context");
+                
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }

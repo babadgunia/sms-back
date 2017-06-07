@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 public class AuthenticationRestController {
 
-    private String tokenHeader;
+    private Environment environment;
 
     private AuthenticationManager authenticationManager;
 
@@ -33,8 +33,7 @@ public class AuthenticationRestController {
 
     @Autowired
     public AuthenticationRestController(Environment environment, AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, UserDetailsService userDetailsService) {
-        tokenHeader = environment.getRequiredProperty("jwt.header");
-
+        this.environment = environment;
         this.authenticationManager = authenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;
         this.userDetailsService = userDetailsService;
@@ -42,9 +41,7 @@ public class AuthenticationRestController {
 
     @RequestMapping(value = "auth", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest) throws AuthenticationException {
-
-        // Perform the security
-        final Authentication authentication = authenticationManager.authenticate(
+        Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         authenticationRequest.getUsername(),
                         authenticationRequest.getPassword()
@@ -52,22 +49,21 @@ public class AuthenticationRestController {
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        // Reload password post-security so we can generate token
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-        final String token = jwtTokenUtil.generateToken(userDetails);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+        String token = jwtTokenUtil.generateToken(userDetails);
 
-        // Return the token
         return ResponseEntity.ok(new JwtAuthenticationResponse(token));
     }
 
     @RequestMapping(value = "refresh", method = RequestMethod.GET)
     public ResponseEntity<JwtAuthenticationResponse> refreshAndGetAuthenticationToken(HttpServletRequest request) {
-        String token = request.getHeader(tokenHeader);
+        String token = request.getHeader(environment.getRequiredProperty("jwt.header"));
         String username = jwtTokenUtil.getUsernameFromToken(token);
         userDetailsService.loadUserByUsername(username);
 
-        if (jwtTokenUtil.canTokenBeRefreshed(token)) {
+        if (!jwtTokenUtil.isTokenExpired(token)) {
             String refreshedToken = jwtTokenUtil.refreshToken(token);
+
             return ResponseEntity.ok(new JwtAuthenticationResponse(refreshedToken));
         } else {
             return ResponseEntity.badRequest().body(null);
