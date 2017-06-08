@@ -7,6 +7,7 @@ import {Injectable} from "@angular/core";
 import {Headers, Http} from "@angular/http";
 
 import {Hero} from "../model/hero";
+import {AuthenticationService} from "./authentication.service";
 
 const DELAY = 5000;
 
@@ -15,9 +16,12 @@ const HEROES_URL = 'auth/api/hero';
 @Injectable()
 export class HeroService {
 
-	private headers = new Headers({'Content-Type': 'application/json'});
+	private headers = new Headers({
+		'Content-Type': 'application/json',
+		'Authorization': 'Bearer ' + this.authenticationService.getToken()
+	});
 
-	constructor(private http: Http) {
+	constructor(private http: Http, private authenticationService: AuthenticationService) {
 	}
 
 	add(name: string): Promise<Hero> {
@@ -47,13 +51,13 @@ export class HeroService {
 	get(id: number): Promise<Hero> {
 		const url = `${HEROES_URL}/get/${id}`;
 
-		return this.http.get(url).toPromise().then(response => response.json() as Hero).catch(HeroService.handleError);
+		return this.http.get(url, {headers: this.headers}).toPromise().then(response => response.json() as Hero).catch(HeroService.handleError);
 	}
 
 	getList(): Promise<Hero[]> {
 		const url = `${HEROES_URL}/getList?name=${''}`;
 
-		return this.http.get(url).toPromise().then(response => response.json() as Hero[]).catch(HeroService.handleError);
+		return this.http.get(url, {headers: this.headers}).toPromise().then(response => response.json() as Hero[]).catch(HeroService.handleError);
 	}
 
 	getListSlowly(): Promise<Hero[]> {
@@ -65,6 +69,6 @@ export class HeroService {
 	search(term: string): Observable<Hero[]> {
 		const url = `${HEROES_URL}/getList?name=${term}`;
 
-		return this.http.get(url).map(response => response.json() as Hero[]).catch(HeroService.handleError);
+		return this.http.get(url, {headers: this.headers}).map(response => response.json() as Hero[]).catch(HeroService.handleError);
 	}
 }
