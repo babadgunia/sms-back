@@ -6,14 +6,15 @@ import {HeroesComponent} from "./component/heroes/heroes.component";
 import {HeroDetailComponent} from "./component/hero-detail/hero-detail.component";
 import {HomepageComponent} from "./component/homepage/homepage.component";
 import {LoginComponent} from "./component/login/login.component";
+import {CanActivateAuthGuard} from "./utils/can-activate.authguard";
 
 const routes: Routes = [
 	{path: '', redirectTo: 'homepage', pathMatch: 'full'},
 	{path: 'login', component: LoginComponent},
-	{path: 'homepage', component: HomepageComponent},
-	{path: 'dashboard', component: DashboardComponent},
-	{path: 'heroes', component: HeroesComponent},
-	{path: 'detail/:id', component: HeroDetailComponent}
+	{path: 'homepage', component: HomepageComponent, canActivate: [CanActivateAuthGuard]},
+	{path: 'dashboard', component: DashboardComponent, canActivate: [CanActivateAuthGuard]},
+	{path: 'heroes', component: HeroesComponent, canActivate: [CanActivateAuthGuard]},
+	{path: 'detail/:id', component: HeroDetailComponent, canActivate: [CanActivateAuthGuard]}
 ];
 
 @NgModule({

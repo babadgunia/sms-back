@@ -39,4 +39,10 @@ export class AuthenticationService {
 	static logout(): void {
 		localStorage.removeItem('currentUser');
 	}
+
+	static isLoggedIn(): boolean {
+		let token: String = AuthenticationService.getToken();
+
+		return token && token.length > 0;
+	}
 }

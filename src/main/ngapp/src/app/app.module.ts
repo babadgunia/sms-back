@@ -6,7 +6,8 @@ import {BaseRequestOptions, HttpModule} from "@angular/http";
 import {AuthenticationService} from "./service/authentication.service";
 import {HeroService} from "./service/hero.service";
 // utils
-import {AppRoutingModule} from "./heroes-routing.model";
+import {AppRoutingModule} from "./app-routing.model";
+import {CanActivateAuthGuard} from "./utils/can-activate.authguard";
 // components
 import {AppComponent} from "./app.component";
 import {LoginComponent} from "./component/login/login.component";
@@ -35,7 +36,8 @@ import {SearchComponent} from "./component/search/search.component";
 	providers: [
 		HeroService,
 		AuthenticationService,
-		BaseRequestOptions
+		BaseRequestOptions,
+		CanActivateAuthGuard
 	],
 	bootstrap: [AppComponent]
 })
