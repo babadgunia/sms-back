@@ -30,6 +30,7 @@
 		"@angular/compiler-cli": "^4.0.0",
 		"@types/jasmine": "^2.5.51",
 		"@types/node": "^7.0.29",
+		"codelyzer": "^3.0.1",
 		"jasmine-core": "^2.6.3",
 		"jasmine-spec-reporter": "^4.1.0",
 		"karma": "^1.7.0",
@@ -40,6 +41,7 @@
 		"karma-jasmine-html-reporter": "^0.2.2",
 		"protractor": "~5.1.0",
 		"ts-node": "^3.0.6",
+		"tslint": "^5.4.3",
 		"typescript": "^2.3.4",
 		"webpack": "^2.6.1"
 	}
