@@ -2,9 +2,11 @@ import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {BaseRequestOptions, HttpModule} from "@angular/http";
+
 // services
 import {AuthenticationService} from "./service/authentication.service";
 import {HeroService} from "./service/hero.service";
+import {UserService} from "./service/user.service";
 // utils
 import {AppRoutingModule} from "./app-routing.model";
 import {CanActivateAuthGuard} from "./utils/can-activate.authguard";
@@ -16,6 +18,7 @@ import {DashboardComponent} from "./component/dashboard/dashboard.component";
 import {HeroesComponent} from "./component/heroes/heroes.component";
 import {HeroDetailComponent} from "./component/hero-detail/hero-detail.component";
 import {SearchComponent} from "./component/search/search.component";
+import {UsersComponent} from "./component/users/users.component";
 
 @NgModule({
 	declarations: [
@@ -25,7 +28,8 @@ import {SearchComponent} from "./component/search/search.component";
 		HeroesComponent,
 		DashboardComponent,
 		SearchComponent,
-		HomepageComponent
+		HomepageComponent,
+		UsersComponent
 	],
 	imports: [
 		BrowserModule,
@@ -35,6 +39,7 @@ import {SearchComponent} from "./component/search/search.component";
 	],
 	providers: [
 		HeroService,
+		UserService,
 		AuthenticationService,
 		BaseRequestOptions,
 		CanActivateAuthGuard

@@ -3,6 +3,7 @@ import {RouterModule, Routes} from "@angular/router";
 
 import {DashboardComponent} from "./component/dashboard/dashboard.component";
 import {HeroesComponent} from "./component/heroes/heroes.component";
+import {UsersComponent} from "./component/users/users.component";
 import {HeroDetailComponent} from "./component/hero-detail/hero-detail.component";
 import {HomepageComponent} from "./component/homepage/homepage.component";
 import {LoginComponent} from "./component/login/login.component";
@@ -14,6 +15,7 @@ const routes: Routes = [
 	{path: 'homepage', component: HomepageComponent, canActivate: [CanActivateAuthGuard]},
 	{path: 'dashboard', component: DashboardComponent, canActivate: [CanActivateAuthGuard]},
 	{path: 'heroes', component: HeroesComponent, canActivate: [CanActivateAuthGuard]},
+	{path: 'users', component: UsersComponent, canActivate: [CanActivateAuthGuard]},
 	{path: 'detail/:id', component: HeroDetailComponent, canActivate: [CanActivateAuthGuard]}
 ];
 
