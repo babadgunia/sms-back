@@ -2,7 +2,6 @@ import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {BaseRequestOptions, HttpModule} from "@angular/http";
-
 // services
 import {AuthenticationService} from "./service/authentication.service";
 import {HeroService} from "./service/hero.service";

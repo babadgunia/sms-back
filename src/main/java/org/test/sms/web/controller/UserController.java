@@ -8,7 +8,6 @@ import org.test.sms.common.entity.general.User;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.general.UserFilter;
 import org.test.sms.common.service.general.UserService;
-import org.test.sms.common.utils.Utils;
 
 import java.util.List;
 

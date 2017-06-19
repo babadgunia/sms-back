@@ -1,8 +1,6 @@
 import "rxjs/add/operator/toPromise";
 import "rxjs/add/operator/map";
 
-import {Observable} from "rxjs/Observable";
-
 import {Injectable} from "@angular/core";
 import {Headers, Http} from "@angular/http";
 
@@ -45,5 +43,4 @@ export class UserService {
 
 		return this.http.delete(url, {headers: UserService.getHeaders()}).toPromise().then(() => null).catch(UserService.handleError);
 	}
-
 }
