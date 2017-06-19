@@ -32,17 +32,18 @@ export class UserService {
 		return Promise.reject(error.message || error);
 	}
 
-	getList(): Promise<User[]> {
-		const url = `${USERS_URL}/getList?name=${''}`;
+	getList(name: string, id : number): Promise<User[]> {
+		const url = `${USERS_URL}/getList?name=${name}&id=${id}`;
 		UserService.getHeaders().append('Authorization', AuthenticationService.getToken().toString());
 
 		return this.http.get(url, {headers: UserService.getHeaders()}).toPromise().then(response => response.json() as User[]).catch(UserService.handleError);
 	}
 
-	getListSlowly(): Promise<User[]> {
-		return new Promise(resolve => {
-			setTimeout(() => resolve(this.getList()), DELAY);
-		});
+	delete(id: number): Promise<void> {
+		const url = `${USERS_URL}/delete/${id}`;
+		UserService.getHeaders().append('Authorization', AuthenticationService.getToken().toString());
+
+		return this.http.delete(url, {headers: UserService.getHeaders()}).toPromise().then(() => null).catch(UserService.handleError);
 	}
 
 }

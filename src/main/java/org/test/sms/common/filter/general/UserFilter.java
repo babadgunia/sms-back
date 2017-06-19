@@ -13,6 +13,8 @@ public class UserFilter extends AbstractFilter {
 
     private UserGroup userGroup;
 
+    private Long id;
+
     public List<String> getNames() {
         return names;
     }
@@ -35,5 +37,13 @@ public class UserFilter extends AbstractFilter {
 
     public void setUserGroup(UserGroup userGroup) {
         this.userGroup = userGroup;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

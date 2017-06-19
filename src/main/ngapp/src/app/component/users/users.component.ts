@@ -3,6 +3,7 @@ import {Component, OnInit} from "@angular/core";
 import {User} from "../../model/user";
 import {UserService} from "../../service/user.service";
 import {Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
 	selector: 'users',
@@ -13,24 +14,26 @@ export class UsersComponent implements OnInit {
 
 	users: User[];
 
-	selectedUser: User;
+	searchUser: User;
 
-	constructor(private router: Router, private userService: UserService) {
+	constructor(private router: Router, private route: ActivatedRoute, private userService: UserService) {
 	}
 
 	ngOnInit() {
-		this.userService.getList().then(users => this.users = users, error => {
+		this.loadUsers('', 0);
+	}
+
+	loadUsers(name: string, id: number): void {
+		this.userService.getList(name, id).then(users => this.users = users, error => {
 			this.router.navigate(['login']);
 			console.error('An error occurred in dashboard component, navigating to login: ', error);
 		});
 	}
 
-	onSelect(user: User): void {
-		this.selectedUser = user;
-	}
+	delete(id: number): void {
+		this.userService.delete(id).then(() => {
 
-	gotoDetail(): void {
-		this.router.navigate(['/detail', this.selectedUser.id]);
+		});
 	}
 
 }
