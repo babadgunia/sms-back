@@ -1,8 +1,6 @@
 import "rxjs/add/operator/toPromise";
 import "rxjs/add/operator/map";
 
-import {Observable} from "rxjs/Observable";
-
 import {Injectable} from "@angular/core";
 import {Headers, Http} from "@angular/http";
 
@@ -44,5 +42,4 @@ export class UserService {
 			setTimeout(() => resolve(this.getList()), DELAY);
 		});
 	}
-
 }

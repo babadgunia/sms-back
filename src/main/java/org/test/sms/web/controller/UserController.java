@@ -3,11 +3,13 @@ package org.test.sms.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.test.sms.common.entity.general.User;
 import org.test.sms.common.filter.general.UserFilter;
 import org.test.sms.common.service.general.UserService;
-import org.test.sms.common.utils.Utils;
 
 import java.util.List;
 
@@ -28,5 +30,4 @@ public class UserController {
 
         return new ResponseEntity<>(service.getList(filter), HttpStatus.OK);
     }
-
 }
