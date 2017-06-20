@@ -1,83 +1,14 @@
 <h1>{{title}}</h1>
-<script>
-	(function() {
-		$(function() {
-			var collapseMyMenu, expandMyMenu, hideMenuTexts, showMenuTexts;
-			expandMyMenu = function() {
-				return $("nav.sidebar").removeClass("sidebar-menu-collapsed").addClass("sidebar-menu-expanded");
-			};
-			collapseMyMenu = function() {
-				return $("nav.sidebar").removeClass("sidebar-menu-expanded").addClass("sidebar-menu-collapsed");
-			};
-			showMenuTexts = function() {
-				return $("nav.sidebar ul a span.expanded-element").show();
-			};
-			hideMenuTexts = function() {
-				return $("nav.sidebar ul a span.expanded-element").hide();
-			};
-			return $("#justify-icon").click(function(e) {
-				if ($(this).parent("nav.sidebar").hasClass("sidebar-menu-collapsed")) {
-					expandMyMenu();
-					showMenuTexts();
-					$(this).css({
-						color: "#000"
-					});
-				} else if ($(this).parent("nav.sidebar").hasClass("sidebar-menu-expanded")) {
-					collapseMyMenu();
-					hideMenuTexts();
-					$(this).css({
-						color: "#FFF"
-					});
-				}
-				return false;
-			});
-		});
 
-	}).call(this);
-
-</script>
 <nav>
-	<a routerLink="login" routerLinkActive="active">Login</a>
-	<a routerLink="homepage" routerLinkActive="active">Homepage</a>
-	<a routerLink="dashboard" routerLinkActive="active">Dashboard</a>
-	<a routerLink="heroes" routerLinkActive="active">Heroes</a>
-	<a routerLink="users" routerLinkActive="active">Users</a>
 
-	<nav class='sidebar sidebar-menu-collapsed'>
-		<a href='#' id='justify-icon'>
-			<span class='glyphicon glyphicon-align-justify'></span>
-		</a>
-		<ul>
-			<li class='active'>
-				<a class='expandable' href='#' title='Dashboard'>
-					<span class='glyphicon glyphicon-home collapsed-element'></span>
-					<span class='expanded-element'>Dashboard</span>
-				</a>
-			</li>
-			<li>
-				<a class='expandable' href='#' title='APIs'>
-					<span class='glyphicon glyphicon-wrench collapsed-element'></span>
-					<span class='expanded-element'>APIs</span>
-				</a>
-			</li>
-			<li>
-				<a class='expandable' href='#' title='Settings'>
-					<span class='glyphicon glyphicon-cog collapsed-element'></span>
-					<span class='expanded-element'>Settings</span>
-				</a>
-			</li>
-			<li>
-				<a class='expandable' href='#' title='Account'>
-					<span class='glyphicon glyphicon-user collapsed-element'></span>
-					<span class='expanded-element'>Account</span>
-				</a>
-			</li>
-		</ul>
-		<a href='#' id='logout-icon' title='Logout'>
-			<span class='glyphicon glyphicon-off'></span>
-		</a>
-	</nav>
-
+	<ul class="nav nav-tabs">
+		<li class="active"><a data-toggle="tab" href="#menu1" routerLink="login" routerLinkActive="active">Login</a></li>
+		<li><a data-toggle="tab" href="#menu1" routerLink="homepage" routerLinkActive="active">Homepage</a></li>
+		<li><a data-toggle="tab" href="#menu1" routerLink="dashboard" routerLinkActive="active">Dashboard</a></li>
+		<li><a data-toggle="tab" href="#menu1" routerLink="heroes" routerLinkActive="active">Heroes</a></li>
+		<li><a data-toggle="tab" href="#menu1" routerLink="users" routerLinkActive="active">Users</a></li>
+	</ul>
 
 </nav>
 <router-outlet></router-outlet>
