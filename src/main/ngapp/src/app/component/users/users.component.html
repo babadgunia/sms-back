@@ -1,15 +1,33 @@
-<h2>My Users</h2>
-<div>
-	<label>User name:</label> <input #userName/>
-	<!--button (click)="add(heroName.value); heroName.value=''">Add</button-->
-</div>
-<ul class="users">
-	<li *ngFor="let user of users" (click)="onSelect(user)" [class.selected]="user === selectedUser">
-		<span class="badge">{{user?.id}}</span>{{user?.name}}
-		<!--button class="delete" (click)="delete(hero); $event.stopPropagation()">x</button-->
-	</li>
-</ul>
-<div *ngIf="selectedUser">
-	<h2>{{selectedUser.name | uppercase}} is my user</h2>
-	<a (click)="gotoDetail()">View Details</a>
-</div>
+
+<table>
+	<tr>
+		<td>
+			<form>
+				<div class="form-group row">
+					<div class="col-xs-2">
+						<label for="name">Name</label>
+						<input class="form-control" id="name" type="text" #nameInput>
+					</div>
+					<div class="col-xs-2">
+						<label for="id">ID</label>
+						<input class="form-control" id="id" type="text" #idInput>
+					</div>
+				</div>
+			</form>
+		</td>
+		<td align="right">
+			<button type="button" class="btn btn-info" (click)="loadUsers(nameInput.value, idInput.value)">
+				<span class="glyphicon glyphicon-search"></span> Search
+			</button>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			<p-dataTable [value]="users">
+				<p-column field="id" header="ID"></p-column>
+				<p-column field="name" header="NAME"></p-column>
+				<p-column field="username" header="USERNAME"></p-column>
+			</p-dataTable>
+		</td>
+	</tr>
+</table>
