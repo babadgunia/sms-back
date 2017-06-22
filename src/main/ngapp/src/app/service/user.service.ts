@@ -30,7 +30,7 @@ export class UserService {
 		return Promise.reject(error.message || error);
 	}
 
-	getList(name: string, id : number): Promise<User[]> {
+	getList(name: string, id: number): Promise<User[]> {
 		const url = `${USERS_URL}/getList?name=${name}&id=${id}`;
 		UserService.getHeaders().append('Authorization', AuthenticationService.getToken().toString());
 

@@ -2,8 +2,7 @@ import {Component, OnInit} from "@angular/core";
 
 import {User} from "../../model/user";
 import {UserService} from "../../service/user.service";
-import {Router} from "@angular/router";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
 	selector: 'users',

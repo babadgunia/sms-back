@@ -18,8 +18,7 @@ import {HeroesComponent} from "./component/heroes/heroes.component";
 import {HeroDetailComponent} from "./component/hero-detail/hero-detail.component";
 import {SearchComponent} from "./component/search/search.component";
 import {UsersComponent} from "./component/users/users.component";
-import {DataTableModule,SharedModule} from 'primeng/primeng';
-import {ButtonModule} from 'primeng/primeng';
+import {ButtonModule, DataTableModule, SharedModule} from "primeng/primeng";
 
 @NgModule({
 	declarations: [
