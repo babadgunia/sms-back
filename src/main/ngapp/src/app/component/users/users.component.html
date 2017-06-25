@@ -1,4 +1,4 @@
-<table>
+<table style="margin: 10px;">
 	<tr>
 		<td>
 			<form>
@@ -15,9 +15,7 @@
 			</form>
 		</td>
 		<td align="right">
-			<button type="button" class="btn btn-info" (click)="loadUsers(nameInput.value, idInput.value)">
-				<span class="glyphicon glyphicon-search"></span> Search
-			</button>
+			<button pButton type="button" (click)="loadUsers(nameInput.value, idInput.value)" icon="fa-search" label="Search"></button>
 		</td>
 	</tr>
 	<tr>
@@ -26,7 +24,40 @@
 				<p-column field="id" header="ID"></p-column>
 				<p-column field="name" header="NAME"></p-column>
 				<p-column field="username" header="USERNAME"></p-column>
+				<p-column [style]="{'width':'40px'}">
+					<ng-template let-col let-user="rowData" pTemplate="body">
+						<button pButton type="button" icon="fa-pencil" title="Edit" (click)="selectItem(user);"></button>
+					</ng-template>
+				</p-column>
 			</p-dataTable>
 		</td>
 	</tr>
 </table>
+
+<p-dialog header="Edit user" [(visible)]="showUserDialog">
+	<table>
+		<tr>
+			<td>
+				Username</td>
+			<td>
+				<input  type="text" pInputText [(ngModel)]="selectedUser.username">
+			</td>
+
+		</tr>
+		<tr>
+			<td>
+				Name
+			</td>
+			<td>
+				 <input  type="text" pInputText [(ngModel)]="selectedUser.name">
+			</td>
+		</tr>
+	</table>
+
+	<p-footer>
+		<div >
+			<button type="button" pButton icon="fa-close" (click)="showUserDialog=false" label="No"></button>
+			<button type="button" pButton icon="fa-check" (click)="showUserDialog=false" label="Yes"></button>
+		</div>
+	</p-footer>
+</p-dialog>

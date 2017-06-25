@@ -2,6 +2,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {BaseRequestOptions, HttpModule} from "@angular/http";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // services
 import {AuthenticationService} from "./service/authentication.service";
 import {HeroService} from "./service/hero.service";
@@ -18,7 +19,7 @@ import {HeroesComponent} from "./component/heroes/heroes.component";
 import {HeroDetailComponent} from "./component/hero-detail/hero-detail.component";
 import {SearchComponent} from "./component/search/search.component";
 import {UsersComponent} from "./component/users/users.component";
-import {ButtonModule, DataTableModule, SharedModule} from "primeng/primeng";
+import {ButtonModule, DataTableModule, SharedModule, DialogModule, InputTextModule} from "primeng/primeng";
 
 @NgModule({
 	declarations: [
@@ -38,7 +39,10 @@ import {ButtonModule, DataTableModule, SharedModule} from "primeng/primeng";
 		AppRoutingModule,
 		DataTableModule,
 		SharedModule,
-		ButtonModule
+		ButtonModule,
+		DialogModule,
+		BrowserAnimationsModule,
+		InputTextModule
 	],
 	providers: [
 		HeroService,

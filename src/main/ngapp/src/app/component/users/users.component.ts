@@ -15,6 +15,10 @@ export class UsersComponent implements OnInit {
 
 	searchUser: User;
 
+	showUserDialog: boolean;
+
+	selectedUser: User = new User();
+
 	constructor(private router: Router, private route: ActivatedRoute, private userService: UserService) {
 	}
 
@@ -33,5 +37,12 @@ export class UsersComponent implements OnInit {
 		this.userService.delete(id).then(() => {
 
 		});
+	}
+
+	selectItem(user: User) {
+		console.log("######################111");
+		this.selectedUser = user;
+		this.showUserDialog = true;
+		console.log("######################222");
 	}
 }
