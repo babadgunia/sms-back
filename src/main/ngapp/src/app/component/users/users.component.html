@@ -38,9 +38,10 @@
 	<table>
 		<tr>
 			<td>
-				Username</td>
+				Username
+			</td>
 			<td>
-				<input  type="text" pInputText [(ngModel)]="selectedUser.username">
+				<input type="text" pInputText [(ngModel)]="selectedUser.username">
 			</td>
 
 		</tr>
@@ -49,13 +50,13 @@
 				Name
 			</td>
 			<td>
-				 <input  type="text" pInputText [(ngModel)]="selectedUser.name">
+				<input type="text" pInputText [(ngModel)]="selectedUser.name">
 			</td>
 		</tr>
 	</table>
 
 	<p-footer>
-		<div >
+		<div>
 			<button type="button" pButton icon="fa-close" (click)="showUserDialog=false" label="No"></button>
 			<button type="button" pButton icon="fa-check" (click)="showUserDialog=false" label="Yes"></button>
 		</div>
