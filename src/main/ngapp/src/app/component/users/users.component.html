@@ -1,38 +1,28 @@
-<table style="margin: 10px;">
-	<tr>
-		<td>
-			<form>
-				<div class="form-group row">
-					<div class="col-xs-2">
-						<label for="name">Name</label>
-						<input class="form-control" id="name" type="text" #nameInput>
-					</div>
-					<div class="col-xs-2">
-						<label for="id">ID</label>
-						<input class="form-control" id="id" type="text" #idInput>
-					</div>
-				</div>
-			</form>
-		</td>
-		<td align="right">
-			<button pButton type="button" (click)="loadUsers(nameInput.value, idInput.value)" icon="fa-search" label="Search"></button>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="3">
-			<p-dataTable [value]="users">
-				<p-column field="id" header="ID"></p-column>
-				<p-column field="name" header="NAME"></p-column>
-				<p-column field="username" header="USERNAME"></p-column>
-				<p-column [style]="{'width':'40px'}">
-					<ng-template let-col let-user="rowData" pTemplate="body">
-						<button pButton type="button" icon="fa-pencil" title="Edit" (click)="selectItem(user);"></button>
-					</ng-template>
-				</p-column>
-			</p-dataTable>
-		</td>
-	</tr>
-</table>
+<div class="ui-g">
+	<div class="ui-g-1">
+		<label for="name">Name</label>
+		<input id="name" type="text" #nameInput>
+	</div>
+	<div class="ui-g-1">
+		<label for="id">ID</label>
+		<input id="id" type="text" #idInput>
+	</div>
+	<div class="ui-g-10 custom-position-relative">
+		<button pButton type="button" (click)="loadUsers(nameInput.value, idInput.value)" icon="fa-search" label="Search" class="custom-bottom-right"></button>
+	</div>
+	<div class="ui-g-12">
+		<p-dataTable [value]="users">
+			<p-column field="id" header="ID"></p-column>
+			<p-column field="name" header="NAME"></p-column>
+			<p-column field="username" header="USERNAME"></p-column>
+			<p-column [style]="{'width':'40px'}">
+				<ng-template let-col let-user="rowData" pTemplate="body">
+					<button pButton type="button" icon="fa-pencil" title="Edit" (click)="selectItem(user);"></button>
+				</ng-template>
+			</p-column>
+		</p-dataTable>
+	</div>
+</div>
 
 <p-dialog header="Edit user" [(visible)]="showUserDialog">
 	<table>

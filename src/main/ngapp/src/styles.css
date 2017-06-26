@@ -1,0 +1,10 @@
+.custom-bottom-right {
+	position: absolute !important;
+	bottom: 0;
+	right: 0;
+	margin: .5em !important;
+}
+
+.custom-position-relative {
+	position: relative;
+}
