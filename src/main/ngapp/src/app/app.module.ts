@@ -1,55 +1,68 @@
-import {BrowserModule} from "@angular/platform-browser";
+// angular
 import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {BaseRequestOptions, HttpModule} from "@angular/http";
+import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+// utils
+import {AppRoutingModule} from "./app-routing.model";
+import {CanActivateAuthGuard} from "./utils/can-activate.authguard";
 // services
 import {AuthenticationService} from "./service/authentication.service";
 import {HeroService} from "./service/hero.service";
 import {UserService} from "./service/user.service";
-// utils
-import {AppRoutingModule} from "./app-routing.model";
-import {CanActivateAuthGuard} from "./utils/can-activate.authguard";
 // components
 import {AppComponent} from "./app.component";
-import {LoginComponent} from "./component/login/login.component";
-import {HomepageComponent} from "./component/homepage/homepage.component";
 import {DashboardComponent} from "./component/dashboard/dashboard.component";
-import {HeroesComponent} from "./component/heroes/heroes.component";
 import {HeroDetailComponent} from "./component/hero-detail/hero-detail.component";
+import {HeroesComponent} from "./component/heroes/heroes.component";
+import {HomepageComponent} from "./component/homepage/homepage.component";
+import {LoginComponent} from "./component/login/login.component";
 import {SearchComponent} from "./component/search/search.component";
 import {UsersComponent} from "./component/users/users.component";
-import {ButtonModule, DataTableModule, DialogModule, InputTextModule, SharedModule} from "primeng/primeng";
+// primeNG
+import {ButtonModule} from "primeng/components/button/button";
+import {DataTableModule} from "primeng/components/datatable/datatable";
+import {DialogModule} from "primeng/components/dialog/dialog";
+import {InputTextModule} from "primeng/components/inputtext/inputtext";
+import {SharedModule} from "primeng/components/common/shared";
 
 @NgModule({
 	declarations: [
+		// components
 		AppComponent,
-		LoginComponent,
+		DashboardComponent,
 		HeroDetailComponent,
 		HeroesComponent,
-		DashboardComponent,
-		SearchComponent,
 		HomepageComponent,
+		LoginComponent,
+		SearchComponent,
 		UsersComponent
 	],
 	imports: [
-		BrowserModule,
+		// angular
 		FormsModule,
 		HttpModule,
-		AppRoutingModule,
-		DataTableModule,
-		SharedModule,
-		ButtonModule,
-		DialogModule,
+		BrowserModule,
 		BrowserAnimationsModule,
-		InputTextModule
+		// utils
+		AppRoutingModule,
+		// primeNG
+		ButtonModule,
+		DataTableModule,
+		DialogModule,
+		InputTextModule,
+		SharedModule
 	],
 	providers: [
-		HeroService,
-		UserService,
-		AuthenticationService,
+		// angular
 		BaseRequestOptions,
-		CanActivateAuthGuard
+		// utils
+		CanActivateAuthGuard,
+		// services
+		AuthenticationService,
+		HeroService,
+		UserService
 	],
 	bootstrap: [AppComponent]
 })
