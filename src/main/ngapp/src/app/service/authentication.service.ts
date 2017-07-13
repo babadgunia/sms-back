@@ -1,22 +1,21 @@
-﻿import {Injectable} from "@angular/core";
+﻿import {Inject, Injectable} from "@angular/core";
 import {Headers, Http, Response} from "@angular/http";
 import {Observable} from "rxjs/Rx";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
 import "rxjs/add/observable/throw";
+import {AUTH_SERVICE_URL} from "../utils/injectable-constants";
 
 @Injectable()
 export class AuthenticationService {
 
-	private authUrl = 'http://localhost:8080/auth';
-
 	private headers = new Headers({'Content-Type': 'application/json'});
 
-	constructor(private http: Http) {
+	constructor(private http: Http, @Inject(AUTH_SERVICE_URL) private apiUrl: string) {
 	}
 
 	login(username: string, password: string): Observable<boolean> {
-		return this.http.post(this.authUrl, JSON.stringify({username: username, password: password}), {headers: this.headers})
+		return this.http.post(this.apiUrl, JSON.stringify({username: username, password: password}), {headers: this.headers})
 			.map((response: Response) => {
 				let token = response.json() && response.json().token;
 				if (token) {

@@ -3,24 +3,23 @@ import "rxjs/add/operator/map";
 
 import {Observable} from "rxjs/Observable";
 
-import {Injectable} from "@angular/core";
+import {Inject, Injectable} from "@angular/core";
 import {Headers, Http} from "@angular/http";
 
 import {Hero} from "../model/hero";
 import {AuthenticationService} from "./authentication.service";
+import {HERO_SERVICE_URL} from "app/utils/injectable-constants";
 
 const DELAY = 5000;
-
-const HEROES_URL = 'api/hero';
 
 @Injectable()
 export class HeroService {
 
-	constructor(private http: Http, private authenticationService: AuthenticationService) {
+	constructor(private http: Http, private authenticationService: AuthenticationService, @Inject(HERO_SERVICE_URL) private apiUrl: string) {
 	}
 
 	add(name: string): Promise<Hero> {
-		const url = `${HEROES_URL}/add`;
+		const url = `${this.apiUrl}/add`;
 
 		return this.http.post(url, JSON.stringify({name: name}), {headers: HeroService.getHeaders()}).toPromise().then(result => result.json() as Hero).catch(HeroService.handleError);
 	}
@@ -39,28 +38,28 @@ export class HeroService {
 	}
 
 	update(hero: Hero): Promise<Hero> {
-		const url = `${HEROES_URL}/update`;
+		const url = `${this.apiUrl}/update`;
 		HeroService.getHeaders().append('Authorization', AuthenticationService.getToken().toString());
 
 		return this.http.put(url, JSON.stringify(hero), {headers: HeroService.getHeaders()}).toPromise().then(result => result.json() as Hero).catch(HeroService.handleError);
 	}
 
 	delete(id: number): Promise<void> {
-		const url = `${HEROES_URL}/delete/${id}`;
+		const url = `${this.apiUrl}/delete/${id}`;
 		HeroService.getHeaders().append('Authorization', AuthenticationService.getToken().toString());
 
 		return this.http.delete(url, {headers: HeroService.getHeaders()}).toPromise().then(() => null).catch(HeroService.handleError);
 	}
 
 	get(id: number): Promise<Hero> {
-		const url = `${HEROES_URL}/get/${id}`;
+		const url = `${this.apiUrl}/get/${id}`;
 		HeroService.getHeaders().append('Authorization', AuthenticationService.getToken().toString());
 
 		return this.http.get(url, {headers: HeroService.getHeaders()}).toPromise().then(response => response.json() as Hero).catch(HeroService.handleError);
 	}
 
 	getList(): Promise<Hero[]> {
-		const url = `${HEROES_URL}/getList?name=${''}`;
+		const url = `${this.apiUrl}/getList?name=${''}`;
 		HeroService.getHeaders().append('Authorization', AuthenticationService.getToken().toString());
 
 		return this.http.get(url, {headers: HeroService.getHeaders()}).toPromise().then(response => response.json() as Hero[]).catch(HeroService.handleError);
@@ -73,7 +72,7 @@ export class HeroService {
 	}
 
 	search(term: string): Observable<Hero[]> {
-		const url = `${HEROES_URL}/getList?name=${term}`;
+		const url = `${this.apiUrl}/getList?name=${term}`;
 		HeroService.getHeaders().append('Authorization', AuthenticationService.getToken().toString());
 
 		return this.http.get(url, {headers: HeroService.getHeaders()}).map(response => response.json() as Hero[]).catch(HeroService.handleError);

@@ -7,6 +7,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 // utils
 import {AppRoutingModule} from "./app-routing.model";
 import {CanActivateAuthGuard} from "./utils/can-activate.authguard";
+import {INJECTABLE_CONSTANTS} from "./utils/injectable-constants";
 // services
 import {AuthenticationService} from "./service/authentication.service";
 import {HeroService} from "./service/hero.service";
@@ -59,6 +60,7 @@ import {SharedModule} from "primeng/components/common/shared";
 		BaseRequestOptions,
 		// utils
 		CanActivateAuthGuard,
+		INJECTABLE_CONSTANTS,
 		// services
 		AuthenticationService,
 		HeroService,
