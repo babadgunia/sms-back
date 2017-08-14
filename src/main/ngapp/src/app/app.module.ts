@@ -17,7 +17,6 @@ import {AppComponent} from "./app.component";
 import {DashboardComponent} from "./component/dashboard/dashboard.component";
 import {HeroDetailComponent} from "./component/hero-detail/hero-detail.component";
 import {HeroesComponent} from "./component/heroes/heroes.component";
-import {HomepageComponent} from "./component/homepage/homepage.component";
 import {LoginComponent} from "./component/login/login.component";
 import {SearchComponent} from "./component/search/search.component";
 import {UsersComponent} from "./component/users/users.component";
@@ -35,7 +34,6 @@ import {SharedModule} from "primeng/components/common/shared";
 		DashboardComponent,
 		HeroDetailComponent,
 		HeroesComponent,
-		HomepageComponent,
 		LoginComponent,
 		SearchComponent,
 		UsersComponent
