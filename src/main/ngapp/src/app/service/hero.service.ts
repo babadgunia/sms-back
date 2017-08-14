@@ -51,7 +51,7 @@ export class HeroService {
 		return this.http.delete(url, {headers: HeroService.getHeaders()}).toPromise().then(() => null).catch(HeroService.handleError);
 	}
 
-	get(id: number): Promise<Hero> {
+	get (id: number): Promise<Hero> {
 		const url = `${this.apiUrl}/get/${id}`;
 		HeroService.getHeaders().append('Authorization', AuthenticationService.getToken().toString());
 
