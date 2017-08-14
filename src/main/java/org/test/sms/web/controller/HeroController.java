@@ -43,7 +43,6 @@ public class HeroController {
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
     public ResponseEntity<Hero> get(@PathVariable("id") long id) {
         return service.get(id).map(hero -> new ResponseEntity<>(hero, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)

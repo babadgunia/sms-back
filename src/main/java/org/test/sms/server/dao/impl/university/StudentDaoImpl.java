@@ -38,7 +38,6 @@ public class StudentDaoImpl extends AbstractDaoImpl<Student> implements StudentD
         return !Utils.isBlank(query.getResultList());
     }
 
-
     @Override
     public List<Student> getList(AbstractFilter filter) {
         StringBuilder queryBuilder = new StringBuilder("SELECT new Student(id, firstName, lastName, personalNumber, phoneNumber, user) FROM Student WHERE 1 = 1");

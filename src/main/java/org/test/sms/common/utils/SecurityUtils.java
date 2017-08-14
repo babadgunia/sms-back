@@ -23,7 +23,6 @@ public class SecurityUtils {
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             throw new IllegalArgumentException(e);
         }
-
     }
 
     private static String getSalt() throws NoSuchAlgorithmException {
