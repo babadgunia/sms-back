@@ -11,8 +11,7 @@ export class AuthenticationService {
 
 	private headers = new Headers({'Content-Type': 'application/json'});
 
-	constructor(private http: Http, @Inject(AUTH_SERVICE_URL) private apiUrl: string) {
-	}
+	constructor(private http: Http, @Inject(AUTH_SERVICE_URL) private apiUrl: string) {}
 
 	login(username: string, password: string): Observable<boolean> {
 		return this.http.post(this.apiUrl, JSON.stringify({username: username, password: password}), {headers: this.headers})

@@ -67,5 +67,4 @@ import {SharedModule} from "primeng/components/common/shared";
 	bootstrap: [AppComponent]
 })
 
-export class AppModule {
-}
+export class AppModule {}

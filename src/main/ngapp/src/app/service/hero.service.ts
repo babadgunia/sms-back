@@ -15,8 +15,7 @@ const DELAY = 5000;
 @Injectable()
 export class HeroService {
 
-	constructor(private http: Http, private authenticationService: AuthenticationService, @Inject(HERO_SERVICE_URL) private apiUrl: string) {
-	}
+	constructor(private http: Http, private authenticationService: AuthenticationService, @Inject(HERO_SERVICE_URL) private apiUrl: string) {}
 
 	add(name: string): Promise<Hero> {
 		const url = `${this.apiUrl}/add`;

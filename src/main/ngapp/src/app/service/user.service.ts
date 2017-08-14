@@ -13,8 +13,7 @@ const DELAY = 5000;
 @Injectable()
 export class UserService {
 
-	constructor(private http: Http, private authenticationService: AuthenticationService, @Inject(USER_SERVICE_URL) private apiUrl: string) {
-	}
+	constructor(private http: Http, private authenticationService: AuthenticationService, @Inject(USER_SERVICE_URL) private apiUrl: string) {}
 
 	static getHeaders(): Headers {
 		return new Headers({

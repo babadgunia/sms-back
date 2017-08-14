@@ -23,8 +23,7 @@ export class SearchComponent implements OnInit {
 
 	private searchTerms = new Subject<string>();
 
-	constructor(private heroService: HeroService, private router: Router) {
-	}
+	constructor(private heroService: HeroService, private router: Router) {}
 
 	search(term: string): void {
 		this.searchTerms.next(term);

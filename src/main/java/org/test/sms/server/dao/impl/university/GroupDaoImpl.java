@@ -6,5 +6,4 @@ import org.test.sms.server.dao.impl.AbstractDaoImpl;
 import org.test.sms.server.dao.interfaces.university.GroupDao;
 
 @Repository
-public class GroupDaoImpl extends AbstractDaoImpl<Group> implements GroupDao {
-}
+public class GroupDaoImpl extends AbstractDaoImpl<Group> implements GroupDao {}

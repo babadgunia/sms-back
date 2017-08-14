@@ -12,8 +12,7 @@ import java.util.stream.Collectors;
 
 public class Utils {
 
-    private Utils() {
-    }
+    private Utils() {}
 
 //	is blank
 

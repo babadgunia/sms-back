@@ -5,8 +5,7 @@ import javax.naming.NamingException;
 
 public class AppUtils {
 
-    private AppUtils() {
-    }
+    private AppUtils() {}
 
     @SuppressWarnings("unchecked")
     public static <T> T getBean(Class<T> clazz) {

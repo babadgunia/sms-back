@@ -16,8 +16,7 @@ public class DateUtils {
 
     public static final long HOUR = MINUTE * 60;
 
-    private DateUtils() {
-    }
+    private DateUtils() {}
 
     public static String formatDuration(long duration) {
         if (duration < 0) {

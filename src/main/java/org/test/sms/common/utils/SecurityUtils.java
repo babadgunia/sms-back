@@ -11,6 +11,8 @@ public class SecurityUtils {
 
     private static final String ALGORITHM = "PBKDF2WithHmacSHA1";
 
+    private SecurityUtils() {}
+
     public static String encryptPassword(String password) {
         try {
             int iterations = 1000;

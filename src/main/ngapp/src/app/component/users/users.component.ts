@@ -19,8 +19,7 @@ export class UsersComponent implements OnInit {
 
 	selectedUser: User = new User();
 
-	constructor(private router: Router, private route: ActivatedRoute, private userService: UserService) {
-	}
+	constructor(private router: Router, private route: ActivatedRoute, private userService: UserService) {}
 
 	ngOnInit() {
 		this.loadUsers('', 0);
