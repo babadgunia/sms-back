@@ -8,8 +8,6 @@ import {User} from "../model/user";
 import {AuthenticationService} from "./authentication.service";
 import {USER_SERVICE_URL} from "../utils/injectable-constants";
 
-const DELAY = 5000;
-
 @Injectable()
 export class UserService {
 
