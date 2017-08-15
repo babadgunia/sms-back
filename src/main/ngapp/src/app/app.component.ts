@@ -18,7 +18,8 @@ export class AppComponent implements OnInit {
 			AppComponent.translations = result;
 			console.log(AppComponent.translations)
 		});
-		console.log(AppComponent.translations);
+
+		setTimeout(() => {console.log(AppComponent.getTranslation("NAME"));}, 100);
 	}
 
 	static getTranslation(key: string): string {
