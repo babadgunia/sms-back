@@ -28,14 +28,12 @@ export class UserService {
 
 	getList(name: string, id: number): Promise<User[]> {
 		const url = `${this.apiUrl}/getList?name=${name}&id=${id}`;
-		UserService.getHeaders().append('Authorization', AuthenticationService.getToken().toString());
 
 		return this.http.get(url, {headers: UserService.getHeaders()}).toPromise().then(response => response.json() as User[]).catch(UserService.handleError);
 	}
 
 	delete(id: number): Promise<void> {
 		const url = `${this.apiUrl}/delete/${id}`;
-		UserService.getHeaders().append('Authorization', AuthenticationService.getToken().toString());
 
 		return this.http.delete(url, {headers: UserService.getHeaders()}).toPromise().then(() => null).catch(UserService.handleError);
 	}

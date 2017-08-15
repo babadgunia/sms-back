@@ -1,20 +1,23 @@
 <div class="ui-g">
 	<div class="ui-g-1">
-		<label for="name">Name</label>
-		<input id="name" type="text" #nameInput>
+		<input pInputText type="text" placeholder="Id" #idField class="c-search-filter-field"/>
 	</div>
-	<div class="ui-g-1">
-		<label for="id">ID</label>
-		<input id="id" type="text" #idInput>
+	<div class="ui-g-1 c-search-filter-field-wrapper">
+		<input pInputText type="text" placeholder="Username" #usernameField class="c-search-filter-field"/>
 	</div>
-	<div class="ui-g-10 custom-position-relative">
-		<button pButton type="button" (click)="loadUsers(nameInput.value, idInput.value)" icon="fa-search" label="Search" class="custom-bottom-right"></button>
+	<div class="ui-g-1 c-search-filter-field-wrapper">
+		<input pInputText type="text" placeholder="Name" #nameField class="c-search-filter-field"/>
 	</div>
-	<div class="ui-g-12">
+
+	<div class="ui-g-9">
+		<button pButton type="button" label="Search" icon="fa-search" (click)="loadUsers(nameField.value, idField.value)" class="c-search-filter-button"></button>
+	</div>
+
+	<div class="ui-g-12 c-search-table">
 		<p-dataTable [value]="users" [paginator]="true" [rows]="10" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
-			<p-column field="id" header="ID"></p-column>
-			<p-column field="name" header="NAME"></p-column>
-			<p-column field="username" header="USERNAME"></p-column>
+			<p-column field="id" header="Id" [filter]="true" filterMatchMode="contains"></p-column>
+			<p-column field="username" header="Username" [filter]="true" filterMatchMode="contains"></p-column>
+			<p-column field="name" header="Name" [filter]="true" filterMatchMode="contains"></p-column>
 			<p-column [style]="{'width':'40px'}">
 				<ng-template let-col let-user="rowData" pTemplate="body">
 					<button pButton type="button" icon="fa-pencil" title="Edit" (click)="selectItem(user);"></button>

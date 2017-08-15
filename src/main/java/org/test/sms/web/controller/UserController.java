@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteUser(@PathVariable("id") long id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") long id) {
         try {
             service.delete(id);
 

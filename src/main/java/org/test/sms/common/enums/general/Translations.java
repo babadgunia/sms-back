@@ -8,6 +8,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.text.MessageFormat;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 public enum Translations {
@@ -237,5 +240,33 @@ public enum Translations {
         String result = properties.getProperty(key, key);
 
         return MessageFormat.format(result, Utils.toStringArray(params));
+    }
+
+    public static Map<String, Map<String, String>> getTranslations() {
+        Map<String, Map<String, String>> result = new HashMap<>();
+
+        Arrays.stream(LanguageType.values()).forEach(language -> {
+            Properties properties = new Properties();
+
+            String languageString = language.toString();
+            String filename = "/translations_" + languageString.toLowerCase() + ".properties";
+            InputStream inputStream = Translations.class.getResourceAsStream(filename);
+
+            try (Reader reader = new InputStreamReader(inputStream, "UTF-8")) {
+                properties.load(reader);
+
+                Map<String, String> languageMap = new HashMap<>();
+                properties.keySet().forEach(key -> {
+                    String keyString = key.toString();
+                    languageMap.put(keyString, properties.getProperty(keyString));
+                });
+
+                result.put(languageString, languageMap);
+            } catch (IOException e) {
+                logger.error(e);
+            }
+        });
+
+        return result;
     }
 }

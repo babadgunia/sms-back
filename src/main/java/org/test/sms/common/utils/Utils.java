@@ -21,7 +21,7 @@ public class Utils {
             return true;
         }
 
-        return Arrays.stream(strings).parallel().anyMatch(string -> (Objects.isNull(string) || string.trim().isEmpty()));
+        return Arrays.stream(strings).anyMatch(string -> (Objects.isNull(string) || string.trim().isEmpty()));
     }
 
     public static <T> boolean isBlank(Collection<T> collection) {
@@ -141,6 +141,6 @@ public class Utils {
     }
 
     public static Object[] toStringArray(Object... array) {
-        return Arrays.stream(array).parallel().map(Object::toString).collect(Collectors.toList()).toArray();
+        return Arrays.stream(array).map(Object::toString).collect(Collectors.toList()).toArray();
     }
 }

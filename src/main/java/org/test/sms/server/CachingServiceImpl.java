@@ -84,7 +84,7 @@ public class CachingServiceImpl implements CachingService {
 
             List<String> courses = filter.getCourses();
             if (Objects.nonNull(courses)) {
-                stream = stream.filter(e -> e.getCourses().parallelStream().filter(f -> courses.contains(f.getName())).count() != 0);
+                stream = stream.filter(e -> e.getCourses().stream().filter(f -> courses.contains(f.getName())).count() != 0);
             }
 
             return stream.collect(Collectors.toList());

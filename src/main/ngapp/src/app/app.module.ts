@@ -11,6 +11,7 @@ import {INJECTABLE_CONSTANTS} from "./utils/injectable-constants";
 // services
 import {AuthenticationService} from "./service/authentication.service";
 import {HeroService} from "./service/hero.service";
+import {TranslationService} from "./service/translation.service";
 import {UserService} from "./service/user.service";
 // components
 import {AppComponent} from "./app.component";
@@ -62,6 +63,7 @@ import {SharedModule} from "primeng/components/common/shared";
 		// services
 		AuthenticationService,
 		HeroService,
+		TranslationService,
 		UserService
 	],
 	bootstrap: [AppComponent]

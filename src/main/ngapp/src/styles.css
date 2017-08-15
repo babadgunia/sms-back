@@ -1,10 +1,15 @@
-.custom-bottom-right {
-	position: absolute !important;
-	bottom: 0;
-	right: 0;
-	margin: .5em !important;
+.c-search-filter-field {
+	width: 99%;
 }
 
-.custom-position-relative {
-	position: relative;
+.c-search-filter-field-wrapper {
+	padding-left: 0;
+}
+
+.c-search-filter-button {
+	float: right;
+}
+
+.c-search-table {
+	padding-top: 0;
 }

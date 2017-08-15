@@ -46,7 +46,7 @@ public class HeroController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public ResponseEntity<Hero> createUser(@RequestBody Hero hero, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<Hero> add(@RequestBody Hero hero, UriComponentsBuilder ucBuilder) {
         try {
             return new ResponseEntity<>(service.add(hero), HttpStatus.CREATED);
         } catch (AppException e) {
@@ -64,7 +64,7 @@ public class HeroController {
     }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteUser(@PathVariable("id") long id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") long id) {
         try {
             service.delete(id);
 

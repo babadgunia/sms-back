@@ -3,6 +3,7 @@ import {Component, OnInit} from "@angular/core";
 import {User} from "../../model/user";
 import {UserService} from "../../service/user.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {AppComponent} from "../../app.component";
 
 @Component({
 	selector: 'users',
@@ -43,5 +44,9 @@ export class UsersComponent implements OnInit {
 		this.selectedUser = user;
 		this.showUserDialog = true;
 		console.log("######################222");
+	}
+
+	getTranslation(key: string): string {
+		return AppComponent.getTranslation(key);
 	}
 }

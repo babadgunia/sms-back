@@ -10,8 +10,6 @@ import {Hero} from "../model/hero";
 import {AuthenticationService} from "./authentication.service";
 import {HERO_SERVICE_URL} from "app/utils/injectable-constants";
 
-const DELAY = 5000;
-
 @Injectable()
 export class HeroService {
 
@@ -38,33 +36,31 @@ export class HeroService {
 
 	update(hero: Hero): Promise<Hero> {
 		const url = `${this.apiUrl}/update`;
-		HeroService.getHeaders().append('Authorization', AuthenticationService.getToken().toString());
 
 		return this.http.put(url, JSON.stringify(hero), {headers: HeroService.getHeaders()}).toPromise().then(result => result.json() as Hero).catch(HeroService.handleError);
 	}
 
 	delete(id: number): Promise<void> {
 		const url = `${this.apiUrl}/delete/${id}`;
-		HeroService.getHeaders().append('Authorization', AuthenticationService.getToken().toString());
 
 		return this.http.delete(url, {headers: HeroService.getHeaders()}).toPromise().then(() => null).catch(HeroService.handleError);
 	}
 
 	get (id: number): Promise<Hero> {
 		const url = `${this.apiUrl}/get/${id}`;
-		HeroService.getHeaders().append('Authorization', AuthenticationService.getToken().toString());
 
 		return this.http.get(url, {headers: HeroService.getHeaders()}).toPromise().then(response => response.json() as Hero).catch(HeroService.handleError);
 	}
 
 	getList(): Promise<Hero[]> {
 		const url = `${this.apiUrl}/getList?name=${''}`;
-		HeroService.getHeaders().append('Authorization', AuthenticationService.getToken().toString());
 
 		return this.http.get(url, {headers: HeroService.getHeaders()}).toPromise().then(response => response.json() as Hero[]).catch(HeroService.handleError);
 	}
 
 	getListSlowly(): Promise<Hero[]> {
+		const DELAY = 5000;
+
 		return new Promise(resolve => {
 			setTimeout(() => resolve(this.getList()), DELAY);
 		});
@@ -72,7 +68,6 @@ export class HeroService {
 
 	search(term: string): Observable<Hero[]> {
 		const url = `${this.apiUrl}/getList?name=${term}`;
-		HeroService.getHeaders().append('Authorization', AuthenticationService.getToken().toString());
 
 		return this.http.get(url, {headers: HeroService.getHeaders()}).map(response => response.json() as Hero[]).catch(HeroService.handleError);
 	}
