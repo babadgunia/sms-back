@@ -8,7 +8,9 @@
 		"build": "ng build",
 		"test": "ng test",
 		"lint": "ng lint",
-		"e2e": "ng e2e"
+		"e2e": "ng e2e",
+		"i18n": "ng-xi18n --i18nFormat=xlf --outFile=./locale/messages.xlf",
+		"i18n-ka": "ng-xi18n --i18nFormat=xlf --i18nFile=src/locale/messages.ka.xlf --locale=ka --missingTranslation=error"
 	},
 	"private": true,
 	"dependencies": {
@@ -20,6 +22,7 @@
 		"@angular/http": "^4.3.4",
 		"@angular/platform-browser": "^4.3.4",
 		"@angular/platform-browser-dynamic": "^4.3.4",
+		"@angular/platform-server": "^4.3.4",
 		"@angular/router": "^4.3.4",
 		"angular-in-memory-web-api": "~0.3.1",
 		"core-js": "^2.5.0",
