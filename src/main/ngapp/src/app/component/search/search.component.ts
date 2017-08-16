@@ -32,7 +32,6 @@ export class SearchComponent implements OnInit {
 	ngOnInit(): void {
 		this.heroes = this.searchTerms.debounceTime(300).distinctUntilChanged().switchMap(term => term ? this.heroService.search(term) : Observable.of<Hero[]>([]))
 			.catch(error => {
-				console.log(error);
 
 				return Observable.of<Hero[]>([]);
 			});
