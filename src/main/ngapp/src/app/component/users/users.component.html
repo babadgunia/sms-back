@@ -1,16 +1,23 @@
 <div class="ui-g">
 	<div class="ui-g-1">
-		<input pInputText type="text" i18n-placeholder="@@id" placeholder="Id" #idField class="c-search-filter-field"/>
+		<input pInputText type="text" placeholder="Id" i18n-placeholder="@@id" #idField class="c-search-filter-component"/>
 	</div>
-	<div class="ui-g-1 c-search-filter-field-wrapper">
-		<input pInputText type="text" placeholder="Username" #usernameField class="c-search-filter-field"/>
+	<div class="ui-g-1 c-search-filter-component-wrapper">
+		<input pInputText type="text" placeholder="Username" i18n-placeholder="@@username" #usernameField class="c-search-filter-component"/>
 	</div>
-	<div class="ui-g-1 c-search-filter-field-wrapper">
-		<input pInputText type="text" placeholder="Name" #nameField class="c-search-filter-field"/>
+	<div class="ui-g-1 c-search-filter-component-wrapper">
+		<input pInputText type="text" placeholder="Name" i18n-placeholder="@@name" #nameField class="c-search-filter-component"/>
 	</div>
 
-	<div class="ui-g-9">
-		<button pButton type="button" label="Search" icon="fa-search" (click)="loadUsers(nameField.value, idField.value)" class="c-search-filter-button"></button>
+	<div class="ui-g-7"></div>
+
+	<div class="ui-g-1 c-search-filter-component-wrapper">
+		<button pButton type="button" label="Search" i18n-label="@@search" icon="fa-search" (click)="loadUsers(nameField.value, idField.value)"
+						class="c-search-filter-component"></button>
+	</div>
+	<div class="ui-g-1 c-search-filter-component-wrapper">
+		<button pButton type="button" label="Add" i18n-label="@@add" icon="fa-plus" (click)="add()"
+						class="c-search-filter-component"></button>
 	</div>
 
 	<div class="ui-g-12 c-search-table">
@@ -18,7 +25,7 @@
 			<p-column field="id" header="Id" [filter]="true" filterMatchMode="contains"></p-column>
 			<p-column field="username" header="Username" [filter]="true" filterMatchMode="contains"></p-column>
 			<p-column field="name" header="Name" [filter]="true" filterMatchMode="contains"></p-column>
-			<p-column [style]="{'width':'40px'}">
+			<p-column header="Action" [style]="{'width':'5%'}">
 				<ng-template let-col let-user="rowData" pTemplate="body">
 					<button pButton type="button" icon="fa-pencil" title="Edit" (click)="selectItem(user);"></button>
 				</ng-template>

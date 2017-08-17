@@ -1,13 +1,9 @@
-.c-search-filter-field {
-	width: 99%;
+.c-search-filter-component {
+	width: 100%;
 }
 
-.c-search-filter-field-wrapper {
+.c-search-filter-component-wrapper {
 	padding-left: 0;
-}
-
-.c-search-filter-button {
-	float: right;
 }
 
 .c-search-table {

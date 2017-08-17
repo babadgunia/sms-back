@@ -32,9 +32,11 @@ export class UsersComponent implements OnInit {
 		});
 	}
 
-	delete(id: number): void {
-		this.userService.delete(id);
-	}
+	add(): void {}
+
+	update(): void {}
+
+	delete(): void {}
 
 	selectItem(user: User) {
 		this.selectedUser = user;
