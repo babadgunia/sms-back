@@ -44,6 +44,11 @@ public class HeroServiceImpl implements HeroService {
     }
 
     @Override
+    public long getCount(AbstractFilter filter) {
+        return dao.getCount(filter);
+    }
+
+    @Override
     public List<Hero> getList(AbstractFilter filter) {
         return dao.getList(filter);
     }

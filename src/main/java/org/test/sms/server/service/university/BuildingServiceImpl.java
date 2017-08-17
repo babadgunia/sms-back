@@ -44,6 +44,11 @@ public class BuildingServiceImpl implements BuildingService {
     }
 
     @Override
+    public long getCount(AbstractFilter filter) {
+        return dao.getCount(filter);
+    }
+
+    @Override
     public List<Building> getList(AbstractFilter filter) {
         return dao.getList(filter);
     }

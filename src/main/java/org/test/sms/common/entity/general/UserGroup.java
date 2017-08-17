@@ -29,11 +29,10 @@ public class UserGroup extends AppEntity {
     @OneToMany(mappedBy = "userGroup", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Permission> permissions = new ArrayList<>();
 
-    public UserGroup() {
-    }
+    public UserGroup() {}
 
     public UserGroup(long id) {
-        this.id = id;
+        super(id);
     }
 
     public UserGroup(long id, String name) {

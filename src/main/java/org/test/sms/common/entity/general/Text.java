@@ -29,11 +29,10 @@ public class Text extends AppEntity {
     @OneToMany(mappedBy = "text", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<I18NText> values = new ArrayList<>();
 
-    public Text() {
-    }
+    public Text() {}
 
     public Text(long id) {
-        this.id = id;
+        super(id);
     }
 
     @Override

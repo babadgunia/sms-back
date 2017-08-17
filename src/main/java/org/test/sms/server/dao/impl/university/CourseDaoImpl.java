@@ -29,10 +29,13 @@ public class CourseDaoImpl extends AbstractDaoImpl<Course> implements CourseDao 
 
     @Override
     public List<Course> getList(AbstractFilter filter) {
-        StringBuilder queryBuilder = new StringBuilder("FROM Course WHERE 1 = 1");
+        StringBuilder queryBuilder = new StringBuilder("FROM Course");
         Map<String, Object> params = new HashMap<>();
 
-        addFilter(queryBuilder, params, (CourseFilter) filter);
+        if (Objects.nonNull(filter)) {
+            queryBuilder.append(" WHERE 1 = 1");
+            addFilter(queryBuilder, params, filter);
+        }
 
         queryBuilder.append(" ORDER BY name");
 
@@ -42,10 +45,9 @@ public class CourseDaoImpl extends AbstractDaoImpl<Course> implements CourseDao 
         return query.getResultList();
     }
 
-    private void addFilter(StringBuilder queryBuilder, Map<String, Object> params, CourseFilter filter) {
-        if (Objects.isNull(filter)) {
-            return;
-        }
+    @Override
+    protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {
+        CourseFilter filter = (CourseFilter) abstractFilter;
 
         Faculty faculty = filter.getFaculty();
         if (Objects.nonNull(faculty)) {

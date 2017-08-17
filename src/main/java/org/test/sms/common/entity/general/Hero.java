@@ -20,11 +20,10 @@ public class Hero extends AppEntity {
 
     private String name;
 
-    public Hero() {
-    }
+    public Hero() {}
 
     public Hero(long id) {
-        this.id = id;
+        super(id);
     }
 
     public Hero(long id, String name) {

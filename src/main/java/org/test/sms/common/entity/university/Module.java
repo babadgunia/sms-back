@@ -32,6 +32,12 @@ public class Module extends AppEntity {
     @OneToMany(mappedBy = "module")
     private List<Group> groups = new ArrayList<>();
 
+    public Module() {}
+
+    public Module(long id) {
+        super(id);
+    }
+
     @Override
     public long getId() {
         return id;

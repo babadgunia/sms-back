@@ -36,6 +36,12 @@ public class Permission extends AppEntity {
     @Enumerated(EnumType.STRING)
     private List<PermissionType> permissions = new ArrayList<>();
 
+    public Permission() {}
+
+    public Permission(long id) {
+        super(id);
+    }
+
     @Override
     public long getId() {
         return id;

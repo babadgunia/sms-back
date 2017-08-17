@@ -44,6 +44,11 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
+    public long getCount(AbstractFilter filter) {
+        return dao.getCount(filter);
+    }
+
+    @Override
     public List<Exam> getList(AbstractFilter filter) {
         return dao.getList(filter);
     }

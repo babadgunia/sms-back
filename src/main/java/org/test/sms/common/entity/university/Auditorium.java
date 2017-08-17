@@ -30,11 +30,10 @@ public class Auditorium extends AppEntity {
     @ElementCollection
     private List<ExamSeat> seats = new ArrayList<>();
 
-    public Auditorium() {
-    }
+    public Auditorium() {}
 
     public Auditorium(long id) {
-        this.id = id;
+        super(id);
     }
 
     public Auditorium(long id, String name) {

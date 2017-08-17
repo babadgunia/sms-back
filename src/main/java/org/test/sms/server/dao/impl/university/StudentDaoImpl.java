@@ -40,10 +40,13 @@ public class StudentDaoImpl extends AbstractDaoImpl<Student> implements StudentD
 
     @Override
     public List<Student> getList(AbstractFilter filter) {
-        StringBuilder queryBuilder = new StringBuilder("SELECT new Student(id, firstName, lastName, personalNumber, phoneNumber, user) FROM Student WHERE 1 = 1");
+        StringBuilder queryBuilder = new StringBuilder("SELECT new Student(id, firstName, lastName, personalNumber, phoneNumber, user) FROM Student");
         Map<String, Object> params = new HashMap<>();
 
-        addFilter(queryBuilder, params, (StudentFilter) filter);
+        if (Objects.nonNull(filter)) {
+            queryBuilder.append(" WHERE 1 = 1");
+            addFilter(queryBuilder, params, filter);
+        }
 
         queryBuilder.append(" ORDER BY lastName");
 
@@ -51,30 +54,6 @@ public class StudentDaoImpl extends AbstractDaoImpl<Student> implements StudentD
         params.keySet().forEach(e -> query.setParameter(e, params.get(e)));
 
         return query.getResultList();
-    }
-
-    private void addFilter(StringBuilder queryBuilder, Map<String, Object> params, StudentFilter filter) {
-        if (Objects.isNull(filter)) {
-            return;
-        }
-
-        List<String> firstNames = filter.getFirstNames();
-        if (Objects.nonNull(firstNames)) {
-            queryBuilder.append(" AND firstName IN(:firstNames)");
-            params.put("firstNames", firstNames);
-        }
-
-        List<String> lastNames = filter.getLastNames();
-        if (Objects.nonNull(lastNames)) {
-            queryBuilder.append(" AND lastName IN(:lastNames)");
-            params.put("lastNames", lastNames);
-        }
-
-        String personalNumber = filter.getPersonalNumber();
-        if (Objects.nonNull(personalNumber)) {
-            queryBuilder.append(" AND personalNumber LIKE :personalNumber");
-            params.put("personalNumber", "%" + personalNumber + "%");
-        }
     }
 
     @Override
@@ -95,5 +74,28 @@ public class StudentDaoImpl extends AbstractDaoImpl<Student> implements StudentD
         query.setParameter("facultyId", facultyId);
 
         return !Utils.isBlank(query.getResultList());
+    }
+
+    @Override
+    protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {
+        StudentFilter filter = (StudentFilter) abstractFilter;
+
+        List<String> firstNames = filter.getFirstNames();
+        if (Objects.nonNull(firstNames)) {
+            queryBuilder.append(" AND firstName IN(:firstNames)");
+            params.put("firstNames", firstNames);
+        }
+
+        List<String> lastNames = filter.getLastNames();
+        if (Objects.nonNull(lastNames)) {
+            queryBuilder.append(" AND lastName IN(:lastNames)");
+            params.put("lastNames", lastNames);
+        }
+
+        String personalNumber = filter.getPersonalNumber();
+        if (Objects.nonNull(personalNumber)) {
+            queryBuilder.append(" AND personalNumber LIKE :personalNumber");
+            params.put("personalNumber", "%" + personalNumber + "%");
+        }
     }
 }

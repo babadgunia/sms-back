@@ -17,5 +17,7 @@ public interface AbstractService<T extends AppEntity> {
 
     Optional<T> get(long id);
 
+    long getCount(AbstractFilter filter);
+
     List<T> getList(AbstractFilter filter);
 }

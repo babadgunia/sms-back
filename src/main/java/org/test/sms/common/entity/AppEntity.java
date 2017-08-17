@@ -28,6 +28,12 @@ public abstract class AppEntity implements Serializable {
     @Version
     private int version;
 
+    protected AppEntity() {}
+
+    protected AppEntity(long id) {
+        setId(id);
+    }
+
     public LocalDateTime getCreationTime() {
         return creationTime;
     }

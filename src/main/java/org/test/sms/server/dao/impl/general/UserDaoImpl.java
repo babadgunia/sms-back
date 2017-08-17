@@ -55,10 +55,13 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 
     @Override
     public List<User> getList(AbstractFilter filter) {
-        StringBuilder queryBuilder = new StringBuilder("SELECT new User(id, name, username, userGroup.id, userGroup.name) FROM User WHERE 1 = 1");
+        StringBuilder queryBuilder = new StringBuilder("SELECT new User(id, name, username, userGroup.id, userGroup.name) FROM User");
         Map<String, Object> params = new HashMap<>();
 
-        addFilter(queryBuilder, params, (UserFilter) filter);
+        if (Objects.nonNull(filter)) {
+            queryBuilder.append(" WHERE 1 = 1");
+            addFilter(queryBuilder, params, filter);
+        }
 
         queryBuilder.append(" ORDER BY username");
 
@@ -66,30 +69,6 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
         params.keySet().forEach(e -> query.setParameter(e, params.get(e)));
 
         return query.getResultList();
-    }
-
-    private void addFilter(StringBuilder queryBuilder, Map<String, Object> params, UserFilter filter) {
-        if (Objects.isNull(filter)) {
-            return;
-        }
-
-        List<String> names = filter.getNames();
-        if (Objects.nonNull(names)) {
-            queryBuilder.append(" AND name IN(:names)");
-            params.put("names", names);
-        }
-
-        String username = filter.getUsername();
-        if (Objects.nonNull(username)) {
-            queryBuilder.append(" AND UPPER(username) LIKE :username");
-            params.put("username", "%" + username.toUpperCase() + "%");
-        }
-
-        UserGroup userGroup = filter.getUserGroup();
-        if (Objects.nonNull(userGroup)) {
-            queryBuilder.append(" AND userGroup = :userGroup");
-            params.put("userGroup", userGroup);
-        }
     }
 
     @Override
@@ -116,6 +95,29 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
             return Optional.of(user);
         } catch (NoResultException e) {
             return Optional.empty();
+        }
+    }
+
+    @Override
+    protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {
+        UserFilter filter = (UserFilter) abstractFilter;
+
+        List<String> names = filter.getNames();
+        if (Objects.nonNull(names)) {
+            queryBuilder.append(" AND name IN(:names)");
+            params.put("names", names);
+        }
+
+        String username = filter.getUsername();
+        if (Objects.nonNull(username)) {
+            queryBuilder.append(" AND UPPER(username) LIKE :username");
+            params.put("username", "%" + username.toUpperCase() + "%");
+        }
+
+        UserGroup userGroup = filter.getUserGroup();
+        if (Objects.nonNull(userGroup)) {
+            queryBuilder.append(" AND userGroup = :userGroup");
+            params.put("userGroup", userGroup);
         }
     }
 }

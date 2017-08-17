@@ -15,6 +15,7 @@ import org.test.sms.server.dao.interfaces.university.StudentDao;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -78,4 +79,7 @@ public class FacultyDaoImpl extends AbstractDaoImpl<Faculty> implements FacultyD
 
         return result;
     }
+
+    @Override
+    protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {}
 }

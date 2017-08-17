@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.test.sms.common.entity.general.ActionLog;
-import org.test.sms.common.enums.general.ActionType;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.AbstractFilter;
 import org.test.sms.common.service.general.ActionLogService;
@@ -31,26 +30,26 @@ public class ActionLogServiceImpl implements ActionLogService {
 
     @Override
     public ActionLog update(ActionLog entity) throws AppException {
-        return dao.update(entity);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void delete(long id) throws AppException {
-        dao.delete(id);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Optional<ActionLog> get(long id) {
-        return dao.get(id);
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public long getCount(AbstractFilter filter) {
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<ActionLog> getList(AbstractFilter filter) {
-        return dao.getList(filter);
-    }
-
-    @Override
-    public ActionLog add(ActionType type, String info, String username, String ipAddress) throws AppException {
-        return dao.add(type, info, username, ipAddress);
+        throw new UnsupportedOperationException();
     }
 }

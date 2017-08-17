@@ -12,6 +12,7 @@ import org.test.sms.server.dao.interfaces.university.LecturerDao;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -51,4 +52,7 @@ public class LecturerDaoImpl extends AbstractDaoImpl<Lecturer> implements Lectur
             return Optional.empty();
         }
     }
+
+    @Override
+    protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {}
 }

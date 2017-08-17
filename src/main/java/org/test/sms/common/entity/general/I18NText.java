@@ -32,11 +32,10 @@ public class I18NText extends AppEntity {
     @ManyToOne
     private Text text;
 
-    public I18NText() {
-    }
+    public I18NText() {}
 
     public I18NText(long id) {
-        this.id = id;
+        super(id);
     }
 
     @Override

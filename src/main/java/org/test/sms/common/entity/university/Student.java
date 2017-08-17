@@ -43,11 +43,10 @@ public class Student extends UniversityMember {
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StudentCourse> studentCourses = new ArrayList<>();
 
-    public Student() {
-    }
+    public Student() {}
 
     public Student(long id) {
-        this.id = id;
+        super(id);
     }
 
     public Student(long id, String firstName, String lastName, String personalNumber, String phoneNumber, User user) {

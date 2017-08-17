@@ -11,6 +11,7 @@ import org.test.sms.server.dao.interfaces.general.TextDao;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -51,4 +52,7 @@ public class TextDaoImpl extends AbstractDaoImpl<Text> implements TextDao {
 
         return result;
     }
+
+    @Override
+    protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {}
 }

@@ -44,6 +44,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public long getCount(AbstractFilter filter) {
+        return dao.getCount(filter);
+    }
+
+    @Override
     public List<User> getList(AbstractFilter filter) {
         return dao.getList(filter);
     }

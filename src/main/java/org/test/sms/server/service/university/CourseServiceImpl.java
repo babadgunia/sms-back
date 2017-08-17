@@ -44,6 +44,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public long getCount(AbstractFilter filter) {
+        return dao.getCount(filter);
+    }
+
+    @Override
     public List<Course> getList(AbstractFilter filter) {
         return dao.getList(filter);
     }

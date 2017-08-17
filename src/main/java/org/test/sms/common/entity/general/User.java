@@ -42,11 +42,10 @@ public class User extends AppEntity {
     @ManyToOne
     private UserGroup userGroup;
 
-    public User() {
-    }
+    public User() {}
 
     public User(long id) {
-        this.id = id;
+        super(id);
     }
 
     public User(long id, String username, String password, String name, StatusType status, LanguageType language, UserGroup userGroup) {

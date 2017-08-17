@@ -44,6 +44,11 @@ public class UserGroupServiceImpl implements UserGroupService {
     }
 
     @Override
+    public long getCount(AbstractFilter filter) {
+        return dao.getCount(filter);
+    }
+
+    @Override
     public List<UserGroup> getList(AbstractFilter filter) {
         return dao.getList(filter);
     }

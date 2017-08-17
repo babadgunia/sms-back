@@ -33,11 +33,10 @@ public class Building extends AppEntity {
     @OneToMany(mappedBy = "building", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Auditorium> auditoriums = new ArrayList<>();
 
-    public Building() {
-    }
+    public Building() {}
 
     public Building(long id) {
-        this.id = id;
+        super(id);
     }
 
     public Building(long id, String name, String address, Double lat, Double lon) {

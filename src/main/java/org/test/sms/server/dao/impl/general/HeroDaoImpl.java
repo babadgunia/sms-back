@@ -18,10 +18,13 @@ public class HeroDaoImpl extends AbstractDaoImpl<Hero> implements HeroDao {
 
     @Override
     public List<Hero> getList(AbstractFilter filter) {
-        StringBuilder queryBuilder = new StringBuilder("SELECT new Hero(id, name) FROM Hero WHERE 1 = 1");
+        StringBuilder queryBuilder = new StringBuilder("SELECT new Hero(id, name) FROM Hero");
         Map<String, Object> params = new HashMap<>();
 
-        addFilter(queryBuilder, params, (HeroFilter) filter);
+        if (Objects.nonNull(filter)) {
+            queryBuilder.append(" WHERE 1 = 1");
+            addFilter(queryBuilder, params, filter);
+        }
 
         queryBuilder.append(" ORDER BY name");
 
@@ -31,10 +34,9 @@ public class HeroDaoImpl extends AbstractDaoImpl<Hero> implements HeroDao {
         return query.getResultList();
     }
 
-    private void addFilter(StringBuilder queryBuilder, Map<String, Object> params, HeroFilter filter) {
-        if (Objects.isNull(filter)) {
-            return;
-        }
+    @Override
+    protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {
+        HeroFilter filter = (HeroFilter) abstractFilter;
 
         String name = filter.getName();
         if (Objects.nonNull(name)) {

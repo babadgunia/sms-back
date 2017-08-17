@@ -14,6 +14,7 @@ import org.test.sms.server.dao.interfaces.general.UserGroupDao;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -69,4 +70,7 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<UserGroup> implements User
     public List<UserGroup> getList(AbstractFilter filter) {
         return em.createQuery("SELECT new UserGroup(id, name) FROM UserGroup ORDER BY name", UserGroup.class).getResultList();
     }
+
+    @Override
+    protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {}
 }

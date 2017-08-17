@@ -44,6 +44,11 @@ public class TextServiceImpl implements TextService {
     }
 
     @Override
+    public long getCount(AbstractFilter filter) {
+        return dao.getCount(filter);
+    }
+
+    @Override
     public List<Text> getList(AbstractFilter filter) {
         return dao.getList(filter);
     }

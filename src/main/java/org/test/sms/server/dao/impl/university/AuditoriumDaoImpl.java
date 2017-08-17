@@ -19,10 +19,13 @@ public class AuditoriumDaoImpl extends AbstractDaoImpl<Auditorium> implements Au
 
     @Override
     public List<Auditorium> getList(AbstractFilter filter) {
-        StringBuilder queryBuilder = new StringBuilder("SELECT new Auditorium(id, name) FROM Auditorium WHERE 1 = 1");
+        StringBuilder queryBuilder = new StringBuilder("SELECT new Auditorium(id, name) FROM Auditorium");
         Map<String, Object> params = new HashMap<>();
 
-        addFilter(queryBuilder, params, (AuditoriumFilter) filter);
+        if (Objects.nonNull(filter)) {
+            queryBuilder.append(" WHERE 1 = 1");
+            addFilter(queryBuilder, params, filter);
+        }
 
         queryBuilder.append(" ORDER BY name");
 
@@ -32,10 +35,9 @@ public class AuditoriumDaoImpl extends AbstractDaoImpl<Auditorium> implements Au
         return query.getResultList();
     }
 
-    private void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AuditoriumFilter filter) {
-        if (Objects.isNull(filter)) {
-            return;
-        }
+    @Override
+    protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {
+        AuditoriumFilter filter = (AuditoriumFilter) abstractFilter;
 
         Building building = filter.getBuilding();
         if (Objects.nonNull(building)) {

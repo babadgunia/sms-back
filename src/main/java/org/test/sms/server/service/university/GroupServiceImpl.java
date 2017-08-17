@@ -44,6 +44,11 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
+    public long getCount(AbstractFilter filter) {
+        return dao.getCount(filter);
+    }
+
+    @Override
     public List<Group> getList(AbstractFilter filter) {
         return dao.getList(filter);
     }

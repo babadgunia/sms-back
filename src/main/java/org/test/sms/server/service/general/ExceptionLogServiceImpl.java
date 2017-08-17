@@ -7,6 +7,7 @@ import org.test.sms.common.entity.general.ExceptionLog;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.AbstractFilter;
 import org.test.sms.common.service.general.ExceptionLogService;
+import org.test.sms.common.utils.Utils;
 import org.test.sms.server.dao.interfaces.general.ExceptionLogDao;
 
 import java.util.List;
@@ -30,26 +31,37 @@ public class ExceptionLogServiceImpl implements ExceptionLogService {
 
     @Override
     public ExceptionLog update(ExceptionLog entity) throws AppException {
-        return dao.update(entity);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void delete(long id) throws AppException {
-        dao.delete(id);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Optional<ExceptionLog> get(long id) {
-        return dao.get(id);
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public long getCount(AbstractFilter filter) {
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<ExceptionLog> getList(AbstractFilter filter) {
-        return dao.getList(filter);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public ExceptionLog add(Throwable t) throws AppException {
-        return dao.add(t);
+        ExceptionLog exceptionLog = new ExceptionLog();
+
+        Throwable cause = Utils.findRelevantCause(t);
+        exceptionLog.setMessage(cause.getClass().getName() + ": " + cause.getMessage());
+        exceptionLog.setStackTrace(Utils.getStackTrace(t));
+
+        return add(exceptionLog);
     }
 }

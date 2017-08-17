@@ -29,11 +29,10 @@ public class Faculty extends AppEntity {
     @OneToMany(mappedBy = "faculty", cascade = CascadeType.MERGE)
     private List<Course> courses = new ArrayList<>();
 
-    public Faculty() {
-    }
+    public Faculty() {}
 
     public Faculty(long id) {
-        this.id = id;
+        super(id);
     }
 
     public Faculty(long id, String name) {

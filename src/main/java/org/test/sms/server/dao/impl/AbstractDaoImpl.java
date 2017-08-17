@@ -8,11 +8,15 @@ import org.test.sms.common.filter.AbstractFilter;
 import org.test.sms.server.dao.AbstractDao;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.lang.reflect.ParameterizedType;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 public abstract class AbstractDaoImpl<T extends AppEntity> implements AbstractDao<T> {
@@ -24,14 +28,18 @@ public abstract class AbstractDaoImpl<T extends AppEntity> implements AbstractDa
 
     private Class<T> entityClass;
 
+    private String entityClassName;
+
     @SuppressWarnings("unchecked")
     protected AbstractDaoImpl() {
         entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        entityClassName = entityClass.getSimpleName();
     }
 
     @Override
     public T add(T entity) throws AppException {
         LocalDateTime now = LocalDateTime.now();
+
         entity.setCreationTime(now);
         entity.setLastModifiedTime(now);
 
@@ -53,7 +61,18 @@ public abstract class AbstractDaoImpl<T extends AppEntity> implements AbstractDa
 
     @Override
     public void delete(long id) throws AppException {
-        get(id).ifPresent(e -> em.remove(e));
+        load(id).ifPresent(entity -> em.remove(entity));
+    }
+
+    private Optional<T> load(long id) {
+        TypedQuery<T> query = em.createQuery("SELECT new" + entityClassName + "(id) FROM " + entityClassName + " WHERE id = :id", entityClass);
+        query.setParameter("id", id);
+
+        try {
+            return Optional.of(query.getSingleResult());
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
     }
 
     @Override
@@ -62,7 +81,20 @@ public abstract class AbstractDaoImpl<T extends AppEntity> implements AbstractDa
     }
 
     @Override
-    public List<T> getList(AbstractFilter filter) {
-        return em.createQuery("FROM " + entityClass.getSimpleName(), entityClass).getResultList();
+    public long getCount(AbstractFilter filter) {
+        StringBuilder queryBuilder = new StringBuilder("SELECT COUNT(id) FROM " + entityClassName);
+        Map<String, Object> params = new HashMap<>();
+
+        if (Objects.nonNull(filter)) {
+            queryBuilder.append(" WHERE 1 = 1");
+            addFilter(queryBuilder, params, filter);
+        }
+
+        TypedQuery<Long> query = em.createQuery(queryBuilder.toString(), Long.class);
+        params.keySet().forEach(e -> query.setParameter(e, params.get(e)));
+
+        return query.getSingleResult();
     }
+
+    protected abstract void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter);
 }

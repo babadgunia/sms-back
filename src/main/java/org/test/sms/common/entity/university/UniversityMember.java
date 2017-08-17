@@ -37,7 +37,10 @@ public abstract class UniversityMember extends AppEntity {
     @Lob
     private byte[] photo;
 
-    public UniversityMember() {
+    public UniversityMember() {}
+
+    public UniversityMember(long id) {
+        super(id);
     }
 
     public UniversityMember(String firstName, String lastName, String personalNumber, String phoneNumber) {

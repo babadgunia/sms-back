@@ -56,11 +56,10 @@ public class Course extends AppEntity {
     @ManyToMany
     private List<Course> prerequisites = new ArrayList<>();
 
-    public Course() {
-    }
+    public Course() {}
 
     public Course(long id) {
-        this.id = id;
+        super(id);
     }
 
     public Course(long id, String name) {

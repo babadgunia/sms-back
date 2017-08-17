@@ -44,6 +44,11 @@ public class AuditoriumServiceImpl implements AuditoriumService {
     }
 
     @Override
+    public long getCount(AbstractFilter filter) {
+        return dao.getCount(filter);
+    }
+
+    @Override
     public List<Auditorium> getList(AbstractFilter filter) {
         return dao.getList(filter);
     }

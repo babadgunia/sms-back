@@ -44,6 +44,11 @@ public class LecturerServiceImpl implements LecturerService {
     }
 
     @Override
+    public long getCount(AbstractFilter filter) {
+        return dao.getCount(filter);
+    }
+
+    @Override
     public List<Lecturer> getList(AbstractFilter filter) {
         return dao.getList(filter);
     }

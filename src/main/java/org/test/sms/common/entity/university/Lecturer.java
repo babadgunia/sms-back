@@ -32,11 +32,10 @@ public class Lecturer extends UniversityMember {
     @OneToMany(mappedBy = "lecturer")
     private List<Group> groups = new ArrayList<>();
 
-    public Lecturer() {
-    }
+    public Lecturer() {}
 
     public Lecturer(long id) {
-        this.id = id;
+        super(id);
     }
 
     public Lecturer(long id, String firstName, String lastName, String personalNumber, String phoneNumber, User user) {

@@ -23,10 +23,13 @@ public class ExamDaoImpl extends AbstractDaoImpl<Exam> implements ExamDao {
 
     @Override
     public List<Exam> getList(AbstractFilter filter) {
-        StringBuilder queryBuilder = new StringBuilder("FROM Exam WHERE 1 = 1");
+        StringBuilder queryBuilder = new StringBuilder("FROM Exam");
         Map<String, Object> params = new HashMap<>();
 
-        addFilter(queryBuilder, params, (ExamFilter) filter);
+        if (Objects.nonNull(filter)) {
+            queryBuilder.append(" WHERE 1 = 1");
+            addFilter(queryBuilder, params, filter);
+        }
 
         queryBuilder.append(" ORDER BY startDate ASC");
 
@@ -36,10 +39,9 @@ public class ExamDaoImpl extends AbstractDaoImpl<Exam> implements ExamDao {
         return query.getResultList();
     }
 
-    private void addFilter(StringBuilder queryBuilder, Map<String, Object> params, ExamFilter filter) {
-        if (Objects.isNull(filter)) {
-            return;
-        }
+    @Override
+    protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {
+        ExamFilter filter = (ExamFilter) abstractFilter;
 
         Faculty faculty = filter.getFaculty();
         if (Objects.nonNull(faculty)) {

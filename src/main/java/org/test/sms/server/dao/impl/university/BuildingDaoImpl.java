@@ -11,6 +11,7 @@ import org.test.sms.server.dao.interfaces.university.AuditoriumDao;
 import org.test.sms.server.dao.interfaces.university.BuildingDao;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -49,4 +50,7 @@ public class BuildingDaoImpl extends AbstractDaoImpl<Building> implements Buildi
 
         return result;
     }
+
+    @Override
+    protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {}
 }

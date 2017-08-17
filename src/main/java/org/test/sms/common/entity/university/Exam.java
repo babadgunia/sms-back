@@ -40,11 +40,10 @@ public class Exam extends AppEntity {
     @ManyToOne
     private Building building;
 
-    public Exam() {
-    }
+    public Exam() {}
 
     public Exam(long id) {
-        this.id = id;
+        super(id);
     }
 
     @Override

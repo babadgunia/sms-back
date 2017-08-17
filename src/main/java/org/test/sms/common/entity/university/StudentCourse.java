@@ -55,11 +55,10 @@ public class StudentCourse extends AppEntity {
     @MapKeyJoinColumn(name = "Module_Id", referencedColumnName = "ID")
     private Map<Module, Group> groups = new HashMap<>();
 
-    public StudentCourse() {
-    }
+    public StudentCourse() {}
 
     public StudentCourse(long id) {
-        this.id = id;
+        super(id);
     }
 
     @Override

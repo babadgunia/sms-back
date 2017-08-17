@@ -49,11 +49,10 @@ public class Group extends AppEntity {
     @ManyToMany
     private List<Student> students = new ArrayList<>();
 
-    public Group() {
-    }
+    public Group() {}
 
     public Group(long id) {
-        this.id = id;
+        super(id);
     }
 
     @Override
