@@ -1,9 +1,12 @@
+<div *ngIf="isLoggedIn()">
+
+</div>
 <nav>
-	<ul>
-		<li><a routerLink="login" routerLinkActive="active">Login</a></li>
+	<ul *ngIf="isLoggedIn()">
 		<li><a routerLink="dashboard" routerLinkActive="active">Dashboard</a></li>
 		<li><a routerLink="heroes" routerLinkActive="active">Heroes</a></li>
 		<li><a routerLink="users" routerLinkActive="active">Users</a></li>
+		<li><button pButton type="button" label="Logout" (click)="logout()"></button></li>
 	</ul>
 </nav>
 <router-outlet></router-outlet>
