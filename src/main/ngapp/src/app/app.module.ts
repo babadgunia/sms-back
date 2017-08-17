@@ -27,6 +27,7 @@ import {DataTableModule} from "primeng/components/datatable/datatable";
 import {DialogModule} from "primeng/components/dialog/dialog";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {SharedModule} from "primeng/components/common/shared";
+import {SplitButtonModule} from "primeng/components/splitbutton/splitbutton";
 
 @NgModule({
 	declarations: [
@@ -52,7 +53,8 @@ import {SharedModule} from "primeng/components/common/shared";
 		DataTableModule,
 		DialogModule,
 		InputTextModule,
-		SharedModule
+		SharedModule,
+		SplitButtonModule
 	],
 	providers: [
 		// angular
