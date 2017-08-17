@@ -67,10 +67,15 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<UserGroup> implements User
     }
 
     @Override
-    public List<UserGroup> getList(AbstractFilter filter) {
-        return em.createQuery("SELECT new UserGroup(id, name) FROM UserGroup ORDER BY name", UserGroup.class).getResultList();
+    protected String getSelect() {
+        return "id, name";
     }
 
     @Override
     protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {}
+
+    @Override
+    protected String getOrderBy() {
+        return "name";
+    }
 }

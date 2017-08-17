@@ -11,7 +11,6 @@ import org.test.sms.server.dao.interfaces.university.LecturerDao;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -36,12 +35,6 @@ public class LecturerDaoImpl extends AbstractDaoImpl<Lecturer> implements Lectur
     }
 
     @Override
-    public List<Lecturer> getList(AbstractFilter filter) {
-        return em.createQuery("SELECT new Lecturer(id, firstName, lastName, personalNumber, phoneNumber, user) FROM Lecturer ORDER BY lastName", Lecturer.class)
-                .getResultList();
-    }
-
-    @Override
     public Optional<Lecturer> getByUserId(long userId) {
         TypedQuery<Lecturer> query = em.createQuery("FROM Lecturer WHERE user.id = :userId", Lecturer.class);
         query.setParameter("userId", userId);
@@ -54,5 +47,15 @@ public class LecturerDaoImpl extends AbstractDaoImpl<Lecturer> implements Lectur
     }
 
     @Override
+    protected String getSelect() {
+        return "id, firstName, lastName, personalNumber, phoneNumber, user";
+    }
+
+    @Override
     protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {}
+
+    @Override
+    protected String getOrderBy() {
+        return "lastName";
+    }
 }

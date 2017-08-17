@@ -68,7 +68,7 @@ public class FacultyDaoImpl extends AbstractDaoImpl<Faculty> implements FacultyD
 
     @Override
     public List<Faculty> getList(AbstractFilter filter) {
-        List<Faculty> result = em.createQuery("SELECT new Faculty(id, name) FROM Faculty ORDER BY name", Faculty.class).getResultList();
+        List<Faculty> result = super.getList(filter);
 
         result.forEach(e -> {
             CourseFilter courseFilter = new CourseFilter();
@@ -81,5 +81,15 @@ public class FacultyDaoImpl extends AbstractDaoImpl<Faculty> implements FacultyD
     }
 
     @Override
+    protected String getSelect() {
+        return "id, name";
+    }
+
+    @Override
     protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {}
+
+    @Override
+    protected String getOrderBy() {
+        return "name";
+    }
 }

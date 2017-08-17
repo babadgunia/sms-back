@@ -6,19 +6,23 @@ import org.test.sms.common.filter.AbstractFilter;
 import org.test.sms.server.dao.impl.AbstractDaoImpl;
 import org.test.sms.server.dao.interfaces.general.ExceptionLogDao;
 
-import java.util.List;
 import java.util.Map;
 
 @Repository
 public class ExceptionLogDaoImpl extends AbstractDaoImpl<ExceptionLog> implements ExceptionLogDao {
 
     @Override
-    public List<ExceptionLog> getList(AbstractFilter filter) {
+    protected String getSelect() {
         throw new UnsupportedOperationException();
     }
 
     @Override
     protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected String getOrderBy() {
         throw new UnsupportedOperationException();
     }
 }

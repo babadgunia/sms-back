@@ -14,7 +14,6 @@ import org.test.sms.server.dao.interfaces.general.UserDao;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -54,24 +53,6 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     }
 
     @Override
-    public List<User> getList(AbstractFilter filter) {
-        StringBuilder queryBuilder = new StringBuilder("SELECT new User(id, name, username, userGroup.id, userGroup.name) FROM User");
-        Map<String, Object> params = new HashMap<>();
-
-        if (Objects.nonNull(filter)) {
-            queryBuilder.append(" WHERE 1 = 1");
-            addFilter(queryBuilder, params, filter);
-        }
-
-        queryBuilder.append(" ORDER BY username");
-
-        TypedQuery<User> query = em.createQuery(queryBuilder.toString(), User.class);
-        params.keySet().forEach(e -> query.setParameter(e, params.get(e)));
-
-        return query.getResultList();
-    }
-
-    @Override
     public boolean exists(long userGroupId) {
         TypedQuery<User> query = em.createQuery("SELECT new User(id) FROM User WHERE userGroup.id = :userGroupId", User.class);
         query.setParameter("userGroupId", userGroupId);
@@ -99,6 +80,11 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     }
 
     @Override
+    protected String getSelect() {
+        return "id, name, username, userGroup.id, userGroup.name";
+    }
+
+    @Override
     protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {
         UserFilter filter = (UserFilter) abstractFilter;
 
@@ -119,5 +105,10 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
             queryBuilder.append(" AND userGroup = :userGroup");
             params.put("userGroup", userGroup);
         }
+    }
+
+    @Override
+    protected String getOrderBy() {
+        return "username";
     }
 }

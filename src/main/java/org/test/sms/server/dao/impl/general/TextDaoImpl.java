@@ -45,14 +45,22 @@ public class TextDaoImpl extends AbstractDaoImpl<Text> implements TextDao {
 
     @Override
     public List<Text> getList(AbstractFilter filter) {
-        TypedQuery<Text> query = em.createQuery("FROM Text ORDER BY key", Text.class);
-
-        List<Text> result = query.getResultList();
+        List<Text> result = super.getList(filter);
         result.forEach(e -> e.getValues().size());
 
         return result;
     }
 
     @Override
+    protected String getSelect() {
+        return null;
+    }
+
+    @Override
     protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {}
+
+    @Override
+    protected String getOrderBy() {
+        return null;
+    }
 }

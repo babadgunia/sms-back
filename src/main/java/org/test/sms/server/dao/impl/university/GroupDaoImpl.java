@@ -6,17 +6,21 @@ import org.test.sms.common.filter.AbstractFilter;
 import org.test.sms.server.dao.impl.AbstractDaoImpl;
 import org.test.sms.server.dao.interfaces.university.GroupDao;
 
-import java.util.List;
 import java.util.Map;
 
 @Repository
 public class GroupDaoImpl extends AbstractDaoImpl<Group> implements GroupDao {
 
     @Override
-    public List<Group> getList(AbstractFilter filter) {
+    protected String getSelect() {
         return null;
     }
 
     @Override
     protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {}
+
+    @Override
+    protected String getOrderBy() {
+        return null;
+    }
 }

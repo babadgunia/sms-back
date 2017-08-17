@@ -11,10 +11,7 @@ import org.test.sms.common.filter.university.ExamFilter;
 import org.test.sms.server.dao.impl.AbstractDaoImpl;
 import org.test.sms.server.dao.interfaces.university.ExamDao;
 
-import javax.persistence.TypedQuery;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -22,21 +19,8 @@ import java.util.Objects;
 public class ExamDaoImpl extends AbstractDaoImpl<Exam> implements ExamDao {
 
     @Override
-    public List<Exam> getList(AbstractFilter filter) {
-        StringBuilder queryBuilder = new StringBuilder("FROM Exam");
-        Map<String, Object> params = new HashMap<>();
-
-        if (Objects.nonNull(filter)) {
-            queryBuilder.append(" WHERE 1 = 1");
-            addFilter(queryBuilder, params, filter);
-        }
-
-        queryBuilder.append(" ORDER BY startDate ASC");
-
-        TypedQuery<Exam> query = em.createQuery(queryBuilder.toString(), Exam.class);
-        params.keySet().forEach(e -> query.setParameter(e, params.get(e)));
-
-        return query.getResultList();
+    protected String getSelect() {
+        return null;
     }
 
     @Override
@@ -78,5 +62,10 @@ public class ExamDaoImpl extends AbstractDaoImpl<Exam> implements ExamDao {
             queryBuilder.append(" AND type = :type");
             params.put("type", type);
         }
+    }
+
+    @Override
+    protected String getOrderBy() {
+        return "startDate";
     }
 }

@@ -7,9 +7,6 @@ import org.test.sms.common.filter.general.HeroFilter;
 import org.test.sms.server.dao.impl.AbstractDaoImpl;
 import org.test.sms.server.dao.interfaces.general.HeroDao;
 
-import javax.persistence.TypedQuery;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -17,21 +14,8 @@ import java.util.Objects;
 public class HeroDaoImpl extends AbstractDaoImpl<Hero> implements HeroDao {
 
     @Override
-    public List<Hero> getList(AbstractFilter filter) {
-        StringBuilder queryBuilder = new StringBuilder("SELECT new Hero(id, name) FROM Hero");
-        Map<String, Object> params = new HashMap<>();
-
-        if (Objects.nonNull(filter)) {
-            queryBuilder.append(" WHERE 1 = 1");
-            addFilter(queryBuilder, params, filter);
-        }
-
-        queryBuilder.append(" ORDER BY name");
-
-        TypedQuery<Hero> query = em.createQuery(queryBuilder.toString(), Hero.class);
-        params.keySet().forEach(e -> query.setParameter(e, params.get(e)));
-
-        return query.getResultList();
+    protected String getSelect() {
+        return "id, name";
     }
 
     @Override
@@ -43,5 +27,10 @@ public class HeroDaoImpl extends AbstractDaoImpl<Hero> implements HeroDao {
             queryBuilder.append(" AND name LIKE :name");
             params.put("name", "%" + name + "%");
         }
+    }
+
+    @Override
+    protected String getOrderBy() {
+        return "name";
     }
 }

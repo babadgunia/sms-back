@@ -15,6 +15,7 @@ import javax.persistence.TypedQuery;
 import java.lang.reflect.ParameterizedType;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -96,5 +97,27 @@ public abstract class AbstractDaoImpl<T extends AppEntity> implements AbstractDa
         return query.getSingleResult();
     }
 
+    @Override
+    public List<T> getList(AbstractFilter filter) {
+        StringBuilder queryBuilder = new StringBuilder("SELECT new" + entityClassName + "(" + getSelect() + ") FROM " + entityClassName);
+        Map<String, Object> params = new HashMap<>();
+
+        if (Objects.nonNull(filter)) {
+            queryBuilder.append(" WHERE 1 = 1");
+            addFilter(queryBuilder, params, filter);
+        }
+
+        queryBuilder.append(" ORDER BY ").append(getOrderBy());
+
+        TypedQuery<T> query = em.createQuery(queryBuilder.toString(), entityClass);
+        params.keySet().forEach(e -> query.setParameter(e, params.get(e)));
+
+        return query.getResultList();
+    }
+
+    protected abstract String getSelect();
+
     protected abstract void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter);
+
+    protected abstract String getOrderBy();
 }

@@ -39,7 +39,7 @@ public class BuildingDaoImpl extends AbstractDaoImpl<Building> implements Buildi
 
     @Override
     public List<Building> getList(AbstractFilter filter) {
-        List<Building> result = em.createQuery("SELECT new Building(id, name, address, lat, lon) FROM Building", Building.class).getResultList();
+        List<Building> result = super.getList(filter);
 
         result.forEach(e -> {
             AuditoriumFilter auditoriumFilter = new AuditoriumFilter();
@@ -52,5 +52,15 @@ public class BuildingDaoImpl extends AbstractDaoImpl<Building> implements Buildi
     }
 
     @Override
+    protected String getSelect() {
+        return "id, name, address, lat, lon";
+    }
+
+    @Override
     protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {}
+
+    @Override
+    protected String getOrderBy() {
+        return "name";
+    }
 }
