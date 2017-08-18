@@ -7,6 +7,7 @@ import {Headers, Http} from "@angular/http";
 import {User} from "../model/user";
 import {AuthenticationService} from "./authentication.service";
 import {USER_SERVICE_URL} from "../utils/injectable-constants";
+import {UserFilter} from "../model/filter/user-filter";
 
 @Injectable()
 export class UserService {
@@ -26,10 +27,16 @@ export class UserService {
 		return Promise.reject(error.message || error);
 	}
 
-	getList(name: string, id: number): Promise<User[]> {
-		const url = `${this.apiUrl}/getList?name=${name}&id=${id}`;
+	getCount(filter: UserFilter): Promise<number> {
+		const url = `${this.apiUrl}/getCount`;
 
-		return this.http.get(url, {headers: UserService.getHeaders()}).toPromise().then(response => response.json() as User[]).catch(UserService.handleError);
+		return this.http.post(url, filter, {headers: UserService.getHeaders()}).toPromise().then(response => response.json() as number).catch(UserService.handleError);
+	}
+
+	getList(filter: UserFilter): Promise<User[]> {
+		const url = `${this.apiUrl}/getList`;
+
+		return this.http.post(url, filter, {headers: UserService.getHeaders()}).toPromise().then(response => response.json() as User[]).catch(UserService.handleError);
 	}
 
 	delete(id: number): Promise<void> {

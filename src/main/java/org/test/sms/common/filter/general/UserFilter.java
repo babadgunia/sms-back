@@ -7,20 +7,20 @@ import java.util.List;
 
 public class UserFilter extends AbstractFilter {
 
-    private List<String> names;
+    private Long id;
 
     private String username;
 
+    private List<String> names;
+
     private UserGroup userGroup;
 
-    private Long id;
-
-    public List<String> getNames() {
-        return names;
+    public Long getId() {
+        return id;
     }
 
-    public void setNames(List<String> names) {
-        this.names = names;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -31,19 +31,19 @@ public class UserFilter extends AbstractFilter {
         this.username = username;
     }
 
+    public List<String> getNames() {
+        return names;
+    }
+
+    public void setNames(List<String> names) {
+        this.names = names;
+    }
+
     public UserGroup getUserGroup() {
         return userGroup;
     }
 
     public void setUserGroup(UserGroup userGroup) {
         this.userGroup = userGroup;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 }

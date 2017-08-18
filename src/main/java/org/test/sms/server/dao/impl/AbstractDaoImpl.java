@@ -99,7 +99,7 @@ public abstract class AbstractDaoImpl<T extends AppEntity> implements AbstractDa
 
     @Override
     public List<T> getList(AbstractFilter filter) {
-        StringBuilder queryBuilder = new StringBuilder("SELECT new" + entityClassName + "(" + getSelect() + ") FROM " + entityClassName);
+        StringBuilder queryBuilder = new StringBuilder("SELECT new " + entityClassName + "(" + getSelect() + ") FROM " + entityClassName);
         Map<String, Object> params = new HashMap<>();
 
         if (Objects.nonNull(filter)) {
@@ -111,6 +111,18 @@ public abstract class AbstractDaoImpl<T extends AppEntity> implements AbstractDa
 
         TypedQuery<T> query = em.createQuery(queryBuilder.toString(), entityClass);
         params.keySet().forEach(e -> query.setParameter(e, params.get(e)));
+
+        if (Objects.nonNull(filter)) {
+            Integer offset = filter.getOffset();
+            if (Objects.nonNull(offset)) {
+                query.setFirstResult(offset);
+            }
+
+            Integer numRows = filter.getNumRows();
+            if (Objects.nonNull(numRows)) {
+                query.setMaxResults(numRows);
+            }
+        }
 
         return query.getResultList();
     }

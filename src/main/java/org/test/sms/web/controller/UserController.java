@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.test.sms.common.entity.general.User;
 import org.test.sms.common.exception.AppException;
@@ -26,12 +26,13 @@ public class UserController {
         this.service = service;
     }
 
-    @RequestMapping(value = "getList", method = RequestMethod.GET)
-    public ResponseEntity<List<User>> getList(@RequestParam String name, @RequestParam Long id) {
-        UserFilter filter = new UserFilter();
-        filter.setUsername(name);
-        filter.setId(id);
+    @RequestMapping(value = "getCount", method = RequestMethod.POST)
+    public ResponseEntity<Long> getCount(@RequestBody(required = false) UserFilter filter) {
+        return new ResponseEntity<>(service.getCount(filter), HttpStatus.OK);
+    }
 
+    @RequestMapping(value = "getList", method = RequestMethod.POST)
+    public ResponseEntity<List<User>> getList(@RequestBody(required = false) UserFilter filter) {
         return new ResponseEntity<>(service.getList(filter), HttpStatus.OK);
     }
 

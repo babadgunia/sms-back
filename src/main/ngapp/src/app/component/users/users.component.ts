@@ -4,6 +4,7 @@ import {User} from "../../model/user";
 import {UserService} from "../../service/user.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
+import {UserFilter} from "../../model/filter/user-filter";
 
 @Component({
 	selector: 'users',
@@ -25,16 +26,25 @@ export class UsersComponent implements OnInit {
 	constructor(private router: Router, private route: ActivatedRoute, private userService: UserService) {}
 
 	ngOnInit() {
-		this.load('', 0);
+		// this.loadUsers();
 	}
 
-	load(name: string, id: number): void {
-		this.userService.getList(name, id).then(users => this.users = users, error => {
+	loadUsers(event: LazyLoadEvent): void {
+		let filter: UserFilter = {
+			offset: event.first,
+			numRows: event.rows
+		};
+
+		this.userService.getCount(filter).then(count => this.totalRecords = count, error => {
+			console.error(error);
+		});
+
+		this.userService.getList(filter).then(users => this.users = users, error => {
 			console.error(error);
 		});
 	}
 
-	loadUsers(event: LazyLoadEvent) {
+	load(event: LazyLoadEvent) {
 		//event.first = First row offset
 		//event.rows = Number of rows per page
 		//event.sortField = Field name to sort with

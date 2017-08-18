@@ -2,23 +2,23 @@ package org.test.sms.common.filter;
 
 public class AbstractFilter {
 
-    private Long offset;
+    private Integer offset;
 
-    private Long numRows;
+    private Integer numRows;
 
-    public Long getOffset() {
+    public Integer getOffset() {
         return offset;
     }
 
-    public void setOffset(Long offset) {
+    public void setOffset(Integer offset) {
         this.offset = offset;
     }
 
-    public Long getNumRows() {
+    public Integer getNumRows() {
         return numRows;
     }
 
-    public void setNumRows(Long numRows) {
+    public void setNumRows(Integer numRows) {
         this.numRows = numRows;
     }
 }
