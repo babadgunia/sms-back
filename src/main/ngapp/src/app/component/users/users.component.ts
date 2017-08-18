@@ -7,6 +7,7 @@ import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
 import {UserFilter} from "../../model/filter/user-filter";
 import {AbstractComponent} from "../abstract-component";
 import {Utils} from "../../utils/Utils";
+import {isNullOrUndefined} from "util";
 
 @Component({
 	selector: 'users',
@@ -39,11 +40,18 @@ export class UsersComponent extends AbstractComponent {
 	}
 
 	getList(event: LazyLoadEvent): void {
-		console.log(event.filters);
 		let filter: UserFilter = {
 			offset: event.first,
 			numRows: event.rows
 		};
+
+		if (!isNullOrUndefined(event.filters.id)) {
+			filter.id = event.filters.id.value;
+		}
+
+		if (!isNullOrUndefined(event.filters.username)) {
+			filter.username = event.filters.username.value;
+		}
 
 		this.userService.getCount(filter).then(count => this.totalRecords = count, error => Utils.handleError(error));
 		this.userService.getList(filter).then(users => this.users = users, error => Utils.handleError(error));

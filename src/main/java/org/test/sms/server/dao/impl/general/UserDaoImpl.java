@@ -88,16 +88,22 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {
         UserFilter filter = (UserFilter) abstractFilter;
 
-        List<String> names = filter.getNames();
-        if (Objects.nonNull(names)) {
-            queryBuilder.append(" AND name IN(:names)");
-            params.put("names", names);
+        Long id = filter.getId();
+        if (Objects.nonNull(id)) {
+            queryBuilder.append(" AND id = :id");
+            params.put("id", id);
         }
 
         String username = filter.getUsername();
         if (Objects.nonNull(username)) {
             queryBuilder.append(" AND UPPER(username) LIKE :username");
             params.put("username", "%" + username.toUpperCase() + "%");
+        }
+
+        List<String> names = filter.getNames();
+        if (Objects.nonNull(names)) {
+            queryBuilder.append(" AND name IN(:names)");
+            params.put("names", names);
         }
 
         UserGroup userGroup = filter.getUserGroup();
