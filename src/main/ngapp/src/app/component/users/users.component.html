@@ -9,23 +9,26 @@
 		<input pInputText type="text" placeholder="Name" i18n-placeholder="@@name" #nameField class="c-search-filter-component"/>
 	</div>
 
-	<div class="ui-g-7"></div>
+	<div class="ui-g-6"></div>
 
 	<div class="ui-g-1 c-search-filter-component-wrapper">
-		<button pButton type="button" label="Search" i18n-label="@@search" icon="fa-search" (click)="getList(nameField.value, idField.value)"
+		<button pButton type="button" label="Clear" i18n-label="@@clear" icon="fa-minus" (click)="clearFilter()"
 						class="c-search-filter-component"></button>
 	</div>
 	<div class="ui-g-1 c-search-filter-component-wrapper">
-		<button pButton type="button" label="Add" i18n-label="@@add" icon="fa-plus" (click)="add()"
+		<button pButton type="button" label="Search" i18n-label="@@search" icon="fa-search" (click)="initFilter(idField.value, usernameField.value, nameField.value)"
 						class="c-search-filter-component"></button>
+	</div>
+	<div class="ui-g-1 c-search-filter-component-wrapper">
+		<button pButton type="button" label="Add" i18n-label="@@add" icon="fa-plus" (click)="add()" class="c-search-filter-component"></button>
 	</div>
 
 	<div class="ui-g-12 c-search-table">
-		<p-dataTable [value]="users" [paginator]="true" [totalRecords]="totalRecords" [rows]="1" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]"
-								 [lazy]="true" (onLazyLoad)="getList($event)">
-			<p-column field="id" header="Id" [filter]="true" filterMatchMode="contains"></p-column>
-			<p-column field="username" header="Username" [filter]="true" filterMatchMode="contains"></p-column>
-			<p-column field="name" header="Name" [filter]="true" filterMatchMode="contains"></p-column>
+		<p-dataTable [value]="users" [paginator]="true" [totalRecords]="totalRecords" [rows]="numRows" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]"
+								 [lazy]="true" (onLazyLoad)="initLazyFilter($event)">
+			<p-column field="id" header="Id" i18n-header="@@id" [filter]="true" filterMatchMode="contains"></p-column>
+			<p-column field="username" header="Username" i18n-header="@@username" [filter]="true" filterMatchMode="contains"></p-column>
+			<p-column field="name" header="Name" i18n-header="@@name" [filter]="true" filterMatchMode="contains"></p-column>
 			<p-column header="Action" [style]="{'width':'5%'}">
 				<ng-template let-col let-user="rowData" pTemplate="body">
 					<button pButton type="button" icon="fa-pencil" title="Edit" (click)="get(user);"></button>

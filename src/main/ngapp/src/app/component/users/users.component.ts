@@ -2,7 +2,6 @@ import {Component} from "@angular/core";
 
 import {User} from "../../model/user";
 import {UserService} from "../../service/user.service";
-import {ActivatedRoute, Router} from "@angular/router";
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
 import {UserFilter} from "../../model/filter/user-filter";
 import {AbstractComponent} from "../abstract-component";
@@ -18,14 +17,40 @@ export class UsersComponent extends AbstractComponent {
 
 	users: User[];
 
-	totalRecords: number;
+	filter: UserFilter = {};
 
 	showUserDialog: boolean;
 
 	selectedUser: User = new User();
 
-	constructor(private router: Router, private route: ActivatedRoute, private userService: UserService) {
+	constructor(private userService: UserService) {
 		super();
+	}
+
+	initFilter(id: number, username: string, name: string) {
+		super.initAbstractFilter(this.filter);
+
+		this.filter.id = id;
+		this.filter.username = username;
+		this.filter.name = name;
+
+		this.getList();
+	}
+
+	initLazyFilter(event: LazyLoadEvent): void {
+		super.initAbstractLazyFilter(this.filter, event);
+
+		if (!isNullOrUndefined(event.filters.id)) {
+			this.filter.id = event.filters.id.value;
+		}
+		if (!isNullOrUndefined(event.filters.username)) {
+			this.filter.username = event.filters.username.value;
+		}
+		if (!isNullOrUndefined(event.filters.name)) {
+			this.filter.username = event.filters.name.value;
+		}
+
+		this.getList();
 	}
 
 	add(): void {}
@@ -39,21 +64,8 @@ export class UsersComponent extends AbstractComponent {
 		this.showUserDialog = true;
 	}
 
-	getList(event: LazyLoadEvent): void {
-		let filter: UserFilter = {
-			offset: event.first,
-			numRows: event.rows
-		};
-
-		if (!isNullOrUndefined(event.filters.id)) {
-			filter.id = event.filters.id.value;
-		}
-
-		if (!isNullOrUndefined(event.filters.username)) {
-			filter.username = event.filters.username.value;
-		}
-
-		this.userService.getCount(filter).then(count => this.totalRecords = count, error => Utils.handleError(error));
-		this.userService.getList(filter).then(users => this.users = users, error => Utils.handleError(error));
+	getList(): void {
+		this.userService.getCount(this.filter).then(count => this.totalRecords = count, error => Utils.handleError(error));
+		this.userService.getList(this.filter).then(list => this.users = list, error => Utils.handleError(error));
 	}
 }
