@@ -12,8 +12,7 @@
 	<div class="ui-g-7"></div>
 
 	<div class="ui-g-1 c-search-filter-component-wrapper">
-		<button pButton type="button" label="Clear" i18n-label="@@clear" icon="fa-minus" (click)="clearFilter()"
-						class="c-search-filter-component"></button>
+		<button pButton type="button" label="Clear" i18n-label="@@clear" icon="fa-minus" (click)="clearFilter()" class="c-search-filter-component"></button>
 	</div>
 	<div class="ui-g-1 c-search-filter-component-wrapper">
 		<button pButton type="button" label="Search" i18n-label="@@search" icon="fa-search" (click)="initFilter(idField.value, usernameField.value, nameField.value)"
@@ -32,9 +31,11 @@
 					<button pButton type="button" label="Add" i18n-label="@@add" icon="fa-plus" (click)="add()"></button>
 				</ng-template>
 				<ng-template let-col let-user="rowData" pTemplate="body">
-					<button pButton type="button" icon="fa-pencil" title="Edit" (click)="get(user);"></button>
+					<button pButton type="button" title="Edit" i18n-title="@@edit" icon="fa-pencil" (click)="get(user)"></button>
 				</ng-template>
 			</p-column>
+
+			<p-footer></p-footer>
 		</p-dataTable>
 	</div>
 </div>
