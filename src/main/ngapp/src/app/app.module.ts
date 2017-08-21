@@ -11,7 +11,6 @@ import {INJECTABLE_CONSTANTS} from "./utils/injectable-constants";
 // services
 import {AuthenticationService} from "./service/authentication.service";
 import {HeroService} from "./service/hero.service";
-import {TranslationService} from "./service/translation.service";
 import {UserService} from "./service/user.service";
 // components
 import {AppComponent} from "./app.component";
@@ -65,7 +64,6 @@ import {SplitButtonModule} from "primeng/components/splitbutton/splitbutton";
 		// services
 		AuthenticationService,
 		HeroService,
-		TranslationService,
 		UserService
 	],
 	bootstrap: [AppComponent]
