@@ -17,7 +17,7 @@ export class AbstractComponent {
 		filter.numRows = event.rows;
 	}
 
-	protected clearFilter() {
+	protected clearAbstractFilter() {
 		[].forEach.call(document.getElementsByClassName("c-search-filter-component"), element => {
 			if (element.type === 'text') {
 				element.value = '';

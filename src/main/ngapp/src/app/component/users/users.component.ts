@@ -15,19 +15,25 @@ import {isNullOrUndefined} from "util";
 })
 export class UsersComponent extends AbstractComponent {
 
-	users: User[];
+	private users: User[];
 
-	filter: UserFilter = {};
+	private filter: UserFilter = {};
 
-	showUserDialog: boolean;
+	private showUserDialog: boolean;
 
-	selectedUser: User = new User();
+	private selectedUser: User = new User();
 
 	constructor(private userService: UserService) {
 		super();
 	}
 
-	initFilter(id: number, username: string, name: string) {
+	private clearFilter() {
+		super.clearAbstractFilter();
+
+		this.initFilter(null, null, null);
+	}
+
+	private initFilter(id: number, username: string, name: string) {
 		super.initAbstractFilter(this.filter);
 
 		this.filter.id = id;
@@ -37,7 +43,7 @@ export class UsersComponent extends AbstractComponent {
 		this.getList();
 	}
 
-	initLazyFilter(event: LazyLoadEvent): void {
+	private initLazyFilter(event: LazyLoadEvent): void {
 		super.initAbstractLazyFilter(this.filter, event);
 
 		if (!isNullOrUndefined(event.filters.id)) {
@@ -53,18 +59,18 @@ export class UsersComponent extends AbstractComponent {
 		this.getList();
 	}
 
-	add(): void {}
+	private add(): void {}
 
-	update(): void {}
+	private update(): void {}
 
-	delete(): void {}
+	private delete(): void {}
 
-	get(user: User) {
+	private get(user: User) {
 		this.selectedUser = user;
 		this.showUserDialog = true;
 	}
 
-	getList(): void {
+	private getList(): void {
 		this.userService.getCount(this.filter).then(count => this.totalRecords = count, error => Utils.handleError(error));
 		this.userService.getList(this.filter).then(list => this.users = list, error => Utils.handleError(error));
 	}
