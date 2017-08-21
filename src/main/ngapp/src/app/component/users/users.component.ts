@@ -28,7 +28,7 @@ export class UsersComponent extends AbstractComponent {
 	}
 
 	private clearFilter() {
-		super.clearAbstractFilter();
+		AbstractComponent.clearAbstractFilter();
 
 		this.initFilter(null, null, null);
 	}
@@ -44,7 +44,7 @@ export class UsersComponent extends AbstractComponent {
 	}
 
 	private initLazyFilter(event: LazyLoadEvent): void {
-		super.initAbstractLazyFilter(this.filter, event);
+		AbstractComponent.initAbstractLazyFilter(this.filter, event);
 
 		if (!isNullOrUndefined(event.filters.id)) {
 			this.filter.id = event.filters.id.value;
@@ -71,7 +71,12 @@ export class UsersComponent extends AbstractComponent {
 	}
 
 	private getList(): void {
+		this.tableLoading = true;
+
 		this.userService.getCount(this.filter).then(count => this.tableTotalRecords = count, error => Utils.handleError(error));
-		this.userService.getList(this.filter).then(list => this.users = list, error => Utils.handleError(error));
+		this.userService.getList(this.filter).then(list => {
+			this.tableLoading = false;
+			this.users = list;
+		}, error => Utils.handleError(error));
 	}
 }
