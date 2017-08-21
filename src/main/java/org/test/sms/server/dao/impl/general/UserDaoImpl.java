@@ -5,6 +5,8 @@ import org.test.sms.common.entity.general.Permission;
 import org.test.sms.common.entity.general.User;
 import org.test.sms.common.entity.general.UserGroup;
 import org.test.sms.common.enums.general.ErrorCode;
+import org.test.sms.common.enums.general.PermissionGroupType;
+import org.test.sms.common.enums.general.PermissionType;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.AbstractFilter;
 import org.test.sms.common.filter.general.UserFilter;
@@ -80,6 +82,24 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     }
 
     @Override
+    public boolean hasPermission(String username, PermissionGroupType permissionGroup, PermissionType permissionType) {
+        User user = em.createQuery("SELECT new User(id, userGroup) FROM User WHERE UPPER(username) = :username", User.class)
+                .setParameter("username", username.toUpperCase())
+                .getSingleResult();
+
+        if(user != null) {
+            Permission permission = em.createQuery(
+                    "FROM Permission u WHERE u.permissionGroup = :permissionGroup AND u.userGroup = :userGroup AND EXISTS (SELECT x FROM u.permissions x WHERE x = :permissionType)", Permission.class)
+                    .setParameter("userGroup", user.getUserGroup())
+                    .setParameter("permissionGroup", permissionGroup)
+                    .setParameter("permissionType", permissionType)
+                    .getSingleResult();
+            return permission != null;
+        }
+        return false;
+    }
+
+    @Override
     protected String getSelect() {
         return "id, name, username, userGroup.id, userGroup.name";
     }
@@ -117,4 +137,6 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     protected String getOrderBy() {
         return "username";
     }
+
+
 }

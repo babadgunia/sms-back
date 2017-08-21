@@ -48,6 +48,11 @@ public class User extends AppEntity {
         super(id);
     }
 
+    public User(long id, UserGroup userGroup) {
+        this(id);
+        this.userGroup = userGroup;
+    }
+
     public User(long id, String username, String password, String name, StatusType status, LanguageType language, UserGroup userGroup) {
         this.id = id;
         this.username = username;
