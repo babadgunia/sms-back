@@ -71,7 +71,7 @@ export class UsersComponent extends AbstractComponent {
 	}
 
 	private getList(): void {
-		this.userService.getCount(this.filter).then(count => this.totalRecords = count, error => Utils.handleError(error));
+		this.userService.getCount(this.filter).then(count => this.tableTotalRecords = count, error => Utils.handleError(error));
 		this.userService.getList(this.filter).then(list => this.users = list, error => Utils.handleError(error));
 	}
 }

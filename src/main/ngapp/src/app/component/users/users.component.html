@@ -21,8 +21,8 @@
 	</div>
 
 	<div class="ui-g-12 c-search-table">
-		<p-dataTable [value]="users" [paginator]="true" [totalRecords]="totalRecords" [rows]="numRows" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]"
-								 [lazy]="true" (onLazyLoad)="initLazyFilter($event)">
+		<p-dataTable [value]="users" [paginator]="true" [totalRecords]="tableTotalRecords" [rows]="tableRows" [pageLinks]="tablePageLinks"
+								 [rowsPerPageOptions]="tableRowsPerPageOptions" [lazy]="true" (onLazyLoad)="initLazyFilter($event)">
 			<p-column field="id" header="Id" i18n-header="@@id" [filter]="true" filterMatchMode="contains"></p-column>
 			<p-column field="username" header="Username" i18n-header="@@username" [filter]="true" filterMatchMode="contains"></p-column>
 			<p-column field="name" header="Name" i18n-header="@@name" [filter]="true" filterMatchMode="contains"></p-column>
