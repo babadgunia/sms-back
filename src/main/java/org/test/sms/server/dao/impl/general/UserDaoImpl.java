@@ -83,18 +83,22 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 
     @Override
     public boolean hasPermission(String username, PermissionGroupType permissionGroup, PermissionType permissionType) {
-        User user = em.createQuery("SELECT new User(id, userGroup) FROM User WHERE UPPER(username) = :username", User.class)
-                .setParameter("username", username.toUpperCase())
-                .getSingleResult();
-
-        if(user != null) {
-            Permission permission = em.createQuery(
-                    "FROM Permission u WHERE u.permissionGroup = :permissionGroup AND u.userGroup = :userGroup AND EXISTS (SELECT x FROM u.permissions x WHERE x = :permissionType)", Permission.class)
-                    .setParameter("userGroup", user.getUserGroup())
-                    .setParameter("permissionGroup", permissionGroup)
-                    .setParameter("permissionType", permissionType)
+        try {
+            User user = em.createQuery("SELECT new User(id, userGroup) FROM User WHERE UPPER(username) = :username", User.class)
+                    .setParameter("username", username.toUpperCase())
                     .getSingleResult();
-            return permission != null;
+
+            if (user != null) {
+                Permission permission = em.createQuery(
+                        "FROM Permission p WHERE p.permissionGroup = :permissionGroup AND p.userGroup = :userGroup AND EXISTS (SELECT pl FROM p.permissions pl WHERE pl = :permissionType)", Permission.class)
+                        .setParameter("userGroup", user.getUserGroup())
+                        .setParameter("permissionGroup", permissionGroup)
+                        .setParameter("permissionType", permissionType)
+                        .getSingleResult();
+                return permission != null;
+            }
+        } catch(NoResultException e) {
+            return false;
         }
         return false;
     }
