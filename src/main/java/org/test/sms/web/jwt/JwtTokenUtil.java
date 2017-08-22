@@ -61,6 +61,7 @@ public class JwtTokenUtil {
         claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
         claims.put(CLAIM_KEY_AUDIENCE, AUDIENCE_WEB);
         claims.put(CLAIM_KEY_CREATED, new Date());
+        claims.put("PERMISSIONS", userDetails.getAuthorities());
 
         return generateToken(claims);
     }

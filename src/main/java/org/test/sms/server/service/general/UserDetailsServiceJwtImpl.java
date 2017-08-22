@@ -7,12 +7,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.test.sms.common.entity.general.Permission;
 import org.test.sms.common.entity.general.User;
+import org.test.sms.common.enums.general.PermissionType;
 import org.test.sms.common.enums.general.StatusType;
 import org.test.sms.server.dao.interfaces.general.UserDao;
 import org.test.sms.web.jwt.JwtUser;
 
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,8 +42,15 @@ public class UserDetailsServiceJwtImpl implements UserDetailsService {
             jwtUser.setUsername(username);
             jwtUser.setPassword(user.getPassword());
             jwtUser.setEnabled(user.getStatus() == StatusType.ACTIVE);
-            jwtUser.setAuthorities(Collections.singletonList(new SimpleGrantedAuthority(user.getUserGroup().getName())));
 
+
+            List<SimpleGrantedAuthority> permissionsList = new ArrayList<>();
+            for (Permission permission : user.getUserGroup().getPermissions()) {
+                for (PermissionType permissionType : permission.getPermissions()) {
+                    permissionsList.add(new SimpleGrantedAuthority(permission.getPermissionGroup().toString() + "." + permissionType.toString()));
+                }
+            }
+            jwtUser.setAuthorities(permissionsList);
             return jwtUser;
         }
     }

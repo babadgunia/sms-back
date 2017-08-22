@@ -13,8 +13,12 @@ import org.test.sms.server.dao.interfaces.general.UserDao;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class UserPermissionService {
 
-    @Autowired
     private UserDao userDao;
+
+    @Autowired
+    public UserPermissionService(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     public boolean hasPermission(String permission, String permissionType) {
         if (Utils.isBlank(permission)) return false;

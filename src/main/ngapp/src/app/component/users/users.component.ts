@@ -72,7 +72,6 @@ export class UsersComponent extends AbstractComponent {
 
 	private getList(): void {
 		this.tableLoading = true;
-
 		this.userService.getCount(this.filter).then(count => this.tableTotalRecords = count, error => Utils.handleError(error));
 		this.userService.getList(this.filter).then(list => {
 			this.tableLoading = false;
