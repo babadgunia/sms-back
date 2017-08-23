@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 
 import {User} from "../../model/user";
 import {UserService} from "../../service/user.service";
+import {AuthenticationService} from "../../service/authentication.service";
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
 import {UserFilter} from "../../model/filter/user-filter";
 import {AbstractComponent} from "../abstract-component";
@@ -77,5 +78,9 @@ export class UsersComponent extends AbstractComponent {
 			this.tableLoading = false;
 			this.users = list;
 		}, error => Utils.handleError(error));
+	}
+
+	hasPermission(permission: string) {
+		return AuthenticationService.hasPermission(permission);
 	}
 }

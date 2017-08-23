@@ -32,30 +32,8 @@ export class AuthenticationService {
 			}).catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 	}
 
-
-	private urlBase64Decode(str: string) {
-			var output = str.replace(/-/g, '+').replace(/_/g, '/');
-			switch (output.length % 4) {
-						case 0: { break; }
-							case 2: { output += '=='; break; }
-							case 3: { output += '='; break; }
-							default: {
-									throw 'Illegal base64url string!';
-							}
-					}
-		 return decodeURIComponent(window.atob(output));
-	}
-
-	private decodeToken(token: string) {
-			var parts = token.split('.');
-			if (parts.length !== 3) {
-						throw new Error('JWT must have 3 parts');
-				}
-			var decoded = this.urlBase64Decode(parts[1]);
-			if (!decoded) {
-						throw new Error('Cannot decode the token');
-				}
-			return JSON.parse(decoded);
+	static hasPermission(permission: string) {
+		return localStorage.getItem('permissions').toLowerCase().indexOf(permission.toLowerCase()) > -1;
 	}
 
 	static getToken(): String {
@@ -73,5 +51,30 @@ export class AuthenticationService {
 		let token: String = AuthenticationService.getToken();
 
 		return token && token.length > 0;
+	}
+
+	private urlBase64Decode(str: string) {
+		var output = str.replace(/-/g, '+').replace(/_/g, '/');
+		switch (output.length % 4) {
+			case 0: { break; }
+			case 2: { output += '=='; break; }
+			case 3: { output += '='; break; }
+			default: {
+				throw 'Illegal base64url string!';
+			}
+		}
+		return decodeURIComponent(window.atob(output));
+	}
+
+	private decodeToken(token: string) {
+		var parts = token.split('.');
+		if (parts.length !== 3) {
+			throw new Error('JWT must have 3 parts');
+		}
+		var decoded = this.urlBase64Decode(parts[1]);
+		if (!decoded) {
+			throw new Error('Cannot decode the token');
+		}
+		return JSON.parse(decoded);
 	}
 }

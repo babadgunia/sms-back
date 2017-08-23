@@ -32,7 +32,7 @@
 
 			<p-column styleClass="col-button" [style]="{'width':'5%'}">
 				<ng-template pTemplate="header">
-					<button pButton type="button" label="Add" i18n-label="@@add" icon="fa-plus" (click)="add()"></button>
+					<button pButton type="button" label="Add" i18n-label="@@add" icon="fa-plus" (click)="add()" [disabled]="!hasPermission('USER.EDIT')"></button>
 				</ng-template>
 				<ng-template let-col let-user="rowData" pTemplate="body">
 					<button pButton type="button" title="Edit" i18n-title="@@edit" icon="fa-pencil" (click)="get(user)"></button>
