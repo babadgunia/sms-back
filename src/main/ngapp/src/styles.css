@@ -9,3 +9,7 @@
 .c-search-table {
 	padding-top: 0;
 }
+
+.c-search-table-action-column {
+	width: 5%;
+}
