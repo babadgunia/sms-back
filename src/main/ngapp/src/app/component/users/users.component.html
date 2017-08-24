@@ -1,25 +1,26 @@
 <div class="ui-g">
 	<div class="ui-g-1">
-		<input #idField pInputText placeholder="Id" i18n-placeholder="@@id" class="c-search-filter-component"/>
+		<input #idField pInputText placeholder="Id" i18n-placeholder="@@id" class={{searchFilterComponentClass}}/>
 	</div>
-	<div class="ui-g-1 c-search-filter-component-wrapper">
-		<input #usernameField pInputText placeholder="Username" i18n-placeholder="@@username" class="c-search-filter-component"/>
+	<div class="ui-g-1 {{searchFilterComponentWrapperClass}}">
+		<input #usernameField pInputText placeholder="Username" i18n-placeholder="@@username" class={{searchFilterComponentClass}}/>
 	</div>
-	<div class="ui-g-1 c-search-filter-component-wrapper">
-		<input #nameField pInputText placeholder="Name" i18n-placeholder="@@name" class="c-search-filter-component"/>
+	<div class="ui-g-1 {{searchFilterComponentWrapperClass}}">
+		<input #nameField pInputText placeholder="Name" i18n-placeholder="@@name" class={{searchFilterComponentClass}}/>
 	</div>
 
 	<div class="ui-g-7"></div>
 
-	<div class="ui-g-1 c-search-filter-component-wrapper">
-		<button pButton type="button" label="Clear" i18n-label="@@clear" icon="fa-minus" (click)="table.reset(); clearFilter()" class="c-search-filter-component"></button>
+	<div class="ui-g-1 {{searchFilterComponentWrapperClass}}">
+		<button pButton type="button" label="Clear" i18n-label="@@clear" icon={{searchFilterClearButtonIcon}} (click)="table.reset(); clearFilter()"
+						class={{searchFilterComponentClass}}></button>
 	</div>
-	<div class="ui-g-1 c-search-filter-component-wrapper">
-		<button pButton type="button" label="Search" i18n-label="@@search" icon="fa-search"
-						(click)="initFilter(idField.value, usernameField.value, nameField.value)" class="c-search-filter-component"></button>
+	<div class="ui-g-1 {{searchFilterComponentWrapperClass}}">
+		<button pButton type="button" label="Search" i18n-label="@@search" icon={{searchFilterSearchButtonIcon}}
+						(click)="initFilter(idField.value, usernameField.value, nameField.value)" class={{searchFilterComponentClass}}></button>
 	</div>
 
-	<div class="ui-g-12 c-search-table">
+	<div class="ui-g-12 {{searchTableClass}}">
 		<p-dataTable #table [value]="users" [paginator]="true" [totalRecords]="tableTotalRecords" [rows]="tableRows" [pageLinks]="tablePageLinks"
 								 [lazy]="true" (onLazyLoad)="initLazyFilter($event)" [loading]="tableLoading" [loadingIcon]="tableLoadingIcon">
 			<p-column field="id" header="Id" i18n-header="@@id" [filter]="true" filterPlaceholder="Id" i18n-filterPlaceholder="@@id" filterMatchMode="contains"></p-column>
@@ -27,13 +28,22 @@
 								filterMatchMode="contains"></p-column>
 			<p-column field="name" header="Name" i18n-header="@@name" [filter]="true" filterPlaceholder="Name" i18n-filterPlaceholder="@@name" filterMatchMode="contains"></p-column>
 
-			<p-column styleClass="c-search-table-action-column">
+			<p-column styleClass={{searchTableActionColumnClass}}>
 				<ng-template pTemplate="header">
-					<button pButton type="button" label="Add" i18n-label="@@add" icon="fa-plus" (click)="add()" *ngIf="hasPermission('USER.EDIT')"></button>
+					<button pButton type="button" label="Add" i18n-label="@@add" icon={{searchTableActionColumnAddButtonClass}} (click)="add()" *ngIf="hasPermission('USER.ADD')"></button>
 				</ng-template>
-				<ng-template let-col let-user="rowData" pTemplate="body">
-					<button pButton type="button" title="Edit" i18n-title="@@edit" icon="fa-pencil" (click)="get(user)"></button>
-				</ng-template>
+				<div class="ui-g">
+					<ng-template let-col let-user="rowData" pTemplate="body">
+						<div class="ui-g-6">
+							<button pButton type="button" title="Edit" i18n-title="@@edit" icon={{searchTableActionColumnEditButtonClass}} (click)="get(user)" *ngIf="hasPermission('USER.EDIT')"></button>
+							<button pButton type="button" title="View" i18n-title="@@view" icon={{searchTableActionColumnViewButtonClass}} (click)="get(user)" *ngIf="!hasPermission('USER.EDIT')"></button>
+						</div>
+						<div class="ui-g-6">
+							<button pButton type="button" title="Delete" i18n-title="@@delete" icon={{searchTableActionColumnDeleteButtonClass}} (click)="delete(user)"
+											*ngIf="hasPermission('USER.DELETE')"></button>
+						</div>
+					</ng-template>
+				</div>
 			</p-column>
 
 			<p-footer i18n="@@tableFooter">{{tableTotalRecords}} records found</p-footer>
