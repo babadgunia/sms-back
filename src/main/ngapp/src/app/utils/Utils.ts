@@ -1,8 +1,6 @@
 export class Utils {
 
-	private Utils() {}
-
-	static handleError(error: any) {
+	public static handleError(error: any): void {
 		console.error(error);
 	}
 }

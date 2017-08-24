@@ -1,13 +1,17 @@
+// angular
 import {Component} from "@angular/core";
-
+// model
 import {User} from "../../model/user";
-import {UserService} from "../../service/user.service";
-import {AuthenticationService} from "../../service/authentication.service";
-import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
 import {UserFilter} from "../../model/filter/user-filter";
+// components
 import {AbstractComponent} from "../abstract-component";
-import {Utils} from "../../utils/Utils";
+// services
+import {UserService} from "../../service/user.service";
+// utils
 import {isNullOrUndefined} from "util";
+import {Utils} from "../../utils/Utils";
+// primeng
+import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
 
 @Component({
 	selector: 'users',
@@ -29,7 +33,7 @@ export class UsersComponent extends AbstractComponent {
 	}
 
 	private clearFilter() {
-		AbstractComponent.clearAbstractFilter();
+		super.clearAbstractFilter();
 
 		this.initFilter(null, null, null);
 	}
@@ -45,7 +49,7 @@ export class UsersComponent extends AbstractComponent {
 	}
 
 	private initLazyFilter(event: LazyLoadEvent): void {
-		AbstractComponent.initAbstractLazyFilter(this.filter, event);
+		super.initAbstractLazyFilter(this.filter, event);
 
 		if (!isNullOrUndefined(event.filters.id)) {
 			this.filter.id = event.filters.id.value;
@@ -73,14 +77,11 @@ export class UsersComponent extends AbstractComponent {
 
 	private getList(): void {
 		this.tableLoading = true;
+
 		this.userService.getCount(this.filter).then(count => this.tableTotalRecords = count, error => Utils.handleError(error));
 		this.userService.getList(this.filter).then(list => {
 			this.tableLoading = false;
 			this.users = list;
 		}, error => Utils.handleError(error));
-	}
-
-	hasPermission(permission: string) {
-		return AuthenticationService.hasPermission(permission);
 	}
 }
