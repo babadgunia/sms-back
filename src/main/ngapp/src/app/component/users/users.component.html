@@ -34,7 +34,7 @@
 				<ng-template pTemplate="body" let-user="rowData">
 					<div class="ui-g">
 						<div class="ui-g-nopad {{hasPermission('USER.DELETE') ? searchTableActionColumnViewEditButtonWrapperClass : ''}}" [class.ui-g-12]="!hasPermission('USER.DELETE')"
-								 [class.ui-g-6]="hasPermission('USER.DELETE')" [class.{{searchTableActionColumnViewEditButtonWrapperClass}}]="hasPermission('USER.DELETE')">
+								 [class.ui-g-6]="hasPermission('USER.DELETE')">
 							<button pButton [title]="getMessage('VIEW')" [icon]="searchTableActionColumnViewButtonIcon" [class]="searchTableActionColumnButtonClass" (click)="get(user)"
 											*ngIf="!hasPermission('USER.EDIT')"></button>
 							<button pButton [title]="getMessage('EDIT')" [icon]="searchTableActionColumnEditButtonIcon" [class]="searchTableActionColumnButtonClass" (click)="get(user)"
