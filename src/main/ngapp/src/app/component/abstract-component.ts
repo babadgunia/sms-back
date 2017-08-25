@@ -19,7 +19,7 @@ export class AbstractComponent {
 
 	protected readonly searchFilterSearchButtonIcon: string = "fa-search";
 
-	protected readonly searchTableRows: number = 1;
+	protected readonly searchTableRows: number = 10;
 
 	protected readonly searchTablePageLinks: number = 3;
 

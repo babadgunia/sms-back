@@ -32,13 +32,13 @@ export class UsersComponent extends AbstractComponent {
 		super();
 	}
 
-	private clearFilter() {
+	private clearFilter(): void {
 		super.clearAbstractFilter();
 
 		this.initFilter(null, null, null);
 	}
 
-	private initFilter(id: number, username: string, name: string) {
+	private initFilter(id: number, username: string, name: string): void {
 		super.initAbstractFilter(this.filter);
 
 		this.filter.id = id;
@@ -70,7 +70,7 @@ export class UsersComponent extends AbstractComponent {
 
 	private delete(): void {}
 
-	private get(user: User) {
+	private get(user: User): void {
 		this.selectedUser = user;
 		this.showUserDialog = true;
 	}

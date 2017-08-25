@@ -1,6 +1,5 @@
 package org.test.sms.common.filter.general;
 
-import org.test.sms.common.entity.general.UserGroup;
 import org.test.sms.common.filter.AbstractFilter;
 
 import java.util.List;
@@ -12,8 +11,6 @@ public class UserFilter extends AbstractFilter {
     private String username;
 
     private List<String> names;
-
-    private UserGroup userGroup;
 
     public Long getId() {
         return id;
@@ -37,13 +34,5 @@ public class UserFilter extends AbstractFilter {
 
     public void setNames(List<String> names) {
         this.names = names;
-    }
-
-    public UserGroup getUserGroup() {
-        return userGroup;
-    }
-
-    public void setUserGroup(UserGroup userGroup) {
-        this.userGroup = userGroup;
     }
 }

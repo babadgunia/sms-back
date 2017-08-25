@@ -3,7 +3,6 @@ package org.test.sms.server.dao.impl.general;
 import org.springframework.stereotype.Repository;
 import org.test.sms.common.entity.general.Permission;
 import org.test.sms.common.entity.general.User;
-import org.test.sms.common.entity.general.UserGroup;
 import org.test.sms.common.enums.general.ErrorCode;
 import org.test.sms.common.enums.general.PermissionGroupType;
 import org.test.sms.common.enums.general.PermissionType;
@@ -64,8 +63,7 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 
     @Override
     public Optional<User> get(String username) {
-        TypedQuery<User> query = em.createQuery
-                ("SELECT new User(id, username, password, name, status, language, userGroup) FROM User WHERE UPPER(username) = :username", User.class);
+        TypedQuery<User> query = em.createQuery("SELECT new User(id, username, password, name, status, language, userGroup) FROM User WHERE UPPER(username) = :username", User.class);
         query.setParameter("username", username.toUpperCase());
 
         try {
@@ -97,7 +95,7 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
                         .getSingleResult();
                 return permission != null;
             }
-        } catch(NoResultException e) {
+        } catch (NoResultException e) {
             return false;
         }
         return false;
@@ -105,7 +103,7 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 
     @Override
     protected String getSelect() {
-        return "id, name, username, userGroup.id, userGroup.name";
+        return "id, username, name";
     }
 
     @Override
@@ -129,18 +127,10 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
             queryBuilder.append(" AND name IN(:names)");
             params.put("names", names);
         }
-
-        UserGroup userGroup = filter.getUserGroup();
-        if (Objects.nonNull(userGroup)) {
-            queryBuilder.append(" AND userGroup = :userGroup");
-            params.put("userGroup", userGroup);
-        }
     }
 
     @Override
     protected String getOrderBy() {
         return "username";
     }
-
-
 }

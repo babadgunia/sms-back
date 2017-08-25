@@ -50,24 +50,26 @@ public class User extends AppEntity {
 
     public User(long id, UserGroup userGroup) {
         this(id);
+
         this.userGroup = userGroup;
     }
 
+    public User(long id, String username, String name) {
+        this(id);
+
+        this.username = username;
+        this.name = name;
+    }
+
     public User(long id, String username, String password, String name, StatusType status, LanguageType language, UserGroup userGroup) {
-        this.id = id;
+        this(id);
+
         this.username = username;
         this.password = password;
         this.name = name;
         this.status = status;
         this.language = language;
         this.userGroup = userGroup;
-    }
-
-    public User(long id, String name, String username, long userGroupId, String userGroupName) {
-        this.id = id;
-        this.name = name;
-        this.username = username;
-        userGroup = new UserGroup(userGroupId, userGroupName);
     }
 
     @Override
