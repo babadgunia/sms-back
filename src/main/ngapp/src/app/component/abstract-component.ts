@@ -27,23 +27,17 @@ export class AbstractComponent {
 
 	protected readonly searchTableActionColumnClass: string = "c-search-table-action-column";
 
-	protected readonly searchTableActionColumnAddButtonClass: string = "c-full-width";
+	protected readonly searchTableActionColumnButtonClass: string = "c-full-width";
 
 	protected readonly searchTableActionColumnAddButtonIcon: string = "fa-plus";
 
 	protected readonly searchTableActionColumnViewEditButtonWrapperClass: string = "c-search-table-action-column-view-edit-button-wrapper";
 
-	protected readonly searchTableActionColumnViewButtonClass: string = "c-full-width";
-
 	protected readonly searchTableActionColumnViewButtonIcon: string = "fa-envelope-open";
-
-	protected readonly searchTableActionColumnEditButtonClass: string = "c-full-width";
 
 	protected readonly searchTableActionColumnEditButtonIcon: string = "fa-pencil";
 
 	protected readonly searchTableActionColumnDeleteButtonWrapperClass: string = "c-search-table-action-column-delete-button-wrapper";
-
-	protected readonly searchTableActionColumnDeleteButtonClass: string = "c-full-width";
 
 	protected readonly searchTableActionColumnDeleteButtonIcon: string = "fa-remove";
 

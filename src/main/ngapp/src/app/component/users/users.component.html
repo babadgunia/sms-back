@@ -28,20 +28,20 @@
 
 			<p-column [styleClass]="searchTableActionColumnClass">
 				<ng-template pTemplate="header">
-					<button pButton [label]="getMessage('ADD')" [icon]="searchTableActionColumnAddButtonIcon" [class]="searchTableActionColumnAddButtonClass" (click)="add()"
+					<button pButton [label]="getMessage('ADD')" [icon]="searchTableActionColumnAddButtonIcon" [class]="searchTableActionColumnButtonClass" (click)="add()"
 									*ngIf="hasPermission('USER.ADD')"></button>
 				</ng-template>
 				<ng-template pTemplate="body" let-user="rowData">
 					<div class="ui-g">
-						<div class="ui-g-6 ui-g-nopad {{searchTableActionColumnViewEditButtonWrapperClass}}">
-							<button pButton [title]="getMessage('VIEW')" [icon]="searchTableActionColumnViewButtonIcon" [class]="searchTableActionColumnViewButtonClass" (click)="get(user)"
+						<div class="ui-g-nopad {{hasPermission('USER.DELETE') ? searchTableActionColumnViewEditButtonWrapperClass : ''}}" [class.ui-g-12]="!hasPermission('USER.DELETE')"
+								 [class.ui-g-6]="hasPermission('USER.DELETE')" [class.{{searchTableActionColumnViewEditButtonWrapperClass}}]="hasPermission('USER.DELETE')">
+							<button pButton [title]="getMessage('VIEW')" [icon]="searchTableActionColumnViewButtonIcon" [class]="searchTableActionColumnButtonClass" (click)="get(user)"
 											*ngIf="!hasPermission('USER.EDIT')"></button>
-							<button pButton [title]="getMessage('EDIT')" [icon]="searchTableActionColumnEditButtonIcon" [class]="searchTableActionColumnEditButtonClass" (click)="get(user)"
+							<button pButton [title]="getMessage('EDIT')" [icon]="searchTableActionColumnEditButtonIcon" [class]="searchTableActionColumnButtonClass" (click)="get(user)"
 											*ngIf="hasPermission('USER.EDIT')"></button>
 						</div>
-						<div class="ui-g-6 ui-g-nopad {{searchTableActionColumnDeleteButtonWrapperClass}}">
-							<button pButton [title]="getMessage('DELETE')" [icon]="searchTableActionColumnDeleteButtonIcon" [class]="searchTableActionColumnDeleteButtonClass" (click)="delete(user)"
-											*ngIf="hasPermission('USER.DELETE')"></button>
+						<div class="ui-g-6 ui-g-nopad {{searchTableActionColumnDeleteButtonWrapperClass}}" *ngIf="hasPermission('USER.DELETE')">
+							<button pButton [title]="getMessage('DELETE')" [icon]="searchTableActionColumnDeleteButtonIcon" [class]="searchTableActionColumnButtonClass" (click)="delete(user)"></button>
 						</div>
 					</div>
 				</ng-template>
