@@ -1,15 +1,23 @@
-.c-search-filter-component {
+.c-full-width {
 	width: 100%;
 }
 
-.c-search-filter-component-wrapper {
+.c-no-left-padding {
 	padding-left: 0;
 }
 
-.c-search-table {
-	padding-top: 0;
+.c-no-right-padding {
+	padding-right: 0;
 }
 
 .c-search-table-action-column {
-	width: 5%;
+	width: 7%;
+}
+
+.c-search-table-action-column-view-edit-button-wrapper {
+	padding-right: 1px;
+}
+
+.c-search-table-action-column-delete-button-wrapper {
+	padding-left: 1px;
 }

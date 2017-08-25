@@ -1,52 +1,53 @@
 <div class="ui-g">
-	<div class="ui-g-1">
-		<input #idField pInputText placeholder="Id" i18n-placeholder="@@id" class={{searchFilterComponentClass}}/>
+	<div class="ui-g-1 {{searchFilterFieldWrapperClass}}">
+		<input pInputText #idField [placeholder]="getMessage('ID')" [class]="searchFilterComponentClass"/>
 	</div>
-	<div class="ui-g-1 {{searchFilterComponentWrapperClass}}">
-		<input #usernameField pInputText placeholder="Username" i18n-placeholder="@@username" class={{searchFilterComponentClass}}/>
+	<div class="ui-g-1 {{searchFilterFieldWrapperClass}}">
+		<input pInputText #usernameField [placeholder]="getMessage('USERNAME_SHORT')" [class]="searchFilterComponentClass"/>
 	</div>
-	<div class="ui-g-1 {{searchFilterComponentWrapperClass}}">
-		<input #nameField pInputText placeholder="Name" i18n-placeholder="@@name" class={{searchFilterComponentClass}}/>
+	<div class="ui-g-1 {{searchFilterFieldWrapperClass}}">
+		<input pInputText #nameField [placeholder]="getMessage('NAME')" [class]="searchFilterComponentClass"/>
 	</div>
 
 	<div class="ui-g-7"></div>
 
-	<div class="ui-g-1 {{searchFilterComponentWrapperClass}}">
-		<button pButton type="button" label="Clear" i18n-label="@@clear" icon={{searchFilterClearButtonIcon}} (click)="table.reset(); clearFilter()"
-						class={{searchFilterComponentClass}}></button>
+	<div class="ui-g-1 {{searchFilterButtonWrapperClass}}">
+		<button pButton [label]="getMessage('CLEAR')" [icon]="searchFilterClearButtonIcon" [class]="searchFilterComponentClass" (click)="table.reset(); clearFilter()"></button>
 	</div>
-	<div class="ui-g-1 {{searchFilterComponentWrapperClass}}">
-		<button pButton type="button" label="Search" i18n-label="@@search" icon={{searchFilterSearchButtonIcon}}
-						(click)="initFilter(idField.value, usernameField.value, nameField.value)" class={{searchFilterComponentClass}}></button>
+	<div class="ui-g-1 {{searchFilterButtonWrapperClass}}">
+		<button pButton [label]="getMessage('SEARCH')" [icon]="searchFilterSearchButtonIcon" [class]="searchFilterComponentClass"
+						(click)="initFilter(idField.value, usernameField.value, nameField.value)"></button>
 	</div>
 
-	<div class="ui-g-12 {{searchTableClass}}">
-		<p-dataTable #table [value]="users" [paginator]="true" [totalRecords]="tableTotalRecords" [rows]="tableRows" [pageLinks]="tablePageLinks"
-								 [lazy]="true" (onLazyLoad)="initLazyFilter($event)" [loading]="tableLoading" [loadingIcon]="tableLoadingIcon">
-			<p-column field="id" header="Id" i18n-header="@@id" [filter]="true" filterPlaceholder="Id" i18n-filterPlaceholder="@@id" filterMatchMode="contains"></p-column>
-			<p-column field="username" header="Username" i18n-header="@@username" [filter]="true" filterPlaceholder="Username" i18n-filterPlaceholder="@@username"
-								filterMatchMode="contains"></p-column>
-			<p-column field="name" header="Name" i18n-header="@@name" [filter]="true" filterPlaceholder="Name" i18n-filterPlaceholder="@@name" filterMatchMode="contains"></p-column>
+	<div class="ui-g-12 ui-g-nopad">
+		<p-dataTable #table [value]="users" [lazy]="true" [paginator]="true" [totalRecords]="tableTotalRecords" [rows]="searchTableRows" [pageLinks]="searchTablePageLinks"
+								 [loading]="tableLoading" [loadingIcon]="searchTableLoadingIcon" (onLazyLoad)="initLazyFilter($event)">
+			<p-column field="id" [header]="getMessage('ID')" [filter]="true" [filterPlaceholder]="getMessage('ID')" filterMatchMode="contains"></p-column>
+			<p-column field="username" [header]="getMessage('USERNAME')" [filter]="true" [filterPlaceholder]="getMessage('USERNAME')" filterMatchMode="contains"></p-column>
+			<p-column field="name" [header]="getMessage('NAME')" [filter]="true" [filterPlaceholder]="getMessage('NAME')" filterMatchMode="contains"></p-column>
 
-			<p-column styleClass={{searchTableActionColumnClass}}>
+			<p-column [styleClass]="searchTableActionColumnClass">
 				<ng-template pTemplate="header">
-					<button pButton type="button" label="Add" i18n-label="@@add" icon={{searchTableActionColumnAddButtonClass}} (click)="add()" *ngIf="hasPermission('USER.ADD')"></button>
+					<button pButton [label]="getMessage('ADD')" [icon]="searchTableActionColumnAddButtonIcon" [class]="searchTableActionColumnAddButtonClass" (click)="add()"
+									*ngIf="hasPermission('USER.ADD')"></button>
 				</ng-template>
-				<div class="ui-g">
-					<ng-template let-col let-user="rowData" pTemplate="body">
-						<div class="ui-g-6">
-							<button pButton type="button" title="Edit" i18n-title="@@edit" icon={{searchTableActionColumnEditButtonClass}} (click)="get(user)" *ngIf="hasPermission('USER.EDIT')"></button>
-							<button pButton type="button" title="View" i18n-title="@@view" icon={{searchTableActionColumnViewButtonClass}} (click)="get(user)" *ngIf="!hasPermission('USER.EDIT')"></button>
+				<ng-template pTemplate="body" let-user="rowData">
+					<div class="ui-g">
+						<div class="ui-g-6 ui-g-nopad {{searchTableActionColumnViewEditButtonWrapperClass}}">
+							<button pButton [title]="getMessage('VIEW')" [icon]="searchTableActionColumnViewButtonIcon" [class]="searchTableActionColumnViewButtonClass" (click)="get(user)"
+											*ngIf="!hasPermission('USER.EDIT')"></button>
+							<button pButton [title]="getMessage('EDIT')" [icon]="searchTableActionColumnEditButtonIcon" [class]="searchTableActionColumnEditButtonClass" (click)="get(user)"
+											*ngIf="hasPermission('USER.EDIT')"></button>
 						</div>
-						<div class="ui-g-6">
-							<button pButton type="button" title="Delete" i18n-title="@@delete" icon={{searchTableActionColumnDeleteButtonClass}} (click)="delete(user)"
+						<div class="ui-g-6 ui-g-nopad {{searchTableActionColumnDeleteButtonWrapperClass}}">
+							<button pButton [title]="getMessage('DELETE')" [icon]="searchTableActionColumnDeleteButtonIcon" [class]="searchTableActionColumnDeleteButtonClass" (click)="delete(user)"
 											*ngIf="hasPermission('USER.DELETE')"></button>
 						</div>
-					</ng-template>
-				</div>
+					</div>
+				</ng-template>
 			</p-column>
 
-			<p-footer i18n="@@tableFooter">{{tableTotalRecords}} records found</p-footer>
+			<p-footer>{{getMessage('SEARCH_TABLE_FOOTER', tableTotalRecords)}}</p-footer>
 		</p-dataTable>
 	</div>
 </div>

@@ -2,36 +2,50 @@
 import {AbstractFilter} from "../model/filter/abstract-filter";
 // services
 import {AuthenticationService} from "../service/authentication.service";
+// utils
+import {messages} from "../utils/messages";
 // primeng
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
 
 export class AbstractComponent {
 
-	protected readonly searchFilterComponentClass: string = "c-search-filter-component";
+	protected readonly searchFilterComponentClass: string = "c-full-width";
 
-	protected readonly searchFilterComponentWrapperClass: string = "c-search-filter-component-wrapper";
+	protected readonly searchFilterFieldWrapperClass: string = "c-no-left-padding";
+
+	protected readonly searchFilterButtonWrapperClass: string = "c-no-right-padding";
 
 	protected readonly searchFilterClearButtonIcon: string = "fa-minus";
 
 	protected readonly searchFilterSearchButtonIcon: string = "fa-search";
 
-	protected readonly searchTableClass: string = "c-search-table";
+	protected readonly searchTableRows: number = 1;
 
-	protected readonly tableRows: number = 1;
+	protected readonly searchTablePageLinks: number = 3;
 
-	protected readonly tablePageLinks: number = 3;
-
-	protected readonly tableLoadingIcon: string = "fa-cog";
+	protected readonly searchTableLoadingIcon: string = "fa-cog";
 
 	protected readonly searchTableActionColumnClass: string = "c-search-table-action-column";
 
-	protected readonly searchTableActionColumnAddButtonClass: string = "fa-plus";
+	protected readonly searchTableActionColumnAddButtonClass: string = "c-full-width";
 
-	protected readonly searchTableActionColumnEditButtonClass: string = "fa-pencil";
+	protected readonly searchTableActionColumnAddButtonIcon: string = "fa-plus";
 
-	protected readonly searchTableActionColumnViewButtonClass: string = "fa-envelope-open";
+	protected readonly searchTableActionColumnViewEditButtonWrapperClass: string = "c-search-table-action-column-view-edit-button-wrapper";
 
-	protected readonly searchTableActionColumnDeleteButtonClass: string = "fa-remove";
+	protected readonly searchTableActionColumnViewButtonClass: string = "c-full-width";
+
+	protected readonly searchTableActionColumnViewButtonIcon: string = "fa-envelope-open";
+
+	protected readonly searchTableActionColumnEditButtonClass: string = "c-full-width";
+
+	protected readonly searchTableActionColumnEditButtonIcon: string = "fa-pencil";
+
+	protected readonly searchTableActionColumnDeleteButtonWrapperClass: string = "c-search-table-action-column-delete-button-wrapper";
+
+	protected readonly searchTableActionColumnDeleteButtonClass: string = "c-full-width";
+
+	protected readonly searchTableActionColumnDeleteButtonIcon: string = "fa-remove";
 
 	protected tableTotalRecords: number;
 
@@ -39,6 +53,16 @@ export class AbstractComponent {
 
 	protected hasPermission(permission: string): boolean {
 		return AuthenticationService.hasPermission(permission);
+	}
+
+	protected getMessage(key: string, ...params: any[]): string {
+		let value: string = messages[key]['en'];
+
+		for (let i = 0; i < params.length; i++) {
+			value = value.replace('{' + i + '}', params[i]);
+		}
+
+		return value;
 	}
 
 	protected clearAbstractFilter(): void {
@@ -51,7 +75,7 @@ export class AbstractComponent {
 
 	protected initAbstractFilter(filter: AbstractFilter): void {
 		filter.offset = 0;
-		filter.numRows = this.tableRows;
+		filter.numRows = this.searchTableRows;
 	}
 
 	protected initAbstractLazyFilter(filter: AbstractFilter, event: LazyLoadEvent): void {
