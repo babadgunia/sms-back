@@ -36,7 +36,8 @@ public class UserGroup extends AppEntity {
     }
 
     public UserGroup(long id, String name) {
-        this.id = id;
+        this(id);
+
         this.name = name;
     }
 

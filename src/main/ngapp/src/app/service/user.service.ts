@@ -27,6 +27,12 @@ export class UserService {
 		return Promise.reject(error.message || error);
 	}
 
+	delete(id: number): Promise<void> {
+		const url = `${this.apiUrl}/delete/${id}`;
+
+		return this.http.delete(url, {headers: UserService.getHeaders()}).toPromise().then(() => null).catch(UserService.handleError);
+	}
+
 	getCount(filter: UserFilter): Promise<number> {
 		const url = `${this.apiUrl}/getCount`;
 
@@ -37,11 +43,5 @@ export class UserService {
 		const url = `${this.apiUrl}/getList`;
 
 		return this.http.post(url, filter, {headers: UserService.getHeaders()}).toPromise().then(response => response.json() as User[]).catch(UserService.handleError);
-	}
-
-	delete(id: number): Promise<void> {
-		const url = `${this.apiUrl}/delete/${id}`;
-
-		return this.http.delete(url, {headers: UserService.getHeaders()}).toPromise().then(() => null).catch(UserService.handleError);
 	}
 }

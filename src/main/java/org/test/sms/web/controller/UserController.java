@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.test.sms.common.entity.general.User;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.general.UserFilter;
@@ -27,17 +27,6 @@ public class UserController {
         this.service = service;
     }
 
-    @RequestMapping(value = "getCount", method = RequestMethod.POST)
-    public ResponseEntity<Long> getCount(@RequestBody(required = false) UserFilter filter) {
-        return new ResponseEntity<>(service.getCount(filter), HttpStatus.OK);
-    }
-
-    @PreAuthorize("@permissionsService.hasPermission('USER', 'VIEW')")
-    @RequestMapping(value = "getList", method = RequestMethod.POST)
-    public ResponseEntity<List<User>> getList(@RequestBody(required = false) UserFilter filter) {
-        return new ResponseEntity<>(service.getList(filter), HttpStatus.OK);
-    }
-
     @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable("id") long id) {
         try {
@@ -47,5 +36,16 @@ public class UserController {
         } catch (AppException e) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
+    }
+
+    @RequestMapping(value = "getCount", method = RequestMethod.POST)
+    public ResponseEntity<Long> getCount(@RequestBody(required = false) UserFilter filter) {
+        return new ResponseEntity<>(service.getCount(filter), HttpStatus.OK);
+    }
+
+    @PreAuthorize("@permissionsService.hasPermission('USER', 'VIEW')")
+    @RequestMapping(value = "getList", method = RequestMethod.POST)
+    public ResponseEntity<List<User>> getList(@RequestBody(required = false) UserFilter filter) {
+        return new ResponseEntity<>(service.getList(filter), HttpStatus.OK);
     }
 }

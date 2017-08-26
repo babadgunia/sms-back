@@ -37,7 +37,7 @@ public class User extends AppEntity {
     private StatusType status;
 
     @Enumerated(EnumType.STRING)
-    private LanguageType language = LanguageType.EN;
+    private LanguageType language;
 
     @ManyToOne
     private UserGroup userGroup;
@@ -62,11 +62,9 @@ public class User extends AppEntity {
     }
 
     public User(long id, String username, String password, String name, StatusType status, LanguageType language, UserGroup userGroup) {
-        this(id);
+        this(id, username, name);
 
-        this.username = username;
         this.password = password;
-        this.name = name;
         this.status = status;
         this.language = language;
         this.userGroup = userGroup;
