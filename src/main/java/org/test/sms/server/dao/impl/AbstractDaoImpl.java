@@ -8,7 +8,6 @@ import org.test.sms.common.filter.AbstractFilter;
 import org.test.sms.server.dao.AbstractDao;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -62,18 +61,7 @@ public abstract class AbstractDaoImpl<T extends AppEntity> implements AbstractDa
 
     @Override
     public void delete(long id) throws AppException {
-        load(id).ifPresent(entity -> em.remove(entity));
-    }
-
-    private Optional<T> load(long id) {
-        TypedQuery<T> query = em.createQuery("SELECT new" + entityClassName + "(id) FROM " + entityClassName + " WHERE id = :id", entityClass);
-        query.setParameter("id", id);
-
-        try {
-            return Optional.of(query.getSingleResult());
-        } catch (NoResultException e) {
-            return Optional.empty();
-        }
+        get(id).ifPresent(entity -> em.remove(entity));
     }
 
     @Override

@@ -2,12 +2,14 @@
 import {AbstractFilter} from "../model/filter/abstract-filter";
 // services
 import {AuthenticationService} from "../service/authentication.service";
+// primeng services
+import {ConfirmationService} from "primeng/components/common/confirmationservice";
 // utils
 import {messages} from "../utils/messages";
 // primeng
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
 
-export class AbstractComponent {
+export abstract class AbstractComponent {
 
 	protected readonly searchFilterComponentClass: string = "c-full-width";
 
@@ -41,9 +43,13 @@ export class AbstractComponent {
 
 	protected readonly searchTableActionColumnDeleteButtonIcon: string = "fa-remove";
 
+	protected readonly confirmDialogIcon: string = "fa-question-circle";
+
 	protected tableTotalRecords: number;
 
 	protected tableLoading: boolean = true;
+
+	protected constructor(private confirmationService: ConfirmationService) {}
 
 	protected hasPermission(permission: string): boolean {
 		return AuthenticationService.hasPermission(permission);
@@ -59,7 +65,11 @@ export class AbstractComponent {
 		return value;
 	}
 
-	protected clearAbstractFilter(): void {
+	protected handleError(error: any): void {
+		console.error(error);
+	}
+
+	protected abstractClearFilter(): void {
 		[].forEach.call(document.getElementsByClassName(this.searchFilterComponentClass), element => {
 			if (element.type === 'text') {
 				element.value = '';
@@ -67,13 +77,24 @@ export class AbstractComponent {
 		});
 	}
 
-	protected initAbstractFilter(filter: AbstractFilter): void {
+	protected abstractInitFilter(filter: AbstractFilter): void {
 		filter.offset = 0;
 		filter.numRows = this.searchTableRows;
 	}
 
-	protected initAbstractLazyFilter(filter: AbstractFilter, event: LazyLoadEvent): void {
+	protected abstractInitLazyFilter(filter: AbstractFilter, event: LazyLoadEvent): void {
 		filter.offset = event.first;
 		filter.numRows = event.rows;
+	}
+
+	protected abstractConfirmAction(action: () => any): void {
+		this.confirmationService.confirm({
+			header: this.getMessage('CONFIRM_ACTION_HEADER'),
+			message: this.getMessage('CONFIRM_ACTION_MESSAGE'),
+			icon: this.confirmDialogIcon,
+			accept: () => {
+				action();
+			}
+		});
 	}
 }

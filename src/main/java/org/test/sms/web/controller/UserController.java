@@ -28,6 +28,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
+    @PreAuthorize("@userPermissionService.hasPermission('USER', 'DELETE')")
     public ResponseEntity<Void> delete(@PathVariable("id") long id) {
         try {
             service.delete(id);
@@ -39,12 +40,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "getCount", method = RequestMethod.POST)
+    @PreAuthorize("@userPermissionService.hasPermission('USER', 'VIEW')")
     public ResponseEntity<Long> getCount(@RequestBody(required = false) UserFilter filter) {
         return new ResponseEntity<>(service.getCount(filter), HttpStatus.OK);
     }
 
-    @PreAuthorize("@permissionsService.hasPermission('USER', 'VIEW')")
     @RequestMapping(value = "getList", method = RequestMethod.POST)
+    @PreAuthorize("@userPermissionService.hasPermission('USER', 'VIEW')")
     public ResponseEntity<List<User>> getList(@RequestBody(required = false) UserFilter filter) {
         return new ResponseEntity<>(service.getList(filter), HttpStatus.OK);
     }

@@ -41,7 +41,8 @@
 											*ngIf="hasPermission('USER.EDIT')"></button>
 						</div>
 						<div class="ui-g-6 ui-g-nopad {{searchTableActionColumnDeleteButtonWrapperClass}}" *ngIf="hasPermission('USER.DELETE')">
-							<button pButton [title]="getMessage('DELETE')" [icon]="searchTableActionColumnDeleteButtonIcon" [class]="searchTableActionColumnButtonClass" (click)="delete(user)"></button>
+							<button pButton [title]="getMessage('DELETE')" [icon]="searchTableActionColumnDeleteButtonIcon" [class]="searchTableActionColumnButtonClass"
+											(click)="confirmAction(user)"></button>
 						</div>
 					</div>
 				</ng-template>
@@ -49,6 +50,8 @@
 
 			<p-footer>{{getMessage('SEARCH_TABLE_FOOTER', tableTotalRecords)}}</p-footer>
 		</p-dataTable>
+
+		<p-confirmDialog [acceptLabel]="getMessage('YES')" [rejectLabel]="getMessage('NO')"></p-confirmDialog>
 	</div>
 </div>
 

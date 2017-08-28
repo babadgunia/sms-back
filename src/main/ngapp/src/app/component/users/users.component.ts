@@ -7,9 +7,10 @@ import {UserFilter} from "../../model/filter/user-filter";
 import {AbstractComponent} from "../abstract-component";
 // services
 import {UserService} from "../../service/user.service";
+// primeng services
+import {ConfirmationService} from "primeng/primeng";
 // utils
 import {isNullOrUndefined} from "util";
-import {Utils} from "../../utils/Utils";
 // primeng
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
 
@@ -28,18 +29,18 @@ export class UsersComponent extends AbstractComponent {
 
 	private selectedUser: User = new User();
 
-	constructor(private userService: UserService) {
-		super();
+	constructor(private service: UserService, confirmationService: ConfirmationService) {
+		super(confirmationService);
 	}
 
 	private clearFilter(): void {
-		super.clearAbstractFilter();
+		super.abstractClearFilter();
 
 		this.initFilter(null, null, null);
 	}
 
 	private initFilter(id: number, username: string, name: string): void {
-		super.initAbstractFilter(this.filter);
+		super.abstractInitFilter(this.filter);
 
 		this.filter.id = id;
 		this.filter.username = username;
@@ -49,7 +50,7 @@ export class UsersComponent extends AbstractComponent {
 	}
 
 	private initLazyFilter(event: LazyLoadEvent): void {
-		super.initAbstractLazyFilter(this.filter, event);
+		super.abstractInitLazyFilter(this.filter, event);
 
 		if (!isNullOrUndefined(event.filters.id)) {
 			this.filter.id = event.filters.id.value;
@@ -68,7 +69,13 @@ export class UsersComponent extends AbstractComponent {
 
 	private update(): void {}
 
-	private delete(): void {}
+	private confirmAction(user: User): void {
+		super.abstractConfirmAction(() => {
+			this.service.delete(user.id).subscribe(() => {}, error => super.handleError(error));
+
+			this.users = this.users.filter(element => element !== user);
+		});
+	}
 
 	private get(user: User): void {
 		this.selectedUser = user;
@@ -78,10 +85,10 @@ export class UsersComponent extends AbstractComponent {
 	private getList(): void {
 		this.tableLoading = true;
 
-		this.userService.getCount(this.filter).then(count => this.tableTotalRecords = count, error => Utils.handleError(error));
-		this.userService.getList(this.filter).then(list => {
+		this.service.getCount(this.filter).subscribe(count => this.tableTotalRecords = count, error => super.handleError(error));
+		this.service.getList(this.filter).subscribe(list => {
 			this.tableLoading = false;
 			this.users = list;
-		}, error => Utils.handleError(error));
+		}, error => super.handleError(error));
 	}
 }

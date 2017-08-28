@@ -1,47 +1,38 @@
-import "rxjs/add/operator/toPromise";
-import "rxjs/add/operator/map";
-
+// angular
+import {Http} from "@angular/http";
 import {Inject, Injectable} from "@angular/core";
-import {Headers, Http} from "@angular/http";
-
+// model
 import {User} from "../model/user";
-import {AuthenticationService} from "./authentication.service";
-import {USER_SERVICE_URL} from "../utils/injectable-constants";
 import {UserFilter} from "../model/filter/user-filter";
+// services
+import {AbstractService} from "./abstract-service";
+// utils
+import {USER_SERVICE_URL} from "../utils/injectable-constants";
+// rxjs
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
-export class UserService {
+export class UserService extends AbstractService {
 
-	constructor(private http: Http, private authenticationService: AuthenticationService, @Inject(USER_SERVICE_URL) private apiUrl: string) {}
-
-	static getHeaders(): Headers {
-		return new Headers({
-			'Content-Type': 'application/json',
-			'Authorization': AuthenticationService.getToken().toString()
-		});
+	constructor(private http: Http, @Inject(USER_SERVICE_URL) private apiUrl: string) {
+		super();
 	}
 
-	private static handleError(error: any): Promise<any> {
-		console.error('An error occurred', error);
-
-		return Promise.reject(error.message || error);
-	}
-
-	delete(id: number): Promise<void> {
+	delete(id: number): Observable<void> {
 		const url = `${this.apiUrl}/delete/${id}`;
 
-		return this.http.delete(url, {headers: UserService.getHeaders()}).toPromise().then(() => null).catch(UserService.handleError);
+		return this.http.delete(url, {headers: super.getApiHeaders()}).catch(error => super.handleError(error));
 	}
 
-	getCount(filter: UserFilter): Promise<number> {
+	getCount(filter: UserFilter): Observable<number> {
 		const url = `${this.apiUrl}/getCount`;
 
-		return this.http.post(url, filter, {headers: UserService.getHeaders()}).toPromise().then(response => response.json() as number).catch(UserService.handleError);
+		return this.http.post(url, filter, {headers: super.getApiHeaders()}).map(response => response.json() as number).catch(error => super.handleError(error));
 	}
 
-	getList(filter: UserFilter): Promise<User[]> {
+	getList(filter: UserFilter): Observable<User[]> {
 		const url = `${this.apiUrl}/getList`;
 
-		return this.http.post(url, filter, {headers: UserService.getHeaders()}).toPromise().then(response => response.json() as User[]).catch(UserService.handleError);
+		return this.http.post(url, filter, {headers: super.getApiHeaders()}).map(response => response.json() as User[]).catch(error => super.handleError(error));
 	}
 }

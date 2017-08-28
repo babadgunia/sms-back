@@ -36,7 +36,7 @@ export class AuthenticationService {
 		return localStorage.getItem('permissions').toLowerCase().indexOf(permission.toLowerCase()) > -1;
 	}
 
-	static getToken(): String {
+	static getToken(): string {
 		let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 		let token = currentUser && currentUser.token;
 

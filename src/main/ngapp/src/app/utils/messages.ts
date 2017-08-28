@@ -7,6 +7,14 @@ export const messages = {
 		en: 'Clear',
 		ka: 'გასუფთავება'
 	},
+	CONFIRM_ACTION_HEADER: {
+		en: 'Confirmation',
+		ka: 'დამოწმება'
+	},
+	CONFIRM_ACTION_MESSAGE: {
+		en: 'Are you sure that you want to perform this action?',
+		ka: 'დარწმუნებული ხართ, რომ გსურთ ქმედების შესრულება?'
+	},
 	DELETE: {
 		en: 'Delete',
 		ka: 'წაშლა'
@@ -22,6 +30,10 @@ export const messages = {
 	NAME: {
 		en: 'Name',
 		ka: 'სახელი'
+	},
+	NO: {
+		en: 'No',
+		ka: 'არა'
 	},
 	SEARCH: {
 		en: 'Search',
@@ -43,4 +55,8 @@ export const messages = {
 		en: 'View',
 		ka: 'ნახვა'
 	},
+	YES: {
+		en: 'Yes',
+		ka: 'კი'
+	}
 };
