@@ -1,12 +1,13 @@
 package org.test.sms.web.controller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -31,6 +32,8 @@ public class AuthenticationRestController {
 
     private UserDetailsService userDetailsService;
 
+    private Logger log = LogManager.getLogger(AuthenticationRestController.class);
+
     @Autowired
     public AuthenticationRestController(Environment environment, AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, UserDetailsService userDetailsService) {
         this.environment = environment;
@@ -40,18 +43,23 @@ public class AuthenticationRestController {
     }
 
     @RequestMapping(value = "auth", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest) throws AuthenticationException {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        authenticationRequest.getUsername(),
-                        authenticationRequest.getPassword()
-                )
-        );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest) {
+        String token = null;
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            authenticationRequest.getUsername(),
+                            authenticationRequest.getPassword()
+                    )
+            );
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-        String token = jwtTokenUtil.generateToken(userDetails);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
+            UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+            token = jwtTokenUtil.generateToken(userDetails);
+        } catch(Exception ex) {
+            log.error("Authentication failed! ", ex);
+        }
         return ResponseEntity.ok(new JwtAuthenticationResponse(token));
     }
 
