@@ -1,5 +1,6 @@
 package org.test.sms.common.entity.general;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.test.sms.common.entity.AppEntity;
 import org.test.sms.common.enums.general.PermissionGroupType;
 import org.test.sms.common.enums.general.PermissionType;
@@ -30,6 +31,7 @@ public class Permission extends AppEntity {
     private PermissionGroupType permissionGroup;
 
     @ManyToOne
+    @JsonIgnore
     private UserGroup userGroup;
 
     @ElementCollection
