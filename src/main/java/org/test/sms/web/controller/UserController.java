@@ -15,6 +15,7 @@ import org.test.sms.common.filter.general.UserFilter;
 import org.test.sms.common.service.general.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "api/user")
@@ -37,6 +38,14 @@ public class UserController {
         } catch (AppException e) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
+    }
+
+    @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
+    @PreAuthorize("@userPermissionService.hasPermission('USER', 'VIEW')")
+    public ResponseEntity<User> get(@PathVariable("id") long id) {
+        Optional<User> userWrapper = service.get(id);
+
+        return new ResponseEntity<>(userWrapper.orElse(null), HttpStatus.OK);
     }
 
     @RequestMapping(value = "getCount", method = RequestMethod.POST)

@@ -45,15 +45,6 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<UserGroup> implements User
     }
 
     @Override
-    public void delete(long id) throws AppException {
-        if (userDao.exists(id)) {
-            throw new AppException(ErrorCode.USER_GROUP_HAS_USERS);
-        }
-
-        super.delete(id);
-    }
-
-    @Override
     public Optional<UserGroup> get(long id) {
         Optional<UserGroup> result = super.get(id);
 

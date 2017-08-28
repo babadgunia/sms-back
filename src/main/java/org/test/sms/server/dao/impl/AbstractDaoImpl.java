@@ -80,7 +80,7 @@ public abstract class AbstractDaoImpl<T extends AppEntity> implements AbstractDa
         }
 
         TypedQuery<Long> query = em.createQuery(queryBuilder.toString(), Long.class);
-        params.keySet().forEach(e -> query.setParameter(e, params.get(e)));
+        params.keySet().forEach(key -> query.setParameter(key, params.get(key)));
 
         return query.getSingleResult();
     }
@@ -98,7 +98,7 @@ public abstract class AbstractDaoImpl<T extends AppEntity> implements AbstractDa
         queryBuilder.append(" ORDER BY ").append(getOrderBy());
 
         TypedQuery<T> query = em.createQuery(queryBuilder.toString(), entityClass);
-        params.keySet().forEach(e -> query.setParameter(e, params.get(e)));
+        params.keySet().forEach(key -> query.setParameter(key, params.get(key)));
 
         if (Objects.nonNull(filter)) {
             Integer offset = filter.getOffset();

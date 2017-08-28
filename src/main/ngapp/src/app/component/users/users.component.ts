@@ -25,8 +25,6 @@ export class UsersComponent extends AbstractComponent {
 
 	private filter: UserFilter = {};
 
-	private showUserDialog: boolean;
-
 	private selectedUser: User = new User();
 
 	constructor(private service: UserService, confirmationService: ConfirmationService) {
@@ -71,24 +69,30 @@ export class UsersComponent extends AbstractComponent {
 
 	private confirmAction(user: User): void {
 		super.abstractConfirmAction(() => {
-			this.service.delete(user.id).subscribe(() => {}, error => super.handleError(error));
-
-			this.users = this.users.filter(element => element !== user);
+			this.service.delete(user.id).subscribe(() => {
+				this.users = this.users.filter(element => element !== user);
+			}, error => super.handleError(error));
 		});
 	}
 
 	private get(user: User): void {
-		this.selectedUser = user;
-		this.showUserDialog = true;
+		this.service.get(user.id).subscribe(user => {
+			this.selectedUser = user;
+			this.showDialog = true;
+			this.isEdit = true;
+		}, error => super.handleError(error));
 	}
 
 	private getList(): void {
 		this.tableLoading = true;
 
-		this.service.getCount(this.filter).subscribe(count => this.tableTotalRecords = count, error => super.handleError(error));
-		this.service.getList(this.filter).subscribe(list => {
+		this.service.getCount(this.filter).subscribe(count => {
+			this.tableTotalRecords = count;
+		}, error => super.handleError(error));
+
+		this.service.getList(this.filter).subscribe(users => {
 			this.tableLoading = false;
-			this.users = list;
+			this.users = users;
 		}, error => super.handleError(error));
 	}
 }

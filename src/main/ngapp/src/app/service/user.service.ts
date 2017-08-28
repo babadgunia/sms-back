@@ -24,6 +24,12 @@ export class UserService extends AbstractService {
 		return this.http.delete(url, {headers: super.getApiHeaders()}).catch(error => super.handleError(error));
 	}
 
+	get(id: number): Observable<User> {
+		const url = `${this.apiUrl}/get/${id}`;
+
+		return this.http.get(url, {headers: super.getApiHeaders()}).map(response => response.json() as User).catch(error => super.handleError(error));
+	}
+
 	getCount(filter: UserFilter): Observable<number> {
 		const url = `${this.apiUrl}/getCount`;
 

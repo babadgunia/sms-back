@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.test.sms.common.entity.general.User;
+import org.test.sms.common.enums.general.ErrorCode;
+import org.test.sms.common.enums.general.PermissionGroupType;
+import org.test.sms.common.enums.general.PermissionType;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.AbstractFilter;
 import org.test.sms.common.service.general.UserService;
@@ -25,6 +28,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User add(User entity) throws AppException {
+        String username = entity.getUsername();
+        if (exists(username)) {
+            throw new AppException(ErrorCode.USERNAME_EXISTS, username);
+        }
+
         return dao.add(entity);
     }
 
@@ -56,5 +64,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> get(String username) {
         return dao.get(username);
+    }
+
+    @Override
+    public boolean exists(String username) {
+        return dao.exists(username);
+    }
+
+    @Override
+    public boolean exists(long userGroupId) {
+        return dao.exists(userGroupId);
+    }
+
+    @Override
+    public boolean hasPermission(String username, PermissionGroupType permissionGroup, PermissionType permission) {
+        return dao.hasPermission(username, permissionGroup, permission);
     }
 }

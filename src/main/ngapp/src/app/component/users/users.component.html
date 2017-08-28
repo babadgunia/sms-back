@@ -50,12 +50,12 @@
 
 			<p-footer>{{getMessage('SEARCH_TABLE_FOOTER', tableTotalRecords)}}</p-footer>
 		</p-dataTable>
-
-		<p-confirmDialog [acceptLabel]="getMessage('YES')" [rejectLabel]="getMessage('NO')"></p-confirmDialog>
 	</div>
 </div>
 
-<p-dialog header="Edit user" [(visible)]="showUserDialog">
+<p-confirmDialog [acceptLabel]="getMessage('YES')" [rejectLabel]="getMessage('NO')"></p-confirmDialog>
+
+<p-dialog header="{{isEdit ? getMessage('EDIT') : getMessage('ADD')}}" [(visible)]="showDialog" modal="true">
 	<table>
 		<tr>
 			<td>

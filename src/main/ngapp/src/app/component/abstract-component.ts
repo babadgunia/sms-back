@@ -45,9 +45,13 @@ export abstract class AbstractComponent {
 
 	protected readonly confirmDialogIcon: string = "fa-question-circle";
 
-	protected tableTotalRecords: number;
+	protected tableTotalRecords: number = 0;
 
 	protected tableLoading: boolean = true;
+
+	protected showDialog: boolean = false;
+
+	protected isEdit: boolean = false;
 
 	protected constructor(private confirmationService: ConfirmationService) {}
 

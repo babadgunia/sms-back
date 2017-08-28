@@ -48,9 +48,7 @@ public class User extends AppEntity {
         super(id);
     }
 
-    public User(long id, UserGroup userGroup) {
-        this(id);
-
+    public User(UserGroup userGroup) {
         this.userGroup = userGroup;
     }
 
@@ -61,12 +59,10 @@ public class User extends AppEntity {
         this.name = name;
     }
 
-    public User(long id, String username, String password, String name, StatusType status, LanguageType language, UserGroup userGroup) {
-        this(id, username, name);
-
+    public User(String username, String password, StatusType status, UserGroup userGroup) {
+        this.username = username;
         this.password = password;
         this.status = status;
-        this.language = language;
         this.userGroup = userGroup;
     }
 

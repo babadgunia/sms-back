@@ -1,4 +1,4 @@
-package org.test.sms.server.service.general;
+package org.test.sms.server.service.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,7 +11,7 @@ import org.test.sms.common.entity.general.Permission;
 import org.test.sms.common.entity.general.User;
 import org.test.sms.common.enums.general.PermissionType;
 import org.test.sms.common.enums.general.StatusType;
-import org.test.sms.server.dao.interfaces.general.UserDao;
+import org.test.sms.common.service.general.UserService;
 import org.test.sms.web.jwt.JwtUser;
 
 import java.util.ArrayList;
@@ -22,16 +22,16 @@ import java.util.Optional;
 @Transactional
 public class UserDetailsServiceJwtImpl implements UserDetailsService {
 
-    private UserDao userDao;
+    private UserService userService;
 
     @Autowired
-    public UserDetailsServiceJwtImpl(UserDao userDao) {
-        this.userDao = userDao;
+    public UserDetailsServiceJwtImpl(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> userWrapper = userDao.get(username);
+        Optional<User> userWrapper = userService.get(username);
 
         if (!userWrapper.isPresent()) {
             throw new UsernameNotFoundException("username [" + username + "] not found");
@@ -43,14 +43,13 @@ public class UserDetailsServiceJwtImpl implements UserDetailsService {
             jwtUser.setPassword(user.getPassword());
             jwtUser.setEnabled(user.getStatus() == StatusType.ACTIVE);
 
-
-            List<SimpleGrantedAuthority> permissionsList = new ArrayList<>();
+            List<SimpleGrantedAuthority> permissions = new ArrayList<>();
             for (Permission permission : user.getUserGroup().getPermissions()) {
                 for (PermissionType permissionType : permission.getPermissions()) {
-                    permissionsList.add(new SimpleGrantedAuthority(permission.getPermissionGroup().toString() + "." + permissionType.toString()));
+                    permissions.add(new SimpleGrantedAuthority(permission.getPermissionGroup().toString() + "." + permissionType.toString()));
                 }
             }
-            jwtUser.setAuthorities(permissionsList);
+            jwtUser.setAuthorities(permissions);
             return jwtUser;
         }
     }
