@@ -3,6 +3,10 @@ export const messages = {
 		en: 'Add',
 		ka: 'დამატება'
 	},
+	CANCEL: {
+		en: 'Cancel',
+		ka: 'გაუქმება'
+	},
 	CLEAR: {
 		en: 'Clear',
 		ka: 'გასუფთავება'
@@ -34,6 +38,10 @@ export const messages = {
 	NO: {
 		en: 'No',
 		ka: 'არა'
+	},
+	SAVE: {
+		en: 'Save',
+		ka: 'შენახვა'
 	},
 	SEARCH: {
 		en: 'Search',

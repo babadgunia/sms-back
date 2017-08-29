@@ -1,18 +1,19 @@
-// angular
+// angular > core
 import {Component} from "@angular/core";
-// model
+// model > entity
 import {User} from "../../model/entity/user";
+// model > filter
 import {UserFilter} from "../../model/filter/user-filter";
-// components
+// component
 import {AbstractComponent} from "../abstract-component";
-// services
+// service
 import {UserService} from "../../service/user.service";
-// primeng services
-import {ConfirmationService} from "primeng/primeng";
-// utils
+// util
 import {isNullOrUndefined} from "util";
-// primeng
+// primeng component
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
+// primeng service
+import {ConfirmationService} from "primeng/components/common/confirmationservice";
 
 @Component({
 	selector: 'users',
@@ -25,7 +26,7 @@ export class UsersComponent extends AbstractComponent {
 
 	private filter: UserFilter = {};
 
-	private selectedUser: User = new User();
+	private user: User = new User();
 
 	constructor(private service: UserService, confirmationService: ConfirmationService) {
 		super(confirmationService);
@@ -77,8 +78,7 @@ export class UsersComponent extends AbstractComponent {
 
 	private get(user: User): void {
 		this.service.get(user.id).subscribe(user => {
-			this.selectedUser = user;
-			console.log(this.selectedUser);
+			this.user = user;
 			this.showDialog = true;
 			this.isEdit = true;
 		}, error => super.handleError(error));

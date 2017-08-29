@@ -45,6 +45,10 @@ export abstract class AbstractComponent {
 
 	protected readonly confirmDialogIcon: string = "fa-question-circle";
 
+	protected readonly formSaveButtonIcon: string = "fa-check";
+
+	protected readonly formCancelButtonIcon: string = "fa-close";
+
 	protected tableTotalRecords: number = 0;
 
 	protected tableLoading: boolean = true;

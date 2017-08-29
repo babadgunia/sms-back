@@ -56,30 +56,23 @@
 <p-confirmDialog [acceptLabel]="getMessage('YES')" [rejectLabel]="getMessage('NO')"></p-confirmDialog>
 
 <p-dialog header="{{isEdit ? getMessage('EDIT') : getMessage('ADD')}}" [(visible)]="showDialog" modal="true">
-	<table>
-		<tr>
-			<td>
-				Username
-			</td>
-			<td>
-				<input pInputText [(ngModel)]="selectedUser.username">
-			</td>
-
-		</tr>
-		<tr>
-			<td>
-				Name
-			</td>
-			<td>
-				<input pInputText [(ngModel)]="selectedUser.name">
-			</td>
-		</tr>
-	</table>
+	<div class="ui-g">
+		<div class="ui-g-6">
+			Username
+		</div>
+		<div class="ui-g-6">
+			<input pInputText [(ngModel)]="user.username">
+		</div>
+		<div class="ui-g-6">
+			Name
+		</div>
+		<div class="ui-g-6">
+			<input pInputText [(ngModel)]="user.name">
+		</div>
+	</div>
 
 	<p-footer>
-		<div>
-			<button type="button" pButton icon="fa-close" (click)="showUserDialog=false" label="No"></button>
-			<button type="button" pButton icon="fa-check" (click)="showUserDialog=false" label="Yes"></button>
-		</div>
+		<button pButton [label]="getMessage('SAVE')" [icon]="formSaveButtonIcon" (click)="showDialog=false"></button>
+		<button pButton [label]="getMessage('CANCEL')" [icon]="formCancelButtonIcon" (click)="showDialog=false"></button>
 	</p-footer>
 </p-dialog>
