@@ -7,9 +7,11 @@ import {Observable} from "rxjs/Observable";
 
 export abstract class AbstractService {
 
-	protected constructor(private http: Http) {}
+	protected constructor(private http: Http, private baseUrl: string) {}
 
 	protected httpRequest(requestMethod: RequestMethod, url: string, body?: any): Observable<any> {
+		url = `${this.baseUrl}/${url}`;
+
 		switch (requestMethod) {
 			case RequestMethod.Get: {
 				return this.parseResponse(this.http.get(url, AuthenticationService.getApiHeaders()));

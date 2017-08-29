@@ -16,23 +16,23 @@ import {Observable} from "rxjs/Observable";
 @Injectable()
 export class UserService extends AbstractService {
 
-	constructor(http: Http, @Inject(USER_SERVICE_URL) private apiUrl: string) {
-		super(http);
+	constructor(http: Http, @Inject(USER_SERVICE_URL) baseUrl: string) {
+		super(http, baseUrl);
 	}
 
 	delete(id: number): Observable<void> {
-		return super.httpRequest(RequestMethod.Delete, `${this.apiUrl}/delete/${id}`);
+		return super.httpRequest(RequestMethod.Delete, `delete/${id}`);
 	}
 
 	get(id: number): Observable<User> {
-		return super.httpRequest(RequestMethod.Get, `${this.apiUrl}/get/${id}`);
+		return super.httpRequest(RequestMethod.Get, `get/${id}`);
 	}
 
 	getCount(filter: UserFilter): Observable<number> {
-		return super.httpRequest(RequestMethod.Post, `${this.apiUrl}/getCount`, filter);
+		return super.httpRequest(RequestMethod.Post, "getCount", filter);
 	}
 
 	getList(filter: UserFilter): Observable<User[]> {
-		return super.httpRequest(RequestMethod.Post, `${this.apiUrl}/getList`, filter);
+		return super.httpRequest(RequestMethod.Post, "getList", filter);
 	}
 }
