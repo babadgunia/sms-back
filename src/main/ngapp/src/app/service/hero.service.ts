@@ -8,7 +8,7 @@ import {Headers, Http} from "@angular/http";
 
 import {Hero} from "../model/entity/hero";
 import {AuthenticationService} from "./authentication.service";
-import {HERO_SERVICE_URL} from "app/utils/injectable-constants";
+import {HERO_SERVICE_URL} from "app/util/injectable-constants";
 
 @Injectable()
 export class HeroService {

@@ -1,5 +1,6 @@
 package org.test.sms.common.entity.general;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.test.sms.common.entity.AppEntity;
 import org.test.sms.common.enums.general.LanguageType;
 import org.test.sms.common.enums.general.StatusType;
@@ -29,6 +30,7 @@ public class User extends AppEntity {
     @Column(unique = true)
     private String username;
 
+    @JsonIgnore
     private String password;
 
     private String name;

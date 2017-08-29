@@ -6,8 +6,8 @@ import {HttpModule} from "@angular/http";
 import {NgModule} from "@angular/core";
 // utils
 import {AppRoutingModule} from "./app-routing.model";
-import {CanActivateAuthGuard} from "./utils/can-activate.authguard";
-import {INJECTABLE_CONSTANTS} from "./utils/injectable-constants";
+import {CanActivateAuthGuard} from "./util/can-activate.authguard";
+import {INJECTABLE_CONSTANTS} from "./util/injectable-constants";
 // services
 import {AuthenticationService} from "./service/authentication.service";
 import {HeroService} from "./service/hero.service";
@@ -27,6 +27,7 @@ import {ButtonModule} from "primeng/components/button/button";
 import {ConfirmDialogModule} from 'primeng/components/confirmdialog/confirmdialog';
 import {DataTableModule} from "primeng/components/datatable/datatable";
 import {DialogModule} from "primeng/components/dialog/dialog";
+import {DropdownModule} from 'primeng/components/dropdown/dropdown';
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
 
 @NgModule({
@@ -53,6 +54,7 @@ import {InputTextModule} from "primeng/components/inputtext/inputtext";
 		ConfirmDialogModule,
 		DataTableModule,
 		DialogModule,
+		DropdownModule,
 		InputTextModule
 	],
 	providers: [

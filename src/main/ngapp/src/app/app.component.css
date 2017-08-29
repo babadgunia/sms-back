@@ -22,9 +22,8 @@ li a:hover {
 	background-color: #111;
 }
 
-li:last-child
-{
-	float:right;
+li:last-child {
+	float: right;
 	align: center;
 	padding-top: 8px;
 	padding-right: 2px;

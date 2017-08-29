@@ -5,7 +5,7 @@ import {AuthenticationService} from "../service/authentication.service";
 // primeng services
 import {ConfirmationService} from "primeng/components/common/confirmationservice";
 // utils
-import {messages} from "../utils/messages";
+import {messages} from "../util/messages";
 // primeng
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
 

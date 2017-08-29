@@ -78,6 +78,7 @@ export class UsersComponent extends AbstractComponent {
 	private get(user: User): void {
 		this.service.get(user.id).subscribe(user => {
 			this.selectedUser = user;
+			console.log(this.selectedUser);
 			this.showDialog = true;
 			this.isEdit = true;
 		}, error => super.handleError(error));

@@ -1,3 +1,4 @@
+// model > filter
 import {AbstractFilter} from "./abstract-filter";
 
 export class UserFilter extends AbstractFilter {

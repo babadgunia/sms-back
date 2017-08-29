@@ -1,44 +1,38 @@
-// angular
-import {Http} from "@angular/http";
+// angular > core
 import {Inject, Injectable} from "@angular/core";
-// model
+// angular > http
+import {Http, RequestMethod} from "@angular/http";
+// model > entity
 import {User} from "../model/entity/user";
+// model > filter
 import {UserFilter} from "../model/filter/user-filter";
-// services
+// service
 import {AbstractService} from "./abstract-service";
-// utils
-import {USER_SERVICE_URL} from "../utils/injectable-constants";
+// util
+import {USER_SERVICE_URL} from "../util/injectable-constants";
 // rxjs
 import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class UserService extends AbstractService {
 
-	constructor(private http: Http, @Inject(USER_SERVICE_URL) private apiUrl: string) {
-		super();
+	constructor(http: Http, @Inject(USER_SERVICE_URL) private apiUrl: string) {
+		super(http);
 	}
 
 	delete(id: number): Observable<void> {
-		const url = `${this.apiUrl}/delete/${id}`;
-
-		return this.http.delete(url, {headers: super.getApiHeaders()}).catch(error => super.handleError(error));
+		return super.httpRequest(RequestMethod.Delete, `${this.apiUrl}/delete/${id}`);
 	}
 
 	get(id: number): Observable<User> {
-		const url = `${this.apiUrl}/get/${id}`;
-
-		return this.http.get(url, {headers: super.getApiHeaders()}).map(response => response.json() as User).catch(error => super.handleError(error));
+		return super.httpRequest(RequestMethod.Get, `${this.apiUrl}/get/${id}`);
 	}
 
 	getCount(filter: UserFilter): Observable<number> {
-		const url = `${this.apiUrl}/getCount`;
-
-		return this.http.post(url, filter, {headers: super.getApiHeaders()}).map(response => response.json() as number).catch(error => super.handleError(error));
+		return super.httpRequest(RequestMethod.Post, `${this.apiUrl}/getCount`, filter);
 	}
 
 	getList(filter: UserFilter): Observable<User[]> {
-		const url = `${this.apiUrl}/getList`;
-
-		return this.http.post(url, filter, {headers: super.getApiHeaders()}).map(response => response.json() as User[]).catch(error => super.handleError(error));
+		return super.httpRequest(RequestMethod.Post, `${this.apiUrl}/getList`, filter);
 	}
 }

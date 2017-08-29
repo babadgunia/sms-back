@@ -1,10 +1,10 @@
 ﻿import {Inject, Injectable} from "@angular/core";
-import {Headers, Http, Response} from "@angular/http";
+import {Headers, Http, RequestOptionsArgs, Response} from "@angular/http";
 import {Observable} from "rxjs/Rx";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
 import "rxjs/add/observable/throw";
-import {AUTH_SERVICE_URL} from "../utils/injectable-constants";
+import {AUTH_SERVICE_URL} from "../util/injectable-constants";
 
 @Injectable()
 export class AuthenticationService {
@@ -51,6 +51,15 @@ export class AuthenticationService {
 		let token: String = AuthenticationService.getToken();
 
 		return token && token.length > 0;
+	}
+
+	static getApiHeaders(): RequestOptionsArgs {
+		let headers: Headers = new Headers({
+			'Content-Type': 'application/json',
+			'Authorization': AuthenticationService.getToken()
+		});
+
+		return {headers: headers};
 	}
 
 	private urlBase64Decode(str: string) {

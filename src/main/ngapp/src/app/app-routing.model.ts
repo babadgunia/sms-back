@@ -6,7 +6,7 @@ import {HeroesComponent} from "./component/heroes/heroes.component";
 import {UsersComponent} from "./component/users/users.component";
 import {HeroDetailComponent} from "./component/hero-detail/hero-detail.component";
 import {LoginComponent} from "./component/login/login.component";
-import {CanActivateAuthGuard} from "./utils/can-activate.authguard";
+import {CanActivateAuthGuard} from "./util/can-activate.authguard";
 
 const routes: Routes = [
 	{path: '', redirectTo: 'users', pathMatch: 'full'},
