@@ -4,7 +4,7 @@ import {Component, OnInit} from "@angular/core";
 import {Location} from "@angular/common";
 import {ActivatedRoute, Params} from "@angular/router";
 
-import {Hero} from "../../model/hero";
+import {Hero} from "../../model/entity/hero";
 import {HeroService} from "../../service/hero.service";
 
 @Component({

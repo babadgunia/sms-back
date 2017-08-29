@@ -6,7 +6,7 @@ import {Observable} from "rxjs/Observable";
 import {Inject, Injectable} from "@angular/core";
 import {Headers, Http} from "@angular/http";
 
-import {Hero} from "../model/hero";
+import {Hero} from "../model/entity/hero";
 import {AuthenticationService} from "./authentication.service";
 import {HERO_SERVICE_URL} from "app/utils/injectable-constants";
 

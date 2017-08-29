@@ -9,7 +9,7 @@ import {Subject} from "rxjs/Subject";
 import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 
-import {Hero} from "../../model/hero";
+import {Hero} from "../../model/entity/hero";
 import {HeroService} from "../../service/hero.service";
 
 @Component({

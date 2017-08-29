@@ -1,7 +1,7 @@
 // angular
 import {Component} from "@angular/core";
 // model
-import {User} from "../../model/user";
+import {User} from "../../model/entity/user";
 import {UserFilter} from "../../model/filter/user-filter";
 // components
 import {AbstractComponent} from "../abstract-component";

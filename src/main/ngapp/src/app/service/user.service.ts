@@ -2,7 +2,7 @@
 import {Http} from "@angular/http";
 import {Inject, Injectable} from "@angular/core";
 // model
-import {User} from "../model/user";
+import {User} from "../model/entity/user";
 import {UserFilter} from "../model/filter/user-filter";
 // services
 import {AbstractService} from "./abstract-service";
