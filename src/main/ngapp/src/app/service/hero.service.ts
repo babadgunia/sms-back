@@ -46,7 +46,7 @@ export class HeroService {
 		return this.http.delete(url, {headers: HeroService.getHeaders()}).toPromise().then(() => null).catch(HeroService.handleError);
 	}
 
-	get (id: number): Promise<Hero> {
+	get(id: number): Promise<Hero> {
 		const url = `${this.apiUrl}/get/${id}`;
 
 		return this.http.get(url, {headers: HeroService.getHeaders()}).toPromise().then(response => response.json() as Hero).catch(HeroService.handleError);
@@ -72,7 +72,7 @@ export class HeroService {
 		return this.http.get(url, {headers: HeroService.getHeaders()}).map(response => response.json() as Hero[]).catch(HeroService.handleError);
 	}
 
-	getMap (): Observable<Map<string, Map<string, string>>> {
+	getMap(): Observable<Map<string, Map<string, string>>> {
 		class JsonResponseResult {
 
 			parameters: Map<string, Map<string, string>>;
