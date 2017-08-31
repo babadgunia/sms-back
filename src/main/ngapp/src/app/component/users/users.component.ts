@@ -2,6 +2,9 @@
 import {Component} from "@angular/core";
 // model > entity
 import {User} from "../../model/entity/user";
+// model > enum
+import {LanguageType} from "../../model/enum/language-type.enum";
+import {StatusType} from "app/model/enum/status-type.enum";
 // model > filter
 import {UserFilter} from "../../model/filter/user-filter";
 // component
@@ -68,6 +71,8 @@ export class UsersComponent extends AbstractComponent {
 		super.updateDialogStates(true, false, false);
 
 		this.user = new User();
+		this.user.status = StatusType.ACTIVE;
+		this.user.language = LanguageType.EN;
 	}
 
 	private save(): void {
