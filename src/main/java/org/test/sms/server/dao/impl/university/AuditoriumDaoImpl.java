@@ -15,6 +15,11 @@ import java.util.Objects;
 public class AuditoriumDaoImpl extends AbstractDaoImpl<Auditorium> implements AuditoriumDao {
 
     @Override
+    protected Auditorium init(Auditorium entity) {
+        return entity;
+    }
+
+    @Override
     protected String getSelect() {
         return "id, name";
     }

@@ -66,7 +66,15 @@ export class UsersComponent extends AbstractComponent {
 
 	private add(): void {}
 
-	private update(): void {}
+	private update(): void {
+		this.service.update(this.user).subscribe(user => {
+			let index: number = this.users.indexOf(this.user);
+			console.log(index);
+			this.users.splice(index, 1, user);
+
+			this.showDialog = false;
+		}, error => super.handleError(error));
+	}
 
 	private confirmAction(user: User): void {
 		super.abstractConfirmAction(() => {

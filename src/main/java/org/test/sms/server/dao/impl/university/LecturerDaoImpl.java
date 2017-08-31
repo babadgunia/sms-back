@@ -27,6 +27,11 @@ public class LecturerDaoImpl extends AbstractDaoImpl<Lecturer> implements Lectur
         return super.add(entity);
     }
 
+    @Override
+    protected Lecturer init(Lecturer entity) {
+        return entity;
+    }
+
     private boolean exists(String personalNumber) {
         TypedQuery<Lecturer> query = em.createQuery("SELECT new Lecturer(id) FROM Lecturer WHERE UPPER(personalNumber) = :personalNumber", Lecturer.class);
         query.setParameter("personalNumber", personalNumber);

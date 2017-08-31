@@ -12,6 +12,11 @@ import java.util.Map;
 public class GroupDaoImpl extends AbstractDaoImpl<Group> implements GroupDao {
 
     @Override
+    protected Group init(Group entity) {
+        return entity;
+    }
+
+    @Override
     protected String getSelect() {
         return null;
     }

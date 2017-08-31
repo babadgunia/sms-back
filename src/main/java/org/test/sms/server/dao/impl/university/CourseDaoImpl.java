@@ -25,6 +25,11 @@ public class CourseDaoImpl extends AbstractDaoImpl<Course> implements CourseDao 
     }
 
     @Override
+    protected Course init(Course entity) {
+        return entity;
+    }
+
+    @Override
     protected String getSelect() {
         return null;
     }

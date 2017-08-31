@@ -30,6 +30,11 @@ public class StudentDaoImpl extends AbstractDaoImpl<Student> implements StudentD
         return super.add(entity);
     }
 
+    @Override
+    protected Student init(Student entity) {
+        return entity;
+    }
+
     private boolean exists(String personalNumber) {
         TypedQuery<Student> query = em.createQuery("SELECT new Student(id) FROM Student WHERE UPPER(personalNumber) = :personalNumber", Student.class);
         query.setParameter("personalNumber", personalNumber);

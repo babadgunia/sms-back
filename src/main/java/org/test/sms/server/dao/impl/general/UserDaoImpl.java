@@ -22,16 +22,12 @@ import java.util.Optional;
 public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 
     @Override
-    public Optional<User> get(long id) {
-        Optional<User> result = super.get(id);
+    protected User init(User entity) {
+        List<Permission> permissions = entity.getUserGroup().getPermissions();
+        permissions.size();
+        permissions.forEach(permission -> permission.getPermissions().size());
 
-        result.ifPresent(user -> {
-            List<Permission> permissions = user.getUserGroup().getPermissions();
-            permissions.size();
-            permissions.forEach(permission -> permission.getPermissions().size());
-        });
-
-        return result;
+        return entity;
     }
 
     @Override
@@ -73,13 +69,7 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
         query.setParameter("username", username.toUpperCase());
 
         try {
-            User user = query.getSingleResult();
-
-            List<Permission> permissions = user.getUserGroup().getPermissions();
-            permissions.size();
-            permissions.forEach(permission -> permission.getPermissions().size());
-
-            return Optional.of(user);
+            return Optional.of(init(query.getSingleResult()));
         } catch (NoResultException e) {
             return Optional.empty();
         }

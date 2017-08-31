@@ -81,6 +81,11 @@ public class FacultyDaoImpl extends AbstractDaoImpl<Faculty> implements FacultyD
     }
 
     @Override
+    protected Faculty init(Faculty entity) {
+        return entity;
+    }
+
+    @Override
     protected String getSelect() {
         return "id, name";
     }

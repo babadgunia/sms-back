@@ -28,6 +28,16 @@ public class UserController {
         this.service = service;
     }
 
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    @PreAuthorize("@userPermissionService.hasPermission('USER', 'EDIT')")
+    public ResponseEntity<User> update(@RequestBody User user) {
+        try {
+            return new ResponseEntity<>(service.update(user), HttpStatus.OK);
+        } catch (AppException e) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+    }
+
     @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
     @PreAuthorize("@userPermissionService.hasPermission('USER', 'DELETE')")
     public ResponseEntity<Void> delete(@PathVariable("id") long id) {

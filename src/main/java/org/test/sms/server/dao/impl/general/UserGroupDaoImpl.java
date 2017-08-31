@@ -58,6 +58,11 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<UserGroup> implements User
     }
 
     @Override
+    protected UserGroup init(UserGroup entity) {
+        return entity;
+    }
+
+    @Override
     protected String getSelect() {
         return "id, name";
     }

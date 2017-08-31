@@ -31,6 +31,10 @@ export const messages = {
 		en: 'Id',
 		ka: "აიდი"
 	},
+	LANGUAGE: {
+		en: 'Language',
+		ka: 'ენა'
+	},
 	NAME: {
 		en: 'Name',
 		ka: 'სახელი'
@@ -50,6 +54,10 @@ export const messages = {
 	SEARCH_TABLE_FOOTER: {
 		en: '{0} records found',
 		ka: 'მოიძებნა {0} ჩანაწერი'
+	},
+	STATUS: {
+		en: 'Status',
+		ka: 'სტატუსი'
 	},
 	USERNAME: {
 		en: 'Username',

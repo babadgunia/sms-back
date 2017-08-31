@@ -20,6 +20,10 @@ export class UserService extends AbstractService {
 		super(http, baseUrl);
 	}
 
+	update(user: User): Observable<User> {
+		return super.httpRequest(RequestMethod.Post, "update", user);
+	}
+
 	delete(id: number): Observable<void> {
 		return super.httpRequest(RequestMethod.Delete, `delete/${id}`);
 	}

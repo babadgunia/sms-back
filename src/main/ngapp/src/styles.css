@@ -21,3 +21,7 @@
 .c-search-table-action-column-delete-button-wrapper {
 	padding-left: 1px;
 }
+
+.c-form-dialog {
+	width: 500px;
+}

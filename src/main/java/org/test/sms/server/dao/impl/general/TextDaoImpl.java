@@ -52,6 +52,11 @@ public class TextDaoImpl extends AbstractDaoImpl<Text> implements TextDao {
     }
 
     @Override
+    protected Text init(Text entity) {
+        return entity;
+    }
+
+    @Override
     protected String getSelect() {
         return null;
     }

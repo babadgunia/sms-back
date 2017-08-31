@@ -52,6 +52,11 @@ public class BuildingDaoImpl extends AbstractDaoImpl<Building> implements Buildi
     }
 
     @Override
+    protected Building init(Building entity) {
+        return entity;
+    }
+
+    @Override
     protected String getSelect() {
         return "id, name, address, lat, lon";
     }

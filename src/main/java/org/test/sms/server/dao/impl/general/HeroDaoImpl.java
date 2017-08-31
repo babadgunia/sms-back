@@ -14,6 +14,11 @@ import java.util.Objects;
 public class HeroDaoImpl extends AbstractDaoImpl<Hero> implements HeroDao {
 
     @Override
+    protected Hero init(Hero entity) {
+        return entity;
+    }
+
+    @Override
     protected String getSelect() {
         return "id, name";
     }

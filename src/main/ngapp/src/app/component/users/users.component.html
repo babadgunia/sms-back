@@ -55,24 +55,36 @@
 
 <p-confirmDialog [acceptLabel]="getMessage('YES')" [rejectLabel]="getMessage('NO')"></p-confirmDialog>
 
-<p-dialog header="{{isEdit ? getMessage('EDIT') : getMessage('ADD')}}" [(visible)]="showDialog" modal="true">
+<p-dialog header="{{isEdit ? getMessage('EDIT') : getMessage('ADD')}}" [(visible)]="showDialog" modal="true" [styleClass]="formDialogClass" [contentStyle]="formDialogContentStyle">
 	<div class="ui-g">
 		<div class="ui-g-6">
-			Username
+			{{getMessage('USERNAME')}}
 		</div>
 		<div class="ui-g-6">
-			<input pInputText [(ngModel)]="user.username">
+			<input pInputText [(ngModel)]="user.username" disabled="true" [class]="formComponentClass">
 		</div>
 		<div class="ui-g-6">
-			Name
+			{{getMessage('NAME')}}
 		</div>
 		<div class="ui-g-6">
-			<input pInputText [(ngModel)]="user.name">
+			<input pInputText [(ngModel)]="user.name" [class]="formComponentClass">
+		</div>
+		<div class="ui-g-6">
+			{{getMessage('STATUS')}}
+		</div>
+		<div class="ui-g-6">
+			<p-dropdown [options]="statuses" [(ngModel)]="user.status" [autoWidth]="false" [styleClass]="formComponentClass"></p-dropdown>
+		</div>
+		<div class="ui-g-6">
+			{{getMessage('LANGUAGE')}}
+		</div>
+		<div class="ui-g-6">
+			<p-dropdown [options]="languages" [(ngModel)]="user.language" [autoWidth]="false" [styleClass]="formComponentClass"></p-dropdown>
 		</div>
 	</div>
 
 	<p-footer>
-		<button pButton [label]="getMessage('SAVE')" [icon]="formSaveButtonIcon" (click)="showDialog=false"></button>
+		<button pButton [label]="getMessage('SAVE')" [icon]="formSaveButtonIcon" (click)="update()"></button>
 		<button pButton [label]="getMessage('CANCEL')" [icon]="formCancelButtonIcon" (click)="showDialog=false"></button>
 	</p-footer>
 </p-dialog>

@@ -10,6 +10,7 @@ import org.test.sms.server.dao.AbstractDao;
 import javax.persistence.EntityManager;
 import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.lang.reflect.ParameterizedType;
 import java.time.LocalDateTime;
@@ -53,7 +54,12 @@ public abstract class AbstractDaoImpl<T extends AppEntity> implements AbstractDa
         entity.setLastModifiedTime(LocalDateTime.now());
 
         try {
-            return em.merge(entity);
+            em.merge(entity);
+
+            TypedQuery<T> query = em.createQuery("SELECT new " + entityClassName + "(" + getSelect() + ") FROM " + entityClassName + " WHERE id = :id", entityClass);
+            query.setParameter("id", entity.getId());
+
+            return query.getSingleResult();
         } catch (OptimisticLockException e) {
             throw new AppException(ErrorCode.OBJECT_CHANGED);
         }
@@ -61,12 +67,18 @@ public abstract class AbstractDaoImpl<T extends AppEntity> implements AbstractDa
 
     @Override
     public void delete(long id) throws AppException {
-        get(id).ifPresent(entity -> em.remove(entity));
+        Query query = em.createQuery("DELETE FROM " + entityClass + " WHERE id = :id");
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 
     @Override
     public Optional<T> get(long id) {
-        return Optional.ofNullable(em.find(entityClass, id));
+        Optional<T> result = Optional.ofNullable(em.find(entityClass, id));
+
+        result.ifPresent(this::init);
+
+        return result;
     }
 
     @Override
@@ -114,6 +126,8 @@ public abstract class AbstractDaoImpl<T extends AppEntity> implements AbstractDa
 
         return query.getResultList();
     }
+
+    protected abstract T init(T entity);
 
     protected abstract String getSelect();
 

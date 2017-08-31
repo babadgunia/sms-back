@@ -19,6 +19,11 @@ import java.util.Objects;
 public class ExamDaoImpl extends AbstractDaoImpl<Exam> implements ExamDao {
 
     @Override
+    protected Exam init(Exam entity) {
+        return entity;
+    }
+
+    @Override
     protected String getSelect() {
         return null;
     }

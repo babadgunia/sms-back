@@ -12,6 +12,11 @@ import java.util.Map;
 public class StudentCourseDaoImpl extends AbstractDaoImpl<StudentCourse> implements StudentCourseDao {
 
     @Override
+    protected StudentCourse init(StudentCourse entity) {
+        return entity;
+    }
+
+    @Override
     protected String getSelect() {
         return null;
     }

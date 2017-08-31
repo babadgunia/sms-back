@@ -12,6 +12,11 @@ import java.util.Map;
 public class ActionLogDaoImpl extends AbstractDaoImpl<ActionLog> implements ActionLogDao {
 
     @Override
+    protected ActionLog init(ActionLog entity) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected String getSelect() {
         throw new UnsupportedOperationException();
     }
