@@ -5,6 +5,7 @@ import org.test.sms.common.entity.general.Permission;
 import org.test.sms.common.entity.general.User;
 import org.test.sms.common.enums.general.PermissionGroupType;
 import org.test.sms.common.enums.general.PermissionType;
+import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.AbstractFilter;
 import org.test.sms.common.filter.general.UserFilter;
 import org.test.sms.common.utils.Utils;
@@ -22,6 +23,16 @@ import java.util.Optional;
 public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 
     @Override
+    public User update(User entity) throws AppException {
+        TypedQuery<String> query = em.createQuery("SELECT password FROM User WHERE id = :id", String.class);
+        query.setParameter("id", entity.getId());
+
+        entity.setPassword(query.getSingleResult());
+
+        return super.update(entity);
+    }
+
+    @Override
     protected User init(User entity) {
         List<Permission> permissions = entity.getUserGroup().getPermissions();
         permissions.size();
@@ -32,7 +43,7 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 
     @Override
     protected String getSelect() {
-        return "id, username, name";
+        return "id, username, name, status, language";
     }
 
     @Override

@@ -67,7 +67,7 @@ public abstract class AbstractDaoImpl<T extends AppEntity> implements AbstractDa
 
     @Override
     public void delete(long id) throws AppException {
-        Query query = em.createQuery("DELETE FROM " + entityClass + " WHERE id = :id");
+        Query query = em.createQuery("DELETE FROM " + entityClassName + " WHERE id = :id");
         query.setParameter("id", id);
         query.executeUpdate();
     }

@@ -68,8 +68,7 @@ export class UsersComponent extends AbstractComponent {
 
 	private update(): void {
 		this.service.update(this.user).subscribe(user => {
-			let index: number = this.users.indexOf(this.user);
-			console.log(index);
+			let index: number = this.users.findIndex((element: User) => element.id === user.id);
 			this.users.splice(index, 1, user);
 
 			this.showDialog = false;

@@ -1,7 +1,5 @@
 package org.test.sms.common.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 import java.io.Serializable;
@@ -19,10 +17,8 @@ public abstract class AppEntity implements Serializable {
 
     protected static final int STRING_FIELD_MAX_LENGTH = 4000;
 
-    @JsonIgnore
     private LocalDateTime creationTime;
 
-    @JsonIgnore
     private LocalDateTime lastModifiedTime;
 
     @Version

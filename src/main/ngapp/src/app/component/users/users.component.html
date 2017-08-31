@@ -20,11 +20,13 @@
 	</div>
 
 	<div class="ui-g-12 ui-g-nopad">
-		<p-dataTable #table [value]="users" [lazy]="true" [paginator]="true" [totalRecords]="tableTotalRecords" [rows]="searchTableRows" [pageLinks]="searchTablePageLinks"
+		<p-dataTable #table [value]="users" [immutable]="false" [lazy]="true" [paginator]="true" [totalRecords]="tableTotalRecords" [rows]="searchTableRows" [pageLinks]="searchTablePageLinks"
 								 [loading]="tableLoading" [loadingIcon]="searchTableLoadingIcon" (onLazyLoad)="initLazyFilter($event)">
-			<p-column field="id" [header]="getMessage('ID')" [filter]="true" [filterPlaceholder]="getMessage('ID')" filterMatchMode="contains"></p-column>
-			<p-column field="username" [header]="getMessage('USERNAME')" [filter]="true" [filterPlaceholder]="getMessage('USERNAME')" filterMatchMode="contains"></p-column>
-			<p-column field="name" [header]="getMessage('NAME')" [filter]="true" [filterPlaceholder]="getMessage('NAME')" filterMatchMode="contains"></p-column>
+			<p-column field="id" [header]="getMessage('ID')" [filter]="true" filterMatchMode="contains"></p-column>
+			<p-column field="username" [header]="getMessage('USERNAME')" [filter]="true" filterMatchMode="contains"></p-column>
+			<p-column field="name" [header]="getMessage('NAME')" [filter]="true" filterMatchMode="contains"></p-column>
+			<p-column field="status" [header]="getMessage('STATUS')" [filter]="true" filterMatchMode="contains"></p-column>
+			<p-column field="language" [header]="getMessage('LANGUAGE')" [filter]="true" filterMatchMode="contains"></p-column>
 
 			<p-column [styleClass]="searchTableActionColumnClass">
 				<ng-template pTemplate="header">
