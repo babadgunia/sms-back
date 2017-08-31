@@ -76,12 +76,12 @@ export abstract class AbstractComponent {
 	protected isView: boolean = false;
 
 	protected constructor(private confirmationService: ConfirmationService) {
-		let statusStrings: string[] = Object.keys(StatusType).filter(key => !isNaN(Number(StatusType[key])));
+		let statusStrings: string[] = Object.keys(StatusType).filter(key => !isNaN(StatusType[key]));
 		statusStrings.forEach((statusString: string) => {
 			this.statuses.push({label: statusString, value: statusString});
 		});
 
-		let languageStrings: string[] = Object.keys(LanguageType).filter(key => !isNaN(Number(LanguageType[key])));
+		let languageStrings: string[] = Object.keys(LanguageType).filter(key => !isNaN(LanguageType[key]));
 		languageStrings.forEach((languageString: string) => {
 			this.languages.push({label: languageString, value: languageString});
 		});
