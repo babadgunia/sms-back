@@ -30,17 +30,19 @@
 
 			<p-column [styleClass]="searchTableActionColumnClass">
 				<ng-template pTemplate="header">
-					<button pButton [label]="getMessage('ADD')" [icon]="searchTableActionColumnAddButtonIcon" [class]="searchTableActionColumnButtonClass" (click)="add()"
+					<button pButton [label]="getMessage('ADD')" [icon]="searchTableActionColumnAddButtonIcon" [class]="searchTableActionColumnButtonClass" (click)="initAdd()"
 									*ngIf="hasPermission('USER.ADD')"></button>
 				</ng-template>
 				<ng-template pTemplate="body" let-user="rowData">
 					<div class="ui-g">
 						<div class="ui-g-nopad {{hasPermission('USER.DELETE') ? searchTableActionColumnViewEditButtonWrapperClass : ''}}" [class.ui-g-12]="!hasPermission('USER.DELETE')"
 								 [class.ui-g-6]="hasPermission('USER.DELETE')">
-							<button pButton [title]="getMessage('VIEW')" [icon]="searchTableActionColumnViewButtonIcon" [class]="searchTableActionColumnButtonClass" (click)="get(user)"
-											*ngIf="!hasPermission('USER.EDIT')"></button>
-							<button pButton [title]="getMessage('EDIT')" [icon]="searchTableActionColumnEditButtonIcon" [class]="searchTableActionColumnButtonClass" (click)="get(user)"
+							<button pButton [title]="getMessage('EDIT')" [icon]="searchTableActionColumnEditButtonIcon" [class]="searchTableActionColumnButtonClass"
+											(click)="updateDialogStates(false, true, false); get(user)"
 											*ngIf="hasPermission('USER.EDIT')"></button>
+							<button pButton [title]="getMessage('VIEW')" [icon]="searchTableActionColumnViewButtonIcon" [class]="searchTableActionColumnButtonClass"
+											(click)="updateDialogStates(false, false, true); get(user)"
+											*ngIf="!hasPermission('USER.EDIT')"></button>
 						</div>
 						<div class="ui-g-6 ui-g-nopad {{searchTableActionColumnDeleteButtonWrapperClass}}" *ngIf="hasPermission('USER.DELETE')">
 							<button pButton [title]="getMessage('DELETE')" [icon]="searchTableActionColumnDeleteButtonIcon" [class]="searchTableActionColumnButtonClass"
@@ -57,36 +59,37 @@
 
 <p-confirmDialog [acceptLabel]="getMessage('YES')" [rejectLabel]="getMessage('NO')"></p-confirmDialog>
 
-<p-dialog header="{{isEdit ? getMessage('EDIT') : getMessage('ADD')}}" [(visible)]="showDialog" modal="true" [styleClass]="formDialogClass" [contentStyle]="formDialogContentStyle">
+<p-dialog header="{{isAdd ? getMessage('ADD') : isEdit ? getMessage('EDIT') : getMessage('VIEW')}}" [(visible)]="showDialog" modal="true" [styleClass]="formDialogClass"
+					[contentStyle]="formDialogContentStyle">
 	<div class="ui-g">
 		<div class="ui-g-6">
 			{{getMessage('USERNAME')}}
 		</div>
 		<div class="ui-g-6">
-			<input pInputText [(ngModel)]="user.username" disabled="true" [class]="formComponentClass">
+			<input pInputText [(ngModel)]="user.username" [class]="formComponentClass" [disabled]="isView || isEdit">
 		</div>
 		<div class="ui-g-6">
 			{{getMessage('NAME')}}
 		</div>
 		<div class="ui-g-6">
-			<input pInputText [(ngModel)]="user.name" [class]="formComponentClass">
+			<input pInputText [(ngModel)]="user.name" [class]="formComponentClass" [disabled]="isView">
 		</div>
 		<div class="ui-g-6">
 			{{getMessage('STATUS')}}
 		</div>
 		<div class="ui-g-6">
-			<p-dropdown [options]="statuses" [(ngModel)]="user.status" [autoWidth]="false" [styleClass]="formComponentClass"></p-dropdown>
+			<p-dropdown [options]="statuses" [(ngModel)]="user.status" [autoWidth]="false" [styleClass]="formComponentClass" [disabled]="isView"></p-dropdown>
 		</div>
 		<div class="ui-g-6">
 			{{getMessage('LANGUAGE')}}
 		</div>
 		<div class="ui-g-6">
-			<p-dropdown [options]="languages" [(ngModel)]="user.language" [autoWidth]="false" [styleClass]="formComponentClass"></p-dropdown>
+			<p-dropdown [options]="languages" [(ngModel)]="user.language" [autoWidth]="false" [styleClass]="formComponentClass" [disabled]="isView"></p-dropdown>
 		</div>
 	</div>
 
 	<p-footer>
-		<button pButton [label]="getMessage('SAVE')" [icon]="formSaveButtonIcon" (click)="update()"></button>
+		<button pButton [label]="getMessage('SAVE')" [icon]="formSaveButtonIcon" (click)="save()" *ngIf="!isView"></button>
 		<button pButton [label]="getMessage('CANCEL')" [icon]="formCancelButtonIcon" (click)="showDialog=false"></button>
 	</p-footer>
 </p-dialog>

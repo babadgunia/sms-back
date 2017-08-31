@@ -69,7 +69,11 @@ export abstract class AbstractComponent {
 
 	protected showDialog: boolean = false;
 
+	protected isAdd: boolean = false;
+
 	protected isEdit: boolean = false;
+
+	protected isView: boolean = false;
 
 	protected constructor(private confirmationService: ConfirmationService) {
 		let statusStrings: string[] = Object.keys(StatusType).filter(key => !isNaN(Number(StatusType[key])));
@@ -128,5 +132,13 @@ export abstract class AbstractComponent {
 				action();
 			}
 		});
+	}
+
+	protected updateDialogStates(isAdd: boolean, isEdit: boolean, isView: boolean) {
+		this.isAdd = isAdd;
+		this.isEdit = isEdit;
+		this.isView = isView;
+
+		this.showDialog = true;
 	}
 }

@@ -57,7 +57,7 @@ public class AuthenticationRestController {
 
             UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
             token = jwtTokenUtil.generateToken(userDetails);
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             log.error("Authentication failed! ", ex);
         }
         return ResponseEntity.ok(new JwtAuthenticationResponse(token));

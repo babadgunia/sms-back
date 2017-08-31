@@ -28,6 +28,16 @@ public class UserController {
         this.service = service;
     }
 
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    @PreAuthorize("@userPermissionService.hasPermission('USER', 'ADD')")
+    public ResponseEntity<User> add(@RequestBody User user) {
+        try {
+            return new ResponseEntity<>(service.add(user), HttpStatus.OK);
+        } catch (AppException e) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+    }
+
     @RequestMapping(value = "update", method = RequestMethod.POST)
     @PreAuthorize("@userPermissionService.hasPermission('USER', 'EDIT')")
     public ResponseEntity<User> update(@RequestBody User user) {

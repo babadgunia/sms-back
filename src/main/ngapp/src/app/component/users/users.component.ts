@@ -64,7 +64,27 @@ export class UsersComponent extends AbstractComponent {
 		this.getList();
 	}
 
-	private add(): void {}
+	private initAdd(): void {
+		super.updateDialogStates(true, false, false);
+
+		this.user = new User();
+	}
+
+	private save(): void {
+		if (this.isAdd) {
+			this.add();
+		} else {
+			this.update();
+		}
+	}
+
+	private add(): void {
+		this.service.add(this.user).subscribe(user => {
+			this.users.push(user);
+
+			this.showDialog = false;
+		}, error => super.handleError(error));
+	}
 
 	private update(): void {
 		this.service.update(this.user).subscribe(user => {
@@ -86,8 +106,6 @@ export class UsersComponent extends AbstractComponent {
 	private get(user: User): void {
 		this.service.get(user.id).subscribe(user => {
 			this.user = user;
-			this.showDialog = true;
-			this.isEdit = true;
 		}, error => super.handleError(error));
 	}
 
