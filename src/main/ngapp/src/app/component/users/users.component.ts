@@ -13,9 +13,9 @@ import {AbstractComponent} from "../abstract-component";
 import {UserService} from "../../service/user.service";
 // util
 import {isNullOrUndefined} from "util";
-// primeng component
+// primeng > component
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
-// primeng service
+// primeng > service
 import {ConfirmationService} from "primeng/components/common/confirmationservice";
 
 @Component({
@@ -68,11 +68,12 @@ export class UsersComponent extends AbstractComponent {
 	}
 
 	private initAdd(): void {
-		super.updateDialogStates(true, false, false);
-
 		this.user = new User();
-		this.user.status = StatusType.ACTIVE;
-		this.user.language = LanguageType.EN;
+
+		this.user.status = StatusType[StatusType.ACTIVE];
+		this.user.language = LanguageType[LanguageType.EN];
+
+		super.updateDialogStates(true, false, false);
 	}
 
 	private save(): void {

@@ -9,9 +9,12 @@ import {AuthenticationService} from "../service/authentication.service";
 import {messages} from "../util/messages";
 // primeng > util
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
+import {Message} from "primeng/components/common/message";
 import {SelectItem} from "primeng/components/common/selectitem";
 // primeng > service
 import {ConfirmationService} from "primeng/components/common/confirmationservice";
+// rxjs
+import {isNumeric} from "rxjs/util/isNumeric";
 
 export abstract class AbstractComponent {
 
@@ -30,6 +33,8 @@ export abstract class AbstractComponent {
 	protected readonly searchTablePageLinks: number = 3;
 
 	protected readonly searchTableLoadingIcon: string = "fa-cog";
+
+	protected readonly searchTableFilterComponentStyle: object = {'width': '100%'};
 
 	protected readonly searchTableActionColumnClass: string = "c-search-table-action-column";
 
@@ -63,6 +68,8 @@ export abstract class AbstractComponent {
 
 	protected readonly languages: SelectItem[] = [];
 
+	protected messages: Message[] = [];
+
 	protected tableTotalRecords: number = 0;
 
 	protected tableLoading: boolean = true;
@@ -76,12 +83,16 @@ export abstract class AbstractComponent {
 	protected isView: boolean = false;
 
 	protected constructor(private confirmationService: ConfirmationService) {
-		let statusStrings: string[] = Object.keys(StatusType).filter(key => !isNaN(StatusType[key]));
+		this.statuses.push({label: '', value: null});
+
+		let statusStrings: string[] = Object.keys(StatusType).filter(key => !isNumeric(key));
 		statusStrings.forEach((statusString: string) => {
 			this.statuses.push({label: statusString, value: statusString});
 		});
 
-		let languageStrings: string[] = Object.keys(LanguageType).filter(key => !isNaN(LanguageType[key]));
+		this.languages.push({label: '', value: null});
+
+		let languageStrings: string[] = Object.keys(LanguageType).filter(key => !isNumeric(key));
 		languageStrings.forEach((languageString: string) => {
 			this.languages.push({label: languageString, value: languageString});
 		});

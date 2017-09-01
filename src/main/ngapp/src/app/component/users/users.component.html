@@ -1,6 +1,6 @@
 <div class="ui-g">
 	<div class="ui-g-1 {{searchFilterFieldWrapperClass}}">
-		<input pInputText #idField [placeholder]="getMessage('ID')" [class]="searchFilterComponentClass"/>
+		<input pInputText type="number" #idField [placeholder]="getMessage('ID')" [class]="searchFilterComponentClass"/>
 	</div>
 	<div class="ui-g-1 {{searchFilterFieldWrapperClass}}">
 		<input pInputText #usernameField [placeholder]="getMessage('USERNAME_SHORT')" [class]="searchFilterComponentClass"/>
@@ -22,11 +22,19 @@
 	<div class="ui-g-12 ui-g-nopad">
 		<p-dataTable #table [value]="users" [immutable]="false" [lazy]="true" [paginator]="true" [totalRecords]="tableTotalRecords" [rows]="searchTableRows" [pageLinks]="searchTablePageLinks"
 								 [loading]="tableLoading" [loadingIcon]="searchTableLoadingIcon" (onLazyLoad)="initLazyFilter($event)">
-			<p-column field="id" [header]="getMessage('ID')" [filter]="true" filterMatchMode="contains"></p-column>
+			<p-column field="id" [header]="getMessage('ID')" [filter]="true" filterType="number" filterMatchMode="contains"></p-column>
 			<p-column field="username" [header]="getMessage('USERNAME')" [filter]="true" filterMatchMode="contains"></p-column>
 			<p-column field="name" [header]="getMessage('NAME')" [filter]="true" filterMatchMode="contains"></p-column>
-			<p-column field="status" [header]="getMessage('STATUS')" [filter]="true" filterMatchMode="contains"></p-column>
-			<p-column field="language" [header]="getMessage('LANGUAGE')" [filter]="true" filterMatchMode="contains"></p-column>
+			<p-column field="status" [header]="getMessage('STATUS')" [filter]="true" filterMatchMode="contains">
+				<ng-template pTemplate="filter" let-col>
+					<p-dropdown [options]="statuses" [style]="searchTableFilterComponentStyle" (onChange)="table.filter($event.value,col.field,col.filterMatchMode)"></p-dropdown>
+				</ng-template>
+			</p-column>
+			<p-column field="language" [header]="getMessage('LANGUAGE')" [filter]="true" filterMatchMode="equals">
+				<ng-template pTemplate="filter" let-col>
+					<p-dropdown [options]="languages" [style]="searchTableFilterComponentStyle" (onChange)="table.filter($event.value,col.field,col.filterMatchMode)"></p-dropdown>
+				</ng-template>
+			</p-column>
 
 			<p-column [styleClass]="searchTableActionColumnClass">
 				<ng-template pTemplate="header">
@@ -57,9 +65,11 @@
 	</div>
 </div>
 
+<p-growl [(value)]="messages" [immutable]="false"></p-growl>
+
 <p-confirmDialog [acceptLabel]="getMessage('YES')" [rejectLabel]="getMessage('NO')"></p-confirmDialog>
 
-<p-dialog header="{{isAdd ? getMessage('ADD') : isEdit ? getMessage('EDIT') : getMessage('VIEW')}}" [(visible)]="showDialog" modal="true" [styleClass]="formDialogClass"
+<p-dialog header="{{isAdd ? getMessage('ADD') : isEdit ? getMessage('EDIT') : getMessage('VIEW')}}" [(visible)]="showDialog" [modal]="true" [styleClass]="formDialogClass"
 					[contentStyle]="formDialogContentStyle">
 	<div class="ui-g">
 		<div class="ui-g-6">

@@ -1,20 +1,14 @@
-// angular
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {BrowserModule} from "@angular/platform-browser";
-import {FormsModule} from "@angular/forms";
-import {HttpModule} from "@angular/http";
+// angular > core
 import {NgModule} from "@angular/core";
-// utils
-import {AppRoutingModule} from "./app-routing.model";
-import {CanActivateAuthGuard} from "./util/can-activate.authguard";
-import {INJECTABLE_CONSTANTS} from "./util/injectable-constants";
-// services
-import {AuthenticationService} from "./service/authentication.service";
-import {HeroService} from "./service/hero.service";
-import {UserService} from "./service/user.service";
-// primeng services
-import {ConfirmationService} from 'primeng/components/common/confirmationservice';
-// components
+// angular > forms
+import {FormsModule} from "@angular/forms";
+// angular > http
+import {HttpModule} from "@angular/http";
+// angular > platform browser
+import {BrowserModule} from "@angular/platform-browser";
+// angular > animations
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+// component
 import {AppComponent} from "./app.component";
 import {DashboardComponent} from "./component/dashboard/dashboard.component";
 import {HeroDetailComponent} from "./component/hero-detail/hero-detail.component";
@@ -22,17 +16,29 @@ import {HeroesComponent} from "./component/heroes/heroes.component";
 import {LoginComponent} from "./component/login/login.component";
 import {SearchComponent} from "./component/search/search.component";
 import {UsersComponent} from "./component/users/users.component";
-// primeng components
+// service
+import {AuthenticationService} from "./service/authentication.service";
+import {HeroService} from "./service/hero.service";
+import {UserService} from "./service/user.service";
+// routing
+import {AppRoutingModule} from "./app-routing.model";
+// util
+import {CanActivateAuthGuard} from "./util/can-activate.authguard";
+import {INJECTABLE_CONSTANTS} from "./util/injectable-constants";
+// primeng > component
 import {ButtonModule} from "primeng/components/button/button";
 import {ConfirmDialogModule} from 'primeng/components/confirmdialog/confirmdialog';
 import {DataTableModule} from "primeng/components/datatable/datatable";
 import {DialogModule} from "primeng/components/dialog/dialog";
 import {DropdownModule} from 'primeng/components/dropdown/dropdown';
+import {GrowlModule} from "primeng/components/growl/growl";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
+// primeng > service
+import {ConfirmationService} from 'primeng/components/common/confirmationservice';
 
 @NgModule({
 	declarations: [
-		// components
+		// component
 		AppComponent,
 		DashboardComponent,
 		HeroDetailComponent,
@@ -42,30 +48,34 @@ import {InputTextModule} from "primeng/components/inputtext/inputtext";
 		UsersComponent
 	],
 	imports: [
-		// angular
-		BrowserModule,
-		BrowserAnimationsModule,
+		// angular > forms
 		FormsModule,
+		// angular > http
 		HttpModule,
-		// utils
+		// angular > platform browser
+		BrowserModule,
+		// angular > animations
+		BrowserAnimationsModule,
+		// routing
 		AppRoutingModule,
-		// primeNG
+		// primeng > component
 		ButtonModule,
 		ConfirmDialogModule,
 		DataTableModule,
 		DialogModule,
 		DropdownModule,
+		GrowlModule,
 		InputTextModule
 	],
 	providers: [
-		// utils
-		CanActivateAuthGuard,
-		INJECTABLE_CONSTANTS,
-		// services
+		// service
 		AuthenticationService,
 		HeroService,
 		UserService,
-		// primeng services
+		// util
+		CanActivateAuthGuard,
+		INJECTABLE_CONSTANTS,
+		// primeng > service
 		ConfirmationService
 	],
 	bootstrap: [AppComponent]
