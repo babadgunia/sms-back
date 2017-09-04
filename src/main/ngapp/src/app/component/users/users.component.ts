@@ -14,6 +14,8 @@ import {UserService} from "../../service/user.service";
 // util
 import {isNullOrUndefined} from "util";
 // primeng > component
+import {DataTable} from "primeng/primeng";
+// primeng > util
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
 // primeng > service
 import {ConfirmationService} from "primeng/components/common/confirmationservice";
@@ -27,17 +29,25 @@ export class UsersComponent extends AbstractComponent {
 
 	private users: User[];
 
+	private user: User = new User();
+
 	private filter: UserFilter = {};
 
-	private user: User = new User();
+	private statusFilter: string;
+
+	private languageFilter: string;
 
 	constructor(private service: UserService, confirmationService: ConfirmationService) {
 		super(confirmationService);
 	}
 
-	private clearFilter(): void {
-		super.abstractClearFilter();
+	private clearFilter(table: DataTable): void {
+		table.reset();
 
+		this.statusFilter = null;
+		this.languageFilter = null;
+
+		super.abstractClearFilter();
 		this.initFilter(null, null, null, null, null);
 	}
 

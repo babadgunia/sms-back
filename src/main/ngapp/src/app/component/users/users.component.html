@@ -18,7 +18,7 @@
 	<div class="ui-g-5"></div>
 
 	<div class="ui-g-1 {{searchFilterButtonWrapperClass}}">
-		<button pButton [label]="getMessage('CLEAR')" [icon]="searchFilterClearButtonIcon" [class]="searchFilterComponentClass" (click)="table.reset(); clearFilter()"></button>
+		<button pButton [label]="getMessage('CLEAR')" [icon]="searchFilterClearButtonIcon" [class]="searchFilterComponentClass" (click)="clearFilter(table)"></button>
 	</div>
 	<div class="ui-g-1 {{searchFilterButtonWrapperClass}}">
 		<button pButton [label]="getMessage('SEARCH')" [icon]="searchFilterSearchButtonIcon" [class]="searchFilterComponentClass"
@@ -33,12 +33,14 @@
 			<p-column field="name" [header]="getMessage('NAME')" [filter]="true" filterMatchMode="contains"></p-column>
 			<p-column field="status" [header]="getMessage('STATUS')" [filter]="true" filterMatchMode="equals">
 				<ng-template pTemplate="filter" let-col>
-					<p-dropdown [options]="statuses" [style]="searchTableFilterComponentStyle" (onChange)="table.filter($event.value,col.field,col.filterMatchMode)"></p-dropdown>
+					<p-dropdown [options]="statuses" [(ngModel)]="statusFilter" [style]="searchTableFilterComponentStyle"
+											(onChange)="table.filter($event.value, col.field, col.filterMatchMode)"></p-dropdown>
 				</ng-template>
 			</p-column>
 			<p-column field="language" [header]="getMessage('LANGUAGE')" [filter]="true" filterMatchMode="equals">
 				<ng-template pTemplate="filter" let-col>
-					<p-dropdown [options]="languages" [style]="searchTableFilterComponentStyle" (onChange)="table.filter($event.value,col.field,col.filterMatchMode)"></p-dropdown>
+					<p-dropdown [options]="languages" [(ngModel)]="languageFilter" [style]="searchTableFilterComponentStyle"
+											(onChange)="table.filter($event.value, col.field, col.filterMatchMode)"></p-dropdown>
 				</ng-template>
 			</p-column>
 
@@ -106,6 +108,6 @@
 
 	<p-footer>
 		<button pButton [label]="getMessage('SAVE')" [icon]="formSaveButtonIcon" (click)="save()" *ngIf="!isView"></button>
-		<button pButton [label]="getMessage('CANCEL')" [icon]="formCancelButtonIcon" (click)="showDialog=false"></button>
+		<button pButton [label]="getMessage('CANCEL')" [icon]="formCancelButtonIcon" (click)="showDialog = false"></button>
 	</p-footer>
 </p-dialog>
