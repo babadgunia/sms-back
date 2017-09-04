@@ -1,5 +1,7 @@
 package org.test.sms.common.filter.general;
 
+import org.test.sms.common.enums.general.LanguageType;
+import org.test.sms.common.enums.general.StatusType;
 import org.test.sms.common.filter.AbstractFilter;
 
 import java.util.List;
@@ -11,6 +13,10 @@ public class UserFilter extends AbstractFilter {
     private String username;
 
     private List<String> names;
+
+    private StatusType status;
+
+    private LanguageType language;
 
     public Long getId() {
         return id;
@@ -34,5 +40,21 @@ public class UserFilter extends AbstractFilter {
 
     public void setNames(List<String> names) {
         this.names = names;
+    }
+
+    public StatusType getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusType status) {
+        this.status = status;
+    }
+
+    public LanguageType getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(LanguageType language) {
+        this.language = language;
     }
 }

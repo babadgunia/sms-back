@@ -3,8 +3,10 @@ package org.test.sms.server.dao.impl.general;
 import org.springframework.stereotype.Repository;
 import org.test.sms.common.entity.general.Permission;
 import org.test.sms.common.entity.general.User;
+import org.test.sms.common.enums.general.LanguageType;
 import org.test.sms.common.enums.general.PermissionGroupType;
 import org.test.sms.common.enums.general.PermissionType;
+import org.test.sms.common.enums.general.StatusType;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.AbstractFilter;
 import org.test.sms.common.filter.general.UserFilter;
@@ -67,6 +69,18 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
             queryBuilder.append(" AND name IN(:names)");
             params.put("names", names);
         }
+
+        StatusType status = filter.getStatus();
+        if (!Objects.isNull(status)) {
+            queryBuilder.append(" AND status = :status");
+            params.put("status", status);
+        }
+
+        LanguageType language = filter.getLanguage();
+        if (!Objects.isNull(language)) {
+            queryBuilder.append(" AND language = :language");
+            params.put("language", language);
+        }
     }
 
     @Override
@@ -109,7 +123,7 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
                     .setParameter("username", username.toUpperCase())
                     .getSingleResult();
 
-            if (user != null) {
+            if (Objects.nonNull(user)) {
                 em.createQuery(
                         "FROM Permission p WHERE p.permissionGroup = :permissionGroup AND p.userGroup = :userGroup AND EXISTS (SELECT pl FROM p.permissions pl WHERE pl = :permissionType)",
                         Permission.class)
