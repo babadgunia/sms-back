@@ -38,10 +38,10 @@ export class UsersComponent extends AbstractComponent {
 	private clearFilter(): void {
 		super.abstractClearFilter();
 
-		this.initFilter(null, null, null);
+		this.initFilter(null, null, null, null, null);
 	}
 
-	private initFilter(id: number, username: string, name: string): void {
+	private initFilter(id: number, username: string, name: string, status: string, language: string): void {
 		this.filter = {};
 
 		super.abstractInitFilter(this.filter);
@@ -49,6 +49,8 @@ export class UsersComponent extends AbstractComponent {
 		this.filter.id = id;
 		this.filter.username = username;
 		this.filter.name = name;
+		this.filter.status = status;
+		this.filter.language = language;
 
 		this.getList();
 	}
@@ -66,6 +68,12 @@ export class UsersComponent extends AbstractComponent {
 		}
 		if (!isNullOrUndefined(event.filters.name)) {
 			this.filter.username = event.filters.name.value;
+		}
+		if (!isNullOrUndefined(event.filters.status)) {
+			this.filter.status = event.filters.status.value;
+		}
+		if (!isNullOrUndefined(event.filters.language)) {
+			this.filter.language = event.filters.language.value;
 		}
 
 		this.getList();

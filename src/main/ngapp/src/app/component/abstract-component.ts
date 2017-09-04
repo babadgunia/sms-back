@@ -83,14 +83,14 @@ export abstract class AbstractComponent {
 	protected isView: boolean = false;
 
 	protected constructor(private confirmationService: ConfirmationService) {
-		this.statuses.push({label: '', value: null});
+		this.statuses.push({label: '', value: ''});
 
 		let statusStrings: string[] = Object.keys(StatusType).filter(key => !isNumeric(key));
 		statusStrings.forEach((statusString: string) => {
 			this.statuses.push({label: statusString, value: statusString});
 		});
 
-		this.languages.push({label: '', value: null});
+		this.languages.push({label: '', value: ''});
 
 		let languageStrings: string[] = Object.keys(LanguageType).filter(key => !isNumeric(key));
 		languageStrings.forEach((languageString: string) => {
