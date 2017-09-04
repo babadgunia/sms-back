@@ -112,6 +112,10 @@ export abstract class AbstractComponent {
 		return value;
 	}
 
+	protected showErrorMessage(message: string, ...params: any[]): void {
+		this.messages.push({severity: 'error', detail: this.getMessage(message, params)});
+	}
+
 	protected handleError(error: any): void {
 		console.error(error);
 	}
@@ -136,7 +140,7 @@ export abstract class AbstractComponent {
 
 	protected abstractConfirmAction(action: () => any): void {
 		this.confirmationService.confirm({
-			header: this.getMessage('CONFIRM_ACTION_HEADER'),
+			header: this.getMessage('CONFIRMATION'),
 			message: this.getMessage('CONFIRM_ACTION_MESSAGE'),
 			icon: this.confirmDialogIcon,
 			accept: () => {

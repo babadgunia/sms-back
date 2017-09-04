@@ -7,17 +7,21 @@ export const messages = {
 		en: 'Cancel',
 		ka: 'გაუქმება'
 	},
+	CANNOT_BE_NULL: {
+		en: '{0} cannot be null',
+		ka: '{0} არ შეიძლება იყოს ცარიელი'
+	},
 	CLEAR: {
 		en: 'Clear',
 		ka: 'გასუფთავება'
 	},
-	CONFIRM_ACTION_HEADER: {
-		en: 'Confirmation',
-		ka: 'დამოწმება'
-	},
 	CONFIRM_ACTION_MESSAGE: {
 		en: 'Are you sure that you want to perform this action?',
 		ka: 'დარწმუნებული ხართ, რომ გსურთ ქმედების შესრულება?'
+	},
+	CONFIRMATION: {
+		en: 'Confirmation',
+		ka: 'დამოწმება'
 	},
 	DELETE: {
 		en: 'Delete',

@@ -42,6 +42,8 @@ export class UsersComponent extends AbstractComponent {
 	}
 
 	private initFilter(id: number, username: string, name: string): void {
+		this.filter = {};
+
 		super.abstractInitFilter(this.filter);
 
 		this.filter.id = id;
@@ -52,6 +54,8 @@ export class UsersComponent extends AbstractComponent {
 	}
 
 	private initLazyFilter(event: LazyLoadEvent): void {
+		this.filter = {};
+
 		super.abstractInitLazyFilter(this.filter, event);
 
 		if (!isNullOrUndefined(event.filters.id)) {
@@ -77,11 +81,41 @@ export class UsersComponent extends AbstractComponent {
 	}
 
 	private save(): void {
+		if (!this.isValidUser()) {
+			return;
+		}
+
 		if (this.isAdd) {
 			this.add();
 		} else {
 			this.update();
 		}
+	}
+
+	private isValidUser(): boolean {
+		if (isNullOrUndefined(this.user.username)) {
+			super.showErrorMessage('CANNOT_BE_NULL', this.getMessage('USERNAME'));
+
+			return false;
+		}
+		if (isNullOrUndefined(this.user.name)) {
+			super.showErrorMessage('CANNOT_BE_NULL', this.getMessage('NAME'));
+
+			return false;
+		}
+		if (isNullOrUndefined(this.user.status)) {
+			super.showErrorMessage('CANNOT_BE_NULL', this.getMessage('STATUS'));
+
+			return false;
+		}
+
+		if (isNullOrUndefined(this.user.language)) {
+			super.showErrorMessage('CANNOT_BE_NULL', this.getMessage('LANGUAGE'));
+
+			return false;
+		}
+
+		return true;
 	}
 
 	private add(): void {
@@ -104,7 +138,8 @@ export class UsersComponent extends AbstractComponent {
 	private confirmAction(user: User): void {
 		super.abstractConfirmAction(() => {
 			this.service.delete(user.id).subscribe(() => {
-				this.users = this.users.filter(element => element !== user);
+				let index: number = this.users.findIndex((element: User) => element.id === user.id);
+				this.users.splice(index, 1);
 			}, error => super.handleError(error));
 		});
 	}

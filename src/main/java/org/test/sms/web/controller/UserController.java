@@ -33,6 +33,7 @@ public class UserController {
     @PreAuthorize("@userPermissionService.hasPermission('USER', 'ADD')")
     public ResponseEntity<User> add(@RequestBody User user) {
         try {
+//            TODO remove this
             user.setUserGroup(new UserGroup(1));
 
             return new ResponseEntity<>(service.add(user), HttpStatus.OK);
