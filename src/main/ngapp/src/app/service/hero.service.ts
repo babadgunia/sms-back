@@ -15,12 +15,6 @@ export class HeroService {
 
 	constructor(private http: Http, private authenticationService: AuthenticationService, @Inject(HERO_SERVICE_URL) private apiUrl: string) {}
 
-	add(name: string): Promise<Hero> {
-		const url = `${this.apiUrl}/add`;
-
-		return this.http.post(url, JSON.stringify({name: name}), {headers: HeroService.getHeaders()}).toPromise().then(result => result.json() as Hero).catch(HeroService.handleError);
-	}
-
 	static getHeaders(): Headers {
 		return new Headers({
 			'Content-Type': 'application/json',
@@ -32,6 +26,12 @@ export class HeroService {
 		console.error('An error occurred', error);
 
 		return Promise.reject(error.message || error);
+	}
+
+	add(name: string): Promise<Hero> {
+		const url = `${this.apiUrl}/add`;
+
+		return this.http.post(url, JSON.stringify({name: name}), {headers: HeroService.getHeaders()}).toPromise().then(result => result.json() as Hero).catch(HeroService.handleError);
 	}
 
 	update(hero: Hero): Promise<Hero> {

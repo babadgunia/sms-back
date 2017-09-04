@@ -13,25 +13,6 @@ export class AuthenticationService {
 
 	constructor(private http: Http, @Inject(AUTH_SERVICE_URL) private apiUrl: string) {}
 
-	login(username: string, password: string): Observable<boolean> {
-		return this.http.post(this.apiUrl, JSON.stringify({username: username, password: password}), {headers: this.headers})
-			.map((response: Response) => {
-				let token = response.json() && response.json().token;
-				if (token) {
-					localStorage.setItem('currentUser', JSON.stringify({username: username, token: token}));
-
-					var permissionsStr = this.decodeToken(token).PERMISSIONS.map(function (element) {
-						return element.authority;
-					}).join();
-					localStorage.setItem('permissions', permissionsStr);
-
-					return true;
-				} else {
-					return false;
-				}
-			}).catch((error: any) => Observable.throw(error.json().error || 'Server error'));
-	}
-
 	static hasPermission(permission: string) {
 		return localStorage.getItem('permissions').toLowerCase().indexOf(permission.toLowerCase()) > -1;
 	}
@@ -60,6 +41,25 @@ export class AuthenticationService {
 		});
 
 		return {headers: headers};
+	}
+
+	login(username: string, password: string): Observable<boolean> {
+		return this.http.post(this.apiUrl, JSON.stringify({username: username, password: password}), {headers: this.headers})
+			.map((response: Response) => {
+				let token = response.json() && response.json().token;
+				if (token) {
+					localStorage.setItem('currentUser', JSON.stringify({username: username, token: token}));
+
+					var permissionsStr = this.decodeToken(token).PERMISSIONS.map(function (element) {
+						return element.authority;
+					}).join();
+					localStorage.setItem('permissions', permissionsStr);
+
+					return true;
+				} else {
+					return false;
+				}
+			}).catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 	}
 
 	private urlBase64Decode(str: string) {
