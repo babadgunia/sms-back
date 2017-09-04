@@ -129,6 +129,7 @@ export class UsersComponent extends AbstractComponent {
 	private add(): void {
 		this.service.add(this.user).subscribe(user => {
 			this.users.push(user);
+			this.tableTotalRecords++;
 
 			this.showDialog = false;
 		}, error => super.handleError(error));
@@ -148,6 +149,7 @@ export class UsersComponent extends AbstractComponent {
 			this.service.delete(user.id).subscribe(() => {
 				let index: number = this.users.findIndex((element: User) => element.id === user.id);
 				this.users.splice(index, 1);
+				this.tableTotalRecords--;
 			}, error => super.handleError(error));
 		});
 	}
