@@ -13,6 +13,7 @@ import {AbstractComponent} from "../abstract-component";
 import {UserService} from "../../service/user.service";
 // util
 import {isNullOrUndefined} from "util";
+import {Utils} from "../../util/Utils";
 // primeng > component
 import {DataTable} from "primeng/primeng";
 // primeng > util
@@ -115,28 +116,28 @@ export class UsersComponent extends AbstractComponent {
 	}
 
 	private isValidUser(): boolean {
-		if (isNullOrUndefined(this.user.username)) {
+		if (Utils.isBlank(this.user.username)) {
 			super.showErrorMessage('CANNOT_BE_NULL', this.getMessage('USERNAME'));
 
 			return false;
 		}
-		if (isNullOrUndefined(this.user.email)) {
+		if (Utils.isBlank(this.user.email)) {
 			super.showErrorMessage('CANNOT_BE_NULL', this.getMessage('EMAIL'));
 
 			return false;
 		}
-		if (isNullOrUndefined(this.user.name)) {
+		if (Utils.isBlank(this.user.name)) {
 			super.showErrorMessage('CANNOT_BE_NULL', this.getMessage('NAME'));
 
 			return false;
 		}
-		if (isNullOrUndefined(this.user.status)) {
+		if (Utils.isBlank(this.user.status)) {
 			super.showErrorMessage('CANNOT_BE_NULL', this.getMessage('STATUS'));
 
 			return false;
 		}
 
-		if (isNullOrUndefined(this.user.language)) {
+		if (Utils.isBlank(this.user.language)) {
 			super.showErrorMessage('CANNOT_BE_NULL', this.getMessage('LANGUAGE'));
 
 			return false;

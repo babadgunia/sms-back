@@ -7,6 +7,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.orm.hibernate5.HibernateExceptionTranslator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -20,12 +22,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.sql.DataSource;
+import java.util.Properties;
 
 @Configuration
 @ComponentScan("org.test.sms")
 @EnableWebMvc
 @EnableTransactionManagement
-@PropertySource({"classpath:database.properties", "classpath:jwt.properties"})
+@PropertySource({"classpath:database.properties", "classpath:jwt.properties", "classpath:mail.properties"})
 public class AppConfig extends WebMvcConfigurerAdapter {
 
     private Environment environment;
@@ -76,6 +79,24 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         resolver.setSuffix(".html");
 
         return resolver;
+    }
+
+    @Bean
+    public JavaMailSender javaMailSender() {
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+
+        mailSender.setHost(environment.getRequiredProperty("mail.server"));
+        mailSender.setPort(environment.getRequiredProperty("mail.port", Integer.class));
+        mailSender.setUsername(environment.getRequiredProperty("mail.username"));
+        mailSender.setPassword(environment.getRequiredProperty("mail.password"));
+
+        Properties properties = mailSender.getJavaMailProperties();
+
+        properties.put("mail.transport.protocol", environment.getRequiredProperty("mail.transport.protocol"));
+        properties.put("mail.smtp.auth", environment.getRequiredProperty("mail.smtp.auth"));
+        properties.put("mail.smtp.starttls.enable", environment.getRequiredProperty("mail.smtp.starttls.enable"));
+
+        return mailSender;
     }
 
     @Override

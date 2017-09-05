@@ -11,6 +11,7 @@ import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.AbstractFilter;
 import org.test.sms.common.service.general.UserService;
 import org.test.sms.server.dao.interfaces.general.UserDao;
+import org.test.sms.server.service.MailService;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,9 +22,12 @@ public class UserServiceImpl implements UserService {
 
     private UserDao dao;
 
+    private MailService mailService;
+
     @Autowired
-    public UserServiceImpl(UserDao dao) {
+    public UserServiceImpl(UserDao dao, MailService mailService) {
         this.dao = dao;
+        this.mailService = mailService;
     }
 
     @Override
@@ -38,7 +42,7 @@ public class UserServiceImpl implements UserService {
 
         User user = dao.add(entity);
 
-//        sendMail();
+        mailService.sendPasswordMail(entity.getEmail(), "asd");
 
         return user;
     }
