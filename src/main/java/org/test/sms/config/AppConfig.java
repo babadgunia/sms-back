@@ -13,6 +13,7 @@ import org.springframework.orm.hibernate5.HibernateExceptionTranslator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
@@ -28,6 +29,7 @@ import java.util.Properties;
 @ComponentScan("org.test.sms")
 @EnableWebMvc
 @EnableTransactionManagement
+@EnableAsync
 @PropertySource({"classpath:database.properties", "classpath:jwt.properties", "classpath:mail.properties"})
 public class AppConfig extends WebMvcConfigurerAdapter {
 
