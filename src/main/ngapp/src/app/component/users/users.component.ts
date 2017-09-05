@@ -38,24 +38,37 @@ export class UsersComponent extends AbstractComponent {
 
 	private languageFilter: string;
 
-	constructor(private service: UserService, confirmationService: ConfirmationService) {
+	public constructor(private service: UserService, confirmationService: ConfirmationService) {
 		super(confirmationService);
 	}
 
-	private clearFilter(table: DataTable): void {
-		table.reset();
+	private resetFilter(table: DataTable, idField: HTMLInputElement, usernameField: HTMLInputElement, emailField: HTMLInputElement, nameField: HTMLInputElement): void {
+		this.resetCustomFilter(idField, usernameField, emailField, nameField);
+		this.resetTableFilter(table);
 
+		this.filter = {};
+	}
+
+	private resetCustomFilter(idField: HTMLInputElement, usernameField: HTMLInputElement, emailField: HTMLInputElement, nameField: HTMLInputElement): void {
+		idField.value = '';
+		usernameField.value = '';
+		emailField.value = '';
+		nameField.value = '';
+	}
+
+	private resetTableFilter(table: DataTable): void {
 		this.statusFilter = null;
 		this.languageFilter = null;
 
-		super.abstractClearFilter();
-		this.initFilter(null, null, null, null, null, null);
+		table.reset();
 	}
 
-	private initFilter(id: number, username: string, email: string, name: string, status: string, language: string): void {
+	private initCustomFilter(table: DataTable, id: number, username: string, email: string, name: string, status: string, language: string): void {
+		this.resetTableFilter(table);
+
 		this.filter = {};
 
-		super.abstractInitFilter(this.filter);
+		super.initPagingFilter(this.filter);
 
 		this.filter.id = id;
 		this.filter.username = username;
@@ -63,14 +76,13 @@ export class UsersComponent extends AbstractComponent {
 		this.filter.name = name;
 		this.filter.status = status;
 		this.filter.language = language;
-
-		this.getList();
 	}
 
-	private initLazyFilter(event: LazyLoadEvent): void {
-		this.filter = {};
+	private initTableFilter(event: LazyLoadEvent, table: DataTable,
+													idField: HTMLInputElement, usernameField: HTMLInputElement, emailField: HTMLInputElement, nameField: HTMLInputElement): void {
+		this.resetCustomFilter(idField, usernameField, emailField, nameField);
 
-		super.abstractInitLazyFilter(this.filter, event);
+		super.initLazyPagingFilter(this.filter, event);
 
 		if (!isNullOrUndefined(event.filters.id)) {
 			this.filter.id = event.filters.id.value;
@@ -90,8 +102,6 @@ export class UsersComponent extends AbstractComponent {
 		if (!isNullOrUndefined(event.filters.language)) {
 			this.filter.language = event.filters.language.value;
 		}
-
-		this.getList();
 	}
 
 	private initAdd(): void {
@@ -164,7 +174,7 @@ export class UsersComponent extends AbstractComponent {
 		}, error => super.handleError(error));
 	}
 
-	private confirmAction(user: User): void {
+	private confirmDeleteAction(user: User): void {
 		super.abstractConfirmAction(() => {
 			this.service.delete(user.id).subscribe(() => {
 				let index: number = this.users.findIndex((element: User) => element.id === user.id);

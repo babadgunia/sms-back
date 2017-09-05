@@ -120,20 +120,12 @@ export abstract class AbstractComponent {
 		console.error(error);
 	}
 
-	protected abstractClearFilter(): void {
-		[].forEach.call(document.getElementsByClassName(this.searchFilterComponentClass), element => {
-			if (element.type === 'text') {
-				element.value = '';
-			}
-		});
-	}
-
-	protected abstractInitFilter(filter: AbstractFilter): void {
+	protected initPagingFilter(filter: AbstractFilter): void {
 		filter.offset = 0;
 		filter.numRows = this.searchTableRows;
 	}
 
-	protected abstractInitLazyFilter(filter: AbstractFilter, event: LazyLoadEvent): void {
+	protected initLazyPagingFilter(filter: AbstractFilter, event: LazyLoadEvent): void {
 		filter.offset = event.first;
 		filter.numRows = event.rows;
 	}
