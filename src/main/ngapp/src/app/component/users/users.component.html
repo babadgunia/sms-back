@@ -22,7 +22,7 @@
 
 	<div class="ui-g-1 {{searchFilterButtonWrapperClass}}">
 		<button pButton [label]="getMessage('CLEAR')" [icon]="searchFilterClearButtonIcon" [class]="searchFilterComponentClass"
-						(click)="resetFilter(table, idField, usernameField, emailField, nameField); getList()"></button>
+						(click)="resetFilters(table, idField, usernameField, emailField, nameField); getList()"></button>
 	</div>
 	<div class="ui-g-1 {{searchFilterButtonWrapperClass}}">
 		<button pButton [label]="getMessage('SEARCH')" [icon]="searchFilterSearchButtonIcon" [class]="searchFilterComponentClass"
@@ -31,7 +31,7 @@
 
 	<div class="ui-g-12 ui-g-nopad">
 		<p-dataTable #table [value]="users" [immutable]="false" [lazy]="true" [paginator]="true" [totalRecords]="tableTotalRecords" [rows]="searchTableRows" [pageLinks]="searchTablePageLinks"
-								 [loading]="tableLoading" [loadingIcon]="searchTableLoadingIcon" (onLazyLoad)="initTableFilter($event, table, idField, usernameField, emailField, nameField); getList()">
+								 [loading]="tableLoading" [loadingIcon]="searchTableLoadingIcon" (onLazyLoad)="initTableFilter($event, idField, usernameField, emailField, nameField); getList()">
 			<p-column field="id" [header]="getMessage('ID')" [filter]="true" filterType="number" filterMatchMode="equals"></p-column>
 			<p-column field="username" [header]="getMessage('USERNAME')" [filter]="true" filterMatchMode="contains"></p-column>
 			<p-column field="email" [header]="getMessage('EMAIL')" [filter]="true" filterMatchMode="contains"></p-column>

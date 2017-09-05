@@ -42,11 +42,13 @@ export class UsersComponent extends AbstractComponent {
 		super(confirmationService);
 	}
 
-	private resetFilter(table: DataTable, idField: HTMLInputElement, usernameField: HTMLInputElement, emailField: HTMLInputElement, nameField: HTMLInputElement): void {
+	private resetFilters(table: DataTable, idField: HTMLInputElement, usernameField: HTMLInputElement, emailField: HTMLInputElement, nameField: HTMLInputElement): void {
 		this.resetCustomFilter(idField, usernameField, emailField, nameField);
-		this.resetTableFilter(table);
+		this.resetTableFilter();
 
 		this.filter = {};
+
+		table.reset();
 	}
 
 	private resetCustomFilter(idField: HTMLInputElement, usernameField: HTMLInputElement, emailField: HTMLInputElement, nameField: HTMLInputElement): void {
@@ -56,17 +58,17 @@ export class UsersComponent extends AbstractComponent {
 		nameField.value = '';
 	}
 
-	private resetTableFilter(table: DataTable): void {
+	private resetTableFilter(): void {
 		this.statusFilter = null;
 		this.languageFilter = null;
-
-		table.reset();
 	}
 
 	private initCustomFilter(table: DataTable, id: number, username: string, email: string, name: string, status: string, language: string): void {
-		this.resetTableFilter(table);
+		this.resetTableFilter();
 
 		this.filter = {};
+
+		table.reset();
 
 		super.initPagingFilter(this.filter);
 
@@ -78,9 +80,8 @@ export class UsersComponent extends AbstractComponent {
 		this.filter.language = language;
 	}
 
-	private initTableFilter(event: LazyLoadEvent, table: DataTable,
-													idField: HTMLInputElement, usernameField: HTMLInputElement, emailField: HTMLInputElement, nameField: HTMLInputElement): void {
-		this.resetCustomFilter(idField, usernameField, emailField, nameField);
+	private initTableFilter(event: LazyLoadEvent, idField: HTMLInputElement, usernameField: HTMLInputElement, emailField: HTMLInputElement, nameField: HTMLInputElement): void {
+		this.filter = {};
 
 		super.initLazyPagingFilter(this.filter, event);
 
