@@ -31,13 +31,29 @@ export const messages = {
 		en: 'Edit',
 		ka: 'რედაქტირება'
 	},
+	EMAIL: {
+		en: 'Email',
+		ka: 'მეილი'
+	},
 	ID: {
 		en: 'Id',
-		ka: "აიდი"
+		ka: "იდენტიფიკატორი"
+	},
+	ID_SHORT: {
+		en: 'Id',
+		ka: "იდენტიფიკ."
 	},
 	LANGUAGE: {
 		en: 'Language',
 		ka: 'ენა'
+	},
+	LANGUAGE_TYPE_EN: {
+		en: 'English',
+		ka: 'ინგლისური'
+	},
+	LANGUAGE_TYPE_KA: {
+		en: 'Georgian',
+		ka: 'ქართული'
 	},
 	NAME: {
 		en: 'Name',
@@ -62,6 +78,14 @@ export const messages = {
 	STATUS: {
 		en: 'Status',
 		ka: 'სტატუსი'
+	},
+	STATUS_TYPE_ACTIVE: {
+		en: 'Active',
+		ka: 'აქტიური'
+	},
+	STATUS_TYPE_INACTIVE: {
+		en: 'Inactive',
+		ka: 'არააქტიური'
 	},
 	USERNAME: {
 		en: 'Username',

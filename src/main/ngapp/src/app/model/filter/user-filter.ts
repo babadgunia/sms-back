@@ -7,6 +7,8 @@ export class UserFilter extends AbstractFilter {
 
 	username?: string;
 
+	email?: string;
+
 	name?: string;
 
 	status?: string;

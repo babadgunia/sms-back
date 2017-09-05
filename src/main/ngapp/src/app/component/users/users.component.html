@@ -1,9 +1,12 @@
 <div class="ui-g">
 	<div class="ui-g-1 {{searchFilterFieldWrapperClass}}">
-		<input pInputText type="number" #idField [placeholder]="getMessage('ID')" [class]="searchFilterComponentClass"/>
+		<input pInputText type="number" #idField [placeholder]="getMessage('ID_SHORT')" [class]="searchFilterComponentClass"/>
 	</div>
 	<div class="ui-g-1 {{searchFilterFieldWrapperClass}}">
 		<input pInputText #usernameField [placeholder]="getMessage('USERNAME_SHORT')" [class]="searchFilterComponentClass"/>
+	</div>
+	<div class="ui-g-1 {{searchFilterFieldWrapperClass}}">
+		<input pInputText #emailField [placeholder]="getMessage('EMAIL')" [class]="searchFilterComponentClass"/>
 	</div>
 	<div class="ui-g-1 {{searchFilterFieldWrapperClass}}">
 		<input pInputText #nameField [placeholder]="getMessage('NAME')" [class]="searchFilterComponentClass"/>
@@ -15,14 +18,14 @@
 		<p-dropdown #languageBox [placeholder]="getMessage('LANGUAGE')" [options]="languages" [autoWidth]="false" [styleClass]="searchFilterComponentClass"></p-dropdown>
 	</div>
 
-	<div class="ui-g-5"></div>
+	<div class="ui-g-4"></div>
 
 	<div class="ui-g-1 {{searchFilterButtonWrapperClass}}">
 		<button pButton [label]="getMessage('CLEAR')" [icon]="searchFilterClearButtonIcon" [class]="searchFilterComponentClass" (click)="clearFilter(table)"></button>
 	</div>
 	<div class="ui-g-1 {{searchFilterButtonWrapperClass}}">
 		<button pButton [label]="getMessage('SEARCH')" [icon]="searchFilterSearchButtonIcon" [class]="searchFilterComponentClass"
-						(click)="initFilter(idField.value, usernameField.value, nameField.value, statusBox.value, languageBox.value)"></button>
+						(click)="initFilter(idField.value, usernameField.value, emailField.value, nameField.value, statusBox.value, languageBox.value)"></button>
 	</div>
 
 	<div class="ui-g-12 ui-g-nopad">
@@ -30,14 +33,21 @@
 								 [loading]="tableLoading" [loadingIcon]="searchTableLoadingIcon" (onLazyLoad)="initLazyFilter($event)">
 			<p-column field="id" [header]="getMessage('ID')" [filter]="true" filterType="number" filterMatchMode="equals"></p-column>
 			<p-column field="username" [header]="getMessage('USERNAME')" [filter]="true" filterMatchMode="contains"></p-column>
+			<p-column field="email" [header]="getMessage('EMAIL')" [filter]="true" filterMatchMode="contains"></p-column>
 			<p-column field="name" [header]="getMessage('NAME')" [filter]="true" filterMatchMode="contains"></p-column>
 			<p-column field="status" [header]="getMessage('STATUS')" [filter]="true" filterMatchMode="equals">
+				<ng-template pTemplate="body" let-col let-user="rowData">
+					{{getMessage('STATUS_TYPE_' + user[col.field])}}
+				</ng-template>
 				<ng-template pTemplate="filter" let-col>
 					<p-dropdown [options]="statuses" [(ngModel)]="statusFilter" [style]="searchTableFilterComponentStyle"
 											(onChange)="table.filter($event.value, col.field, col.filterMatchMode)"></p-dropdown>
 				</ng-template>
 			</p-column>
 			<p-column field="language" [header]="getMessage('LANGUAGE')" [filter]="true" filterMatchMode="equals">
+				<ng-template pTemplate="body" let-col let-user="rowData">
+					{{getMessage('LANGUAGE_TYPE_' + user[col.field])}}
+				</ng-template>
 				<ng-template pTemplate="filter" let-col>
 					<p-dropdown [options]="languages" [(ngModel)]="languageFilter" [style]="searchTableFilterComponentStyle"
 											(onChange)="table.filter($event.value, col.field, col.filterMatchMode)"></p-dropdown>
@@ -85,6 +95,12 @@
 		</div>
 		<div class="ui-g-6">
 			<input pInputText [(ngModel)]="user.username" [class]="formComponentClass" [disabled]="isView || isEdit">
+		</div>
+		<div class="ui-g-6">
+			{{getMessage('EMAIL')}}
+		</div>
+		<div class="ui-g-6">
+			<input pInputText [(ngModel)]="user.email" [class]="formComponentClass" [disabled]="isView">
 		</div>
 		<div class="ui-g-6">
 			{{getMessage('NAME')}}

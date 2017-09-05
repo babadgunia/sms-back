@@ -48,16 +48,17 @@ export class UsersComponent extends AbstractComponent {
 		this.languageFilter = null;
 
 		super.abstractClearFilter();
-		this.initFilter(null, null, null, null, null);
+		this.initFilter(null, null, null, null, null, null);
 	}
 
-	private initFilter(id: number, username: string, name: string, status: string, language: string): void {
+	private initFilter(id: number, username: string, email: string, name: string, status: string, language: string): void {
 		this.filter = {};
 
 		super.abstractInitFilter(this.filter);
 
 		this.filter.id = id;
 		this.filter.username = username;
+		this.filter.email = email;
 		this.filter.name = name;
 		this.filter.status = status;
 		this.filter.language = language;
@@ -75,6 +76,9 @@ export class UsersComponent extends AbstractComponent {
 		}
 		if (!isNullOrUndefined(event.filters.username)) {
 			this.filter.username = event.filters.username.value;
+		}
+		if (!isNullOrUndefined(event.filters.email)) {
+			this.filter.email = event.filters.email.value;
 		}
 		if (!isNullOrUndefined(event.filters.name)) {
 			this.filter.username = event.filters.name.value;
@@ -113,6 +117,11 @@ export class UsersComponent extends AbstractComponent {
 	private isValidUser(): boolean {
 		if (isNullOrUndefined(this.user.username)) {
 			super.showErrorMessage('CANNOT_BE_NULL', this.getMessage('USERNAME'));
+
+			return false;
+		}
+		if (isNullOrUndefined(this.user.email)) {
+			super.showErrorMessage('CANNOT_BE_NULL', this.getMessage('EMAIL'));
 
 			return false;
 		}

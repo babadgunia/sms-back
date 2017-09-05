@@ -12,6 +12,8 @@ public class UserFilter extends AbstractFilter {
 
     private String username;
 
+    private String email;
+
     private List<String> names;
 
     private StatusType status;
@@ -32,6 +34,14 @@ public class UserFilter extends AbstractFilter {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public List<String> getNames() {

@@ -45,7 +45,7 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 
     @Override
     protected String getSelect() {
-        return "id, username, name, status, language";
+        return "id, username, email, name, status, language";
     }
 
     @Override
@@ -62,6 +62,12 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
         if (!Utils.isBlank(username)) {
             queryBuilder.append(" AND UPPER(username) LIKE :username");
             params.put("username", "%" + username.toUpperCase() + "%");
+        }
+
+        String email = filter.getEmail();
+        if (!Utils.isBlank(email)) {
+            queryBuilder.append(" AND UPPER(email) LIKE :email");
+            params.put("email", "%" + email.toUpperCase() + "%");
         }
 
         List<String> names = filter.getNames();

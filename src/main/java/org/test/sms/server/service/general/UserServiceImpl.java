@@ -33,7 +33,14 @@ public class UserServiceImpl implements UserService {
             throw new AppException(ErrorCode.USERNAME_EXISTS, username);
         }
 
-        return dao.add(entity);
+//        TODO change
+        entity.setPassword("asd");
+
+        User user = dao.add(entity);
+
+//        sendMail();
+
+        return user;
     }
 
     @Override

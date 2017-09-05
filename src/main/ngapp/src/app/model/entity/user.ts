@@ -7,6 +7,8 @@ export class User extends AbstractEntity {
 
 	username: string;
 
+	email: string;
+
 	name: string;
 
 	status: string;

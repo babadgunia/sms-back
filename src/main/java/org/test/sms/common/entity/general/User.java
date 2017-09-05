@@ -33,6 +33,8 @@ public class User extends AppEntity {
     @JsonIgnore
     private String password;
 
+    private String email;
+
     private String name;
 
     @Enumerated(EnumType.STRING)
@@ -61,10 +63,11 @@ public class User extends AppEntity {
         this.userGroup = userGroup;
     }
 
-    public User(long id, String username, String name, StatusType status, LanguageType language) {
+    public User(long id, String username, String email, String name, StatusType status, LanguageType language) {
         this(id);
 
         this.username = username;
+        this.email = email;
         this.name = name;
         this.status = status;
         this.language = language;
@@ -94,6 +97,14 @@ public class User extends AppEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getName() {

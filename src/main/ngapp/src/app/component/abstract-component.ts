@@ -87,14 +87,14 @@ export abstract class AbstractComponent {
 
 		let statusStrings: string[] = Object.keys(StatusType).filter(key => !isNumeric(key));
 		statusStrings.forEach((statusString: string) => {
-			this.statuses.push({label: statusString, value: statusString});
+			this.statuses.push({label: this.getMessage('STATUS_TYPE_' + statusString), value: statusString});
 		});
 
 		this.languages.push({label: '', value: ''});
 
 		let languageStrings: string[] = Object.keys(LanguageType).filter(key => !isNumeric(key));
 		languageStrings.forEach((languageString: string) => {
-			this.languages.push({label: languageString, value: languageString});
+			this.languages.push({label: this.getMessage('LANGUAGE_TYPE_' + languageString), value: languageString});
 		});
 	}
 
