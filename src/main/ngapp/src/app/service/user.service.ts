@@ -16,7 +16,7 @@ import {Observable} from "rxjs/Observable";
 @Injectable()
 export class UserService extends AbstractService {
 
-	constructor(http: Http, @Inject(USER_SERVICE_URL) baseUrl: string) {
+	public constructor(http: Http, @Inject(USER_SERVICE_URL) baseUrl: string) {
 		super(http, baseUrl);
 	}
 

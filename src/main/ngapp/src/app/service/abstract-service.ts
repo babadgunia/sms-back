@@ -9,6 +9,7 @@ export abstract class AbstractService {
 
 	protected constructor(private http: Http, private baseUrl: string) {}
 
+	// makes an http request
 	protected httpRequest(requestMethod: RequestMethod, url: string, body?: any): Observable<any> {
 		url = `${this.baseUrl}/${url}`;
 
@@ -28,10 +29,12 @@ export abstract class AbstractService {
 		}
 	}
 
+	// converts raw observable to json observable
 	private parseResponse(response: Observable<Response>): Observable<any> {
 		return this.handleError(response.map((response: Response) => response.json()));
 	}
 
+	// handles service errors by throwing an error observable
 	private handleError(observable: Observable<any>): Observable<any> {
 		return observable.catch((error: any) => Observable.throw(error));
 	}

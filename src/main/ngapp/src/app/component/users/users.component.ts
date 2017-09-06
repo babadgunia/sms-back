@@ -34,6 +34,8 @@ export class UsersComponent extends AbstractComponent {
 
 	private filter: UserFilter = {};
 
+	// lazy dropdown filters
+
 	private statusFilter: string;
 
 	private languageFilter: string;
@@ -67,12 +69,6 @@ export class UsersComponent extends AbstractComponent {
 		this.languageFilter = null;
 	}
 
-	private resetDropdown(value: any, box: Dropdown): void {
-		if (value === '') {
-			box.selectedOption = null;
-		}
-	}
-
 	private initCustomFilter(table: DataTable, id: number, username: string, email: string, name: string, status: string, language: string): void {
 		this.resetTableFilter();
 
@@ -86,16 +82,8 @@ export class UsersComponent extends AbstractComponent {
 		this.filter.username = username;
 		this.filter.email = email;
 		this.filter.name = name;
-
 		this.filter.status = status;
-		if (Utils.isBlank(this.filter.status)) {
-			this.filter.status = null;
-		}
 		this.filter.language = language;
-		if (Utils.isBlank(this.filter.language)) {
-			this.filter.language = null;
-		}
-		console.log(this.filter);
 	}
 
 	private initTableFilter(event: LazyLoadEvent, idField: HTMLInputElement, usernameField: HTMLInputElement, emailField: HTMLInputElement, nameField: HTMLInputElement): void {
@@ -115,18 +103,11 @@ export class UsersComponent extends AbstractComponent {
 		if (!isNullOrUndefined(event.filters.name)) {
 			this.filter.username = event.filters.name.value;
 		}
-
 		if (!isNullOrUndefined(event.filters.status)) {
 			this.filter.status = event.filters.status.value;
-			if (Utils.isBlank(this.filter.status)) {
-				this.filter.status = null;
-			}
 		}
 		if (!isNullOrUndefined(event.filters.language)) {
 			this.filter.language = event.filters.language.value;
-			if (Utils.isBlank(this.filter.language)) {
-				this.filter.language = null;
-			}
 		}
 	}
 
@@ -135,8 +116,6 @@ export class UsersComponent extends AbstractComponent {
 
 		this.user.status = StatusType[StatusType.ACTIVE];
 		this.user.language = LanguageType[LanguageType.EN];
-
-		super.updateDialogStates(true, false, false);
 	}
 
 	private save(): void {
@@ -183,49 +162,49 @@ export class UsersComponent extends AbstractComponent {
 	}
 
 	private add(): void {
-		this.service.add(this.user).subscribe(user => {
+		this.service.add(this.user).subscribe((user: User) => {
 			this.users.push(user);
 			this.tableTotalRecords++;
 
 			this.showDialog = false;
-		}, error => super.handleError(error));
+		}, (error: any) => super.handleError(error));
 	}
 
 	private update(): void {
-		this.service.update(this.user).subscribe(user => {
+		this.service.update(this.user).subscribe((user: User) => {
 			let index: number = this.users.findIndex((element: User) => element.id === user.id);
 			this.users.splice(index, 1, user);
 
 			this.showDialog = false;
-		}, error => super.handleError(error));
+		}, (error: any) => super.handleError(error));
 	}
 
 	private confirmDeleteAction(user: User): void {
-		super.abstractConfirmAction(() => {
+		super.confirmAction(() => {
 			this.service.delete(user.id).subscribe(() => {
 				let index: number = this.users.findIndex((element: User) => element.id === user.id);
 				this.users.splice(index, 1);
 				this.tableTotalRecords--;
-			}, error => super.handleError(error));
+			}, (error: any) => super.handleError(error));
 		});
 	}
 
 	private get(user: User): void {
-		this.service.get(user.id).subscribe(user => {
+		this.service.get(user.id).subscribe((user: User) => {
 			this.user = user;
-		}, error => super.handleError(error));
+		}, (error: any) => super.handleError(error));
 	}
 
 	private getList(): void {
 		this.tableLoading = true;
 
-		this.service.getCount(this.filter).subscribe(count => {
+		this.service.getCount(this.filter).subscribe((count: number) => {
 			this.tableTotalRecords = count;
-		}, error => super.handleError(error));
+		}, (error: any) => super.handleError(error));
 
-		this.service.getList(this.filter).subscribe(users => {
+		this.service.getList(this.filter).subscribe((users: User[]) => {
 			this.tableLoading = false;
 			this.users = users;
-		}, error => super.handleError(error));
+		}, (error: any) => super.handleError(error));
 	}
 }

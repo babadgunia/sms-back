@@ -43,7 +43,7 @@
 					{{getMessage('STATUS_TYPE_' + user[col.field])}}
 				</ng-template>
 				<ng-template pTemplate="filter" let-col>
-					<p-dropdown [options]="statuses" [(ngModel)]="statusFilter" [style]="searchTableFilterComponentStyle"
+					<p-dropdown [options]="statuses" [(ngModel)]="statusFilter" [style]="searchTableDropdownFilterStyle"
 											(onChange)="table.filter($event.value, col.field, col.filterMatchMode)"></p-dropdown>
 				</ng-template>
 			</p-column>
@@ -52,14 +52,15 @@
 					{{getMessage('LANGUAGE_TYPE_' + user[col.field])}}
 				</ng-template>
 				<ng-template pTemplate="filter" let-col>
-					<p-dropdown [options]="languages" [(ngModel)]="languageFilter" [style]="searchTableFilterComponentStyle"
+					<p-dropdown [options]="languages" [(ngModel)]="languageFilter" [style]="searchTableDropdownFilterStyle"
 											(onChange)="table.filter($event.value, col.field, col.filterMatchMode)"></p-dropdown>
 				</ng-template>
 			</p-column>
 
 			<p-column [styleClass]="searchTableActionColumnClass">
 				<ng-template pTemplate="header">
-					<button pButton [label]="getMessage('ADD')" [icon]="searchTableActionColumnAddButtonIcon" [class]="searchTableActionColumnButtonClass" (click)="initAdd()"
+					<button pButton [label]="getMessage('ADD')" [icon]="searchTableActionColumnAddButtonIcon" [class]="searchTableActionColumnButtonClass"
+									(click)="initAdd(); updateDialogStates(true, false, false)"
 									*ngIf="hasPermission('USER.ADD')"></button>
 				</ng-template>
 				<ng-template pTemplate="body" let-user="rowData">
@@ -67,11 +68,9 @@
 						<div class="ui-g-nopad {{hasPermission('USER.DELETE') ? searchTableActionColumnViewEditButtonWrapperClass : ''}}" [class.ui-g-12]="!hasPermission('USER.DELETE')"
 								 [class.ui-g-6]="hasPermission('USER.DELETE')">
 							<button pButton [title]="getMessage('EDIT')" [icon]="searchTableActionColumnEditButtonIcon" [class]="searchTableActionColumnButtonClass"
-											(click)="updateDialogStates(false, true, false); get(user)"
-											*ngIf="hasPermission('USER.EDIT')"></button>
+											(click)="updateDialogStates(false, true, false); get(user)" *ngIf="hasPermission('USER.EDIT')"></button>
 							<button pButton [title]="getMessage('VIEW')" [icon]="searchTableActionColumnViewButtonIcon" [class]="searchTableActionColumnButtonClass"
-											(click)="updateDialogStates(false, false, true); get(user)"
-											*ngIf="!hasPermission('USER.EDIT')"></button>
+											(click)="updateDialogStates(false, false, true); get(user)" *ngIf="!hasPermission('USER.EDIT')"></button>
 						</div>
 						<div class="ui-g-6 ui-g-nopad {{searchTableActionColumnDeleteButtonWrapperClass}}" *ngIf="hasPermission('USER.DELETE')">
 							<button pButton [title]="getMessage('DELETE')" [icon]="searchTableActionColumnDeleteButtonIcon" [class]="searchTableActionColumnButtonClass"
