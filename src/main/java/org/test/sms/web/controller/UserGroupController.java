@@ -70,5 +70,4 @@ public class UserGroupController {
     public ResponseEntity<List<UserGroup>> getList(@RequestBody(required = false) UserGroupFilter filter) {
         return new ResponseEntity<>(service.getList(filter), HttpStatus.OK);
     }
-
 }
