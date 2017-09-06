@@ -64,15 +64,23 @@ export abstract class AbstractComponent {
 
 	protected readonly confirmDialogIcon: string = "fa-question-circle";
 
-	protected readonly statuses: SelectItem[] = [];
+	// lists for dropdowns
 
 	protected readonly languages: SelectItem[] = [];
 
+	protected readonly statuses: SelectItem[] = [];
+
+	// message list for growl
+
 	protected messages: Message[] = [];
+
+	// table fields
 
 	protected tableTotalRecords: number = 0;
 
 	protected tableLoading: boolean = true;
+
+	// dialog fields
 
 	protected showDialog: boolean = false;
 
@@ -83,26 +91,31 @@ export abstract class AbstractComponent {
 	protected isView: boolean = false;
 
 	protected constructor(private confirmationService: ConfirmationService) {
-		this.statuses.push({label: '', value: ''});
-
-		let statusStrings: string[] = Object.keys(StatusType).filter(key => !isNumeric(key));
-		statusStrings.forEach((statusString: string) => {
-			this.statuses.push({label: this.getMessage('STATUS_TYPE_' + statusString), value: statusString});
-		});
-
+		// init language list for dropdown
 		this.languages.push({label: '', value: ''});
 
 		let languageStrings: string[] = Object.keys(LanguageType).filter(key => !isNumeric(key));
-		languageStrings.forEach((languageString: string) => {
-			this.languages.push({label: this.getMessage('LANGUAGE_TYPE_' + languageString), value: languageString});
+		languageStrings.forEach((language: string) => {
+			this.languages.push({label: this.getMessage('LANGUAGE_TYPE_' + language), value: language});
+		});
+
+		// init status list for dropdown
+		this.statuses.push({label: '', value: ''});
+
+		let statusStrings: string[] = Object.keys(StatusType).filter(key => !isNumeric(key));
+		statusStrings.forEach((status: string) => {
+			this.statuses.push({label: this.getMessage('STATUS_TYPE_' + status), value: status});
 		});
 	}
 
+	// check user permission
 	protected hasPermission(permission: string): boolean {
 		return AuthenticationService.hasPermission(permission);
 	}
 
+	// get i18n message
 	protected getMessage(key: string, ...params: any[]): string {
+		// TODO get user language
 		let value: string = messages[key]['en'];
 
 		for (let i = 0; i < params.length; i++) {

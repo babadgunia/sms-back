@@ -13,9 +13,9 @@ import {AbstractComponent} from "../abstract-component";
 import {UserService} from "../../service/user.service";
 // util
 import {isNullOrUndefined} from "util";
-import {Utils} from "../../util/Utils";
+import {Utils} from "../../util/utils";
 // primeng > component
-import {DataTable} from "primeng/primeng";
+import {DataTable, Dropdown} from "primeng/primeng";
 // primeng > util
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
 // primeng > service
@@ -42,8 +42,9 @@ export class UsersComponent extends AbstractComponent {
 		super(confirmationService);
 	}
 
-	private resetFilters(table: DataTable, idField: HTMLInputElement, usernameField: HTMLInputElement, emailField: HTMLInputElement, nameField: HTMLInputElement): void {
-		this.resetCustomFilter(idField, usernameField, emailField, nameField);
+	private resetFilters(table: DataTable, idField: HTMLInputElement, usernameField: HTMLInputElement, emailField: HTMLInputElement, nameField: HTMLInputElement,
+											 statusBox: Dropdown, languageBox: Dropdown): void {
+		this.resetCustomFilter(idField, usernameField, emailField, nameField, statusBox, languageBox);
 		this.resetTableFilter();
 
 		this.filter = {};
@@ -51,16 +52,25 @@ export class UsersComponent extends AbstractComponent {
 		table.reset();
 	}
 
-	private resetCustomFilter(idField: HTMLInputElement, usernameField: HTMLInputElement, emailField: HTMLInputElement, nameField: HTMLInputElement): void {
+	private resetCustomFilter(idField: HTMLInputElement, usernameField: HTMLInputElement, emailField: HTMLInputElement, nameField: HTMLInputElement,
+														statusBox: Dropdown, languageBox: Dropdown): void {
 		idField.value = '';
 		usernameField.value = '';
 		emailField.value = '';
 		nameField.value = '';
+		statusBox.selectedOption = null;
+		languageBox.selectedOption = null;
 	}
 
 	private resetTableFilter(): void {
 		this.statusFilter = null;
 		this.languageFilter = null;
+	}
+
+	private resetDropdown(value: any, box: Dropdown): void {
+		if (value === '') {
+			box.selectedOption = null;
+		}
 	}
 
 	private initCustomFilter(table: DataTable, id: number, username: string, email: string, name: string, status: string, language: string): void {
@@ -76,8 +86,16 @@ export class UsersComponent extends AbstractComponent {
 		this.filter.username = username;
 		this.filter.email = email;
 		this.filter.name = name;
+
 		this.filter.status = status;
+		if (Utils.isBlank(this.filter.status)) {
+			this.filter.status = null;
+		}
 		this.filter.language = language;
+		if (Utils.isBlank(this.filter.language)) {
+			this.filter.language = null;
+		}
+		console.log(this.filter);
 	}
 
 	private initTableFilter(event: LazyLoadEvent, idField: HTMLInputElement, usernameField: HTMLInputElement, emailField: HTMLInputElement, nameField: HTMLInputElement): void {
@@ -97,11 +115,18 @@ export class UsersComponent extends AbstractComponent {
 		if (!isNullOrUndefined(event.filters.name)) {
 			this.filter.username = event.filters.name.value;
 		}
+
 		if (!isNullOrUndefined(event.filters.status)) {
 			this.filter.status = event.filters.status.value;
+			if (Utils.isBlank(this.filter.status)) {
+				this.filter.status = null;
+			}
 		}
 		if (!isNullOrUndefined(event.filters.language)) {
 			this.filter.language = event.filters.language.value;
+			if (Utils.isBlank(this.filter.language)) {
+				this.filter.language = null;
+			}
 		}
 	}
 

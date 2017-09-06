@@ -6,7 +6,7 @@ import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 // angular > platform browser
 import {BrowserModule} from "@angular/platform-browser";
-// angular > animations
+// angular > platform browser > animations
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 // component
 import {AppComponent} from "./app.component";
@@ -54,7 +54,7 @@ import {ConfirmationService} from 'primeng/components/common/confirmationservice
 		HttpModule,
 		// angular > platform browser
 		BrowserModule,
-		// angular > animations
+		// angular > platform browser > animations
 		BrowserAnimationsModule,
 		// routing
 		AppRoutingModule,
@@ -80,5 +80,4 @@ import {ConfirmationService} from 'primeng/components/common/confirmationservice
 	],
 	bootstrap: [AppComponent]
 })
-
 export class AppModule {}

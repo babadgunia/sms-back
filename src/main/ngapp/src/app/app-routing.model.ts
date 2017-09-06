@@ -1,11 +1,14 @@
+// angular > core
 import {NgModule} from "@angular/core";
+// angular > router
 import {RouterModule, Routes} from "@angular/router";
-
+// component
 import {DashboardComponent} from "./component/dashboard/dashboard.component";
-import {HeroesComponent} from "./component/heroes/heroes.component";
-import {UsersComponent} from "./component/users/users.component";
 import {HeroDetailComponent} from "./component/hero-detail/hero-detail.component";
+import {HeroesComponent} from "./component/heroes/heroes.component";
 import {LoginComponent} from "./component/login/login.component";
+import {UsersComponent} from "./component/users/users.component";
+// util
 import {CanActivateAuthGuard} from "./util/can-activate.authguard";
 
 const routes: Routes = [
