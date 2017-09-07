@@ -20,7 +20,7 @@ export class HeroesComponent implements OnInit {
 	ngOnInit() {
 		this.heroService.getList().then(heroes => this.heroes = heroes, error => {
 			this.router.navigate(['login']);
-			console.error('An error occurred in dashboard component, navigating to login: ', error);
+			console.error('An error occurred in heroes component, navigating to login: ', error);
 		});
 	}
 

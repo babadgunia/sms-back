@@ -10,7 +10,6 @@ import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 // component
 import {AppComponent} from "./app.component";
-import {DashboardComponent} from "./component/dashboard/dashboard.component";
 import {HeroDetailComponent} from "./component/hero-detail/hero-detail.component";
 import {HeroesComponent} from "./component/heroes/heroes.component";
 import {LoginComponent} from "./component/login/login.component";
@@ -40,7 +39,6 @@ import {ConfirmationService} from 'primeng/components/common/confirmationservice
 	declarations: [
 		// component
 		AppComponent,
-		DashboardComponent,
 		HeroDetailComponent,
 		HeroesComponent,
 		LoginComponent,
