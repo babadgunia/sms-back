@@ -1,5 +1,9 @@
 package org.test.sms.common.utils;
 
+import org.passay.CharacterRule;
+import org.passay.EnglishCharacterData;
+import org.passay.PasswordGenerator;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -142,5 +146,16 @@ public class Utils {
 
     public static Object[] toStringArray(Object... array) {
         return Arrays.stream(array).map(Object::toString).collect(Collectors.toList()).toArray();
+    }
+
+    //    generates a random password using the passay library
+    public static String generateRandomPassword() {
+        List<CharacterRule> rules = Arrays.asList(
+                new CharacterRule(EnglishCharacterData.UpperCase, 1),
+                new CharacterRule(EnglishCharacterData.LowerCase, 1),
+                new CharacterRule(EnglishCharacterData.Digit, 1)
+        );
+
+        return new PasswordGenerator().generatePassword(10, rules);
     }
 }

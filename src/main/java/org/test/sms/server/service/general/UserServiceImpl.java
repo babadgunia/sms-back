@@ -1,6 +1,7 @@
 package org.test.sms.server.service.general;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.test.sms.common.entity.general.User;
@@ -10,6 +11,7 @@ import org.test.sms.common.enums.general.PermissionType;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.AbstractFilter;
 import org.test.sms.common.service.general.UserService;
+import org.test.sms.common.utils.Utils;
 import org.test.sms.server.dao.interfaces.general.UserDao;
 import org.test.sms.server.service.MailService;
 
@@ -37,12 +39,12 @@ public class UserServiceImpl implements UserService {
             throw new AppException(ErrorCode.USERNAME_EXISTS, username);
         }
 
-//        TODO change
-        entity.setPassword("asd");
+        String password = Utils.generateRandomPassword();
+        entity.setPassword(new BCryptPasswordEncoder().encode(password));
 
         User user = dao.add(entity);
 
-        mailService.sendPasswordMail(entity.getEmail(), "asd");
+        mailService.sendPasswordMail(entity.getEmail(), entity, password);
 
         return user;
     }

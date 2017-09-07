@@ -56,6 +56,7 @@ export class AuthUtils {
 	// logs out current user
 	public static logout(): void {
 		localStorage.removeItem('currentUser');
+		localStorage.removeItem('permissions');
 	}
 
 	public static decodeToken(token: string): any {

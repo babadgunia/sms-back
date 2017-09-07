@@ -6,6 +6,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.test.sms.common.entity.general.User;
 
 @Service
 @Transactional
@@ -19,12 +20,27 @@ public class MailService {
         this.mailSender = mailSender;
     }
 
-    public void sendPasswordMail(String to, String password) {
+    public void sendPasswordMail(String to, User user, String password) {
         SimpleMailMessage message = new SimpleMailMessage();
 
-        message.setSubject("SMS app password");
+        message.setSubject("SMS app credentials");
         message.setTo(to);
-        message.setText("Your password is: " + password);
+
+        StringBuilder textBuilder = new StringBuilder();
+        textBuilder.append("Hello, ");
+        textBuilder.append(user.getName());
+        textBuilder.append("\n");
+        textBuilder.append("\n");
+        textBuilder.append("These are your SMS app login credentials:");
+        textBuilder.append("\n");
+        textBuilder.append("\n");
+        textBuilder.append("username: ");
+        textBuilder.append(user.getUsername());
+        textBuilder.append("\n");
+        textBuilder.append("password: ");
+        textBuilder.append(password);
+
+        message.setText(textBuilder.toString());
 
         mailSender.send(message);
     }
