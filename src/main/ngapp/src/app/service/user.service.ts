@@ -20,27 +20,27 @@ export class UserService extends AbstractService {
 		super(http, baseUrl);
 	}
 
-	add(user: User): Observable<User> {
+	public add(user: User): Observable<User> {
 		return super.httpRequest(RequestMethod.Post, "add", user);
 	}
 
-	update(user: User): Observable<User> {
+	public update(user: User): Observable<User> {
 		return super.httpRequest(RequestMethod.Post, "update", user);
 	}
 
-	delete(id: number): Observable<void> {
+	public delete(id: number): Observable<void> {
 		return super.httpRequest(RequestMethod.Delete, `delete/${id}`);
 	}
 
-	get(id: number): Observable<User> {
+	public get(id: number): Observable<User> {
 		return super.httpRequest(RequestMethod.Get, `get/${id}`);
 	}
 
-	getCount(filter: UserFilter): Observable<number> {
+	public getCount(filter: UserFilter): Observable<number> {
 		return super.httpRequest(RequestMethod.Post, "getCount", filter);
 	}
 
-	getList(filter: UserFilter): Observable<User[]> {
+	public getList(filter: UserFilter): Observable<User[]> {
 		return super.httpRequest(RequestMethod.Post, "getList", filter);
 	}
 }

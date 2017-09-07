@@ -3,10 +3,9 @@ import {AbstractFilter} from "../model/filter/abstract-filter";
 // model > enum
 import {LanguageType} from "../model/enum/language-type.enum";
 import {StatusType} from "../model/enum/status-type.enum";
-// service
-import {AuthenticationService} from "../service/authentication.service";
 // util
 import {messages} from "../util/messages";
+import {AuthUtils} from "../util/auth-utils";
 // primeng > util
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
 import {Message} from "primeng/components/common/message";
@@ -124,7 +123,7 @@ export abstract class AbstractComponent {
 
 	// check user permission
 	protected hasPermission(permission: string): boolean {
-		return AuthenticationService.hasPermission(permission);
+		return AuthUtils.hasPermission(permission);
 	}
 
 	// get i18n message

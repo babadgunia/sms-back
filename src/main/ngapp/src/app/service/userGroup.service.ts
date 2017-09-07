@@ -16,31 +16,31 @@ import {Observable} from "rxjs/Observable";
 @Injectable()
 export class UserGroupService extends AbstractService {
 
-	constructor(http: Http, @Inject(USER_GROUP_SERVICE_URL) baseUrl: string) {
+	public constructor(http: Http, @Inject(USER_GROUP_SERVICE_URL) baseUrl: string) {
 		super(http, baseUrl);
 	}
 
-	add(userGroup: UserGroup): Observable<UserGroup> {
+	public add(userGroup: UserGroup): Observable<UserGroup> {
 		return super.httpRequest(RequestMethod.Post, "add", userGroup);
 	}
 
-	update(userGroup: UserGroup): Observable<UserGroup> {
+	public update(userGroup: UserGroup): Observable<UserGroup> {
 		return super.httpRequest(RequestMethod.Post, "update", userGroup);
 	}
 
-	delete(id: number): Observable<void> {
+	public delete(id: number): Observable<void> {
 		return super.httpRequest(RequestMethod.Delete, `delete/${id}`);
 	}
 
-	get(id: number): Observable<UserGroup> {
+	public get(id: number): Observable<UserGroup> {
 		return super.httpRequest(RequestMethod.Get, `get/${id}`);
 	}
 
-	getCount(filter: UserGroupFilter): Observable<number> {
+	public getCount(filter: UserGroupFilter): Observable<number> {
 		return super.httpRequest(RequestMethod.Post, "getCount", filter);
 	}
 
-	getList(filter: UserGroupFilter): Observable<UserGroup[]> {
+	public getList(filter: UserGroupFilter): Observable<UserGroup[]> {
 		return super.httpRequest(RequestMethod.Post, "getList", filter);
 	}
 }

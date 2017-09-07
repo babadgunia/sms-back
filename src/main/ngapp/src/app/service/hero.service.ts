@@ -9,6 +9,7 @@ import {Headers, Http} from "@angular/http";
 import {Hero} from "../model/entity/hero";
 import {AuthenticationService} from "./authentication.service";
 import {HERO_SERVICE_URL} from "app/util/injectable-constants";
+import {AuthUtils} from "../util/auth-utils";
 
 @Injectable()
 export class HeroService {
@@ -18,7 +19,7 @@ export class HeroService {
 	static getHeaders(): Headers {
 		return new Headers({
 			'Content-Type': 'application/json',
-			'Authorization': AuthenticationService.getToken().toString()
+			'Authorization': AuthUtils.getApiToken().toString()
 		});
 	}
 

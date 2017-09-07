@@ -3,6 +3,8 @@ import {isNullOrUndefined} from "util";
 
 export class Utils {
 
+	private constructor() {}
+
 	// handles application errors
 	public static handleError(error: any): void {
 		console.error(error);

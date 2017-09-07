@@ -1,7 +1,8 @@
 // angular > http
-import {Http, RequestMethod, Response} from "@angular/http";
-// service
-import {AuthenticationService} from "./authentication.service";
+import {Http, RequestMethod, RequestOptionsArgs, Response} from "@angular/http";
+// util
+import {AuthUtils} from "../util/auth-utils";
+import {Utils} from "../util/utils";
 // rxjs
 import {Observable} from "rxjs/Observable";
 
@@ -10,21 +11,22 @@ export abstract class AbstractService {
 	protected constructor(private http: Http, private baseUrl: string) {}
 
 	// makes an http request
-	protected httpRequest(requestMethod: RequestMethod, url: string, body?: any): Observable<any> {
-		url = `${this.baseUrl}/${url}`;
+	protected httpRequest(requestMethod: RequestMethod, url: string, body?: any, headers?: RequestOptionsArgs): Observable<any> {
+		url = !Utils.isBlank(url) ? `${this.baseUrl}/${url}` : this.baseUrl;
+		let requestOptions: RequestOptionsArgs = headers ? headers : AuthUtils.getApiHeaders();
 
 		switch (requestMethod) {
 			case RequestMethod.Get: {
-				return this.parseResponse(this.http.get(url, AuthenticationService.getApiHeaders()));
+				return this.parseResponse(this.http.get(url, requestOptions));
 			}
 			case RequestMethod.Post: {
-				return this.parseResponse(this.http.post(url, body, AuthenticationService.getApiHeaders()));
+				return this.parseResponse(this.http.post(url, body, requestOptions));
 			}
 			case RequestMethod.Put: {
-				return this.parseResponse(this.http.put(url, body, AuthenticationService.getApiHeaders()));
+				return this.parseResponse(this.http.put(url, body, requestOptions));
 			}
 			case RequestMethod.Delete: {
-				return this.handleError(this.http.delete(url, AuthenticationService.getApiHeaders()));
+				return this.handleError(this.http.delete(url, requestOptions));
 			}
 		}
 	}
