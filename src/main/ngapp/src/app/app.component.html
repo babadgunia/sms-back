@@ -3,7 +3,6 @@
 </div>
 <nav>
 	<ul *ngIf="isLoggedIn()">
-		<li><a routerLink="heroes" routerLinkActive="active">Heroes</a></li>
 		<li><a routerLink="users" routerLinkActive="active">Users</a></li>
 		<li>
 			<button pButton type="button" label="Logout" (click)="logout()"></button>

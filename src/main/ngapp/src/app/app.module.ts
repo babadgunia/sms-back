@@ -10,14 +10,10 @@ import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 // component
 import {AppComponent} from "./app.component";
-import {HeroDetailComponent} from "./component/hero-detail/hero-detail.component";
-import {HeroesComponent} from "./component/heroes/heroes.component";
 import {LoginComponent} from "./component/login/login.component";
-import {SearchComponent} from "./component/search/search.component";
 import {UsersComponent} from "./component/users/users.component";
 // service
 import {AuthenticationService} from "./service/authentication.service";
-import {HeroService} from "./service/hero.service";
 import {UserService} from "./service/user.service";
 // routing
 import {AppRoutingModule} from "./app-routing.model";
@@ -39,10 +35,7 @@ import {ConfirmationService} from 'primeng/components/common/confirmationservice
 	declarations: [
 		// component
 		AppComponent,
-		HeroDetailComponent,
-		HeroesComponent,
 		LoginComponent,
-		SearchComponent,
 		UsersComponent
 	],
 	imports: [
@@ -68,7 +61,6 @@ import {ConfirmationService} from 'primeng/components/common/confirmationservice
 	providers: [
 		// service
 		AuthenticationService,
-		HeroService,
 		UserService,
 		// util
 		CanActivateAuthGuard,
