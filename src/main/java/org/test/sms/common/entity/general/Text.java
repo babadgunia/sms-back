@@ -23,7 +23,7 @@ public class Text extends AppEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
     private long id;
 
-    @Column(name = "textKey", unique = true)
+    @Column(name = "textKey")
     private String key;
 
     @OneToMany(mappedBy = "text", cascade = CascadeType.ALL, orphanRemoval = true)

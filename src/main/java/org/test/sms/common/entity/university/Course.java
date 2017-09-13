@@ -4,7 +4,6 @@ import org.test.sms.common.entity.AppEntity;
 import org.test.sms.common.enums.university.SemesterType;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -30,7 +29,6 @@ public class Course extends AppEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
     private long id;
 
-    @Column(unique = true)
     private String name;
 
     private Integer numCredits;

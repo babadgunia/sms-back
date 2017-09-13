@@ -3,7 +3,6 @@ package org.test.sms.common.entity.university;
 import org.test.sms.common.entity.AppEntity;
 import org.test.sms.common.enums.general.GenderType;
 
-import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Lob;
@@ -22,7 +21,6 @@ public abstract class UniversityMember extends AppEntity {
 
     private LocalDate birthDate;
 
-    @Column(unique = true)
     private String personalNumber;
 
     private String phoneNumber;
@@ -31,7 +29,6 @@ public abstract class UniversityMember extends AppEntity {
 
     private String email;
 
-    @Column(unique = true)
     private String uniEmail;
 
     @Lob

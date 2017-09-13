@@ -3,7 +3,6 @@ package org.test.sms.common.entity.university;
 import org.test.sms.common.entity.AppEntity;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +22,6 @@ public class Faculty extends AppEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
     private long id;
 
-    @Column(unique = true)
     private String name;
 
     @OneToMany(mappedBy = "faculty", cascade = CascadeType.MERGE)

@@ -5,7 +5,6 @@ import org.test.sms.common.entity.AppEntity;
 import org.test.sms.common.enums.general.LanguageType;
 import org.test.sms.common.enums.general.StatusType;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -27,7 +26,6 @@ public class User extends AppEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
     private long id;
 
-    @Column(unique = true)
     private String username;
 
     @JsonIgnore
