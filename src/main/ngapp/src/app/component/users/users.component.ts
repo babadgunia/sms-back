@@ -196,14 +196,11 @@ export class UsersComponent extends AbstractComponent {
 	}
 
 	private getList(): void {
-		this.tableLoading = true;
-
 		this.service.getCount(this.filter).subscribe((count: number) => {
 			this.tableTotalRecords = count;
 		}, (error: any) => super.handleError(error));
 
 		this.service.getList(this.filter).subscribe((users: User[]) => {
-			this.tableLoading = false;
 			this.users = users;
 		}, (error: any) => super.handleError(error));
 	}

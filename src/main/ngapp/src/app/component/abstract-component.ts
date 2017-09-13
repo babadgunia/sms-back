@@ -37,8 +37,6 @@ export abstract class AbstractComponent {
 
 	protected readonly searchTablePageLinks: number = 3;
 
-	protected readonly searchTableLoadingIcon: string = "fa-cog";
-
 	// search table filter constants
 
 	protected readonly searchTableDropdownFilterStyle: object = {'width': '100%'};
@@ -90,8 +88,6 @@ export abstract class AbstractComponent {
 	// table fields
 
 	protected tableTotalRecords: number = 0;
-
-	protected tableLoading: boolean = true;
 
 	// dialog fields
 
