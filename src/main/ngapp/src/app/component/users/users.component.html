@@ -60,8 +60,7 @@
 			<p-column [styleClass]="searchTableActionColumnClass">
 				<ng-template pTemplate="header">
 					<button pButton [label]="getMessage('ADD')" [icon]="searchTableActionColumnAddButtonIcon" [class]="searchTableActionColumnButtonClass"
-									(click)="initAdd(); updateDialogStates(true, false, false)"
-									*ngIf="hasPermission('USER.ADD')"></button>
+									(click)="initAdd(); updateDialogStates(true, false, false)" *ngIf="hasPermission('USER.ADD')"></button>
 				</ng-template>
 				<ng-template pTemplate="body" let-user="rowData">
 					<div class="ui-g">
