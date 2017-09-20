@@ -173,6 +173,10 @@ export abstract class AbstractComponent {
 		this.showDialog = true;
 	}
 
+	protected hideDialog(): void {
+		this.showDialog = false;
+	}
+
 	// resets the dropdown component if an empty value is selected
 	protected resetDropdown(value: any, box: Dropdown): void {
 		if (value === '') {
