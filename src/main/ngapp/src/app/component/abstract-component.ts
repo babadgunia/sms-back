@@ -8,12 +8,12 @@ import {messages} from "../util/messages";
 import {AuthUtils} from "../util/auth-utils";
 // primeng > util
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
-import {Message} from "primeng/components/common/message";
 import {SelectItem} from "primeng/components/common/selectitem";
 // primeng > component
 import {Dropdown} from "primeng/primeng";
 // primeng > service
 import {ConfirmationService} from "primeng/components/common/confirmationservice";
+import {MessageService} from "primeng/components/common/messageservice";
 // rxjs
 import {isNumeric} from "rxjs/util/isNumeric";
 
@@ -81,10 +81,6 @@ export abstract class AbstractComponent {
 
 	protected readonly statuses: SelectItem[] = [];
 
-	// message list for growl
-
-	protected messages: Message[] = [];
-
 	// table fields
 
 	protected tableTotalRecords: number = 0;
@@ -99,7 +95,7 @@ export abstract class AbstractComponent {
 
 	protected isView: boolean = false;
 
-	protected constructor(private confirmationService: ConfirmationService) {
+	protected constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {
 		// init language list for dropdown
 		this.languages.push({label: '', value: ''});
 
@@ -136,7 +132,7 @@ export abstract class AbstractComponent {
 
 	// adds error message to the growl component
 	protected showErrorMessage(message: string, ...params: any[]): void {
-		this.messages.push({severity: 'error', detail: this.getMessage(message, params)});
+		this.messageService.add({severity: 'error', detail: this.getMessage(message, params)});
 	}
 
 	// handles component errors

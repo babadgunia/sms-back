@@ -1,14 +1,12 @@
 // angular > core
 import {Component} from "@angular/core";
-// model > entity
-// model > enum
 // component
 import {AbstractComponent} from "../abstract-component";
-// util
-// primeng > component
+// service
+import {UserGroupService} from "../../service/userGroup.service";
 // primeng > service
 import {ConfirmationService} from "primeng/components/common/confirmationservice";
-import {UserGroupService} from "../../service/userGroup.service";
+import {MessageService} from "primeng/components/common/messageservice";
 
 @Component({
 	selector: 'userGroups',
@@ -17,8 +15,8 @@ import {UserGroupService} from "../../service/userGroup.service";
 })
 export class UserGroupsComponent extends AbstractComponent {
 
-	public constructor(private service: UserGroupService, confirmationService: ConfirmationService) {
-		super(confirmationService);
+	public constructor(private service: UserGroupService, confirmationService: ConfirmationService, messageService: MessageService) {
+		super(confirmationService, messageService);
 	}
 
 }

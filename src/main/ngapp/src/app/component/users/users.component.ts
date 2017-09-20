@@ -20,6 +20,7 @@ import {DataTable, Dropdown} from "primeng/primeng";
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
 // primeng > service
 import {ConfirmationService} from "primeng/components/common/confirmationservice";
+import {MessageService} from "primeng/components/common/messageservice";
 
 @Component({
 	selector: 'users',
@@ -40,8 +41,8 @@ export class UsersComponent extends AbstractComponent {
 
 	private languageFilter: string;
 
-	public constructor(private service: UserService, confirmationService: ConfirmationService) {
-		super(confirmationService);
+	public constructor(private service: UserService, confirmationService: ConfirmationService, messageService: MessageService) {
+		super(confirmationService, messageService);
 	}
 
 	private resetFilters(table: DataTable, idField: HTMLInputElement, usernameField: HTMLInputElement, emailField: HTMLInputElement, nameField: HTMLInputElement,
