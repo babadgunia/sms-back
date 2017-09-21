@@ -43,8 +43,8 @@
 					{{getMessage('STATUS_TYPE_' + user[col.field])}}
 				</ng-template>
 				<ng-template pTemplate="filter" let-col>
-					<p-dropdown [options]="statuses" [(ngModel)]="statusFilter" [style]="searchTableDropdownFilterStyle"
-											(onChange)="table.filter($event.value, col.field, col.filterMatchMode)"></p-dropdown>
+					<p-dropdown #filterStatusBox [placeholder]="getMessage('STATUS')" [options]="statuses" [(ngModel)]="statusFilter" [style]="searchTableDropdownFilterStyle"
+											(onChange)="table.filter($event.value, col.field, col.filterMatchMode); resetDropdown($event.value, filterStatusBox)"></p-dropdown>
 				</ng-template>
 			</p-column>
 			<p-column field="language" [header]="getMessage('LANGUAGE')" [filter]="true" filterMatchMode="equals">
@@ -52,8 +52,8 @@
 					{{getMessage('LANGUAGE_TYPE_' + user[col.field])}}
 				</ng-template>
 				<ng-template pTemplate="filter" let-col>
-					<p-dropdown [options]="languages" [(ngModel)]="languageFilter" [style]="searchTableDropdownFilterStyle"
-											(onChange)="table.filter($event.value, col.field, col.filterMatchMode)"></p-dropdown>
+					<p-dropdown #filterLanguageBox [placeholder]="getMessage('LANGUAGE')" [options]="languages" [(ngModel)]="languageFilter" [style]="searchTableDropdownFilterStyle"
+											(onChange)="table.filter($event.value, col.field, col.filterMatchMode); resetDropdown($event.value, filterLanguageBox)"></p-dropdown>
 				</ng-template>
 			</p-column>
 
@@ -113,13 +113,15 @@
 			{{getMessage('STATUS')}}
 		</div>
 		<div class="ui-g-6">
-			<p-dropdown [options]="statuses" [(ngModel)]="user.status" [autoWidth]="false" [styleClass]="formComponentClass" [disabled]="isView"></p-dropdown>
+			<p-dropdown #dialogStatusBox [placeholder]="getMessage('STATUS')" [options]="statuses" [(ngModel)]="user.status" [autoWidth]="false" [styleClass]="formComponentClass"
+									(onChange)="resetDropdown($event.value, dialogStatusBox)" [disabled]="isView"></p-dropdown>
 		</div>
 		<div class="ui-g-6">
 			{{getMessage('LANGUAGE')}}
 		</div>
 		<div class="ui-g-6">
-			<p-dropdown [options]="languages" [(ngModel)]="user.language" [autoWidth]="false" [styleClass]="formComponentClass" [disabled]="isView"></p-dropdown>
+			<p-dropdown #dialogLanguageBox [placeholder]="getMessage('LANGUAGE')" [options]="languages" [(ngModel)]="user.language" [autoWidth]="false" [styleClass]="formComponentClass"
+									(onChange)="resetDropdown($event.value, dialogLanguageBox)" [disabled]="isView"></p-dropdown>
 		</div>
 	</div>
 
