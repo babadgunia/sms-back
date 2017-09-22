@@ -1,4 +1,4 @@
-package org.test.sms.server.service.security;
+package org.test.sms.server.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
