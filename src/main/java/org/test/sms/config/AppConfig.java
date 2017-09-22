@@ -16,6 +16,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -30,7 +31,7 @@ import java.util.Properties;
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableAsync
-@PropertySource({"classpath:database.properties", "classpath:jwt.properties", "classpath:mail.properties"})
+@PropertySource({"classpath:database.properties", "classpath:jwt.properties", "classpath:email/mail.properties"})
 public class AppConfig extends WebMvcConfigurerAdapter {
 
     private Environment environment;
@@ -99,6 +100,11 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         properties.put("mail.smtp.starttls.enable", environment.getRequiredProperty("mail.smtp.starttls.enable"));
 
         return mailSender;
+    }
+
+    @Bean
+    public FreeMarkerConfigurationFactoryBean getFreeMarkerConfiguration() {
+        return new FreeMarkerConfigurationFactoryBean();
     }
 
     @Override

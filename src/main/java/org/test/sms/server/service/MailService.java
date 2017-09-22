@@ -1,12 +1,19 @@
 package org.test.sms.server.service;
 
+import freemarker.template.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.test.sms.common.entity.general.User;
+
+import javax.mail.internet.MimeMessage;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -15,34 +22,34 @@ public class MailService {
 
     private JavaMailSender mailSender;
 
+    private Configuration freeMarkerConfiguration;
+
     @Autowired
-    public MailService(JavaMailSender mailSender) {
+    public MailService(JavaMailSender mailSender, Configuration freeMarkerConfiguration) {
         this.mailSender = mailSender;
+
+        this.freeMarkerConfiguration = freeMarkerConfiguration;
+        this.freeMarkerConfiguration.setClassForTemplateLoading(getClass(), "/email");
     }
 
-    public void sendPasswordMail(User user, String password) {
-        SimpleMailMessage message = new SimpleMailMessage();
+    public void sendCredentialsMail(User user, String password) {
+        mailSender.send((MimeMessage message) -> {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        message.setSubject("SMS app credentials");
-        message.setTo(user.getEmail());
+            helper.setSubject("SMS app credentials");
+            helper.setTo(user.getEmail());
 
-        StringBuilder textBuilder = new StringBuilder();
-        textBuilder.append("Hello, ");
-        textBuilder.append(user.getName());
-        textBuilder.append("\n");
-        textBuilder.append("\n");
-        textBuilder.append("These are your SMS app login credentials:");
-        textBuilder.append("\n");
-        textBuilder.append("\n");
-        textBuilder.append("username: ");
-        textBuilder.append(user.getUsername());
-        textBuilder.append("\n");
-        textBuilder.append("password: ");
-        textBuilder.append(password);
+            Map<String, Object> model = new HashMap<>();
 
-        message.setText(textBuilder.toString());
+            model.put("name", user.getName());
+            model.put("username", user.getUsername());
+            model.put("password", password);
 
-        mailSender.send(message);
+            String text = FreeMarkerTemplateUtils.processTemplateIntoString(freeMarkerConfiguration.getTemplate("credentialsMailTemplate.ftl"), model);
+            helper.setText(text, true);
+
+            helper.addInline("appIcon", new ClassPathResource("email/appIcon.png"));
+        });
     }
 
     public void sendPasswordResetMail(long userId) {
