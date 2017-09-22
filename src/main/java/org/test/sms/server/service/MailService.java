@@ -20,11 +20,11 @@ public class MailService {
         this.mailSender = mailSender;
     }
 
-    public void sendPasswordMail(String to, User user, String password) {
+    public void sendPasswordMail(User user, String password) {
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setSubject("SMS app credentials");
-        message.setTo(to);
+        message.setTo(user.getEmail());
 
         StringBuilder textBuilder = new StringBuilder();
         textBuilder.append("Hello, ");

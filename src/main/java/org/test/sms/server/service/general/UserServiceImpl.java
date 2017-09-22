@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
 
         User user = dao.add(entity);
 
-        mailService.sendPasswordMail(entity.getEmail(), entity, password);
+        mailService.sendPasswordMail(entity, password);
 
         return user;
     }
