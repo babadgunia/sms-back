@@ -44,4 +44,8 @@ public class MailService {
 
         mailSender.send(message);
     }
+
+    public void sendPasswordResetMail(long userId) {
+
+    }
 }

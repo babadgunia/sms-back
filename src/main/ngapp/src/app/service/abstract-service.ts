@@ -26,7 +26,7 @@ export abstract class AbstractService {
 				return this.parseResponse(this.http.post(url, body, requestOptions));
 			}
 			case RequestMethod.Put: {
-				return this.parseResponse(this.http.put(url, body, requestOptions));
+				return this.handleError(this.http.put(url, body, requestOptions));
 			}
 			case RequestMethod.Delete: {
 				return this.handleError(this.http.delete(url, requestOptions));

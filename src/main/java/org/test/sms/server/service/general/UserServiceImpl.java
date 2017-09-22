@@ -1,6 +1,7 @@
 package org.test.sms.server.service.general;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +19,7 @@ import org.test.sms.server.service.MailService;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Service("userService")
 @Transactional
 public class UserServiceImpl implements UserService {
 
@@ -90,7 +91,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean hasPermission(String username, PermissionGroupType permissionGroup, PermissionType permission) {
+    public boolean hasPermission(PermissionGroupType permissionGroup, PermissionType permission) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
         return dao.hasPermission(username, permissionGroup, permission);
+    }
+
+    @Override
+    public void resetPassword(long id) {
+        mailService.sendPasswordResetMail(id);
     }
 }

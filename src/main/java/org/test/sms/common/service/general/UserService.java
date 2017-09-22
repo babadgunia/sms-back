@@ -15,5 +15,7 @@ public interface UserService extends AbstractService<User> {
 
     boolean exists(long userGroupId);
 
-    boolean hasPermission(String username, PermissionGroupType permissionGroup, PermissionType permission);
+    boolean hasPermission(PermissionGroupType permissionGroup, PermissionType permission);
+
+    void resetPassword(long id);
 }

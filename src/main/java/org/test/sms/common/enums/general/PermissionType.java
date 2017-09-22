@@ -8,5 +8,7 @@ public enum PermissionType {
 
     EDIT,
 
+    RESET_PASSWORD,
+
     VIEW
 }

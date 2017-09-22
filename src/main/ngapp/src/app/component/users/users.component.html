@@ -126,6 +126,8 @@
 	</div>
 
 	<p-footer>
+		<button pButton [label]="getMessage('RESET_PASSWORD')" [icon]="formResetPasswordButtonIcon" (click)="resetPassword(); hideDialog()"
+						*ngIf="isEdit && hasPermission('USER.RESET_PASSWORD')"></button>
 		<button pButton [label]="getMessage('SAVE')" [icon]="formSaveButtonIcon" (click)="save()" *ngIf="!isView"></button>
 		<button pButton [label]="getMessage('CANCEL')" [icon]="formCancelButtonIcon" (click)="hideDialog()"></button>
 	</p-footer>

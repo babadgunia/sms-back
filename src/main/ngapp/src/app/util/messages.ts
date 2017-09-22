@@ -63,6 +63,10 @@ export const messages: any = {
 		en: 'No',
 		ka: 'არა'
 	},
+	RESET_PASSWORD: {
+		en: 'Reset password',
+		ka: 'პაროლის შეცვლა'
+	},
 	SAVE: {
 		en: 'Save',
 		ka: 'შენახვა'

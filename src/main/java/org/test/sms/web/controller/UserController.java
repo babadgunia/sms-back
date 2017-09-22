@@ -30,7 +30,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    @PreAuthorize("@userPermissionService.hasPermission('USER', 'ADD')")
+    @PreAuthorize("@userService.hasPermission('USER', 'ADD')")
     public ResponseEntity<User> add(@RequestBody User user) {
         try {
 //            TODO remove this
@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    @PreAuthorize("@userPermissionService.hasPermission('USER', 'EDIT')")
+    @PreAuthorize("@userService.hasPermission('USER', 'EDIT')")
     public ResponseEntity<User> update(@RequestBody User user) {
         try {
             return new ResponseEntity<>(service.update(user), HttpStatus.OK);
@@ -53,7 +53,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
-    @PreAuthorize("@userPermissionService.hasPermission('USER', 'DELETE')")
+    @PreAuthorize("@userService.hasPermission('USER', 'DELETE')")
     public ResponseEntity<Void> delete(@PathVariable("id") long id) {
         try {
             service.delete(id);
@@ -65,7 +65,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
-    @PreAuthorize("@userPermissionService.hasPermission('USER', 'VIEW')")
+    @PreAuthorize("@userService.hasPermission('USER', 'VIEW')")
     public ResponseEntity<User> get(@PathVariable("id") long id) {
         Optional<User> userWrapper = service.get(id);
 
@@ -73,14 +73,22 @@ public class UserController {
     }
 
     @RequestMapping(value = "getCount", method = RequestMethod.POST)
-    @PreAuthorize("@userPermissionService.hasPermission('USER', 'VIEW')")
+    @PreAuthorize("@userService.hasPermission('USER', 'VIEW')")
     public ResponseEntity<Long> getCount(@RequestBody(required = false) UserFilter filter) {
         return new ResponseEntity<>(service.getCount(filter), HttpStatus.OK);
     }
 
     @RequestMapping(value = "getList", method = RequestMethod.POST)
-    @PreAuthorize("@userPermissionService.hasPermission('USER', 'VIEW')")
+    @PreAuthorize("@userService.hasPermission('USER', 'VIEW')")
     public ResponseEntity<List<User>> getList(@RequestBody(required = false) UserFilter filter) {
         return new ResponseEntity<>(service.getList(filter), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "resetPassword/{id}", method = RequestMethod.PUT)
+    @PreAuthorize("@userService.hasPermission('USER', 'RESET_PASSWORD')")
+    public ResponseEntity<Void> resetPassword(@PathVariable("id") long id) {
+        service.resetPassword(id);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

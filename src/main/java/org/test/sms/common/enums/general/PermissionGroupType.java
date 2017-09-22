@@ -19,7 +19,7 @@ public enum PermissionGroupType {
 
     TEXT(PermissionType.ADD, PermissionType.DELETE, PermissionType.EDIT, PermissionType.VIEW),
 
-    USER(PermissionType.ADD, PermissionType.DELETE, PermissionType.EDIT, PermissionType.VIEW),
+    USER(PermissionType.ADD, PermissionType.DELETE, PermissionType.EDIT, PermissionType.RESET_PASSWORD, PermissionType.VIEW),
 
     USER_GROUP(PermissionType.ADD, PermissionType.DELETE, PermissionType.EDIT, PermissionType.VIEW);
 

@@ -67,6 +67,8 @@ export abstract class AbstractComponent {
 
 	protected readonly formComponentClass: string = "c-full-width";
 
+	protected readonly formResetPasswordButtonIcon: string = "fa-retweet";
+
 	protected readonly formSaveButtonIcon: string = "fa-check";
 
 	protected readonly formCancelButtonIcon: string = "fa-close";

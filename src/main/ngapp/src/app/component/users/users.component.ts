@@ -205,4 +205,8 @@ export class UsersComponent extends AbstractComponent {
 			this.users = users;
 		}, (error: any) => super.handleError(error));
 	}
+
+	private resetPassword(): void {
+		this.service.resetPassword(this.user.id).subscribe(() => {}, (error: any) => super.handleError(error));
+	}
 }

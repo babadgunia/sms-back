@@ -43,4 +43,8 @@ export class UserService extends AbstractService {
 	public getList(filter: UserFilter): Observable<User[]> {
 		return super.httpRequest(RequestMethod.Post, "getList", filter);
 	}
+
+	public resetPassword(id: number): Observable<void> {
+		return super.httpRequest(RequestMethod.Put, `resetPassword/${id}`);
+	}
 }
