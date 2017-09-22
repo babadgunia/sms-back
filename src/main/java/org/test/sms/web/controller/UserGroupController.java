@@ -30,7 +30,7 @@ public class UserGroupController {
     }
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    @PreAuthorize("@userPermissionService.hasPermission('USER_GROUP', 'EDIT')")
+    @PreAuthorize("@userService.hasPermission('USER_GROUP', 'EDIT')")
     public ResponseEntity<UserGroup> update(@RequestBody UserGroup userGroup) {
         try {
             return new ResponseEntity<>(service.update(userGroup), HttpStatus.OK);
@@ -40,7 +40,7 @@ public class UserGroupController {
     }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
-    @PreAuthorize("@userPermissionService.hasPermission('USER_GROUP', 'DELETE')")
+    @PreAuthorize("@userService.hasPermission('USER_GROUP', 'DELETE')")
     public ResponseEntity<Void> delete(@PathVariable("id") long id) {
         try {
             service.delete(id);
@@ -52,7 +52,7 @@ public class UserGroupController {
     }
 
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
-    @PreAuthorize("@userPermissionService.hasPermission('USER_GROUP', 'VIEW')")
+    @PreAuthorize("@userService.hasPermission('USER_GROUP', 'VIEW')")
     public ResponseEntity<UserGroup> get(@PathVariable("id") long id) {
         Optional<UserGroup> userGroupWrapper = service.get(id);
 
@@ -60,13 +60,13 @@ public class UserGroupController {
     }
 
     @RequestMapping(value = "getCount", method = RequestMethod.POST)
-    @PreAuthorize("@userPermissionService.hasPermission('USER_GROUP', 'VIEW')")
+    @PreAuthorize("@userService.hasPermission('USER_GROUP', 'VIEW')")
     public ResponseEntity<Long> getCount(@RequestBody(required = false) UserFilter filter) {
         return new ResponseEntity<>(service.getCount(filter), HttpStatus.OK);
     }
 
     @RequestMapping(value = "getList", method = RequestMethod.POST)
-    @PreAuthorize("@userPermissionService.hasPermission('USER_GROUP', 'VIEW')")
+    @PreAuthorize("@userService.hasPermission('USER_GROUP', 'VIEW')")
     public ResponseEntity<List<UserGroup>> getList(@RequestBody(required = false) UserGroupFilter filter) {
         return new ResponseEntity<>(service.getList(filter), HttpStatus.OK);
     }
