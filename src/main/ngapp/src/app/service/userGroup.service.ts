@@ -3,9 +3,9 @@ import {Inject, Injectable} from "@angular/core";
 // angular > http
 import {Http, RequestMethod} from "@angular/http";
 // model > entity
-import {UserGroup} from "../model/entity/userGroup";
+import {UserGroup} from "../model/entity/user-group";
 // model > filter
-import {UserGroupFilter} from "../model/filter/userGroup-filter";
+import {UserGroupFilter} from "../model/filter/user-group-filter";
 // service
 import {AbstractService} from "./abstract-service";
 // util

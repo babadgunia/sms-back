@@ -6,5 +6,4 @@ export class UserGroupFilter extends AbstractFilter {
 	id?: number;
 
 	name?: string;
-
 }
