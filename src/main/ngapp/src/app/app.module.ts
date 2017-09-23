@@ -10,8 +10,8 @@ import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 // component
 import {AppComponent} from "./app.component";
-import {LoginComponent} from "./component/login/login.component";
 import {ForgotPasswordComponent} from "./component/login/forgotPassword.component"
+import {LoginComponent} from "./component/login/login.component";
 import {UserGroupsComponent} from "./component/userGroups/userGroups.component";
 import {UsersComponent} from "./component/users/users.component";
 // service
@@ -39,8 +39,8 @@ import {MessageService} from "primeng/components/common/messageservice";
 	declarations: [
 		// component
 		AppComponent,
-		LoginComponent,
 		ForgotPasswordComponent,
+		LoginComponent,
 		UserGroupsComponent,
 		UsersComponent
 	],
