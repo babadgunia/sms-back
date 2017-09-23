@@ -1,11 +1,10 @@
-<div *ngIf="isLoggedIn()">
-
-</div>
 <nav>
 	<ul *ngIf="isLoggedIn()">
-		<li><a routerLink="users" routerLinkActive="active">Users</a></li>
+		<li><a routerLink="users" routerLinkActive="active">{{getMessage('USERS')}}</a></li>
+		<li><a routerLink="userGroups" routerLinkActive="active">{{getMessage('USER_GROUPS')}}</a></li>
+
 		<li>
-			<button pButton type="button" label="Logout" (click)="logout()"></button>
+			<button pButton [label]="getMessage('LOGOUT')" [icon]="logoutButtonIcon" (click)="logout()"></button>
 		</li>
 	</ul>
 </nav>
