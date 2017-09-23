@@ -55,6 +55,10 @@ export const messages: any = {
 		en: 'Georgian',
 		ka: 'ქართული'
 	},
+	LOGOUT: {
+		en: 'Logout',
+		ka: 'გასვლა'
+	},
 	NAME: {
 		en: 'Name',
 		ka: 'სახელი'
@@ -91,6 +95,10 @@ export const messages: any = {
 		en: 'Inactive',
 		ka: 'არააქტიური'
 	},
+	USER_GROUPS: {
+		en: 'User groups',
+		ka: 'მომხმარებლის ჯგუფები'
+	},
 	USERNAME: {
 		en: 'Username',
 		ka: 'მომხმარებლის სახელი'
@@ -98,6 +106,10 @@ export const messages: any = {
 	USERNAME_SHORT: {
 		en: 'Username',
 		ka: 'მომხ. სახელი'
+	},
+	USERS: {
+		en: 'Users',
+		ka: 'მომხმარებლები'
 	},
 	VIEW: {
 		en: 'View',

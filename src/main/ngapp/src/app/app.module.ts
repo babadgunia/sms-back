@@ -11,9 +11,11 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 // component
 import {AppComponent} from "./app.component";
 import {LoginComponent} from "./component/login/login.component";
+import {UserGroupsComponent} from "./component/userGroups/userGroups.component";
 import {UsersComponent} from "./component/users/users.component";
 // service
 import {AuthenticationService} from "./service/authentication.service";
+import {UserGroupService} from "./service/userGroup.service";
 import {UserService} from "./service/user.service";
 // routing
 import {AppRoutingModule} from "./app-routing.model";
@@ -37,6 +39,7 @@ import {MessageService} from "primeng/components/common/messageservice";
 		// component
 		AppComponent,
 		LoginComponent,
+		UserGroupsComponent,
 		UsersComponent
 	],
 	imports: [
@@ -62,6 +65,7 @@ import {MessageService} from "primeng/components/common/messageservice";
 	providers: [
 		// service
 		AuthenticationService,
+		UserGroupService,
 		UserService,
 		// util
 		CanActivateAuthGuard,

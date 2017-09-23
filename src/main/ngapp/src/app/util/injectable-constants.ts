@@ -5,5 +5,6 @@ export const USER_GROUP_SERVICE_URL: string = API_BASE_URL + 'userGroup';
 
 export const INJECTABLE_CONSTANTS: any[] = [
 	{provide: AUTH_SERVICE_URL, useValue: AUTH_SERVICE_URL},
+	{provide: USER_GROUP_SERVICE_URL, useValue: USER_GROUP_SERVICE_URL},
 	{provide: USER_SERVICE_URL, useValue: USER_SERVICE_URL}
 ];

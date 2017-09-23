@@ -19,6 +19,10 @@ import {isNumeric} from "rxjs/util/isNumeric";
 
 export abstract class AbstractComponent {
 
+	// general constants
+
+	protected readonly logoutButtonIcon: string = "fa-sign-out";
+
 	// search filter constants
 
 	protected readonly searchFilterComponentClass: string = "c-full-width";
