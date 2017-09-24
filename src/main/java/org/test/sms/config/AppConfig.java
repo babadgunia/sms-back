@@ -33,7 +33,7 @@ import java.util.Properties;
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableAsync
-@PropertySource({"classpath:database.properties", "classpath:jwt.properties", "classpath:email/mail.properties"})
+@PropertySource({"classpath:jwt.properties", "classpath:email/mail.properties"})
 public class AppConfig extends WebMvcConfigurerAdapter {
 
     private Logger log = LogManager.getLogger(AppConfig.class);
