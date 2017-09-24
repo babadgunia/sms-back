@@ -31,12 +31,12 @@ public class UserController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     @PreAuthorize("@userService.hasPermission('USER', 'ADD')")
-    public ResponseEntity<User> add(@RequestBody User user) {
+    public ResponseEntity<User> add(@RequestBody User entity) {
         try {
 //            TODO remove this
-            user.setUserGroup(new UserGroup(1));
+            entity.setUserGroup(new UserGroup(1));
 
-            return new ResponseEntity<>(service.add(user), HttpStatus.OK);
+            return new ResponseEntity<>(service.add(entity), HttpStatus.OK);
         } catch (AppException e) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
@@ -44,9 +44,9 @@ public class UserController {
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
     @PreAuthorize("@userService.hasPermission('USER', 'EDIT')")
-    public ResponseEntity<User> update(@RequestBody User user) {
+    public ResponseEntity<User> update(@RequestBody User entity) {
         try {
-            return new ResponseEntity<>(service.update(user), HttpStatus.OK);
+            return new ResponseEntity<>(service.update(entity), HttpStatus.OK);
         } catch (AppException e) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
@@ -67,9 +67,9 @@ public class UserController {
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
     @PreAuthorize("@userService.hasPermission('USER', 'VIEW')")
     public ResponseEntity<User> get(@PathVariable("id") long id) {
-        Optional<User> userWrapper = service.get(id);
+        Optional<User> entityWrapper = service.get(id);
 
-        return new ResponseEntity<>(userWrapper.orElse(null), HttpStatus.OK);
+        return new ResponseEntity<>(entityWrapper.orElse(null), HttpStatus.OK);
     }
 
     @RequestMapping(value = "getCount", method = RequestMethod.POST)

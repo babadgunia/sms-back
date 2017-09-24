@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.test.sms.common.entity.general.UserGroup;
 import org.test.sms.common.exception.AppException;
-import org.test.sms.common.filter.general.UserFilter;
 import org.test.sms.common.filter.general.UserGroupFilter;
 import org.test.sms.common.service.general.UserGroupService;
 
@@ -25,15 +24,25 @@ public class UserGroupController {
     private UserGroupService service;
 
     @Autowired
-    public UserGroupController(UserGroupService userGroupService) {
-        this.service = userGroupService;
+    public UserGroupController(UserGroupService service) {
+        this.service = service;
+    }
+
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    @PreAuthorize("@userService.hasPermission('USER_GROUP', 'ADD')")
+    public ResponseEntity<UserGroup> add(@RequestBody UserGroup entity) {
+        try {
+            return new ResponseEntity<>(service.add(entity), HttpStatus.OK);
+        } catch (AppException e) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
     }
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
     @PreAuthorize("@userService.hasPermission('USER_GROUP', 'EDIT')")
-    public ResponseEntity<UserGroup> update(@RequestBody UserGroup userGroup) {
+    public ResponseEntity<UserGroup> update(@RequestBody UserGroup entity) {
         try {
-            return new ResponseEntity<>(service.update(userGroup), HttpStatus.OK);
+            return new ResponseEntity<>(service.update(entity), HttpStatus.OK);
         } catch (AppException e) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
@@ -54,14 +63,14 @@ public class UserGroupController {
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
     @PreAuthorize("@userService.hasPermission('USER_GROUP', 'VIEW')")
     public ResponseEntity<UserGroup> get(@PathVariable("id") long id) {
-        Optional<UserGroup> userGroupWrapper = service.get(id);
+        Optional<UserGroup> entityWrapper = service.get(id);
 
-        return new ResponseEntity<>(userGroupWrapper.orElse(null), HttpStatus.OK);
+        return new ResponseEntity<>(entityWrapper.orElse(null), HttpStatus.OK);
     }
 
     @RequestMapping(value = "getCount", method = RequestMethod.POST)
     @PreAuthorize("@userService.hasPermission('USER_GROUP', 'VIEW')")
-    public ResponseEntity<Long> getCount(@RequestBody(required = false) UserFilter filter) {
+    public ResponseEntity<Long> getCount(@RequestBody(required = false) UserGroupFilter filter) {
         return new ResponseEntity<>(service.getCount(filter), HttpStatus.OK);
     }
 
