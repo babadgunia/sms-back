@@ -7,7 +7,7 @@ import {AbstractComponent} from "./component/abstract-component";
 // util
 import {AuthUtils} from "./util/auth-utils";
 import {Utils} from "./util/utils";
-// primeng service
+// primeng > service
 import {ConfirmationService} from "primeng/components/common/confirmationservice";
 import {MessageService} from "primeng/components/common/messageservice";
 

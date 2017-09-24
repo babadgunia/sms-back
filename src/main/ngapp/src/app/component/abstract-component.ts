@@ -6,11 +6,11 @@ import {StatusType} from "../model/enum/status-type.enum";
 // util
 import {messages} from "../util/messages";
 import {AuthUtils} from "../util/auth-utils";
-// primeng > util
+// primeng > model
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
 import {SelectItem} from "primeng/components/common/selectitem";
 // primeng > component
-import {Dropdown} from "primeng/primeng";
+import {Dropdown} from "primeng/components/dropdown/dropdown";
 // primeng > service
 import {ConfirmationService} from "primeng/components/common/confirmationservice";
 import {MessageService} from "primeng/components/common/messageservice";
