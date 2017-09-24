@@ -30,9 +30,9 @@ import {MessageService} from "primeng/components/common/messageservice";
 })
 export class UsersComponent extends AbstractComponent {
 
-	private users: User[];
+	private entities: User[];
 
-	private user: User = new User();
+	private entity: User = new User();
 
 	private filter: UserFilter = {};
 
@@ -114,14 +114,14 @@ export class UsersComponent extends AbstractComponent {
 	}
 
 	private initAdd(): void {
-		this.user = new User();
+		this.entity = new User();
 
-		this.user.status = StatusType[StatusType.ACTIVE];
-		this.user.language = LanguageType[LanguageType.EN];
+		this.entity.status = StatusType[StatusType.ACTIVE];
+		this.entity.language = LanguageType[LanguageType.EN];
 	}
 
 	private save(): void {
-		if (!this.isValidUser()) {
+		if (!this.isValidEntity()) {
 			return;
 		}
 
@@ -132,29 +132,29 @@ export class UsersComponent extends AbstractComponent {
 		}
 	}
 
-	private isValidUser(): boolean {
-		if (Utils.isBlank(this.user.username)) {
+	private isValidEntity(): boolean {
+		if (Utils.isBlank(this.entity.username)) {
 			super.showErrorMessage('CANNOT_BE_NULL', this.getMessage('USERNAME'));
 
 			return false;
 		}
-		if (Utils.isBlank(this.user.email)) {
+		if (Utils.isBlank(this.entity.email)) {
 			super.showErrorMessage('CANNOT_BE_NULL', this.getMessage('EMAIL'));
 
 			return false;
 		}
-		if (Utils.isBlank(this.user.name)) {
+		if (Utils.isBlank(this.entity.name)) {
 			super.showErrorMessage('CANNOT_BE_NULL', this.getMessage('NAME'));
 
 			return false;
 		}
-		if (Utils.isBlank(this.user.status)) {
+		if (Utils.isBlank(this.entity.status)) {
 			super.showErrorMessage('CANNOT_BE_NULL', this.getMessage('STATUS'));
 
 			return false;
 		}
 
-		if (Utils.isBlank(this.user.language)) {
+		if (Utils.isBlank(this.entity.language)) {
 			super.showErrorMessage('CANNOT_BE_NULL', this.getMessage('LANGUAGE'));
 
 			return false;
@@ -164,8 +164,8 @@ export class UsersComponent extends AbstractComponent {
 	}
 
 	private add(): void {
-		this.service.add(this.user).subscribe((user: User) => {
-			this.users.push(user);
+		this.service.add(this.entity).subscribe((entity: User) => {
+			this.entities.push(entity);
 			this.tableTotalRecords++;
 
 			this.showDialog = false;
@@ -173,27 +173,27 @@ export class UsersComponent extends AbstractComponent {
 	}
 
 	private update(): void {
-		this.service.update(this.user).subscribe((user: User) => {
-			let index: number = this.users.findIndex((element: User) => element.id === user.id);
-			this.users.splice(index, 1, user);
+		this.service.update(this.entity).subscribe((entity: User) => {
+			let index: number = this.entities.findIndex((element: User) => element.id === entity.id);
+			this.entities.splice(index, 1, entity);
 
 			this.showDialog = false;
 		}, (error: any) => super.handleError(error));
 	}
 
-	private confirmDeleteAction(user: User): void {
+	private confirmDeleteAction(entity: User): void {
 		super.confirmAction(() => {
-			this.service.delete(user.id).subscribe(() => {
-				let index: number = this.users.findIndex((element: User) => element.id === user.id);
-				this.users.splice(index, 1);
+			this.service.delete(entity.id).subscribe(() => {
+				let index: number = this.entities.findIndex((element: User) => element.id === entity.id);
+				this.entities.splice(index, 1);
 				this.tableTotalRecords--;
 			}, (error: any) => super.handleError(error));
 		});
 	}
 
-	private get(user: User): void {
-		this.service.get(user.id).subscribe((user: User) => {
-			this.user = user;
+	private get(entity: User): void {
+		this.service.get(entity.id).subscribe((entity: User) => {
+			this.entity = entity;
 		}, (error: any) => super.handleError(error));
 	}
 
@@ -202,12 +202,12 @@ export class UsersComponent extends AbstractComponent {
 			this.tableTotalRecords = count;
 		}, (error: any) => super.handleError(error));
 
-		this.service.getList(this.filter).subscribe((users: User[]) => {
-			this.users = users;
+		this.service.getList(this.filter).subscribe((entities: User[]) => {
+			this.entities = entities;
 		}, (error: any) => super.handleError(error));
 	}
 
 	private resetPassword(): void {
-		this.service.resetPassword(this.user.id).subscribe(() => {}, (error: any) => super.handleError(error));
+		this.service.resetPassword(this.entity.id).subscribe(() => {}, (error: any) => super.handleError(error));
 	}
 }

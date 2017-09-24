@@ -32,7 +32,7 @@
 	</div>
 
 	<div class="ui-g-12 ui-g-nopad">
-		<p-dataTable #table [value]="users" [immutable]="false" [lazy]="true" [paginator]="true" [totalRecords]="tableTotalRecords" [rows]="searchTableRows"
+		<p-dataTable #table [value]="entities" [immutable]="false" [lazy]="true" [paginator]="true" [totalRecords]="tableTotalRecords" [rows]="searchTableRows"
 								 [pageLinks]="searchTablePageLinks" (onLazyLoad)="initTableFilter($event); getList()">
 			<p-column field="id" [header]="getMessage('ID')" [filter]="true" filterType="number" filterMatchMode="equals"></p-column>
 			<p-column field="username" [header]="getMessage('USERNAME')" [filter]="true" filterMatchMode="contains"></p-column>
@@ -40,8 +40,8 @@
 			<p-column field="name" [header]="getMessage('NAME')" [filter]="true" filterMatchMode="contains"></p-column>
 
 			<p-column field="status" [header]="getMessage('STATUS')" [filter]="true" filterMatchMode="equals">
-				<ng-template pTemplate="body" let-col let-user="rowData">
-					{{getMessage('STATUS_TYPE_' + user[col.field])}}
+				<ng-template pTemplate="body" let-col let-entity="rowData">
+					{{getMessage('STATUS_TYPE_' + entity[col.field])}}
 				</ng-template>
 				<ng-template pTemplate="filter" let-col>
 					<p-dropdown #filterStatusBox [placeholder]="getMessage('STATUS')" [options]="statuses" [(ngModel)]="statusFilter" [style]="searchTableDropdownFilterStyle"
@@ -49,8 +49,8 @@
 				</ng-template>
 			</p-column>
 			<p-column field="language" [header]="getMessage('LANGUAGE')" [filter]="true" filterMatchMode="equals">
-				<ng-template pTemplate="body" let-col let-user="rowData">
-					{{getMessage('LANGUAGE_TYPE_' + user[col.field])}}
+				<ng-template pTemplate="body" let-col let-entity="rowData">
+					{{getMessage('LANGUAGE_TYPE_' + entity[col.field])}}
 				</ng-template>
 				<ng-template pTemplate="filter" let-col>
 					<p-dropdown #filterLanguageBox [placeholder]="getMessage('LANGUAGE')" [options]="languages" [(ngModel)]="languageFilter" [style]="searchTableDropdownFilterStyle"
@@ -63,18 +63,18 @@
 					<button pButton [label]="getMessage('ADD')" [icon]="searchTableActionColumnAddButtonIcon" [class]="searchTableActionColumnButtonClass"
 									(click)="initAdd(); updateDialogStates(true, false, false)" *ngIf="hasPermission('USER.ADD')"></button>
 				</ng-template>
-				<ng-template pTemplate="body" let-user="rowData">
+				<ng-template pTemplate="body" let-entity="rowData">
 					<div class="ui-g">
 						<div class="ui-g-nopad {{hasPermission('USER.DELETE') ? searchTableActionColumnViewEditButtonWrapperClass : ''}}" [class.ui-g-12]="!hasPermission('USER.DELETE')"
 								 [class.ui-g-6]="hasPermission('USER.DELETE')">
 							<button pButton [title]="getMessage('EDIT')" [icon]="searchTableActionColumnEditButtonIcon" [class]="searchTableActionColumnButtonClass"
-											(click)="updateDialogStates(false, true, false); get(user)" *ngIf="hasPermission('USER.EDIT')"></button>
+											(click)="updateDialogStates(false, true, false); get(entity)" *ngIf="hasPermission('USER.EDIT')"></button>
 							<button pButton [title]="getMessage('VIEW')" [icon]="searchTableActionColumnViewButtonIcon" [class]="searchTableActionColumnButtonClass"
-											(click)="updateDialogStates(false, false, true); get(user)" *ngIf="!hasPermission('USER.EDIT')"></button>
+											(click)="updateDialogStates(false, false, true); get(entity)" *ngIf="!hasPermission('USER.EDIT')"></button>
 						</div>
 						<div class="ui-g-6 ui-g-nopad {{searchTableActionColumnDeleteButtonWrapperClass}}" *ngIf="hasPermission('USER.DELETE')">
 							<button pButton [title]="getMessage('DELETE')" [icon]="searchTableActionColumnDeleteButtonIcon" [class]="searchTableActionColumnButtonClass"
-											(click)="confirmDeleteAction(user)"></button>
+											(click)="confirmDeleteAction(entity)"></button>
 						</div>
 					</div>
 				</ng-template>
@@ -85,10 +85,6 @@
 	</div>
 </div>
 
-<p-growl></p-growl>
-
-<p-confirmDialog [acceptLabel]="getMessage('YES')" [rejectLabel]="getMessage('NO')"></p-confirmDialog>
-
 <p-dialog header="{{isAdd ? getMessage('ADD') : isEdit ? getMessage('EDIT') : getMessage('VIEW')}}" [(visible)]="showDialog" [modal]="true" [styleClass]="formDialogClass"
 					[contentStyle]="formDialogContentStyle">
 	<div class="ui-g">
@@ -96,32 +92,32 @@
 			{{getMessage('USERNAME')}}
 		</div>
 		<div class="ui-g-6">
-			<input pInputText [(ngModel)]="user.username" [class]="formComponentClass" [disabled]="isView || isEdit">
+			<input pInputText [(ngModel)]="entity.username" [class]="formComponentClass" [disabled]="isView || isEdit">
 		</div>
 		<div class="ui-g-6">
 			{{getMessage('EMAIL')}}
 		</div>
 		<div class="ui-g-6">
-			<input pInputText [(ngModel)]="user.email" [class]="formComponentClass" [disabled]="isView">
+			<input pInputText [(ngModel)]="entity.email" [class]="formComponentClass" [disabled]="isView">
 		</div>
 		<div class="ui-g-6">
 			{{getMessage('NAME')}}
 		</div>
 		<div class="ui-g-6">
-			<input pInputText [(ngModel)]="user.name" [class]="formComponentClass" [disabled]="isView">
+			<input pInputText [(ngModel)]="entity.name" [class]="formComponentClass" [disabled]="isView">
 		</div>
 		<div class="ui-g-6">
 			{{getMessage('STATUS')}}
 		</div>
 		<div class="ui-g-6">
-			<p-dropdown #dialogStatusBox [placeholder]="getMessage('STATUS')" [options]="statuses" [(ngModel)]="user.status" [autoWidth]="false" [styleClass]="formComponentClass"
+			<p-dropdown #dialogStatusBox [placeholder]="getMessage('STATUS')" [options]="statuses" [(ngModel)]="entity.status" [autoWidth]="false" [styleClass]="formComponentClass"
 									(onChange)="resetDropdown($event.value, dialogStatusBox)" [disabled]="isView"></p-dropdown>
 		</div>
 		<div class="ui-g-6">
 			{{getMessage('LANGUAGE')}}
 		</div>
 		<div class="ui-g-6">
-			<p-dropdown #dialogLanguageBox [placeholder]="getMessage('LANGUAGE')" [options]="languages" [(ngModel)]="user.language" [autoWidth]="false" [styleClass]="formComponentClass"
+			<p-dropdown #dialogLanguageBox [placeholder]="getMessage('LANGUAGE')" [options]="languages" [(ngModel)]="entity.language" [autoWidth]="false" [styleClass]="formComponentClass"
 									(onChange)="resetDropdown($event.value, dialogLanguageBox)" [disabled]="isView"></p-dropdown>
 		</div>
 	</div>
