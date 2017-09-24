@@ -1,6 +1,7 @@
 package org.test.sms.config;
 
-import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -34,6 +36,8 @@ import java.util.Properties;
 @PropertySource({"classpath:database.properties", "classpath:jwt.properties", "classpath:email/mail.properties"})
 public class AppConfig extends WebMvcConfigurerAdapter {
 
+    private Logger log = LogManager.getLogger(AppConfig.class);
+
     private Environment environment;
 
     @Autowired
@@ -43,12 +47,14 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public DataSource dataSource() {
-        BasicDataSource dataSource = new BasicDataSource();
+        DataSource dataSource = null;
 
-        dataSource.setDriverClassName(environment.getRequiredProperty("database.driver"));
-        dataSource.setUrl(environment.getRequiredProperty("database.url"));
-        dataSource.setUsername(environment.getRequiredProperty("database.username"));
-        dataSource.setPassword(environment.getRequiredProperty("database.password"));
+        try {
+            InitialContext cxt = new InitialContext();
+            dataSource = (DataSource) cxt.lookup("java:/comp/env/jdbc/postgres");
+        } catch (Exception ex) {
+            log.error("Error while creating datasource ", ex);
+        }
 
         return dataSource;
     }
