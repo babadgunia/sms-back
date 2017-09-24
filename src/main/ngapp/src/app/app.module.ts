@@ -12,11 +12,11 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AppComponent} from "./app.component";
 import {ForgotPasswordComponent} from "./component/login/forgotPassword.component"
 import {LoginComponent} from "./component/login/login.component";
-import {UserGroupsComponent} from "./component/userGroups/userGroups.component";
+import {UserGroupsComponent} from "./component/user-groups/user-groups.component";
 import {UsersComponent} from "./component/users/users.component";
 // service
 import {AuthenticationService} from "./service/authentication.service";
-import {UserGroupService} from "./service/userGroup.service";
+import {UserGroupService} from "./service/user-group.service";
 import {UserService} from "./service/user.service";
 // routing
 import {AppRoutingModule} from "./app-routing.model";

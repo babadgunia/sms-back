@@ -5,7 +5,7 @@ import {RouterModule, Routes} from "@angular/router";
 // component
 import {ForgotPasswordComponent} from "./component/login/forgotPassword.component";
 import {LoginComponent} from "./component/login/login.component";
-import {UserGroupsComponent} from "./component/userGroups/userGroups.component";
+import {UserGroupsComponent} from "./component/user-groups/user-groups.component";
 import {UsersComponent} from "./component/users/users.component";
 // util
 import {CanActivateAuthGuard} from "./util/can-activate.authguard";
