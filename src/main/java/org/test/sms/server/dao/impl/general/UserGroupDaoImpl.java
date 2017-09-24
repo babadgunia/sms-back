@@ -1,6 +1,5 @@
 package org.test.sms.server.dao.impl.general;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.test.sms.common.entity.general.Permission;
 import org.test.sms.common.entity.general.UserGroup;
@@ -9,7 +8,6 @@ import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.AbstractFilter;
 import org.test.sms.common.utils.Utils;
 import org.test.sms.server.dao.impl.AbstractDaoImpl;
-import org.test.sms.server.dao.interfaces.general.UserDao;
 import org.test.sms.server.dao.interfaces.general.UserGroupDao;
 
 import javax.persistence.TypedQuery;
@@ -19,13 +17,6 @@ import java.util.Optional;
 
 @Repository
 public class UserGroupDaoImpl extends AbstractDaoImpl<UserGroup> implements UserGroupDao {
-
-    private UserDao userDao;
-
-    @Autowired
-    public UserGroupDaoImpl(UserDao userDao) {
-        this.userDao = userDao;
-    }
 
     @Override
     public UserGroup add(UserGroup entity) throws AppException {
@@ -51,7 +42,7 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<UserGroup> implements User
         result.ifPresent(e -> {
             List<Permission> permissions = e.getPermissions();
             permissions.size();
-            permissions.forEach(f -> f.getPermissions().size());
+            permissions.forEach(f -> f.getPermissionTypes().size());
         });
 
         return result;
