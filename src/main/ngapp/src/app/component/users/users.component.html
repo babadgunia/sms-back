@@ -33,11 +33,12 @@
 
 	<div class="ui-g-12 ui-g-nopad">
 		<p-dataTable #table [value]="users" [immutable]="false" [lazy]="true" [paginator]="true" [totalRecords]="tableTotalRecords" [rows]="searchTableRows"
-								 [pageLinks]="searchTablePageLinks" (onLazyLoad)="initTableFilter($event, idField, usernameField, emailField, nameField); getList()">
+								 [pageLinks]="searchTablePageLinks" (onLazyLoad)="initTableFilter($event); getList()">
 			<p-column field="id" [header]="getMessage('ID')" [filter]="true" filterType="number" filterMatchMode="equals"></p-column>
 			<p-column field="username" [header]="getMessage('USERNAME')" [filter]="true" filterMatchMode="contains"></p-column>
 			<p-column field="email" [header]="getMessage('EMAIL')" [filter]="true" filterMatchMode="contains"></p-column>
 			<p-column field="name" [header]="getMessage('NAME')" [filter]="true" filterMatchMode="contains"></p-column>
+
 			<p-column field="status" [header]="getMessage('STATUS')" [filter]="true" filterMatchMode="equals">
 				<ng-template pTemplate="body" let-col let-user="rowData">
 					{{getMessage('STATUS_TYPE_' + user[col.field])}}

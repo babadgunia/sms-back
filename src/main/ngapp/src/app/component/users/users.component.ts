@@ -14,10 +14,11 @@ import {UserService} from "../../service/user.service";
 // util
 import {isNullOrUndefined} from "util";
 import {Utils} from "../../util/utils";
-// primeng > component
-import {DataTable, Dropdown} from "primeng/primeng";
-// primeng > util
+// primeng > model
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
+// primeng > component
+import {DataTable} from "primeng/components/datatable/datatable";
+import {Dropdown} from "primeng/components/dropdown/dropdown";
 // primeng > service
 import {ConfirmationService} from "primeng/components/common/confirmationservice";
 import {MessageService} from "primeng/components/common/messageservice";
@@ -87,7 +88,7 @@ export class UsersComponent extends AbstractComponent {
 		this.filter.language = language;
 	}
 
-	private initTableFilter(event: LazyLoadEvent, idField: HTMLInputElement, usernameField: HTMLInputElement, emailField: HTMLInputElement, nameField: HTMLInputElement): void {
+	private initTableFilter(event: LazyLoadEvent): void {
 		this.filter = {};
 
 		super.initLazyPagingFilter(this.filter, event);
@@ -102,7 +103,7 @@ export class UsersComponent extends AbstractComponent {
 			this.filter.email = event.filters.email.value;
 		}
 		if (!isNullOrUndefined(event.filters.name)) {
-			this.filter.username = event.filters.name.value;
+			this.filter.name = event.filters.name.value;
 		}
 		if (!isNullOrUndefined(event.filters.status)) {
 			this.filter.status = event.filters.status.value;
