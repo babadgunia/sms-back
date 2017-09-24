@@ -20,12 +20,12 @@ export class UserService extends AbstractService {
 		super(http, baseUrl);
 	}
 
-	public add(user: User): Observable<User> {
-		return super.httpRequest(RequestMethod.Post, "add", user);
+	public add(entity: User): Observable<User> {
+		return super.httpRequest(RequestMethod.Post, "add", entity);
 	}
 
-	public update(user: User): Observable<User> {
-		return super.httpRequest(RequestMethod.Post, "update", user);
+	public update(entity: User): Observable<User> {
+		return super.httpRequest(RequestMethod.Post, "update", entity);
 	}
 
 	public delete(id: number): Observable<void> {

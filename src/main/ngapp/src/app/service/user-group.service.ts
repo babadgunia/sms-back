@@ -20,12 +20,12 @@ export class UserGroupService extends AbstractService {
 		super(http, baseUrl);
 	}
 
-	public add(userGroup: UserGroup): Observable<UserGroup> {
-		return super.httpRequest(RequestMethod.Post, "add", userGroup);
+	public add(entity: UserGroup): Observable<UserGroup> {
+		return super.httpRequest(RequestMethod.Post, "add", entity);
 	}
 
-	public update(userGroup: UserGroup): Observable<UserGroup> {
-		return super.httpRequest(RequestMethod.Post, "update", userGroup);
+	public update(entity: UserGroup): Observable<UserGroup> {
+		return super.httpRequest(RequestMethod.Post, "update", entity);
 	}
 
 	public delete(id: number): Observable<void> {
