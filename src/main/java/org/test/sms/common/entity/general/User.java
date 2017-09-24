@@ -54,8 +54,7 @@ public class User extends AppEntity {
         this.userGroup = userGroup;
     }
 
-    public User(String username, String password, StatusType status, UserGroup userGroup) {
-        this.username = username;
+    public User(String password, StatusType status, UserGroup userGroup) {
         this.password = password;
         this.status = status;
         this.userGroup = userGroup;

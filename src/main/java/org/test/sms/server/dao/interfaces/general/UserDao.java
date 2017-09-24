@@ -15,5 +15,5 @@ public interface UserDao extends AbstractDao<User> {
 
     boolean exists(long userGroupId);
 
-    boolean hasPermission(String username, PermissionGroupType permissionGroup, PermissionType permission);
+    boolean hasPermission(String username, PermissionGroupType permissionGroup, PermissionType permissionType);
 }

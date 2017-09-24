@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User add(User entity) throws AppException {
         String username = entity.getUsername();
-        if (exists(username)) {
+        if (dao.exists(username)) {
             throw new AppException(ErrorCode.USERNAME_EXISTS, username);
         }
 
@@ -81,20 +81,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean exists(String username) {
-        return dao.exists(username);
-    }
-
-    @Override
     public boolean exists(long userGroupId) {
         return dao.exists(userGroupId);
     }
 
     @Override
-    public boolean hasPermission(PermissionGroupType permissionGroup, PermissionType permission) {
+    public boolean hasPermission(PermissionGroupType permissionGroup, PermissionType permissionType) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        return dao.hasPermission(username, permissionGroup, permission);
+        return dao.hasPermission(username, permissionGroup, permissionType);
     }
 
     @Override
