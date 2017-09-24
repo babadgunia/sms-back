@@ -36,7 +36,7 @@ public class Permission extends AppEntity {
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
-    private List<PermissionType> permissions = new ArrayList<>();
+    private List<PermissionType> permissionTypes = new ArrayList<>();
 
     public Permission() {}
 
@@ -70,11 +70,11 @@ public class Permission extends AppEntity {
         this.userGroup = userGroup;
     }
 
-    public List<PermissionType> getPermissions() {
-        return permissions;
+    public List<PermissionType> getPermissionTypes() {
+        return permissionTypes;
     }
 
-    public void setPermissions(List<PermissionType> permissions) {
-        this.permissions = permissions;
+    public void setPermissionTypes(List<PermissionType> permissionTypes) {
+        this.permissionTypes = permissionTypes;
     }
 }

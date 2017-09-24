@@ -45,7 +45,7 @@ public class UserDetailsServiceJwtImpl implements UserDetailsService {
 
             List<SimpleGrantedAuthority> permissions = new ArrayList<>();
             for (Permission permission : user.getUserGroup().getPermissions()) {
-                for (PermissionType permissionType : permission.getPermissions()) {
+                for (PermissionType permissionType : permission.getPermissionTypes()) {
                     permissions.add(new SimpleGrantedAuthority(permission.getPermissionGroup().toString() + "." + permissionType.toString()));
                 }
             }
