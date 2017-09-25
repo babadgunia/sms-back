@@ -67,6 +67,10 @@ export const messages: any = {
 		en: 'No',
 		ka: 'არა'
 	},
+	PERMISSIONS: {
+		en: 'Permissions',
+		ka: 'უფლებები'
+	},
 	RESET_PASSWORD: {
 		en: 'Reset password',
 		ka: 'პაროლის შეცვლა'

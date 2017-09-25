@@ -1,9 +1,11 @@
 // angular > core
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 // model > entity
+import {Permission} from "../../model/entity/permission";
 import {UserGroup} from "../../model/entity/user-group";
 // model > filter
 import {UserGroupFilter} from "../../model/filter/user-group-filter";
+// model > enum
 // component
 import {AbstractComponent} from "../abstract-component";
 // service
@@ -13,18 +15,21 @@ import {isNullOrUndefined} from "util";
 import {Utils} from "../../util/utils";
 // primeng > model
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
+import {TreeNode} from "primeng/components/common/treenode";
 // primeng > component
 import {DataTable} from "primeng/components/datatable/datatable";
 // primeng > service
 import {ConfirmationService} from "primeng/components/common/confirmationservice";
 import {MessageService} from "primeng/components/common/messageservice";
 
+// rxjs
+
 @Component({
 	selector: 'user-groups',
 	templateUrl: './user-groups.component.html',
 	styleUrls: ['./user-groups.component.css']
 })
-export class UserGroupsComponent extends AbstractComponent {
+export class UserGroupsComponent extends AbstractComponent implements OnInit {
 
 	private entities: UserGroup[];
 
@@ -32,8 +37,36 @@ export class UserGroupsComponent extends AbstractComponent {
 
 	private filter: UserGroupFilter = {};
 
+	private permissions: TreeNode[] = [];
+
+	private selectedPermissions: TreeNode[] = [];
+
 	public constructor(private service: UserGroupService, confirmationService: ConfirmationService, messageService: MessageService) {
 		super(confirmationService, messageService);
+	}
+
+	public ngOnInit(): void {
+		this.permissionGroupTypes.forEach((permissionGroupType: string) => {
+			let children: TreeNode[] = [];
+
+			this.permissionTypes.forEach((permissionType: string) => {
+				let permissionNode: TreeNode = {
+					label: permissionType,
+					data: permissionType
+				};
+
+				children.push(permissionNode);
+			});
+
+			let permissionGroupNode: TreeNode = {
+				label: permissionGroupType,
+				data: permissionGroupType,
+				children: children,
+				expanded: true
+			};
+
+			this.permissions.push(permissionGroupNode);
+		});
 	}
 
 	private resetFilters(table: DataTable, idField: HTMLInputElement, nameField: HTMLInputElement): void {
@@ -135,6 +168,28 @@ export class UserGroupsComponent extends AbstractComponent {
 	private get(entity: UserGroup): void {
 		this.service.get(entity.id).subscribe((entity: UserGroup) => {
 			this.entity = entity;
+
+			this.entity.permissions.forEach((permission: Permission) => {
+				let children: TreeNode[] = [];
+
+				permission.permissionTypes.forEach((permissionType: string) => {
+					let permissionNode: TreeNode = {
+						label: permissionType,
+						data: permissionType
+					};
+
+					children.push(permissionNode);
+				});
+
+				let permissionGroupNode: TreeNode = {
+					label: permission.permissionGroup,
+					data: permission.permissionGroup,
+					children: children,
+					expanded: true
+				};
+
+				this.selectedPermissions.push(permissionGroupNode);
+			});
 		}, (error: any) => super.handleError(error));
 	}
 

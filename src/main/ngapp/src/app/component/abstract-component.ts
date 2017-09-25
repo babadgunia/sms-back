@@ -1,7 +1,11 @@
+// angular > core
+import {OnInit} from "@angular/core";
 // model > filter
 import {AbstractFilter} from "../model/filter/abstract-filter";
 // model > enum
 import {LanguageType} from "../model/enum/language-type.enum";
+import {PermissionGroupType} from "../model/enum/permission-group-type.enum";
+import {PermissionType} from "../model/enum/permission-type.enum";
 import {StatusType} from "../model/enum/status-type.enum";
 // util
 import {messages} from "../util/messages";
@@ -17,7 +21,7 @@ import {MessageService} from "primeng/components/common/messageservice";
 // rxjs
 import {isNumeric} from "rxjs/util/isNumeric";
 
-export abstract class AbstractComponent {
+export abstract class AbstractComponent implements OnInit {
 
 	// general constants
 
@@ -81,6 +85,16 @@ export abstract class AbstractComponent {
 
 	protected readonly confirmDialogIcon: string = "fa-question-circle";
 
+	// enum lists
+
+	protected readonly languageTypes: string[] = Object.keys(LanguageType).filter(key => !isNumeric(key));
+
+	protected readonly permissionGroupTypes: string[] = Object.keys(PermissionGroupType).filter(key => !isNumeric(key));
+
+	protected readonly permissionTypes: string[] = Object.keys(PermissionType).filter(key => !isNumeric(key));
+
+	protected readonly statusTypes: string[] = Object.keys(StatusType).filter(key => !isNumeric(key));
+
 	// lists for dropdowns
 
 	protected readonly languages: SelectItem[] = [];
@@ -101,20 +115,20 @@ export abstract class AbstractComponent {
 
 	protected isView: boolean = false;
 
-	protected constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {
+	protected constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+
+	public ngOnInit(): void {
 		// init language list for dropdown
 		this.languages.push({label: '', value: ''});
 
-		let languageStrings: string[] = Object.keys(LanguageType).filter(key => !isNumeric(key));
-		languageStrings.forEach((language: string) => {
+		this.languageTypes.forEach((language: string) => {
 			this.languages.push({label: this.getMessage('LANGUAGE_TYPE_' + language), value: language});
 		});
 
 		// init status list for dropdown
 		this.statuses.push({label: '', value: ''});
 
-		let statusStrings: string[] = Object.keys(StatusType).filter(key => !isNumeric(key));
-		statusStrings.forEach((status: string) => {
+		this.statusTypes.forEach((status: string) => {
 			this.statuses.push({label: this.getMessage('STATUS_TYPE_' + status), value: status});
 		});
 	}

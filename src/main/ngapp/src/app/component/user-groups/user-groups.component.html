@@ -59,6 +59,12 @@
 		<div class="ui-g-6">
 			<input pInputText [(ngModel)]="entity.name" [class]="formComponentClass" [disabled]="isView">
 		</div>
+		<div class="ui-g-6">
+			{{getMessage('PERMISSIONS')}}
+		</div>
+		<div class="ui-g-6">
+			<p-tree [value]="permissions" selectionMode="checkbox" [(selection)]="selectedPermissions" [styleClass]="formComponentClass"></p-tree>
+		</div>
 	</div>
 
 	<p-footer>

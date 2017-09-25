@@ -1,5 +1,6 @@
 // model > entity
 import {AbstractEntity} from "./abstract-entity";
+import {Permission} from "./permission";
 
 export class UserGroup extends AbstractEntity {
 
@@ -7,4 +8,5 @@ export class UserGroup extends AbstractEntity {
 
 	name: string;
 
+	permissions: Permission[];
 }
