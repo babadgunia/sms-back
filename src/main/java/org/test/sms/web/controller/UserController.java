@@ -89,7 +89,7 @@ public class UserController {
     @RequestMapping(value = "resetPassword/{id}", method = RequestMethod.PUT)
     @PreAuthorize("@userService.hasPermission('USER', 'RESET_PASSWORD')")
     public ResponseEntity<Void> resetPassword(@PathVariable("id") long id) {
-        service.resetPassword(id);
+        service.sendPasswordResetEmail(id);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

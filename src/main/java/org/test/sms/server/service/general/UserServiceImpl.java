@@ -5,6 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.test.sms.common.entity.general.PasswordResetToken;
 import org.test.sms.common.entity.general.User;
 import org.test.sms.common.enums.general.ErrorCode;
 import org.test.sms.common.enums.general.PermissionGroupType;
@@ -97,7 +98,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void resetPassword(long id) {
-        mailService.sendPasswordResetMail(id);
+    public void sendPasswordResetEmail(String context, String token, User user) {
+        mailService.sendPasswordResetMail(context, token, user);
+    }
+
+    @Override
+    public Optional<User> findUserByUsernameOrEmail(String userEmail) {
+        Optional<User> userByEmail = dao.getUserByEmail(userEmail);
+        return userByEmail.isPresent() ? userByEmail : dao.getUserByUsername(userEmail);
+    }
+
+    @Override
+    public void createPasswordResetTokenForUser(User user, String token) {
+        PasswordResetToken myToken = new PasswordResetToken(token, user);
+        dao.saveToken(myToken);
     }
 }

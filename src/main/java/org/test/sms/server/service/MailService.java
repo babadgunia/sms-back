@@ -52,7 +52,21 @@ public class MailService {
         });
     }
 
-    public void sendPasswordResetMail(long userId) {
+    public void sendPasswordResetMail(String context, String token, User user) {
+        mailSender.send((MimeMessage message) -> {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
+            helper.setSubject("Password Reset");
+            helper.setTo(user.getEmail());
+
+            Map<String, Object> model = new HashMap<>();
+
+            model.put("url", context + "/" + token);
+
+            String text = FreeMarkerTemplateUtils.processTemplateIntoString(freeMarkerConfiguration.getTemplate("credentialsMailTemplate.ftl"), model);
+            helper.setText(text, true);
+
+            helper.addInline("appIcon", new ClassPathResource("email/appIcon.png"));
+        });
     }
 }

@@ -8,8 +8,8 @@ import {Message} from 'primeng/components/common/api';
 
 @Component({
 	moduleId: module.id,
-	templateUrl: 'forgotPassword.component.html',
-	styleUrls: ['forgotPassword.component.css']
+	templateUrl: 'forgot-password.component.html',
+	styleUrls: ['forgot-password.component.css']
 })
 
 export class ForgotPasswordComponent {
