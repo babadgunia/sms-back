@@ -59,11 +59,13 @@ public class UserGroupServiceImpl implements UserGroupService {
 
     @Override
     public long getCount(AbstractFilter filter) {
+//        TODO implement name filter
         return dao.getCount(filter);
     }
 
     @Override
     public List<UserGroup> getList(AbstractFilter filter) {
+//        TODO implement name filter
         return dao.getList(filter);
     }
 }

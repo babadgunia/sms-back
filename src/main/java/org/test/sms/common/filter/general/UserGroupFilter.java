@@ -6,7 +6,17 @@ import java.util.List;
 
 public class UserGroupFilter extends AbstractFilter {
 
+    private Long id;
+
     private List<String> names;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public List<String> getNames() {
         return names;
