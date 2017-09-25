@@ -1,6 +1,6 @@
 package org.test.sms.common.entity.university;
 
-import org.test.sms.common.entity.AppEntity;
+import org.test.sms.common.entity.AbstractEntity;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@SequenceGenerator(name = Auditorium.SEQUENCE_NAME, sequenceName = Auditorium.SEQUENCE_NAME, allocationSize = AppEntity.SEQUENCE_ALLOCATION_SIZE)
-public class Auditorium extends AppEntity {
+@SequenceGenerator(name = Auditorium.SEQUENCE_NAME, sequenceName = Auditorium.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
+public class Auditorium extends AbstractEntity {
 
     static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "AUDITORIUM" + SEQUENCE_SUFFIX;
 

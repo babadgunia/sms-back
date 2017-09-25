@@ -1,6 +1,6 @@
 package org.test.sms.common.entity.university;
 
-import org.test.sms.common.entity.AppEntity;
+import org.test.sms.common.entity.AbstractEntity;
 import org.test.sms.common.enums.university.ExamType;
 
 import javax.persistence.Entity;
@@ -14,8 +14,8 @@ import javax.persistence.SequenceGenerator;
 import java.time.LocalDateTime;
 
 @Entity
-@SequenceGenerator(name = Exam.SEQUENCE_NAME, sequenceName = Exam.SEQUENCE_NAME, allocationSize = AppEntity.SEQUENCE_ALLOCATION_SIZE)
-public class Exam extends AppEntity {
+@SequenceGenerator(name = Exam.SEQUENCE_NAME, sequenceName = Exam.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
+public class Exam extends AbstractEntity {
 
     static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "EXAM" + SEQUENCE_SUFFIX;
 

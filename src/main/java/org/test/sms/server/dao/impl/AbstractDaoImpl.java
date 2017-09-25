@@ -1,7 +1,6 @@
 package org.test.sms.server.dao.impl;
 
-import org.jboss.logging.Logger;
-import org.test.sms.common.entity.AppEntity;
+import org.test.sms.common.entity.AbstractEntity;
 import org.test.sms.common.enums.general.ErrorCode;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.AbstractFilter;
@@ -20,9 +19,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-public abstract class AbstractDaoImpl<T extends AppEntity> implements AbstractDao<T> {
-
-    protected Logger logger = Logger.getLogger(getClass());
+public abstract class AbstractDaoImpl<T extends AbstractEntity> implements AbstractDao<T> {
 
     @PersistenceContext
     protected EntityManager em;

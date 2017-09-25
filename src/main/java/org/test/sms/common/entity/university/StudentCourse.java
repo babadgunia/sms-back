@@ -1,6 +1,6 @@
 package org.test.sms.common.entity.university;
 
-import org.test.sms.common.entity.AppEntity;
+import org.test.sms.common.entity.AbstractEntity;
 import org.test.sms.common.enums.university.SemesterType;
 
 import javax.persistence.ElementCollection;
@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.Map;
 
 @Entity
-@SequenceGenerator(name = StudentCourse.SEQUENCE_NAME, sequenceName = StudentCourse.SEQUENCE_NAME, allocationSize = AppEntity.SEQUENCE_ALLOCATION_SIZE)
-public class StudentCourse extends AppEntity {
+@SequenceGenerator(name = StudentCourse.SEQUENCE_NAME, sequenceName = StudentCourse.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
+public class StudentCourse extends AbstractEntity {
 
     static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "STUDENT_COURSE" + SEQUENCE_SUFFIX;
 

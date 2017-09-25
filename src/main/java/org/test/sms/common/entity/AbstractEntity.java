@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @MappedSuperclass
-public abstract class AppEntity implements Serializable {
+public abstract class AbstractEntity implements Serializable {
 
     public static final int SEQUENCE_ALLOCATION_SIZE = 1;
 
@@ -24,9 +24,9 @@ public abstract class AppEntity implements Serializable {
     @Version
     private int version;
 
-    protected AppEntity() {}
+    protected AbstractEntity() {}
 
-    protected AppEntity(long id) {
+    protected AbstractEntity(long id) {
         setId(id);
     }
 
@@ -60,7 +60,7 @@ public abstract class AppEntity implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        return Objects.nonNull(obj) && obj instanceof AppEntity && ((AppEntity) obj).getId() == getId();
+        return Objects.nonNull(obj) && obj instanceof AbstractEntity && ((AbstractEntity) obj).getId() == getId();
     }
 
     @Override

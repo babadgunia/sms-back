@@ -1,7 +1,7 @@
 package org.test.sms.common.entity.general;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.test.sms.common.entity.AppEntity;
+import org.test.sms.common.entity.AbstractEntity;
 import org.test.sms.common.enums.general.LanguageType;
 import org.test.sms.common.enums.general.StatusType;
 
@@ -16,9 +16,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@SequenceGenerator(name = User.SEQUENCE_NAME, sequenceName = User.SEQUENCE_NAME, allocationSize = AppEntity.SEQUENCE_ALLOCATION_SIZE)
+@SequenceGenerator(name = User.SEQUENCE_NAME, sequenceName = User.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
 @Table(name = "SMSUSER")
-public class User extends AppEntity {
+public class User extends AbstractEntity {
 
     static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "USER" + SEQUENCE_SUFFIX;
 

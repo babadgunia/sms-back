@@ -1,7 +1,7 @@
 package org.test.sms.common.entity.general;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.test.sms.common.entity.AppEntity;
+import org.test.sms.common.entity.AbstractEntity;
 import org.test.sms.common.enums.general.PermissionGroupType;
 import org.test.sms.common.enums.general.PermissionType;
 
@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@SequenceGenerator(name = Permission.SEQUENCE_NAME, sequenceName = Permission.SEQUENCE_NAME, allocationSize = AppEntity.SEQUENCE_ALLOCATION_SIZE)
-public class Permission extends AppEntity {
+@SequenceGenerator(name = Permission.SEQUENCE_NAME, sequenceName = Permission.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
+public class Permission extends AbstractEntity {
 
     static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "PERMISSION" + SEQUENCE_SUFFIX;
 

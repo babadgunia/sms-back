@@ -1,6 +1,6 @@
 package org.test.sms.common.entity.general;
 
-import org.test.sms.common.entity.AppEntity;
+import org.test.sms.common.entity.AbstractEntity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@SequenceGenerator(name = Text.SEQUENCE_NAME, sequenceName = Text.SEQUENCE_NAME, allocationSize = AppEntity.SEQUENCE_ALLOCATION_SIZE)
-public class Text extends AppEntity {
+@SequenceGenerator(name = Text.SEQUENCE_NAME, sequenceName = Text.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
+public class Text extends AbstractEntity {
 
     static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "TEXT" + SEQUENCE_SUFFIX;
 

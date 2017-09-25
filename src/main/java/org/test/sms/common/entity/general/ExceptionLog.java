@@ -1,7 +1,7 @@
 package org.test.sms.common.entity.general;
 
 import org.hibernate.annotations.Type;
-import org.test.sms.common.entity.AppEntity;
+import org.test.sms.common.entity.AbstractEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,8 +12,8 @@ import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-@SequenceGenerator(name = ExceptionLog.SEQUENCE_NAME, sequenceName = ExceptionLog.SEQUENCE_NAME, allocationSize = AppEntity.SEQUENCE_ALLOCATION_SIZE)
-public class ExceptionLog extends AppEntity {
+@SequenceGenerator(name = ExceptionLog.SEQUENCE_NAME, sequenceName = ExceptionLog.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
+public class ExceptionLog extends AbstractEntity {
 
     static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "EXCEPTION_LOG" + SEQUENCE_SUFFIX;
 
@@ -21,7 +21,7 @@ public class ExceptionLog extends AppEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
     private long id;
 
-    @Column(length = AppEntity.STRING_FIELD_MAX_LENGTH)
+    @Column(length = AbstractEntity.STRING_FIELD_MAX_LENGTH)
     private String message;
 
     @Lob

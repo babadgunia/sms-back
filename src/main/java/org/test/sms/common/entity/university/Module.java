@@ -1,6 +1,6 @@
 package org.test.sms.common.entity.university;
 
-import org.test.sms.common.entity.AppEntity;
+import org.test.sms.common.entity.AbstractEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@SequenceGenerator(name = Module.SEQUENCE_NAME, sequenceName = Module.SEQUENCE_NAME, allocationSize = AppEntity.SEQUENCE_ALLOCATION_SIZE)
-public class Module extends AppEntity {
+@SequenceGenerator(name = Module.SEQUENCE_NAME, sequenceName = Module.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
+public class Module extends AbstractEntity {
 
     static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "MODULE" + SEQUENCE_SUFFIX;
 

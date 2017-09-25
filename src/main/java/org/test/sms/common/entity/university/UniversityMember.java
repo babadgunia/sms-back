@@ -1,6 +1,6 @@
 package org.test.sms.common.entity.university;
 
-import org.test.sms.common.entity.AppEntity;
+import org.test.sms.common.entity.AbstractEntity;
 import org.test.sms.common.enums.general.GenderType;
 
 import javax.persistence.EnumType;
@@ -10,7 +10,7 @@ import javax.persistence.MappedSuperclass;
 import java.time.LocalDate;
 
 @MappedSuperclass
-public abstract class UniversityMember extends AppEntity {
+public abstract class UniversityMember extends AbstractEntity {
 
     private String firstName;
 

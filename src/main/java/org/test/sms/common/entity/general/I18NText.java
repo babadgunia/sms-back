@@ -1,6 +1,6 @@
 package org.test.sms.common.entity.general;
 
-import org.test.sms.common.entity.AppEntity;
+import org.test.sms.common.entity.AbstractEntity;
 import org.test.sms.common.enums.general.LanguageType;
 
 import javax.persistence.Column;
@@ -14,8 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-@SequenceGenerator(name = I18NText.SEQUENCE_NAME, sequenceName = I18NText.SEQUENCE_NAME, allocationSize = AppEntity.SEQUENCE_ALLOCATION_SIZE)
-public class I18NText extends AppEntity {
+@SequenceGenerator(name = I18NText.SEQUENCE_NAME, sequenceName = I18NText.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
+public class I18NText extends AbstractEntity {
 
     static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "I18N_TEXT" + SEQUENCE_SUFFIX;
 
@@ -26,7 +26,7 @@ public class I18NText extends AppEntity {
     @Enumerated(EnumType.STRING)
     private LanguageType language;
 
-    @Column(length = AppEntity.STRING_FIELD_MAX_LENGTH)
+    @Column(length = AbstractEntity.STRING_FIELD_MAX_LENGTH)
     private String value;
 
     @ManyToOne

@@ -1,13 +1,13 @@
 package org.test.sms.server.dao;
 
-import org.test.sms.common.entity.AppEntity;
+import org.test.sms.common.entity.AbstractEntity;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.AbstractFilter;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface AbstractDao<T extends AppEntity> {
+public interface AbstractDao<T extends AbstractEntity> {
 
     T add(T entity) throws AppException;
 

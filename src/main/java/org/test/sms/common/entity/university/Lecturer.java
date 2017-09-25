@@ -1,6 +1,6 @@
 package org.test.sms.common.entity.university;
 
-import org.test.sms.common.entity.AppEntity;
+import org.test.sms.common.entity.AbstractEntity;
 import org.test.sms.common.entity.general.User;
 
 import javax.persistence.CascadeType;
@@ -15,10 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@SequenceGenerator(name = Lecturer.SEQUENCE_NAME, sequenceName = Lecturer.SEQUENCE_NAME, allocationSize = AppEntity.SEQUENCE_ALLOCATION_SIZE)
+@SequenceGenerator(name = Lecturer.SEQUENCE_NAME, sequenceName = Lecturer.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
 public class Lecturer extends UniversityMember {
 
-    static final String SEQUENCE_NAME = AppEntity.SEQUENCE_PREFIX + "LECTURER" + AppEntity.SEQUENCE_SUFFIX;
+    static final String SEQUENCE_NAME = AbstractEntity.SEQUENCE_PREFIX + "LECTURER" + AbstractEntity.SEQUENCE_SUFFIX;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)

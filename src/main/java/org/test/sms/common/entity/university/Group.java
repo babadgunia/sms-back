@@ -1,6 +1,6 @@
 package org.test.sms.common.entity.university;
 
-import org.test.sms.common.entity.AppEntity;
+import org.test.sms.common.entity.AbstractEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,9 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@SequenceGenerator(name = Group.SEQUENCE_NAME, sequenceName = Group.SEQUENCE_NAME, allocationSize = AppEntity.SEQUENCE_ALLOCATION_SIZE)
+@SequenceGenerator(name = Group.SEQUENCE_NAME, sequenceName = Group.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
 @Table(name = "SMSGROUP")
-public class Group extends AppEntity {
+public class Group extends AbstractEntity {
 
     static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "GROUP" + SEQUENCE_SUFFIX;
 

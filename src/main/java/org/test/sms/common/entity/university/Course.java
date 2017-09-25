@@ -1,6 +1,6 @@
 package org.test.sms.common.entity.university;
 
-import org.test.sms.common.entity.AppEntity;
+import org.test.sms.common.entity.AbstractEntity;
 import org.test.sms.common.enums.university.SemesterType;
 
 import javax.persistence.CascadeType;
@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@SequenceGenerator(name = Course.SEQUENCE_NAME, sequenceName = Course.SEQUENCE_NAME, allocationSize = AppEntity.SEQUENCE_ALLOCATION_SIZE)
-public class Course extends AppEntity {
+@SequenceGenerator(name = Course.SEQUENCE_NAME, sequenceName = Course.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
+public class Course extends AbstractEntity {
 
     static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "COURSE" + SEQUENCE_SUFFIX;
 
