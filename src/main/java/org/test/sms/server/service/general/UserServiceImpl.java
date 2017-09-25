@@ -13,6 +13,7 @@ import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.AbstractFilter;
 import org.test.sms.common.service.general.UserService;
 import org.test.sms.common.utils.Utils;
+import org.test.sms.server.dao.interfaces.general.PermissionDao;
 import org.test.sms.server.dao.interfaces.general.UserDao;
 import org.test.sms.server.service.MailService;
 
@@ -25,11 +26,14 @@ public class UserServiceImpl implements UserService {
 
     private UserDao dao;
 
+    private PermissionDao permissionDao;
+
     private MailService mailService;
 
     @Autowired
-    public UserServiceImpl(UserDao dao, MailService mailService) {
+    public UserServiceImpl(UserDao dao, PermissionDao permissionDao, MailService mailService) {
         this.dao = dao;
+        this.permissionDao = permissionDao;
         this.mailService = mailService;
     }
 
@@ -57,6 +61,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(long id) throws AppException {
+//        TODO maybe some checks needed?
         dao.delete(id);
     }
 
@@ -75,21 +80,18 @@ public class UserServiceImpl implements UserService {
         return dao.getList(filter);
     }
 
-    @Override
-    public Optional<User> get(String username) {
-        return dao.get(username);
-    }
-
-    @Override
-    public boolean exists(long userGroupId) {
-        return dao.exists(userGroupId);
-    }
+//    misc
 
     @Override
     public boolean hasPermission(PermissionGroupType permissionGroup, PermissionType permissionType) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        return dao.hasPermission(username, permissionGroup, permissionType);
+        Optional<User> userWrapper = dao.getForPermissionCheck(username);
+        if (userWrapper.isPresent()) {
+            return permissionDao.exists(userWrapper.get().getUserGroup().getId(), permissionGroup, permissionType);
+        }
+
+        return false;
     }
 
     @Override

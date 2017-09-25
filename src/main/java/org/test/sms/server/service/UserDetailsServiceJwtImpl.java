@@ -11,7 +11,7 @@ import org.test.sms.common.entity.general.Permission;
 import org.test.sms.common.entity.general.User;
 import org.test.sms.common.enums.general.PermissionType;
 import org.test.sms.common.enums.general.StatusType;
-import org.test.sms.common.service.general.UserService;
+import org.test.sms.server.dao.interfaces.general.UserDao;
 import org.test.sms.web.jwt.JwtUser;
 
 import java.util.ArrayList;
@@ -22,16 +22,16 @@ import java.util.Optional;
 @Transactional
 public class UserDetailsServiceJwtImpl implements UserDetailsService {
 
-    private UserService userService;
+    private UserDao userDao;
 
     @Autowired
-    public UserDetailsServiceJwtImpl(UserService userService) {
-        this.userService = userService;
+    public UserDetailsServiceJwtImpl(UserDao userDao) {
+        this.userDao = userDao;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> userWrapper = userService.get(username);
+        Optional<User> userWrapper = userDao.getForAuth(username);
 
         if (!userWrapper.isPresent()) {
             throw new UsernameNotFoundException("username [" + username + "] not found");

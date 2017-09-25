@@ -4,8 +4,6 @@ import org.springframework.stereotype.Repository;
 import org.test.sms.common.entity.general.Permission;
 import org.test.sms.common.entity.general.User;
 import org.test.sms.common.enums.general.LanguageType;
-import org.test.sms.common.enums.general.PermissionGroupType;
-import org.test.sms.common.enums.general.PermissionType;
 import org.test.sms.common.enums.general.StatusType;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.AbstractFilter;
@@ -94,13 +92,27 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
         return "username";
     }
 
+//    misc
+
     @Override
-    public Optional<User> get(String username) {
+    public Optional<User> getForAuth(String username) {
         TypedQuery<User> query = em.createQuery("SELECT new User(password, status, userGroup) FROM User WHERE UPPER(username) = :username", User.class);
         query.setParameter("username", username.toUpperCase());
 
         try {
             return Optional.of(init(query.getSingleResult()));
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<User> getForPermissionCheck(String username) {
+        TypedQuery<User> query = em.createQuery("SELECT new User(userGroup) FROM User WHERE UPPER(username) = :username", User.class);
+        query.setParameter("username", username.toUpperCase());
+
+        try {
+            return Optional.of(query.getSingleResult());
         } catch (NoResultException e) {
             return Optional.empty();
         }
@@ -120,27 +132,5 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
         query.setParameter("userGroupId", userGroupId);
 
         return !Utils.isBlank(query.getResultList());
-    }
-
-    @Override
-    public boolean hasPermission(String username, PermissionGroupType permissionGroup, PermissionType permissionType) {
-        TypedQuery<User> userQuery = em.createQuery("SELECT new User(userGroup) FROM User WHERE UPPER(username) = :username", User.class);
-        userQuery.setParameter("username", username.toUpperCase());
-
-        try {
-            User user = userQuery.getSingleResult();
-
-            TypedQuery<Permission> permissionQuery = em.createQuery("SELECT new Permission(id) FROM Permission p WHERE userGroup = :userGroup " +
-                    "AND permissionGroup = :permissionGroup AND EXISTS (SELECT pt FROM p.permissionTypes pt WHERE pt = :permissionType)", Permission.class);
-            permissionQuery.setParameter("userGroup", user.getUserGroup());
-            permissionQuery.setParameter("permissionGroup", permissionGroup);
-            permissionQuery.setParameter("permissionType", permissionType);
-
-            permissionQuery.getSingleResult();
-
-            return true;
-        } catch (NoResultException e) {
-            return false;
-        }
     }
 }

@@ -8,7 +8,7 @@ import org.test.sms.common.enums.general.ErrorCode;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.AbstractFilter;
 import org.test.sms.common.service.general.UserGroupService;
-import org.test.sms.common.service.general.UserService;
+import org.test.sms.server.dao.interfaces.general.UserDao;
 import org.test.sms.server.dao.interfaces.general.UserGroupDao;
 
 import java.util.List;
@@ -20,16 +20,21 @@ public class UserGroupServiceImpl implements UserGroupService {
 
     private UserGroupDao dao;
 
-    private UserService userService;
+    private UserDao userDao;
 
     @Autowired
-    public UserGroupServiceImpl(UserGroupDao dao, UserService userService) {
+    public UserGroupServiceImpl(UserGroupDao dao, UserDao userDao) {
         this.dao = dao;
-        this.userService = userService;
+        this.userDao = userDao;
     }
 
     @Override
     public UserGroup add(UserGroup entity) throws AppException {
+        String name = entity.getName();
+        if (dao.exists(name)) {
+            throw new AppException(ErrorCode.USER_GROUP_EXISTS, name);
+        }
+
         return dao.add(entity);
     }
 
@@ -40,7 +45,7 @@ public class UserGroupServiceImpl implements UserGroupService {
 
     @Override
     public void delete(long id) throws AppException {
-        if (userService.exists(id)) {
+        if (userDao.exists(id)) {
             throw new AppException(ErrorCode.USER_GROUP_HAS_USERS);
         }
 

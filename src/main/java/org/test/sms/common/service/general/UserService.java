@@ -5,13 +5,7 @@ import org.test.sms.common.enums.general.PermissionGroupType;
 import org.test.sms.common.enums.general.PermissionType;
 import org.test.sms.common.service.AbstractService;
 
-import java.util.Optional;
-
 public interface UserService extends AbstractService<User> {
-
-    Optional<User> get(String username);
-
-    boolean exists(long userGroupId);
 
     boolean hasPermission(PermissionGroupType permissionGroup, PermissionType permissionType);
 
