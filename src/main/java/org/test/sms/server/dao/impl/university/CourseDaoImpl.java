@@ -19,7 +19,7 @@ public class CourseDaoImpl extends AbstractDaoImpl<Course> implements CourseDao 
     public Optional<Course> get(long id) {
         Optional<Course> result = super.get(id);
 
-        result.ifPresent(e -> e.getModules().size());
+        result.ifPresent(course -> course.getModules().size());
 
         return result;
     }

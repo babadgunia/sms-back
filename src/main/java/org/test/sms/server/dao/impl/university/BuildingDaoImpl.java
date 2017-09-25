@@ -28,10 +28,10 @@ public class BuildingDaoImpl extends AbstractDaoImpl<Building> implements Buildi
     public Optional<Building> get(long id) {
         Optional<Building> result = super.get(id);
 
-        result.ifPresent(e -> {
-            List<Auditorium> auditoriums = e.getAuditoriums();
+        result.ifPresent(building -> {
+            List<Auditorium> auditoriums = building.getAuditoriums();
             auditoriums.size();
-            auditoriums.forEach(f -> f.getSeats().size());
+            auditoriums.forEach(auditorium -> auditorium.getSeats().size());
         });
 
         return result;
@@ -41,11 +41,11 @@ public class BuildingDaoImpl extends AbstractDaoImpl<Building> implements Buildi
     public List<Building> getList(AbstractFilter filter) {
         List<Building> result = super.getList(filter);
 
-        result.forEach(e -> {
+        result.forEach(building -> {
             AuditoriumFilter auditoriumFilter = new AuditoriumFilter();
-            auditoriumFilter.setBuilding(e);
+            auditoriumFilter.setBuilding(building);
 
-            e.setAuditoriums(auditoriumDao.getList(auditoriumFilter));
+            building.setAuditoriums(auditoriumDao.getList(auditoriumFilter));
         });
 
         return result;

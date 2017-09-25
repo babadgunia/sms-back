@@ -70,11 +70,11 @@ public class FacultyDaoImpl extends AbstractDaoImpl<Faculty> implements FacultyD
     public List<Faculty> getList(AbstractFilter filter) {
         List<Faculty> result = super.getList(filter);
 
-        result.forEach(e -> {
+        result.forEach(faculty -> {
             CourseFilter courseFilter = new CourseFilter();
-            courseFilter.setFaculty(e);
+            courseFilter.setFaculty(faculty);
 
-            e.setCourses(courseDao.getList(courseFilter));
+            faculty.setCourses(courseDao.getList(courseFilter));
         });
 
         return result;

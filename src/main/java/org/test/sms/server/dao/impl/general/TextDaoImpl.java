@@ -38,7 +38,7 @@ public class TextDaoImpl extends AbstractDaoImpl<Text> implements TextDao {
     public Optional<Text> get(long id) {
         Optional<Text> result = super.get(id);
 
-        result.ifPresent(e -> e.getValues().size());
+        result.ifPresent(text -> text.getValues().size());
 
         return result;
     }
@@ -46,7 +46,8 @@ public class TextDaoImpl extends AbstractDaoImpl<Text> implements TextDao {
     @Override
     public List<Text> getList(AbstractFilter filter) {
         List<Text> result = super.getList(filter);
-        result.forEach(e -> e.getValues().size());
+
+        result.forEach(text -> text.getValues().size());
 
         return result;
     }
