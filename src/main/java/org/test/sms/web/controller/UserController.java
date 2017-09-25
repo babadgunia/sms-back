@@ -84,6 +84,8 @@ public class UserController {
         return new ResponseEntity<>(service.getList(filter), HttpStatus.OK);
     }
 
+//    misc
+
     @RequestMapping(value = "resetPassword/{id}", method = RequestMethod.PUT)
     @PreAuthorize("@userService.hasPermission('USER', 'RESET_PASSWORD')")
     public ResponseEntity<Void> resetPassword(@PathVariable("id") long id) {

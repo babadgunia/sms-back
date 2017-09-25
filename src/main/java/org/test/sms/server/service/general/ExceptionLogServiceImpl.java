@@ -54,6 +54,8 @@ public class ExceptionLogServiceImpl implements ExceptionLogService {
         throw new UnsupportedOperationException();
     }
 
+//    misc
+
     @Override
     public ExceptionLog add(Throwable t) throws AppException {
         ExceptionLog exceptionLog = new ExceptionLog();
