@@ -9,7 +9,6 @@ import org.test.sms.server.dao.interfaces.general.AbstractDao;
 import javax.persistence.EntityManager;
 import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.lang.reflect.ParameterizedType;
 import java.time.LocalDateTime;
@@ -41,10 +40,14 @@ public abstract class AbstractDaoImpl<T extends AbstractEntity> implements Abstr
         entity.setCreationTime(now);
         entity.setLastModifiedTime(now);
 
+        initSubEntities(entity, now);
+
         em.persist(entity);
 
         return entity;
     }
+
+    protected void initSubEntities(T entity, LocalDateTime now) {}
 
     @Override
     public T update(T entity) throws AppException {
@@ -64,14 +67,16 @@ public abstract class AbstractDaoImpl<T extends AbstractEntity> implements Abstr
 
     @Override
     public void delete(long id) throws AppException {
-        Query query = em.createQuery("DELETE FROM " + entityClassName + " WHERE id = :id");
-        query.setParameter("id", id);
-        query.executeUpdate();
+        load(id).ifPresent(entity -> em.remove(entity));
+    }
+
+    private Optional<T> load(long id) {
+        return Optional.ofNullable(em.find(entityClass, id));
     }
 
     @Override
     public Optional<T> get(long id) {
-        Optional<T> result = Optional.ofNullable(em.find(entityClass, id));
+        Optional<T> result = load(id);
 
         result.ifPresent(this::init);
 
