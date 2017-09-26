@@ -35,6 +35,8 @@ public class UserGroupServiceImpl implements UserGroupService {
             throw new AppException(ErrorCode.USER_GROUP_EXISTS, name);
         }
 
+        entity.getPermissions().forEach(permission -> permission.setUserGroup(entity));
+
         return dao.add(entity);
     }
 

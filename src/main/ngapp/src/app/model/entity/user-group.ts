@@ -8,5 +8,5 @@ export class UserGroup extends AbstractEntity {
 
 	name: string;
 
-	permissions: Permission[];
+	permissions: Permission[] = [];
 }

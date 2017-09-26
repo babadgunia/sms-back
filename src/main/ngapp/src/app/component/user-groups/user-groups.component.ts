@@ -37,7 +37,7 @@ export class UserGroupsComponent extends AbstractComponent {
 
 	private entity: UserGroup = new UserGroup();
 
-	private filter: UserGroupFilter = {};
+	private filter: UserGroupFilter;
 
 	// tree fields
 
@@ -66,11 +66,7 @@ export class UserGroupsComponent extends AbstractComponent {
 	private resetTableFilter(): void {}
 
 	private initCustomFilter(table: DataTable, id: number, name: string): void {
-		this.resetTableFilter();
-
 		this.filter = {};
-
-		table.reset();
 
 		super.initPagingFilter(this.filter);
 
@@ -99,6 +95,7 @@ export class UserGroupsComponent extends AbstractComponent {
 
 	private initPermissions(): void {
 		this.permissions = [];
+		this.selectedPermissions = [];
 
 		SYSTEM_PERMISSIONS.forEach((systemPermission: SystemPermission) => {
 			let children: TreeNode[] = [];
@@ -146,6 +143,32 @@ export class UserGroupsComponent extends AbstractComponent {
 	}
 
 	private add(): void {
+		// init permissions
+
+		let selectedPermissionsMap: Map<string, string[]> = new Map<string, string[]>();
+
+		this.selectedPermissions.forEach((node: TreeNode) => {
+			if (isNullOrUndefined(node.parent)) {
+				selectedPermissionsMap.set(node.label, []);
+			} else {
+				if (isNullOrUndefined(selectedPermissionsMap.get(node.parent.label))) {
+					selectedPermissionsMap.set(node.parent.label, []);
+				}
+				selectedPermissionsMap.get(node.parent.label).push(node.label);
+			}
+		});
+
+		selectedPermissionsMap.forEach((value: string[], key: string) => {
+			let permission: Permission = new Permission();
+
+			permission.permissionGroup = key;
+			permission.permissionTypes = value;
+
+			this.entity.permissions.push(permission);
+		});
+
+		// add
+
 		this.service.add(this.entity).subscribe((entity: UserGroup) => {
 			this.entities.push(entity);
 			this.tableTotalRecords++;
