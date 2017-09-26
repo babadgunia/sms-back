@@ -1,7 +1,7 @@
 package org.test.sms.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-import org.test.sms.web.general.CorsFilter;
+import org.test.sms.web.misc.CorsFilter;
 
 import javax.servlet.Filter;
 

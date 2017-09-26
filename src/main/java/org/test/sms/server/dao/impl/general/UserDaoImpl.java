@@ -1,16 +1,14 @@
 package org.test.sms.server.dao.impl.general;
 
 import org.springframework.stereotype.Repository;
-import org.test.sms.common.entity.general.PasswordResetToken;
 import org.test.sms.common.entity.general.Permission;
 import org.test.sms.common.entity.general.User;
 import org.test.sms.common.enums.general.LanguageType;
 import org.test.sms.common.enums.general.StatusType;
 import org.test.sms.common.exception.AppException;
-import org.test.sms.common.filter.AbstractFilter;
+import org.test.sms.common.filter.general.AbstractFilter;
 import org.test.sms.common.filter.general.UserFilter;
 import org.test.sms.common.utils.Utils;
-import org.test.sms.server.dao.impl.AbstractDaoImpl;
 import org.test.sms.server.dao.interfaces.general.UserDao;
 
 import javax.persistence.NoResultException;
@@ -96,7 +94,7 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 //    misc
 
     @Override
-    public Optional<User> getForAuth(String username) {
+    public Optional<User> getForAuthByUsername(String username) {
         TypedQuery<User> query = em.createQuery("SELECT new User(password, status, userGroup) FROM User WHERE UPPER(username) = :username", User.class);
         query.setParameter("username", username.toUpperCase());
 
@@ -108,9 +106,23 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     }
 
     @Override
-    public Optional<User> getForPermissionCheck(String username) {
+    public Optional<User> getForPermissionCheckByUsername(String username) {
         TypedQuery<User> query = em.createQuery("SELECT new User(userGroup) FROM User WHERE UPPER(username) = :username", User.class);
         query.setParameter("username", username.toUpperCase());
+
+        try {
+            return Optional.of(query.getSingleResult());
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
+    }
+
+    public Optional<User> getForPasswordResetByEmailOrUsername(String usernameOrEmail) {
+        TypedQuery<User> query = em.createQuery("SELECT new User(id) FROM User WHERE UPPER(email) = :email OR UPPER(username) = :username", User.class);
+
+        usernameOrEmail = usernameOrEmail.toUpperCase();
+        query.setParameter("email", usernameOrEmail);
+        query.setParameter("username", usernameOrEmail);
 
         try {
             return Optional.of(query.getSingleResult());
@@ -133,35 +145,5 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
         query.setParameter("userGroupId", userGroupId);
 
         return !Utils.isBlank(query.getResultList());
-    }
-
-    @Override
-    public Optional<User> getUserByEmail(String email) {
-        TypedQuery<User> query = em.createQuery("SELECT new User(id) FROM User WHERE UPPER(email) = :email", User.class);
-        query.setParameter("email", email.toUpperCase());
-
-        try {
-            return Optional.of(init(query.getSingleResult()));
-        } catch (NoResultException e) {
-            return Optional.empty();
-        }
-    }
-
-    @Override
-    public Optional<User> getUserByUsername(String username) {
-        TypedQuery<User> query = em.createQuery("SELECT new User(id) FROM User WHERE UPPER(username) = :username", User.class);
-        query.setParameter("username", username.toUpperCase());
-
-        try {
-            return Optional.of(init(query.getSingleResult()));
-        } catch (NoResultException e) {
-            return Optional.empty();
-        }
-    }
-
-    @Override
-    public PasswordResetToken saveToken(PasswordResetToken token) {
-        em.persist(token);
-        return token;
     }
 }

@@ -6,7 +6,7 @@ import {Http, RequestMethod} from "@angular/http";
 import {AbstractService} from "./abstract-service";
 // util
 import {AUTH_SERVICE_URL} from "../util/injectable-constants";
-import {AuthUtils} from "app/util/auth-utils";
+import {AuthenticationUtils} from "app/util/authentication-utils";
 // rxjs
 import {Observable} from "rxjs/Observable";
 
@@ -18,6 +18,6 @@ export class AuthenticationService extends AbstractService {
 	}
 
 	public login(username: string, password: string): Observable<any> {
-		return super.httpRequest(RequestMethod.Post, "", {username: username, password: password}, AuthUtils.getApiLoginHeaders());
+		return super.httpRequest(RequestMethod.Post, "", {username: username, password: password}, AuthenticationUtils.getApiLoginHeaders());
 	}
 }

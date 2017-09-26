@@ -1,7 +1,7 @@
 package org.test.sms.common.filter.university;
 
 import org.test.sms.common.entity.university.Faculty;
-import org.test.sms.common.filter.AbstractFilter;
+import org.test.sms.common.filter.general.AbstractFilter;
 
 import java.util.List;
 

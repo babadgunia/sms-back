@@ -6,9 +6,9 @@ import org.test.sms.common.entity.university.Course;
 import org.test.sms.common.entity.university.Exam;
 import org.test.sms.common.entity.university.Faculty;
 import org.test.sms.common.enums.university.ExamType;
-import org.test.sms.common.filter.AbstractFilter;
+import org.test.sms.common.filter.general.AbstractFilter;
 import org.test.sms.common.filter.university.ExamFilter;
-import org.test.sms.server.dao.impl.AbstractDaoImpl;
+import org.test.sms.server.dao.impl.general.AbstractDaoImpl;
 import org.test.sms.server.dao.interfaces.university.ExamDao;
 
 import java.time.LocalDateTime;

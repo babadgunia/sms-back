@@ -1,4 +1,4 @@
-package org.test.sms.common.service;
+package org.test.sms.common.service.general;
 
 import org.test.sms.common.entity.general.Text;
 import org.test.sms.common.entity.general.UserGroup;

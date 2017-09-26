@@ -4,10 +4,10 @@ import org.springframework.stereotype.Repository;
 import org.test.sms.common.entity.university.Student;
 import org.test.sms.common.enums.general.ErrorCode;
 import org.test.sms.common.exception.AppException;
-import org.test.sms.common.filter.AbstractFilter;
+import org.test.sms.common.filter.general.AbstractFilter;
 import org.test.sms.common.filter.university.StudentFilter;
 import org.test.sms.common.utils.Utils;
-import org.test.sms.server.dao.impl.AbstractDaoImpl;
+import org.test.sms.server.dao.impl.general.AbstractDaoImpl;
 import org.test.sms.server.dao.interfaces.university.StudentDao;
 
 import javax.persistence.NoResultException;

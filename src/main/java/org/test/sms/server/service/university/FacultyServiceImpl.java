@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.test.sms.common.entity.university.Faculty;
 import org.test.sms.common.exception.AppException;
-import org.test.sms.common.filter.AbstractFilter;
+import org.test.sms.common.filter.general.AbstractFilter;
 import org.test.sms.common.service.university.FacultyService;
 import org.test.sms.server.dao.interfaces.university.FacultyDao;
 

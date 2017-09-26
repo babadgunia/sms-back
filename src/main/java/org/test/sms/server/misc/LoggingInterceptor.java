@@ -1,4 +1,4 @@
-package org.test.sms.server;
+package org.test.sms.server.misc;
 
 public class LoggingInterceptor {
 

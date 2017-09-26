@@ -1,4 +1,4 @@
-package org.test.sms.server.service;
+package org.test.sms.server.service.general;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -31,7 +31,7 @@ public class UserDetailsServiceJwtImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> userWrapper = userDao.getForAuth(username);
+        Optional<User> userWrapper = userDao.getForAuthByUsername(username);
 
         if (!userWrapper.isPresent()) {
             throw new UsernameNotFoundException("username [" + username + "] not found");

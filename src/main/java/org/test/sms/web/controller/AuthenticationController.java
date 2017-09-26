@@ -17,18 +17,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.test.sms.common.entity.general.User;
-import org.test.sms.common.service.general.UserService;
+import org.test.sms.common.exception.AppException;
+import org.test.sms.common.service.general.AuthenticationService;
 import org.test.sms.web.jwt.JwtAuthenticationRequest;
 import org.test.sms.web.jwt.JwtAuthenticationResponse;
 import org.test.sms.web.jwt.JwtTokenUtil;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
-import java.util.UUID;
 
 @RestController
-public class AuthenticationRestController {
+public class AuthenticationController {
+
+    private Logger log = LogManager.getLogger(AuthenticationController.class);
 
     private Environment environment;
 
@@ -38,17 +38,21 @@ public class AuthenticationRestController {
 
     private UserDetailsService userDetailsService;
 
-    private UserService userService;
-
-    private Logger log = LogManager.getLogger(AuthenticationRestController.class);
+    private AuthenticationService authenticationService;
 
     @Autowired
-    public AuthenticationRestController(Environment environment, AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, UserDetailsService userDetailsService, UserService userService) {
+    public AuthenticationController(Environment environment, AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil,
+                                    UserDetailsService userDetailsService, AuthenticationService authenticationService) {
         this.environment = environment;
         this.authenticationManager = authenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;
         this.userDetailsService = userDetailsService;
-        this.userService = userService;
+        this.authenticationService = authenticationService;
+    }
+
+    @RequestMapping("/")
+    public String getIndexPage() {
+        return "index";
     }
 
     @RequestMapping(value = "auth", method = RequestMethod.POST)
@@ -66,8 +70,8 @@ public class AuthenticationRestController {
 
             UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
             token = jwtTokenUtil.generateToken(userDetails);
-        } catch (Exception ex) {
-            log.error("Authentication failed! ", ex);
+        } catch (Exception e) {
+            log.error("Authentication failed! ", e);
         }
         return ResponseEntity.ok(new JwtAuthenticationResponse(token));
     }
@@ -88,14 +92,13 @@ public class AuthenticationRestController {
     }
 
     @RequestMapping(value = "resetPassword", method = RequestMethod.POST)
-    public ResponseEntity<Void> resetPassword(HttpServletRequest request, @RequestParam("userEmail") String userEmail) {
-        Optional<User> user = userService.findUserByUsernameOrEmail(userEmail);
-        if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<Void> resetPassword(HttpServletRequest request, @RequestParam("usernameOrEmail") String usernameOrEmail) {
+        try {
+            authenticationService.resetPassword(usernameOrEmail, request.getContextPath());
+
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (AppException e) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        String token = UUID.randomUUID().toString();
-        userService.createPasswordResetTokenForUser(user.get(), token);
-        userService.sendPasswordResetEmail(request.getContextPath(), token, user.get());
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

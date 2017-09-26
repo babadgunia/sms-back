@@ -1,7 +1,7 @@
 ﻿import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../../service/authentication.service";
-import {AuthUtils} from "../../util/auth-utils";
+import {AuthenticationUtils} from "../../util/authentication-utils";
 
 @Component({
 	moduleId: module.id,
@@ -25,7 +25,7 @@ export class LoginComponent {
 		this.authenticationService.login(this.model.username, this.model.password).subscribe((response: any) => {
 			let token = response.token;
 			if (token) {
-				AuthUtils.login(this.model.username, token);
+				AuthenticationUtils.login(this.model.username, token);
 
 				this.router.navigate(['users']);
 			} else {

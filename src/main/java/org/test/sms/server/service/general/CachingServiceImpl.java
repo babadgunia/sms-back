@@ -1,4 +1,4 @@
-package org.test.sms.server;
+package org.test.sms.server.service.general;
 
 import org.test.sms.common.entity.general.Text;
 import org.test.sms.common.entity.general.UserGroup;
@@ -11,7 +11,7 @@ import org.test.sms.common.filter.general.UserGroupFilter;
 import org.test.sms.common.filter.university.CourseFilter;
 import org.test.sms.common.filter.university.FacultyFilter;
 import org.test.sms.common.filter.university.LecturerFilter;
-import org.test.sms.common.service.CachingService;
+import org.test.sms.common.service.general.CachingService;
 import org.test.sms.common.service.general.TextService;
 import org.test.sms.common.service.general.UserGroupService;
 import org.test.sms.common.service.university.BuildingService;

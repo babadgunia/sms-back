@@ -3,9 +3,9 @@ package org.test.sms.server.dao.impl.university;
 import org.springframework.stereotype.Repository;
 import org.test.sms.common.entity.university.Auditorium;
 import org.test.sms.common.entity.university.Building;
-import org.test.sms.common.filter.AbstractFilter;
+import org.test.sms.common.filter.general.AbstractFilter;
 import org.test.sms.common.filter.university.AuditoriumFilter;
-import org.test.sms.server.dao.impl.AbstractDaoImpl;
+import org.test.sms.server.dao.impl.general.AbstractDaoImpl;
 import org.test.sms.server.dao.interfaces.university.AuditoriumDao;
 
 import java.util.Map;

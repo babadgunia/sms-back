@@ -1,6 +1,5 @@
 package org.test.sms.common.entity.general;
 
-import org.test.sms.common.entity.AbstractEntity;
 import org.test.sms.common.enums.general.LanguageType;
 
 import javax.persistence.Column;

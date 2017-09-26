@@ -1,4 +1,4 @@
-package org.test.sms.common.entity;
+package org.test.sms.common.entity.general;
 
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;

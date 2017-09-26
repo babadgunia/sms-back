@@ -2,7 +2,6 @@ package org.test.sms.common.filter.general;
 
 import org.test.sms.common.enums.general.LanguageType;
 import org.test.sms.common.enums.general.StatusType;
-import org.test.sms.common.filter.AbstractFilter;
 
 import java.util.List;
 

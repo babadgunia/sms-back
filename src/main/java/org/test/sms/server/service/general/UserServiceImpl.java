@@ -5,18 +5,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.test.sms.common.entity.general.PasswordResetToken;
 import org.test.sms.common.entity.general.User;
 import org.test.sms.common.enums.general.ErrorCode;
 import org.test.sms.common.enums.general.PermissionGroupType;
 import org.test.sms.common.enums.general.PermissionType;
 import org.test.sms.common.exception.AppException;
-import org.test.sms.common.filter.AbstractFilter;
+import org.test.sms.common.filter.general.AbstractFilter;
+import org.test.sms.common.service.general.MailService;
 import org.test.sms.common.service.general.UserService;
 import org.test.sms.common.utils.Utils;
 import org.test.sms.server.dao.interfaces.general.PermissionDao;
 import org.test.sms.server.dao.interfaces.general.UserDao;
-import org.test.sms.server.service.MailService;
 
 import java.util.List;
 import java.util.Optional;
@@ -89,28 +88,11 @@ public class UserServiceImpl implements UserService {
     public boolean hasPermission(PermissionGroupType permissionGroup, PermissionType permissionType) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        Optional<User> userWrapper = dao.getForPermissionCheck(username);
+        Optional<User> userWrapper = dao.getForPermissionCheckByUsername(username);
         if (userWrapper.isPresent()) {
             return permissionDao.exists(userWrapper.get().getUserGroup().getId(), permissionGroup, permissionType);
         }
 
         return false;
-    }
-
-    @Override
-    public void sendPasswordResetEmail(String context, String token, User user) {
-        mailService.sendPasswordResetMail(context, token, user);
-    }
-
-    @Override
-    public Optional<User> findUserByUsernameOrEmail(String userEmail) {
-        Optional<User> userByEmail = dao.getUserByEmail(userEmail);
-        return userByEmail.isPresent() ? userByEmail : dao.getUserByUsername(userEmail);
-    }
-
-    @Override
-    public void createPasswordResetTokenForUser(User user, String token) {
-        PasswordResetToken myToken = new PasswordResetToken(token, user);
-        dao.saveToken(myToken);
     }
 }

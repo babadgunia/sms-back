@@ -1,6 +1,6 @@
 package org.test.sms.common.entity.university;
 
-import org.test.sms.common.entity.AbstractEntity;
+import org.test.sms.common.entity.general.AbstractEntity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

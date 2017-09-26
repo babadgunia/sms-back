@@ -1,4 +1,4 @@
-package org.test.sms.common.filter;
+package org.test.sms.common.filter.general;
 
 public class AbstractFilter {
 

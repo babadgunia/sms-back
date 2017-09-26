@@ -1,6 +1,6 @@
 package org.test.sms.common.entity.university;
 
-import org.test.sms.common.entity.AbstractEntity;
+import org.test.sms.common.entity.general.AbstractEntity;
 import org.test.sms.common.enums.general.GenderType;
 
 import javax.persistence.EnumType;

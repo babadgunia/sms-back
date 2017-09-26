@@ -83,7 +83,4 @@ public class UserController {
     public ResponseEntity<List<User>> getList(@RequestBody(required = false) UserFilter filter) {
         return new ResponseEntity<>(service.getList(filter), HttpStatus.OK);
     }
-
-//    misc
-
 }

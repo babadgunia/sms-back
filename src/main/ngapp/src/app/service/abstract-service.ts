@@ -1,7 +1,7 @@
 // angular > http
 import {Http, RequestMethod, RequestOptionsArgs, Response} from "@angular/http";
 // util
-import {AuthUtils} from "../util/auth-utils";
+import {AuthenticationUtils} from "../util/authentication-utils";
 import {Utils} from "../util/utils";
 // rxjs
 import {Observable} from "rxjs/Observable";
@@ -16,7 +16,7 @@ export abstract class AbstractService {
 	// makes an http request
 	protected httpRequest(requestMethod: RequestMethod, url: string, body?: any, headers?: RequestOptionsArgs): Observable<any> {
 		url = !Utils.isBlank(url) ? `${this.baseUrl}/${url}` : this.baseUrl;
-		let requestOptions: RequestOptionsArgs = headers ? headers : AuthUtils.getApiHeaders();
+		let requestOptions: RequestOptionsArgs = headers ? headers : AuthenticationUtils.getApiHeaders();
 
 		switch (requestMethod) {
 			case RequestMethod.Get: {

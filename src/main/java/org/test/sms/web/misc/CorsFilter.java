@@ -1,4 +1,4 @@
-package org.test.sms.web.general;
+package org.test.sms.web.misc;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;

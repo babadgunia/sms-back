@@ -5,7 +5,7 @@ import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "
 // service
 import {AuthenticationService} from "../service/authentication.service";
 // util
-import {AuthUtils} from "./auth-utils";
+import {AuthenticationUtils} from "./authentication-utils";
 import {Utils} from "./utils";
 
 @Injectable()
@@ -14,7 +14,7 @@ export class CanActivateAuthGuard implements CanActivate {
 	constructor(private router: Router, private authService: AuthenticationService) {}
 
 	public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-		if (AuthUtils.isLoggedIn()) {
+		if (AuthenticationUtils.isLoggedIn()) {
 			return true;
 		}
 

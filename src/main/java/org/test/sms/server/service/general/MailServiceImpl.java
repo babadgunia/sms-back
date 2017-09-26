@@ -1,4 +1,4 @@
-package org.test.sms.server.service;
+package org.test.sms.server.service.general;
 
 import freemarker.template.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.test.sms.common.entity.general.User;
+import org.test.sms.common.service.general.MailService;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,25 +20,26 @@ import java.util.Map;
 @Service
 @Transactional
 @Async
-public class MailService {
+public class MailServiceImpl implements MailService {
 
     private JavaMailSender mailSender;
 
     private Configuration freeMarkerConfiguration;
 
     @Autowired
-    public MailService(JavaMailSender mailSender, Configuration freeMarkerConfiguration) {
+    public MailServiceImpl(JavaMailSender mailSender, Configuration freeMarkerConfiguration) {
         this.mailSender = mailSender;
 
         this.freeMarkerConfiguration = freeMarkerConfiguration;
         this.freeMarkerConfiguration.setClassForTemplateLoading(getClass(), "/email");
     }
 
+    @Override
     public void sendCredentialsMail(User user, String password) {
         mailSender.send((MimeMessage message) -> {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-            helper.setSubject("SMS app credentials");
+            helper.setSubject("SMS app login credentials");
             helper.setTo(user.getEmail());
 
             Map<String, Object> model = new HashMap<>();
@@ -48,25 +51,31 @@ public class MailService {
             String text = FreeMarkerTemplateUtils.processTemplateIntoString(freeMarkerConfiguration.getTemplate("credentialsMailTemplate.ftl"), model);
             helper.setText(text, true);
 
-            helper.addInline("appIcon", new ClassPathResource("email/appIcon.png"));
+            addAppIcon(helper);
         });
     }
 
-    public void sendPasswordResetMail(String context, String token, User user) {
+    private void addAppIcon(MimeMessageHelper helper) throws MessagingException {
+        helper.addInline("appIcon", new ClassPathResource("email/appIcon.png"));
+    }
+
+    @Override
+    public void sendPasswordResetMail(User user, String url, String token) {
         mailSender.send((MimeMessage message) -> {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-            helper.setSubject("Password Reset");
+            helper.setSubject("SMS app password reset");
             helper.setTo(user.getEmail());
 
             Map<String, Object> model = new HashMap<>();
 
-            model.put("url", context + "/" + token);
+            model.put("url", url + "/" + token);
 
+//            TODO create new template ex: passwordResetMailTemplate.ftl
             String text = FreeMarkerTemplateUtils.processTemplateIntoString(freeMarkerConfiguration.getTemplate("credentialsMailTemplate.ftl"), model);
             helper.setText(text, true);
 
-            helper.addInline("appIcon", new ClassPathResource("email/appIcon.png"));
+            addAppIcon(helper);
         });
     }
 }

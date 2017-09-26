@@ -3,10 +3,9 @@ package org.test.sms.server.dao.impl.general;
 import org.springframework.stereotype.Repository;
 import org.test.sms.common.entity.general.Permission;
 import org.test.sms.common.entity.general.UserGroup;
-import org.test.sms.common.filter.AbstractFilter;
+import org.test.sms.common.filter.general.AbstractFilter;
 import org.test.sms.common.filter.general.UserGroupFilter;
 import org.test.sms.common.utils.Utils;
-import org.test.sms.server.dao.impl.AbstractDaoImpl;
 import org.test.sms.server.dao.interfaces.general.UserGroupDao;
 
 import javax.persistence.TypedQuery;

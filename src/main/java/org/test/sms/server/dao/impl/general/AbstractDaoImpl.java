@@ -1,10 +1,10 @@
-package org.test.sms.server.dao.impl;
+package org.test.sms.server.dao.impl.general;
 
-import org.test.sms.common.entity.AbstractEntity;
+import org.test.sms.common.entity.general.AbstractEntity;
 import org.test.sms.common.enums.general.ErrorCode;
 import org.test.sms.common.exception.AppException;
-import org.test.sms.common.filter.AbstractFilter;
-import org.test.sms.server.dao.AbstractDao;
+import org.test.sms.common.filter.general.AbstractFilter;
+import org.test.sms.server.dao.interfaces.general.AbstractDao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.OptimisticLockException;

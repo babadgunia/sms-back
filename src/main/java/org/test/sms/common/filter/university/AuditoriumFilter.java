@@ -1,7 +1,7 @@
 package org.test.sms.common.filter.university;
 
 import org.test.sms.common.entity.university.Building;
-import org.test.sms.common.filter.AbstractFilter;
+import org.test.sms.common.filter.general.AbstractFilter;
 
 public class AuditoriumFilter extends AbstractFilter {
 

@@ -20,5 +20,7 @@ public enum ErrorCode {
 
     USER_GROUP_HAS_USERS,
 
-    USERNAME_EXISTS
+    USERNAME_EXISTS,
+
+    USERNAME_NOT_FOUND
 }

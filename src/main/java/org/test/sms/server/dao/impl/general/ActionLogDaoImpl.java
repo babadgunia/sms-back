@@ -2,8 +2,7 @@ package org.test.sms.server.dao.impl.general;
 
 import org.springframework.stereotype.Repository;
 import org.test.sms.common.entity.general.ActionLog;
-import org.test.sms.common.filter.AbstractFilter;
-import org.test.sms.server.dao.impl.AbstractDaoImpl;
+import org.test.sms.common.filter.general.AbstractFilter;
 import org.test.sms.server.dao.interfaces.general.ActionLogDao;
 
 import java.util.Map;

@@ -1,7 +1,5 @@
 package org.test.sms.common.entity.general;
 
-import org.test.sms.common.entity.AbstractEntity;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;

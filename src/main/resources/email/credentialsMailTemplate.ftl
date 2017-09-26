@@ -10,6 +10,7 @@
         password: <b>${password}</b>
     </span>
 </p>
+<p>Please consider changing your password from the user profile.</p>
 <img src="cid:appIcon"/>
 </body>
 

@@ -9,7 +9,7 @@ import {PermissionType} from "../model/enum/permission-type.enum";
 import {StatusType} from "../model/enum/status-type.enum";
 // util
 import {messages} from "../util/messages";
-import {AuthUtils} from "../util/auth-utils";
+import {AuthenticationUtils} from "../util/authentication-utils";
 // primeng > model
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
 import {SelectItem} from "primeng/components/common/selectitem";
@@ -135,7 +135,7 @@ export abstract class AbstractComponent implements OnInit {
 
 	// check user permission
 	protected hasPermission(permission: string): boolean {
-		return AuthUtils.hasPermission(permission);
+		return AuthenticationUtils.hasPermission(permission);
 	}
 
 	// get i18n message

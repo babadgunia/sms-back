@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../../service/authentication.service";
-import {AuthUtils} from "../../util/auth-utils";
+import {AuthenticationUtils} from "../../util/authentication-utils";
 import {MessageService} from "primeng/components/common/messageservice";
 import {Message} from 'primeng/components/common/api';
 
