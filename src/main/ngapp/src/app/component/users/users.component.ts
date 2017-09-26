@@ -34,7 +34,7 @@ export class UsersComponent extends AbstractComponent {
 
 	private entity: User = new User();
 
-	private filter: UserFilter = {};
+	private filter: UserFilter;
 
 	// lazy dropdown filters
 
@@ -72,11 +72,7 @@ export class UsersComponent extends AbstractComponent {
 	}
 
 	private initCustomFilter(table: DataTable, id: number, username: string, email: string, name: string, status: string, language: string): void {
-		this.resetTableFilter();
-
 		this.filter = {};
-
-		table.reset();
 
 		super.initPagingFilter(this.filter);
 

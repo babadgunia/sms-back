@@ -24,7 +24,7 @@
 
 	<div class="ui-g-1 {{searchFilterButtonWrapperClass}}">
 		<button pButton [label]="getMessage('CLEAR')" [icon]="searchFilterClearButtonIcon" [class]="searchFilterComponentClass"
-						(click)="resetFilters(table, idField, usernameField, emailField, nameField, statusBox, languageBox); getList()"></button>
+						(click)="resetFilters(table, idField, usernameField, emailField, nameField, statusBox, languageBox)"></button>
 	</div>
 	<div class="ui-g-1 {{searchFilterButtonWrapperClass}}">
 		<button pButton [label]="getMessage('SEARCH')" [icon]="searchFilterSearchButtonIcon" [class]="searchFilterComponentClass"
