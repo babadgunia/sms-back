@@ -1,35 +1,22 @@
 package org.test.sms.common.enums.general;
 
-import java.util.Arrays;
-import java.util.List;
-
 public enum PermissionGroupType {
 
-    BUILDING(PermissionType.ADD, PermissionType.DELETE, PermissionType.EDIT, PermissionType.VIEW),
+    BUILDING,
 
-    COURSE(PermissionType.ADD, PermissionType.DELETE, PermissionType.EDIT, PermissionType.VIEW),
+    COURSE,
 
-    EXAM(PermissionType.ADD, PermissionType.DELETE, PermissionType.EDIT, PermissionType.VIEW),
+    EXAM,
 
-    FACULTY(PermissionType.ADD, PermissionType.DELETE, PermissionType.EDIT, PermissionType.VIEW),
+    FACULTY,
 
-    LECTURER(PermissionType.ADD, PermissionType.DELETE, PermissionType.EDIT, PermissionType.VIEW),
+    LECTURER,
 
-    STUDENT(PermissionType.ADD, PermissionType.DELETE, PermissionType.EDIT, PermissionType.VIEW),
+    STUDENT,
 
-    TEXT(PermissionType.ADD, PermissionType.DELETE, PermissionType.EDIT, PermissionType.VIEW),
+    TEXT,
 
-    USER(PermissionType.ADD, PermissionType.DELETE, PermissionType.EDIT, PermissionType.RESET_PASSWORD, PermissionType.VIEW),
+    USER,
 
-    USER_GROUP(PermissionType.ADD, PermissionType.DELETE, PermissionType.EDIT, PermissionType.VIEW);
-
-    private List<PermissionType> permissions;
-
-    PermissionGroupType(PermissionType... permissions) {
-        this.permissions = Arrays.asList(permissions);
-    }
-
-    public List<PermissionType> getPermissions() {
-        return permissions;
-    }
+    USER_GROUP;
 }

@@ -4,11 +4,9 @@ import {OnInit} from "@angular/core";
 import {AbstractFilter} from "../model/filter/abstract-filter";
 // model > enum
 import {LanguageType} from "../model/enum/language-type.enum";
-import {PermissionGroupType} from "../model/enum/permission-group-type.enum";
-import {PermissionType} from "../model/enum/permission-type.enum";
 import {StatusType} from "../model/enum/status-type.enum";
 // util
-import {messages} from "../util/messages";
+import {MESSAGES} from "../util/messages";
 import {AuthenticationUtils} from "../util/authentication-utils";
 // primeng > model
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
@@ -89,10 +87,6 @@ export abstract class AbstractComponent implements OnInit {
 
 	protected readonly languageTypes: string[] = Object.keys(LanguageType).filter(key => !isNumeric(key));
 
-	protected readonly permissionGroupTypes: string[] = Object.keys(PermissionGroupType).filter(key => !isNumeric(key));
-
-	protected readonly permissionTypes: string[] = Object.keys(PermissionType).filter(key => !isNumeric(key));
-
 	protected readonly statusTypes: string[] = Object.keys(StatusType).filter(key => !isNumeric(key));
 
 	// lists for dropdowns
@@ -141,7 +135,7 @@ export abstract class AbstractComponent implements OnInit {
 	// get i18n message
 	protected getMessage(key: string, ...params: any[]): string {
 		// TODO get user language
-		let value: string = messages[key]['en'];
+		let value: string = MESSAGES[key]['en'];
 
 		for (let i = 0; i < params.length; i++) {
 			value = value.replace('{' + i + '}', params[i]);

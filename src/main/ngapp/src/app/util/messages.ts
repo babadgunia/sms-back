@@ -1,4 +1,4 @@
-export const messages: any = {
+export const MESSAGES: any = {
 	ADD: {
 		en: 'Add',
 		ka: 'დამატება'
