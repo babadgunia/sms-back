@@ -70,4 +70,11 @@ public class UserGroupServiceImpl implements UserGroupService {
 //        TODO implement name filter
         return dao.getList(filter);
     }
+
+//    misc
+
+    @Override
+    public List<UserGroup> getListForSelection() {
+        return dao.getListForSelection();
+    }
 }

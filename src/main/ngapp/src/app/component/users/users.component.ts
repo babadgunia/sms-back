@@ -1,7 +1,8 @@
 // angular > core
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 // model > entity
 import {User} from "../../model/entity/user";
+import {UserGroup} from "app/model/entity/user-group";
 // model > enum
 import {LanguageType} from "../../model/enum/language-type.enum";
 import {StatusType} from "app/model/enum/status-type.enum";
@@ -10,25 +11,28 @@ import {UserFilter} from "../../model/filter/user-filter";
 // component
 import {AbstractComponent} from "../abstract-component";
 // service
+import {UserGroupService} from "../../service/user-group.service";
 import {UserService} from "../../service/user.service";
 // util
-import {isNullOrUndefined} from "util";
 import {Utils} from "../../util/utils";
 // primeng > model
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
+import {SelectItem} from "primeng/components/common/selectitem";
 // primeng > component
-import {DataTable} from "primeng/components/datatable/datatable";
 import {Dropdown} from "primeng/components/dropdown/dropdown";
 // primeng > service
 import {ConfirmationService} from "primeng/components/common/confirmationservice";
 import {MessageService} from "primeng/components/common/messageservice";
+import {isNullOrUndefined} from "util";
 
 @Component({
 	selector: 'users',
 	templateUrl: './users.component.html',
 	styleUrls: ['./users.component.css']
 })
-export class UsersComponent extends AbstractComponent {
+export class UsersComponent extends AbstractComponent implements OnInit {
+
+	protected readonly userGroups: SelectItem[] = [];
 
 	private entities: User[];
 
@@ -36,77 +40,59 @@ export class UsersComponent extends AbstractComponent {
 
 	private filter: UserFilter;
 
-	// lazy dropdown filters
-
-	private statusFilter: string;
-
-	private languageFilter: string;
-
-	public constructor(private service: UserService, confirmationService: ConfirmationService, messageService: MessageService) {
+	public constructor(private service: UserService, private userGroupService: UserGroupService, confirmationService: ConfirmationService, messageService: MessageService) {
 		super(confirmationService, messageService);
 	}
 
-	private resetFilters(table: DataTable, idField: HTMLInputElement, usernameField: HTMLInputElement, emailField: HTMLInputElement, nameField: HTMLInputElement,
-											 statusBox: Dropdown, languageBox: Dropdown): void {
-		this.resetCustomFilter(idField, usernameField, emailField, nameField, statusBox, languageBox);
-		this.resetTableFilter();
+	public ngOnInit(): void {
+		super.ngOnInit();
 
-		this.filter = {};
+		// init user groups  for dropdown
+		this.userGroups.push({label: '', value: ''});
 
-		table.reset();
+		this.userGroupService.getListForSelection().subscribe((userGroups: UserGroup[]) => {
+			userGroups.forEach((userGroup: UserGroup) => {
+				this.userGroups.push({label: userGroup.name, value: userGroup});
+			});
+		}, (error: any) => super.handleError(error));
 	}
 
-	private resetCustomFilter(idField: HTMLInputElement, usernameField: HTMLInputElement, emailField: HTMLInputElement, nameField: HTMLInputElement,
-														statusBox: Dropdown, languageBox: Dropdown): void {
+	private resetFilter(idField: HTMLInputElement, usernameField: HTMLInputElement, emailField: HTMLInputElement, nameField: HTMLInputElement,
+											statusBox: Dropdown, languageBox: Dropdown, userGroupBox: Dropdown): void {
 		idField.value = '';
 		usernameField.value = '';
 		emailField.value = '';
 		nameField.value = '';
 		statusBox.selectedOption = null;
 		languageBox.selectedOption = null;
-	}
+		userGroupBox.selectedOption = null;
 
-	private resetTableFilter(): void {
-		this.statusFilter = null;
-		this.languageFilter = null;
-	}
-
-	private initCustomFilter(table: DataTable, id: number, username: string, email: string, name: string, status: string, language: string): void {
 		this.filter = {};
+	}
 
+	private initFilter(id: number, username: string, email: string, name: string, status: string, language: string, userGroup: UserGroup): void {
+		this.filter = {};
 		super.initPagingFilter(this.filter);
+		this.initFilterFields(id, username, email, name, status, language, userGroup);
+	}
 
+	private initFilterFields(id: number, username: string, email: string, name: string, status: string, language: string, userGroup: UserGroup): void {
 		this.filter.id = id;
 		this.filter.username = username;
 		this.filter.email = email;
 		this.filter.name = name;
 		this.filter.status = status;
 		this.filter.language = language;
+
+		if (!isNullOrUndefined(userGroup)) {
+			this.filter.userGroupId = userGroup.id;
+		}
 	}
 
-	private initTableFilter(event: LazyLoadEvent): void {
+	private initLazyFilter(event: LazyLoadEvent, id: number, username: string, email: string, name: string, status: string, language: string, userGroup: UserGroup): void {
 		this.filter = {};
-
 		super.initLazyPagingFilter(this.filter, event);
-
-		if (!isNullOrUndefined(event.filters.id)) {
-			this.filter.id = event.filters.id.value;
-		}
-		if (!isNullOrUndefined(event.filters.username)) {
-			this.filter.username = event.filters.username.value;
-		}
-		if (!isNullOrUndefined(event.filters.email)) {
-			this.filter.email = event.filters.email.value;
-		}
-		if (!isNullOrUndefined(event.filters.name)) {
-			this.filter.name = event.filters.name.value;
-		}
-		if (!isNullOrUndefined(event.filters.status)) {
-			this.filter.status = event.filters.status.value;
-		}
-		if (!isNullOrUndefined(event.filters.language)) {
-			this.filter.language = event.filters.language.value;
-		}
+		this.initFilterFields(id, username, email, name, status, language, userGroup);
 	}
 
 	private initAdd(): void {
@@ -130,28 +116,36 @@ export class UsersComponent extends AbstractComponent {
 
 	private isValidEntity(): boolean {
 		if (Utils.isBlank(this.entity.username)) {
-			super.showErrorMessage('CANNOT_BE_NULL', this.getMessage('USERNAME'));
+			super.showErrorMessage('CANNOT_BE_EMPTY', this.getMessage('USERNAME'));
 
 			return false;
 		}
 		if (Utils.isBlank(this.entity.email)) {
-			super.showErrorMessage('CANNOT_BE_NULL', this.getMessage('EMAIL'));
+			super.showErrorMessage('CANNOT_BE_EMPTY', this.getMessage('EMAIL'));
 
 			return false;
 		}
 		if (Utils.isBlank(this.entity.name)) {
-			super.showErrorMessage('CANNOT_BE_NULL', this.getMessage('NAME'));
+			super.showErrorMessage('CANNOT_BE_EMPTY', this.getMessage('NAME'));
 
 			return false;
 		}
 		if (Utils.isBlank(this.entity.status)) {
-			super.showErrorMessage('CANNOT_BE_NULL', this.getMessage('STATUS'));
+			super.showErrorMessage('CANNOT_BE_EMPTY', this.getMessage('STATUS'));
 
 			return false;
 		}
 
 		if (Utils.isBlank(this.entity.language)) {
-			super.showErrorMessage('CANNOT_BE_NULL', this.getMessage('LANGUAGE'));
+			super.showErrorMessage('CANNOT_BE_EMPTY', this.getMessage('LANGUAGE'));
+
+			return false;
+		}
+
+		console.log(this.entity.userGroup);
+		console.log(typeof this.entity.userGroup);
+		if (isNullOrUndefined(this.entity.userGroup) || (typeof this.entity.userGroup === 'string' && Utils.isBlank(this.entity.userGroup))) {
+			super.showErrorMessage('CANNOT_BE_EMPTY', this.getMessage('USER_GROUP'));
 
 			return false;
 		}
@@ -190,16 +184,20 @@ export class UsersComponent extends AbstractComponent {
 	private get(entity: User): void {
 		this.service.get(entity.id).subscribe((entity: User) => {
 			this.entity = entity;
+			console.log(this.entity);
 		}, (error: any) => super.handleError(error));
 	}
 
 	private getList(): void {
+		this.loading = true;
+
 		this.service.getCount(this.filter).subscribe((count: number) => {
 			this.tableTotalRecords = count;
 		}, (error: any) => super.handleError(error));
 
 		this.service.getList(this.filter).subscribe((entities: User[]) => {
 			this.entities = entities;
+			this.loading = false;
 		}, (error: any) => super.handleError(error));
 	}
 

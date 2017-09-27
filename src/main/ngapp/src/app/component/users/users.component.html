@@ -19,44 +19,34 @@
 		<p-dropdown #languageBox [placeholder]="getMessage('LANGUAGE')" [options]="languages" [autoWidth]="false" [styleClass]="searchFilterComponentClass"
 								(onChange)="resetDropdown($event.value, languageBox)"></p-dropdown>
 	</div>
+	<div class="ui-g-1 {{searchFilterFieldWrapperClass}}">
+		<p-dropdown #userGroupBox [placeholder]="getMessage('USER_GROUP')" [options]="userGroups" [autoWidth]="false" [styleClass]="searchFilterComponentClass"
+								(onChange)="resetDropdown($event.value, userGroupBox)"></p-dropdown>
+	</div>
 
-	<div class="ui-g-4"></div>
+	<div class="ui-g-3"></div>
 
 	<div class="ui-g-1 {{searchFilterButtonWrapperClass}}">
 		<button pButton [label]="getMessage('CLEAR')" [icon]="searchFilterClearButtonIcon" [class]="searchFilterComponentClass"
-						(click)="resetFilters(table, idField, usernameField, emailField, nameField, statusBox, languageBox)"></button>
+						(click)="resetFilter(idField, usernameField, emailField, nameField, statusBox, languageBox, userGroupBox); getList()"></button>
 	</div>
 	<div class="ui-g-1 {{searchFilterButtonWrapperClass}}">
 		<button pButton [label]="getMessage('SEARCH')" [icon]="searchFilterSearchButtonIcon" [class]="searchFilterComponentClass"
-						(click)="initCustomFilter(table, idField.value, usernameField.value, emailField.value, nameField.value, statusBox.value, languageBox.value); getList()"></button>
+						(click)="initFilter(idField.value, usernameField.value, emailField.value, nameField.value, statusBox.value, languageBox.value, userGroupBox.value); getList()"></button>
 	</div>
 
 	<div class="ui-g-12 ui-g-nopad">
-		<p-dataTable #table [value]="entities" [immutable]="false" [lazy]="true" [paginator]="true" [totalRecords]="tableTotalRecords" [rows]="searchTableRows"
-								 [pageLinks]="searchTablePageLinks" (onLazyLoad)="initTableFilter($event); getList()">
-			<p-column field="id" [header]="getMessage('ID')" [filter]="true" filterType="number" filterMatchMode="equals"></p-column>
-			<p-column field="username" [header]="getMessage('USERNAME')" [filter]="true" filterMatchMode="contains"></p-column>
-			<p-column field="email" [header]="getMessage('EMAIL')" [filter]="true" filterMatchMode="contains"></p-column>
-			<p-column field="name" [header]="getMessage('NAME')" [filter]="true" filterMatchMode="contains"></p-column>
-
-			<p-column field="status" [header]="getMessage('STATUS')" [filter]="true" filterMatchMode="equals">
-				<ng-template pTemplate="body" let-col let-entity="rowData">
-					{{getMessage('STATUS_TYPE_' + entity[col.field])}}
-				</ng-template>
-				<ng-template pTemplate="filter" let-col>
-					<p-dropdown #filterStatusBox [placeholder]="getMessage('STATUS')" [options]="statuses" [(ngModel)]="statusFilter" [style]="searchTableDropdownFilterStyle"
-											(onChange)="table.filter($event.value, col.field, col.filterMatchMode); resetDropdown($event.value, filterStatusBox)"></p-dropdown>
-				</ng-template>
-			</p-column>
-			<p-column field="language" [header]="getMessage('LANGUAGE')" [filter]="true" filterMatchMode="equals">
-				<ng-template pTemplate="body" let-col let-entity="rowData">
-					{{getMessage('LANGUAGE_TYPE_' + entity[col.field])}}
-				</ng-template>
-				<ng-template pTemplate="filter" let-col>
-					<p-dropdown #filterLanguageBox [placeholder]="getMessage('LANGUAGE')" [options]="languages" [(ngModel)]="languageFilter" [style]="searchTableDropdownFilterStyle"
-											(onChange)="table.filter($event.value, col.field, col.filterMatchMode); resetDropdown($event.value, filterLanguageBox)"></p-dropdown>
-				</ng-template>
-			</p-column>
+		<p-dataTable [value]="entities" [immutable]="false" [lazy]="true" [paginator]="true" [totalRecords]="tableTotalRecords" [rows]="searchTableRows" [pageLinks]="searchTablePageLinks"
+								 [loading]="loading"
+								 (onLazyLoad)="initLazyFilter($event, idField.value, usernameField.value, emailField.value, nameField.value, statusBox.value, languageBox.value, userGroupBox.value);
+								 getList()">
+			<p-column field="id" [header]="getMessage('ID')"></p-column>
+			<p-column field="username" [header]="getMessage('USERNAME')"></p-column>
+			<p-column field="email" [header]="getMessage('EMAIL')"></p-column>
+			<p-column field="name" [header]="getMessage('NAME')"></p-column>
+			<p-column field="status" [header]="getMessage('STATUS')"></p-column>
+			<p-column field="language" [header]="getMessage('LANGUAGE')"></p-column>
+			<p-column field="userGroup.name" [header]="getMessage('USER_GROUP')"></p-column>
 
 			<p-column [styleClass]="searchTableActionColumnClass">
 				<ng-template pTemplate="header">
@@ -120,11 +110,17 @@
 			<p-dropdown #dialogLanguageBox [placeholder]="getMessage('LANGUAGE')" [options]="languages" [(ngModel)]="entity.language" [autoWidth]="false" [styleClass]="formComponentClass"
 									(onChange)="resetDropdown($event.value, dialogLanguageBox)" [disabled]="isView"></p-dropdown>
 		</div>
+		<div class="ui-g-6">
+			{{getMessage('USER_GROUP')}}
+		</div>
+		<div class="ui-g-6">
+			<p-dropdown #dialogUserGroupBox [placeholder]="getMessage('USER_GROUP')" [options]="userGroups" [(ngModel)]="entity.userGroup" [autoWidth]="false"
+									[styleClass]="formComponentClass" (onChange)="resetDropdown($event.value, dialogUserGroupBox)" [disabled]="isView"></p-dropdown>
+		</div>
 	</div>
 
 	<p-footer>
-		<button pButton [label]="getMessage('RESET_PASSWORD')" [icon]="formResetPasswordButtonIcon" (click)="resetPassword(); hideDialog()"
-						*ngIf="isEdit && hasPermission('USER.RESET_PASSWORD')"></button>
+		<button pButton [label]="getMessage('RESET_PASSWORD')" icon="fa-retweet" (click)="resetPassword(); hideDialog()" *ngIf="isEdit && hasPermission('USER.RESET_PASSWORD')"></button>
 		<button pButton [label]="getMessage('SAVE')" [icon]="formSaveButtonIcon" (click)="save()" *ngIf="!isView"></button>
 		<button pButton [label]="getMessage('CANCEL')" [icon]="formCancelButtonIcon" (click)="hideDialog()"></button>
 	</p-footer>

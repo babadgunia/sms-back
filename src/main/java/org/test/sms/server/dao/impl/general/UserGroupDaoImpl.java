@@ -70,4 +70,9 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<UserGroup> implements User
 
         return !Utils.isBlank(query.getResultList());
     }
+
+    @Override
+    public List<UserGroup> getListForSelection() {
+        return em.createQuery("SELECT new UserGroup(id, name) FROM UserGroup ORDER BY name", UserGroup.class).getResultList();
+    }
 }

@@ -59,7 +59,7 @@ public class User extends AbstractEntity {
         this.userGroup = userGroup;
     }
 
-    public User(long id, String username, String email, String name, StatusType status, LanguageType language) {
+    public User(long id, String username, String email, String name, StatusType status, LanguageType language, String userGroupName) {
         this(id);
 
         this.username = username;
@@ -67,6 +67,7 @@ public class User extends AbstractEntity {
         this.name = name;
         this.status = status;
         this.language = language;
+        this.userGroup = new UserGroup(userGroupName);
     }
 
     @Override

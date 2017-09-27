@@ -7,8 +7,8 @@ export const MESSAGES: any = {
 		en: 'Cancel',
 		ka: 'გაუქმება'
 	},
-	CANNOT_BE_NULL: {
-		en: '{0} cannot be null',
+	CANNOT_BE_EMPTY: {
+		en: '{0} cannot be empty',
 		ka: '{0} არ შეიძლება იყოს ცარიელი'
 	},
 	CLEAR: {
@@ -98,6 +98,10 @@ export const MESSAGES: any = {
 	STATUS_TYPE_INACTIVE: {
 		en: 'Inactive',
 		ka: 'არააქტიური'
+	},
+	USER_GROUP: {
+		en: 'User group',
+		ka: 'მომხმარებლის ჯგუფი'
 	},
 	USER_GROUPS: {
 		en: 'User groups',

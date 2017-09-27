@@ -1,5 +1,6 @@
 // model > entity
 import {AbstractEntity} from "./abstract-entity";
+import {UserGroup} from "./user-group";
 
 export class User extends AbstractEntity {
 
@@ -14,4 +15,6 @@ export class User extends AbstractEntity {
 	status: string;
 
 	language: string;
+
+	userGroup: UserGroup;
 }

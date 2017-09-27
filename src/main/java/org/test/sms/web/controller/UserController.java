@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.test.sms.common.entity.general.User;
-import org.test.sms.common.entity.general.UserGroup;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.general.UserFilter;
 import org.test.sms.common.service.general.UserService;
@@ -33,9 +32,6 @@ public class UserController {
     @PreAuthorize("@userService.hasPermission('USER', 'ADD')")
     public ResponseEntity<User> add(@RequestBody User entity) {
         try {
-//            TODO remove this
-            entity.setUserGroup(new UserGroup(1));
-
             return new ResponseEntity<>(service.add(entity), HttpStatus.OK);
         } catch (AppException e) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);

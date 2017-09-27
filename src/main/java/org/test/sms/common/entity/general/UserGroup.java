@@ -31,6 +31,10 @@ public class UserGroup extends AbstractEntity {
         super(id);
     }
 
+    public UserGroup(String name) {
+        this.name = name;
+    }
+
     public UserGroup(long id, String name) {
         this(id);
 

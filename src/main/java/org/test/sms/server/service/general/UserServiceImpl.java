@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.test.sms.common.entity.general.User;
+import org.test.sms.common.entity.general.UserGroup;
 import org.test.sms.common.enums.general.ErrorCode;
 import org.test.sms.common.enums.general.PermissionGroupType;
 import org.test.sms.common.enums.general.PermissionType;
@@ -67,7 +68,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> get(long id) {
-        return dao.get(id);
+        Optional<User> result = dao.get(id);
+
+        result.ifPresent(user -> {
+            UserGroup userGroup = user.getUserGroup();
+            user.setUserGroup(new UserGroup(userGroup.getId(), userGroup.getName()));
+        });
+
+        return result;
     }
 
     @Override

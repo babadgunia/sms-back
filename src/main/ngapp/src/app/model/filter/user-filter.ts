@@ -14,4 +14,6 @@ export class UserFilter extends AbstractFilter {
 	status?: string;
 
 	language?: string;
+
+	userGroupId?: number;
 }

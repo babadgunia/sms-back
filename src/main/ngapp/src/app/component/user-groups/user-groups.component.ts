@@ -21,7 +21,6 @@ import {Utils} from "../../util/utils";
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
 import {TreeNode} from "primeng/components/common/treenode";
 // primeng > component
-import {DataTable} from "primeng/components/datatable/datatable";
 // primeng > service
 import {ConfirmationService} from "primeng/components/common/confirmationservice";
 import {MessageService} from "primeng/components/common/messageservice";
@@ -49,47 +48,32 @@ export class UserGroupsComponent extends AbstractComponent {
 		super(confirmationService, messageService);
 	}
 
-	private resetFilters(table: DataTable, idField: HTMLInputElement, nameField: HTMLInputElement): void {
-		this.resetCustomFilter(idField, nameField);
-		this.resetTableFilter();
-
-		this.filter = {};
-
-		table.reset();
-	}
-
-	private resetCustomFilter(idField: HTMLInputElement, nameField: HTMLInputElement): void {
+	private resetFilter(idField: HTMLInputElement, nameField: HTMLInputElement): void {
 		idField.value = '';
 		nameField.value = '';
+
+		this.filter = {};
 	}
 
-	private resetTableFilter(): void {}
-
-	private initCustomFilter(table: DataTable, id: number, name: string): void {
+	private initFilter(id: number, name: string): void {
 		this.filter = {};
-
 		super.initPagingFilter(this.filter);
+		this.initFilterFields(id, name);
+	}
 
+	private initFilterFields(id: number, name: string): void {
 		this.filter.id = id;
 		this.filter.name = name;
 	}
 
-	private initTableFilter(event: LazyLoadEvent): void {
+	private initTableFilter(event: LazyLoadEvent, id: number, name: string): void {
 		this.filter = {};
-
 		super.initLazyPagingFilter(this.filter, event);
-
-		if (!isNullOrUndefined(event.filters.id)) {
-			this.filter.id = event.filters.id.value;
-		}
-		if (!isNullOrUndefined(event.filters.name)) {
-			this.filter.name = event.filters.name.value;
-		}
+		this.initFilterFields(id, name);
 	}
 
 	private initAdd(): void {
 		this.entity = new UserGroup();
-
 		this.initPermissions();
 	}
 
@@ -134,7 +118,7 @@ export class UserGroupsComponent extends AbstractComponent {
 
 	private isValidEntity(): boolean {
 		if (Utils.isBlank(this.entity.name)) {
-			super.showErrorMessage('CANNOT_BE_NULL', this.getMessage('NAME'));
+			super.showErrorMessage('CANNOT_BE_EMPTY', this.getMessage('NAME'));
 
 			return false;
 		}
@@ -222,12 +206,15 @@ export class UserGroupsComponent extends AbstractComponent {
 	}
 
 	private getList(): void {
+		this.loading = true;
+
 		this.service.getCount(this.filter).subscribe((count: number) => {
 			this.tableTotalRecords = count;
 		}, (error: any) => super.handleError(error));
 
 		this.service.getList(this.filter).subscribe((entities: UserGroup[]) => {
 			this.entities = entities;
+			this.loading = false;
 		}, (error: any) => super.handleError(error));
 	}
 }

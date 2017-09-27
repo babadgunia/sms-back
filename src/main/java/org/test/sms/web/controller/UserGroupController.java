@@ -79,4 +79,12 @@ public class UserGroupController {
     public ResponseEntity<List<UserGroup>> getList(@RequestBody(required = false) UserGroupFilter filter) {
         return new ResponseEntity<>(service.getList(filter), HttpStatus.OK);
     }
+
+//    misc
+
+    @RequestMapping(value = "getListForSelection", method = RequestMethod.GET)
+    @PreAuthorize("@userService.hasPermission('USER_GROUP', 'VIEW')")
+    public ResponseEntity<List<UserGroup>> getListForSelection() {
+        return new ResponseEntity<>(service.getListForSelection(), HttpStatus.OK);
+    }
 }

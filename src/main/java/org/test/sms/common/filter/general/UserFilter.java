@@ -19,6 +19,8 @@ public class UserFilter extends AbstractFilter {
 
     private LanguageType language;
 
+    private Long userGroupId;
+
     public Long getId() {
         return id;
     }
@@ -65,5 +67,13 @@ public class UserFilter extends AbstractFilter {
 
     public void setLanguage(LanguageType language) {
         this.language = language;
+    }
+
+    public Long getUserGroupId() {
+        return userGroupId;
+    }
+
+    public void setUserGroupId(Long userGroupId) {
+        this.userGroupId = userGroupId;
     }
 }

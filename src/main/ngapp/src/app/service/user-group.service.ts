@@ -43,4 +43,10 @@ export class UserGroupService extends AbstractService {
 	public getList(filter: UserGroupFilter): Observable<UserGroup[]> {
 		return super.httpRequest(RequestMethod.Post, "getList", filter);
 	}
+
+	// misc
+
+	public getListForSelection(): Observable<UserGroup[]> {
+		return super.httpRequest(RequestMethod.Get, `getListForSelection`);
+	}
 }

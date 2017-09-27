@@ -42,7 +42,7 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 
     @Override
     protected String getSelect() {
-        return "id, username, email, name, status, language";
+        return "id, username, email, name, status, language, userGroup.name";
     }
 
     @Override
@@ -83,6 +83,12 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
         if (!Objects.isNull(language)) {
             queryBuilder.append(" AND language = :language");
             params.put("language", language);
+        }
+
+        Long userGroupId = filter.getUserGroupId();
+        if (!Objects.isNull(userGroupId)) {
+            queryBuilder.append(" AND userGroup.id = :userGroupId");
+            params.put("userGroupId", userGroupId);
         }
     }
 
