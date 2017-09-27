@@ -21,10 +21,6 @@ import {isNumeric} from "rxjs/util/isNumeric";
 
 export abstract class AbstractComponent implements OnInit {
 
-	// general constants
-
-	protected readonly logoutButtonIcon: string = "fa-sign-out";
-
 	// search filter constants
 
 	protected readonly searchFilterComponentClass: string = "c-full-width";
@@ -39,13 +35,9 @@ export abstract class AbstractComponent implements OnInit {
 
 	// search table general constants
 
-	protected readonly searchTableRows: number = 10;
+	protected readonly searchTableRows: number = 15;
 
 	protected readonly searchTablePageLinks: number = 3;
-
-	// search table filter constants
-
-	protected readonly searchTableDropdownFilterStyle: object = {'width': '100%'};
 
 	// search table action column constants
 
@@ -73,8 +65,6 @@ export abstract class AbstractComponent implements OnInit {
 
 	protected readonly formComponentClass: string = "c-full-width";
 
-	protected readonly formResetPasswordButtonIcon: string = "fa-retweet";
-
 	protected readonly formSaveButtonIcon: string = "fa-check";
 
 	protected readonly formCancelButtonIcon: string = "fa-close";
@@ -99,6 +89,8 @@ export abstract class AbstractComponent implements OnInit {
 
 	protected tableTotalRecords: number = 0;
 
+	protected loading: boolean = true;
+
 	// dialog fields
 
 	protected showDialog: boolean = false;
@@ -112,14 +104,14 @@ export abstract class AbstractComponent implements OnInit {
 	protected constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
 	public ngOnInit(): void {
-		// init language list for dropdown
+		// init languages for dropdown
 		this.languages.push({label: '', value: ''});
 
 		this.languageTypes.forEach((language: string) => {
 			this.languages.push({label: this.getMessage('LANGUAGE_TYPE_' + language), value: language});
 		});
 
-		// init status list for dropdown
+		// init statuses for dropdown
 		this.statuses.push({label: '', value: ''});
 
 		this.statusTypes.forEach((status: string) => {
@@ -178,7 +170,7 @@ export abstract class AbstractComponent implements OnInit {
 		});
 	}
 
-	// updates dialog states and shows it
+	// updates form dialog states and shows it
 	protected updateDialogStates(isAdd: boolean, isEdit: boolean, isView: boolean): void {
 		this.isAdd = isAdd;
 		this.isEdit = isEdit;
@@ -187,11 +179,12 @@ export abstract class AbstractComponent implements OnInit {
 		this.showDialog = true;
 	}
 
+	// hides form dialog
 	protected hideDialog(): void {
 		this.showDialog = false;
 	}
 
-	// resets the dropdown component if an empty value is selected
+	// resets dropdown component if an empty value is selected
 	protected resetDropdown(value: any, box: Dropdown): void {
 		if (value === '') {
 			box.selectedOption = null;
