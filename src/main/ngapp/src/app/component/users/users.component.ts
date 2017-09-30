@@ -142,8 +142,6 @@ export class UsersComponent extends AbstractComponent implements OnInit {
 			return false;
 		}
 
-		console.log(this.entity.userGroup);
-		console.log(typeof this.entity.userGroup);
 		if (isNullOrUndefined(this.entity.userGroup) || (typeof this.entity.userGroup === 'string' && Utils.isBlank(this.entity.userGroup))) {
 			super.showErrorMessage('CANNOT_BE_EMPTY', this.getMessage('USER_GROUP'));
 
@@ -184,7 +182,6 @@ export class UsersComponent extends AbstractComponent implements OnInit {
 	private get(entity: User): void {
 		this.service.get(entity.id).subscribe((entity: User) => {
 			this.entity = entity;
-			console.log(this.entity);
 		}, (error: any) => super.handleError(error));
 	}
 
