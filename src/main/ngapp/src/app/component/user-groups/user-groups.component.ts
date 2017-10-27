@@ -201,8 +201,6 @@ export class UserGroupsComponent extends AbstractComponent {
 					}
 				});
 			});
-			console.log(this.permissions);
-			console.log(this.selectedPermissions);
 		}, (error: any) => super.handleError(error));
 	}
 
