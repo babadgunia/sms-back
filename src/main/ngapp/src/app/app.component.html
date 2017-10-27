@@ -2,6 +2,7 @@
 	<ul *ngIf="isLoggedIn()">
 		<li><a routerLink="users" routerLinkActive="active">{{getMessage('USERS')}}</a></li>
 		<li><a routerLink="userGroups" routerLinkActive="active">{{getMessage('USER_GROUPS')}}</a></li>
+		<li><a routerLink="texts" routerLinkActive="active">{{getMessage('TEXTS')}}</a></li>
 
 		<li>
 			<button pButton [label]="getMessage('LOGOUT')" icon="fa-sign-out" (click)="logout()"></button>

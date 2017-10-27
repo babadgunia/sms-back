@@ -33,6 +33,12 @@ public class Text extends AbstractEntity {
         super(id);
     }
 
+    public Text(long id, String key) {
+        this(id);
+
+        this.key = key;
+    }
+
     @Override
     public long getId() {
         return id;

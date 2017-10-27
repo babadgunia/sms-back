@@ -1,0 +1,67 @@
+<div class="ui-g">
+	<div class="ui-g-1 {{searchFilterFieldWrapperClass}}">
+		<input pInputText #keyField [placeholder]="getMessage('KEY')" [class]="searchFilterComponentClass"/>
+	</div>
+	<div class="ui-g-1 {{searchFilterFieldWrapperClass}}">
+		<input pInputText #valueField [placeholder]="getMessage('VALUE')" [class]="searchFilterComponentClass"/>
+	</div>
+
+	<div class="ui-g-8"></div>
+
+	<div class="ui-g-1 {{searchFilterButtonWrapperClass}}">
+		<button pButton [label]="getMessage('CLEAR')" [icon]="searchFilterClearButtonIcon" [class]="searchFilterComponentClass"
+						(click)="resetFilter(keyField, valueField); getList()"></button>
+	</div>
+	<div class="ui-g-1 {{searchFilterButtonWrapperClass}}">
+		<button pButton [label]="getMessage('SEARCH')" [icon]="searchFilterSearchButtonIcon" [class]="searchFilterComponentClass"
+						(click)="initFilter(keyField.value, valueField.value); getList()"></button>
+	</div>
+
+	<div class="ui-g-12 ui-g-nopad">
+		<p-dataTable [value]="entities" [immutable]="false" [lazy]="true" [paginator]="true" [totalRecords]="tableTotalRecords" [rows]="searchTableRows" [pageLinks]="searchTablePageLinks"
+								 [loading]="loading" (onLazyLoad)="initTableFilter($event, keyField.value, valueField.value); getList()">
+			<p-column field="key" [header]="getMessage('KEY')"></p-column>
+
+			<p-column [styleClass]="searchTableActionColumnClass">
+				<ng-template pTemplate="header">
+					<button pButton [label]="getMessage('ADD')" [icon]="searchTableActionColumnAddButtonIcon" [class]="searchTableActionColumnButtonClass"
+									(click)="initAdd(); updateDialogStates(true, false, false)" *ngIf="hasPermission('TEXT.ADD')"></button>
+				</ng-template>
+				<ng-template pTemplate="body" let-entity="rowData">
+					<div class="ui-g">
+						<div class="ui-g-nopad {{hasPermission('TEXT.DELETE') ? searchTableActionColumnViewEditButtonWrapperClass : ''}}"
+								 [class.ui-g-12]="!hasPermission('TEXT.DELETE')" [class.ui-g-6]="hasPermission('TEXT.DELETE')">
+							<button pButton [title]="getMessage('EDIT')" [icon]="searchTableActionColumnEditButtonIcon" [class]="searchTableActionColumnButtonClass"
+											(click)="updateDialogStates(false, true, false); get(entity)" *ngIf="hasPermission('TEXT.EDIT')"></button>
+							<button pButton [title]="getMessage('VIEW')" [icon]="searchTableActionColumnViewButtonIcon" [class]="searchTableActionColumnButtonClass"
+											(click)="updateDialogStates(false, false, true); get(entity)" *ngIf="!hasPermission('TEXT.EDIT')"></button>
+						</div>
+						<div class="ui-g-6 ui-g-nopad {{searchTableActionColumnDeleteButtonWrapperClass}}" *ngIf="hasPermission('TEXT.DELETE')">
+							<button pButton [title]="getMessage('DELETE')" [icon]="searchTableActionColumnDeleteButtonIcon" [class]="searchTableActionColumnButtonClass"
+											(click)="confirmDeleteAction(entity)"></button>
+						</div>
+					</div>
+				</ng-template>
+			</p-column>
+
+			<p-footer>{{getMessage('SEARCH_TABLE_FOOTER', tableTotalRecords)}}</p-footer>
+		</p-dataTable>
+	</div>
+</div>
+
+<p-dialog header="{{isAdd ? getMessage('ADD') : isEdit ? getMessage('EDIT') : getMessage('VIEW')}}" [(visible)]="showDialog" [modal]="true" [styleClass]="formDialogClass"
+					[contentStyle]="formDialogContentStyle">
+	<div class="ui-g">
+		<div class="ui-g-6">
+			{{getMessage('KEY')}}
+		</div>
+		<div class="ui-g-6">
+			<input pInputText [(ngModel)]="entity.key" [class]="formComponentClass" [disabled]="isView">
+		</div>
+	</div>
+
+	<p-footer>
+		<button pButton [label]="getMessage('SAVE')" [icon]="formSaveButtonIcon" (click)="save()" *ngIf="!isView"></button>
+		<button pButton [label]="getMessage('CANCEL')" [icon]="formCancelButtonIcon" (click)="hideDialog()"></button>
+	</p-footer>
+</p-dialog>

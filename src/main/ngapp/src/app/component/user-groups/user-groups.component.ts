@@ -20,7 +20,6 @@ import {Utils} from "../../util/utils";
 // primeng > model
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
 import {TreeNode} from "primeng/components/common/treenode";
-// primeng > component
 // primeng > service
 import {ConfirmationService} from "primeng/components/common/confirmationservice";
 import {MessageService} from "primeng/components/common/messageservice";

@@ -6,6 +6,10 @@ import {SystemPermission} from "app/util/system-permission";
 
 export const SYSTEM_PERMISSIONS: SystemPermission[] = [
 	{
+		group: PermissionGroupType.TEXT,
+		types: [PermissionType.ADD, PermissionType.DELETE, PermissionType.EDIT, PermissionType.VIEW]
+	},
+	{
 		group: PermissionGroupType.USER,
 		types: [PermissionType.ADD, PermissionType.DELETE, PermissionType.EDIT, PermissionType.RESET_PASSWORD, PermissionType.VIEW]
 	},

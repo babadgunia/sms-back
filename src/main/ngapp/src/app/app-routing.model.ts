@@ -5,6 +5,7 @@ import {RouterModule, Routes} from "@angular/router";
 // component
 import {ForgotPasswordComponent} from "./component/login/forgot-password.component";
 import {LoginComponent} from "./component/login/login.component";
+import {TextsComponent} from "./component/texts/texts.component";
 import {UserGroupsComponent} from "./component/user-groups/user-groups.component";
 import {UsersComponent} from "./component/users/users.component";
 // util
@@ -14,6 +15,7 @@ const routes: Routes = [
 	{path: '', redirectTo: 'userGroups', pathMatch: 'full'},
 	{path: 'forgotPassword', component: ForgotPasswordComponent},
 	{path: 'login', component: LoginComponent},
+	{path: 'texts', component: TextsComponent, canActivate: [CanActivateAuthGuard]},
 	{path: 'userGroups', component: UserGroupsComponent, canActivate: [CanActivateAuthGuard]},
 	{path: 'users', component: UsersComponent, canActivate: [CanActivateAuthGuard]},
 ];

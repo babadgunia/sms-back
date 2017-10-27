@@ -43,6 +43,10 @@ export const MESSAGES: any = {
 		en: 'Id',
 		ka: "იდენტიფიკ."
 	},
+	KEY: {
+		en: 'Key',
+		ka: 'კოდი'
+	},
 	LANGUAGE: {
 		en: 'Language',
 		ka: 'ენა'
@@ -99,6 +103,10 @@ export const MESSAGES: any = {
 		en: 'Inactive',
 		ka: 'არააქტიური'
 	},
+	TEXTS: {
+		en: 'Texts',
+		ka: 'ტექსტები'
+	},
 	USER_GROUP: {
 		en: 'User group',
 		ka: 'მომხმარებლის ჯგუფი'
@@ -118,6 +126,10 @@ export const MESSAGES: any = {
 	USERS: {
 		en: 'Users',
 		ka: 'მომხმარებლები'
+	},
+	VALUE: {
+		en: 'Value',
+		ka: 'მნიშვნელობა'
 	},
 	VIEW: {
 		en: 'View',

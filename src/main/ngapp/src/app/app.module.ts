@@ -12,10 +12,12 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AppComponent} from "./app.component";
 import {ForgotPasswordComponent} from "./component/login/forgot-password.component"
 import {LoginComponent} from "./component/login/login.component";
+import {TextsComponent} from './component/texts/texts.component';
 import {UserGroupsComponent} from "./component/user-groups/user-groups.component";
 import {UsersComponent} from "./component/users/users.component";
 // service
 import {AuthenticationService} from "./service/authentication.service";
+import {TextService} from "./service/text.service";
 import {UserGroupService} from "./service/user-group.service";
 import {UserService} from "./service/user.service";
 // routing
@@ -42,6 +44,7 @@ import {MessageService} from "primeng/components/common/messageservice";
 		AppComponent,
 		ForgotPasswordComponent,
 		LoginComponent,
+		TextsComponent,
 		UserGroupsComponent,
 		UsersComponent
 	],
@@ -69,6 +72,7 @@ import {MessageService} from "primeng/components/common/messageservice";
 	providers: [
 		// service
 		AuthenticationService,
+		TextService,
 		UserGroupService,
 		UserService,
 		// util
