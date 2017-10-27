@@ -96,8 +96,8 @@ export class UserGroupsComponent extends AbstractComponent {
 			let permissionGroupNode: TreeNode = {
 				label: PermissionGroupType[systemPermission.group],
 				data: PermissionGroupType[systemPermission.group],
-				children: children,
-				expanded: true
+				expanded: true,
+				children: children
 			};
 
 			this.permissions.push(permissionGroupNode);
@@ -133,7 +133,9 @@ export class UserGroupsComponent extends AbstractComponent {
 
 		this.selectedPermissions.forEach((node: TreeNode) => {
 			if (isNullOrUndefined(node.parent)) {
-				selectedPermissionsMap.set(node.label, []);
+				if (isNullOrUndefined(selectedPermissionsMap.get(node.label))) {
+					selectedPermissionsMap.set(node.label, []);
+				}
 			} else {
 				if (isNullOrUndefined(selectedPermissionsMap.get(node.parent.label))) {
 					selectedPermissionsMap.set(node.parent.label, []);
@@ -186,22 +188,21 @@ export class UserGroupsComponent extends AbstractComponent {
 
 			this.initPermissions();
 
-			this.selectedPermissions = [];
 			this.entity.permissions.forEach((permission: Permission) => {
 				this.permissions.forEach((permissionGroupNode: TreeNode) => {
 					if (permission.permissionGroup === permissionGroupNode.label) {
-						this.selectedPermissions.push(permissionGroupNode);
-
 						permission.permissionTypes.forEach((permissionType: string) => {
 							permissionGroupNode.children.forEach((permissionTypeNode: TreeNode) => {
 								if (permissionType === permissionTypeNode.label) {
-									// this.selectedPermissions.push(permissionTypeNode);
+									this.selectedPermissions.push(permissionTypeNode);
 								}
 							});
 						});
 					}
 				});
 			});
+			console.log(this.permissions);
+			console.log(this.selectedPermissions);
 		}, (error: any) => super.handleError(error));
 	}
 
