@@ -127,8 +127,17 @@ export class UserGroupsComponent extends AbstractComponent {
 	}
 
 	private add(): void {
-		// init permissions
+		this.initSelectedPermissions();
 
+		this.service.add(this.entity).subscribe((entity: UserGroup) => {
+			this.entities.push(entity);
+			this.tableTotalRecords++;
+
+			this.showDialog = false;
+		}, (error: any) => super.handleError(error));
+	}
+
+	private initSelectedPermissions(): void {
 		let selectedPermissionsMap: Map<string, string[]> = new Map<string, string[]>();
 
 		this.selectedPermissions.forEach((node: TreeNode) => {
@@ -152,18 +161,11 @@ export class UserGroupsComponent extends AbstractComponent {
 
 			this.entity.permissions.push(permission);
 		});
-
-		// add
-
-		this.service.add(this.entity).subscribe((entity: UserGroup) => {
-			this.entities.push(entity);
-			this.tableTotalRecords++;
-
-			this.showDialog = false;
-		}, (error: any) => super.handleError(error));
 	}
 
 	private update(): void {
+		this.initSelectedPermissions();
+
 		this.service.update(this.entity).subscribe((entity: UserGroup) => {
 			let index: number = this.entities.findIndex((element: UserGroup) => element.id === entity.id);
 			this.entities.splice(index, 1, entity);
