@@ -12,7 +12,6 @@ import javax.persistence.TypedQuery;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Repository
 public class TextDaoImpl extends AbstractDaoImpl<Text> implements TextDao {
@@ -43,9 +42,9 @@ public class TextDaoImpl extends AbstractDaoImpl<Text> implements TextDao {
         TextFilter filter = (TextFilter) abstractFilter;
 
         String key = filter.getKey();
-        if (Objects.nonNull(key)) {
-            queryBuilder.append(" AND key = :key");
-            params.put("key", key.toUpperCase());
+        if (!Utils.isBlank(key)) {
+            queryBuilder.append(" AND key LIKE :key");
+            params.put("key", "%" + key.toUpperCase() + "%");
         }
 //        TODO add value filter
     }
