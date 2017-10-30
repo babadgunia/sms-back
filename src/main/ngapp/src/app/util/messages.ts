@@ -39,10 +39,6 @@ export const MESSAGES: any = {
 		en: 'Id',
 		ka: "იდენტიფიკატორი"
 	},
-	ID_SHORT: {
-		en: 'Id',
-		ka: "იდენტიფიკ."
-	},
 	KEY: {
 		en: 'Key',
 		ka: 'კოდი'
@@ -118,10 +114,6 @@ export const MESSAGES: any = {
 	USERNAME: {
 		en: 'Username',
 		ka: 'მომხმარებლის სახელი'
-	},
-	USERNAME_SHORT: {
-		en: 'Username',
-		ka: 'მომხ. სახელი'
 	},
 	USERS: {
 		en: 'Users',

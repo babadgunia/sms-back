@@ -1,39 +1,22 @@
 <div class="ui-g">
-	<div class="ui-g-1 {{searchFilterFieldWrapperClass}}">
-		<input pInputText type="number" #idField [placeholder]="getMessage('ID_SHORT')" [class]="searchFilterComponentClass"/>
-	</div>
-	<div class="ui-g-1 {{searchFilterFieldWrapperClass}}">
-		<input pInputText #usernameField [placeholder]="getMessage('USERNAME_SHORT')" [class]="searchFilterComponentClass"/>
-	</div>
-	<div class="ui-g-1 {{searchFilterFieldWrapperClass}}">
-		<input pInputText #emailField [placeholder]="getMessage('EMAIL')" [class]="searchFilterComponentClass"/>
-	</div>
-	<div class="ui-g-1 {{searchFilterFieldWrapperClass}}">
-		<input pInputText #nameField [placeholder]="getMessage('NAME')" [class]="searchFilterComponentClass"/>
-	</div>
-	<div class="ui-g-1 {{searchFilterFieldWrapperClass}}">
-		<p-dropdown #statusBox [placeholder]="getMessage('STATUS')" [options]="statuses" [autoWidth]="false" [styleClass]="searchFilterComponentClass"
-								(onChange)="resetDropdown($event.value, statusBox)"></p-dropdown>
-	</div>
-	<div class="ui-g-1 {{searchFilterFieldWrapperClass}}">
-		<p-dropdown #languageBox [placeholder]="getMessage('LANGUAGE')" [options]="languages" [autoWidth]="false" [styleClass]="searchFilterComponentClass"
-								(onChange)="resetDropdown($event.value, languageBox)"></p-dropdown>
-	</div>
-	<div class="ui-g-1 {{searchFilterFieldWrapperClass}}">
-		<p-dropdown #userGroupBox [placeholder]="getMessage('USER_GROUP')" [options]="userGroups" [autoWidth]="false" [styleClass]="searchFilterComponentClass"
-								(onChange)="resetDropdown($event.value, userGroupBox)"></p-dropdown>
-	</div>
+	<p-toolbar class="ui-g-12  ui-g-nopad">
+		<div class="ui-toolbar-group-left">
+			<input pInputText type="number" #idField [placeholder]="getMessage('ID')"/>
+			<input pInputText #usernameField [placeholder]="getMessage('USERNAME')"/>
+			<input pInputText #emailField [placeholder]="getMessage('EMAIL')"/>
+			<input pInputText #nameField [placeholder]="getMessage('NAME')"/>
+			<p-dropdown #statusBox [placeholder]="getMessage('STATUS')" [options]="statuses"></p-dropdown>
+			<p-dropdown #languageBox [placeholder]="getMessage('LANGUAGE')" [options]="languages"></p-dropdown>
+			<p-dropdown #userGroupBox [placeholder]="getMessage('USER_GROUP')" [options]="userGroups"></p-dropdown>
+		</div>
 
-	<div class="ui-g-3"></div>
-
-	<div class="ui-g-1 {{searchFilterButtonWrapperClass}}">
-		<button pButton [label]="getMessage('CLEAR')" [icon]="searchFilterClearButtonIcon" [class]="searchFilterComponentClass"
-						(click)="resetFilter(idField, usernameField, emailField, nameField, statusBox, languageBox, userGroupBox); getList()"></button>
-	</div>
-	<div class="ui-g-1 {{searchFilterButtonWrapperClass}}">
-		<button pButton [label]="getMessage('SEARCH')" [icon]="searchFilterSearchButtonIcon" [class]="searchFilterComponentClass"
-						(click)="initFilter(idField.value, usernameField.value, emailField.value, nameField.value, statusBox.value, languageBox.value, userGroupBox.value); getList()"></button>
-	</div>
+		<div class="ui-toolbar-group-right">
+			<button pButton [label]="getMessage('CLEAR')" [icon]="searchFilterClearButtonIcon"
+							(click)="resetFilter(idField, usernameField, emailField, nameField, statusBox, languageBox, userGroupBox); getList()"></button>
+			<button pButton [label]="getMessage('SEARCH')" [icon]="searchFilterSearchButtonIcon"
+							(click)="initFilter(idField.value, usernameField.value, emailField.value, nameField.value, statusBox.value, languageBox.value, userGroupBox.value); getList()"></button>
+		</div>
+	</p-toolbar>
 
 	<div class="ui-g-12 ui-g-nopad">
 		<p-dataTable [value]="entities" [immutable]="false" [lazy]="true" [paginator]="true" [totalRecords]="tableTotalRecords" [rows]="searchTableRows" [pageLinks]="searchTablePageLinks"
@@ -101,21 +84,21 @@
 		</div>
 		<div class="ui-g-6">
 			<p-dropdown #dialogStatusBox [placeholder]="getMessage('STATUS')" [options]="statuses" [(ngModel)]="entity.status" [autoWidth]="false" [styleClass]="formComponentClass"
-									(onChange)="resetDropdown($event.value, dialogStatusBox)" [disabled]="isView"></p-dropdown>
+									[disabled]="isView"></p-dropdown>
 		</div>
 		<div class="ui-g-6">
 			{{getMessage('LANGUAGE')}}
 		</div>
 		<div class="ui-g-6">
 			<p-dropdown #dialogLanguageBox [placeholder]="getMessage('LANGUAGE')" [options]="languages" [(ngModel)]="entity.language" [autoWidth]="false" [styleClass]="formComponentClass"
-									(onChange)="resetDropdown($event.value, dialogLanguageBox)" [disabled]="isView"></p-dropdown>
+									[disabled]="isView"></p-dropdown>
 		</div>
 		<div class="ui-g-6">
 			{{getMessage('USER_GROUP')}}
 		</div>
 		<div class="ui-g-6">
 			<p-dropdown #dialogUserGroupBox [placeholder]="getMessage('USER_GROUP')" [options]="userGroups" [(ngModel)]="entity.userGroup" [autoWidth]="false"
-									[styleClass]="formComponentClass" (onChange)="resetDropdown($event.value, dialogUserGroupBox)" [disabled]="isView"></p-dropdown>
+									[styleClass]="formComponentClass" [disabled]="isView"></p-dropdown>
 		</div>
 	</div>
 

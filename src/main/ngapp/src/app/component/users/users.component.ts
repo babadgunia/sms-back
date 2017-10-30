@@ -48,7 +48,7 @@ export class UsersComponent extends AbstractComponent implements OnInit {
 		super.ngOnInit();
 
 		// init user groups  for dropdown
-		this.userGroups.push({label: '', value: ''});
+		this.userGroups.push({label: null, value: null});
 
 		this.userGroupService.getListForSelection().subscribe((userGroups: UserGroup[]) => {
 			userGroups.forEach((userGroup: UserGroup) => {
@@ -63,8 +63,12 @@ export class UsersComponent extends AbstractComponent implements OnInit {
 		usernameField.value = '';
 		emailField.value = '';
 		nameField.value = '';
+
+		statusBox.value = null;
 		statusBox.selectedOption = null;
+		languageBox.value = null;
 		languageBox.selectedOption = null;
+		userGroupBox.value = null;
 		userGroupBox.selectedOption = null;
 
 		this.filter = {};

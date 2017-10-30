@@ -12,7 +12,6 @@ import {AuthenticationUtils} from "../util/authentication-utils";
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
 import {SelectItem} from "primeng/components/common/selectitem";
 // primeng > component
-import {Dropdown} from "primeng/components/dropdown/dropdown";
 // primeng > service
 import {ConfirmationService} from "primeng/components/common/confirmationservice";
 import {MessageService} from "primeng/components/common/messageservice";
@@ -22,12 +21,6 @@ import {isNumeric} from "rxjs/util/isNumeric";
 export abstract class AbstractComponent implements OnInit {
 
 	// search filter constants
-
-	protected readonly searchFilterComponentClass: string = "c-full-width";
-
-	protected readonly searchFilterFieldWrapperClass: string = "c-no-left-padding";
-
-	protected readonly searchFilterButtonWrapperClass: string = "c-no-right-padding";
 
 	protected readonly searchFilterClearButtonIcon: string = "fa-minus";
 
@@ -105,14 +98,14 @@ export abstract class AbstractComponent implements OnInit {
 
 	public ngOnInit(): void {
 		// init languages for dropdown
-		this.languages.push({label: '', value: ''});
+		this.languages.push({label: null, value: null});
 
 		this.languageTypes.forEach((language: string) => {
 			this.languages.push({label: this.getMessage('LANGUAGE_TYPE_' + language), value: language});
 		});
 
 		// init statuses for dropdown
-		this.statuses.push({label: '', value: ''});
+		this.statuses.push({label: null, value: null});
 
 		this.statusTypes.forEach((status: string) => {
 			this.statuses.push({label: this.getMessage('STATUS_TYPE_' + status), value: status});
@@ -182,13 +175,5 @@ export abstract class AbstractComponent implements OnInit {
 	// hides form dialog
 	protected hideDialog(): void {
 		this.showDialog = false;
-	}
-
-	// resets dropdown component if an empty value is selected
-	protected resetDropdown(value: any, box: Dropdown): void {
-		if (value === '') {
-			box.selectedOption = null;
-			box.value = null;
-		}
 	}
 }

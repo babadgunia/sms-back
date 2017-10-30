@@ -1,21 +1,15 @@
 <div class="ui-g">
-	<div class="ui-g-1 {{searchFilterFieldWrapperClass}}">
-		<input pInputText #keyField [placeholder]="getMessage('KEY')" [class]="searchFilterComponentClass"/>
-	</div>
-	<div class="ui-g-1 {{searchFilterFieldWrapperClass}}">
-		<input pInputText #valueField [placeholder]="getMessage('VALUE')" [class]="searchFilterComponentClass"/>
-	</div>
+	<p-toolbar class="ui-g-12  ui-g-nopad">
+		<div class="ui-toolbar-group-left">
+			<input pInputText #keyField [placeholder]="getMessage('KEY')"/>
+			<input pInputText #valueField [placeholder]="getMessage('VALUE')"/>
+		</div>
 
-	<div class="ui-g-8"></div>
-
-	<div class="ui-g-1 {{searchFilterButtonWrapperClass}}">
-		<button pButton [label]="getMessage('CLEAR')" [icon]="searchFilterClearButtonIcon" [class]="searchFilterComponentClass"
-						(click)="resetFilter(keyField, valueField); getList()"></button>
-	</div>
-	<div class="ui-g-1 {{searchFilterButtonWrapperClass}}">
-		<button pButton [label]="getMessage('SEARCH')" [icon]="searchFilterSearchButtonIcon" [class]="searchFilterComponentClass"
-						(click)="initFilter(keyField.value, valueField.value); getList()"></button>
-	</div>
+		<div class="ui-toolbar-group-right">
+			<button pButton [label]="getMessage('CLEAR')" [icon]="searchFilterClearButtonIcon" (click)="resetFilter(keyField, valueField); getList()"></button>
+			<button pButton [label]="getMessage('SEARCH')" [icon]="searchFilterSearchButtonIcon" (click)="initFilter(keyField.value, valueField.value); getList()"></button>
+		</div>
+	</p-toolbar>
 
 	<div class="ui-g-12 ui-g-nopad">
 		<p-dataTable [value]="entities" [immutable]="false" [lazy]="true" [paginator]="true" [totalRecords]="tableTotalRecords" [rows]="searchTableRows" [pageLinks]="searchTablePageLinks"

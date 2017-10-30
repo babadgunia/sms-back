@@ -27,7 +27,7 @@ export class LoginComponent {
 			if (token) {
 				AuthenticationUtils.login(this.model.username, token);
 
-				this.router.navigate(['users']);
+				this.router.navigate(['texts']);
 			} else {
 				this.loading = false;
 				this.error = 'Username or password is incorrect';
