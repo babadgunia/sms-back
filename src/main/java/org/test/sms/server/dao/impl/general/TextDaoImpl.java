@@ -17,9 +17,11 @@ import java.util.Map;
 public class TextDaoImpl extends AbstractDaoImpl<Text> implements TextDao {
 
     @Override
-    protected void initSubEntities(Text entity, LocalDateTime now) {
+    protected void initSubEntities(Text entity, LocalDateTime now, boolean isAdd) {
         entity.getValues().forEach(value -> {
-            value.setCreationTime(now);
+            if (isAdd) {
+                value.setCreationTime(now);
+            }
             value.setLastModifiedTime(now);
         });
     }
@@ -46,7 +48,12 @@ public class TextDaoImpl extends AbstractDaoImpl<Text> implements TextDao {
             queryBuilder.append(" AND key LIKE :key");
             params.put("key", "%" + key.toUpperCase() + "%");
         }
-//        TODO add value filter
+
+        String value = filter.getValue();
+        if (!Utils.isBlank(value)) {
+            queryBuilder.append(" AND EXISTS (SELECT new I18NText(id) FROM e.values WHERE UPPER(value) LIKE :value)");
+            params.put("value", "%" + value.toUpperCase() + "%");
+        }
     }
 
     @Override

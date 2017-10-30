@@ -40,18 +40,20 @@ public abstract class AbstractDaoImpl<T extends AbstractEntity> implements Abstr
         entity.setCreationTime(now);
         entity.setLastModifiedTime(now);
 
-        initSubEntities(entity, now);
+        initSubEntities(entity, now, true);
 
         em.persist(entity);
 
         return entity;
     }
 
-    protected void initSubEntities(T entity, LocalDateTime now) {}
+    protected void initSubEntities(T entity, LocalDateTime now, boolean isAdd) {}
 
     @Override
     public T update(T entity) throws AppException {
-        entity.setLastModifiedTime(LocalDateTime.now());
+        LocalDateTime now = LocalDateTime.now();
+        entity.setLastModifiedTime(now);
+        initSubEntities(entity, now, false);
 
         try {
             em.merge(entity);
@@ -85,7 +87,7 @@ public abstract class AbstractDaoImpl<T extends AbstractEntity> implements Abstr
 
     @Override
     public long getCount(AbstractFilter filter) {
-        StringBuilder queryBuilder = new StringBuilder("SELECT COUNT(id) FROM " + entityClassName);
+        StringBuilder queryBuilder = new StringBuilder("SELECT COUNT(id) FROM " + entityClassName + " e");
         Map<String, Object> params = new HashMap<>();
 
         if (Objects.nonNull(filter)) {
@@ -101,7 +103,7 @@ public abstract class AbstractDaoImpl<T extends AbstractEntity> implements Abstr
 
     @Override
     public List<T> getList(AbstractFilter filter) {
-        StringBuilder queryBuilder = new StringBuilder("SELECT new " + entityClassName + "(" + getSelect() + ") FROM " + entityClassName);
+        StringBuilder queryBuilder = new StringBuilder("SELECT new " + entityClassName + "(" + getSelect() + ") FROM " + entityClassName + " e");
         Map<String, Object> params = new HashMap<>();
 
         if (Objects.nonNull(filter)) {

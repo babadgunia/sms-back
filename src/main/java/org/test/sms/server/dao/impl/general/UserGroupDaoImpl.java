@@ -18,9 +18,11 @@ import java.util.Objects;
 public class UserGroupDaoImpl extends AbstractDaoImpl<UserGroup> implements UserGroupDao {
 
     @Override
-    protected void initSubEntities(UserGroup entity, LocalDateTime now) {
+    protected void initSubEntities(UserGroup entity, LocalDateTime now, boolean isAdd) {
         entity.getPermissions().forEach(permission -> {
-            permission.setCreationTime(now);
+            if (isAdd) {
+                permission.setCreationTime(now);
+            }
             permission.setLastModifiedTime(now);
         });
     }
