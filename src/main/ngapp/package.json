@@ -27,7 +27,7 @@
 		"core-js": "^2.5.1",
 		"font-awesome": "^4.7.0",
 		"fs-extra": "^4.0.2",
-		"primeng": "^4.2.2",
+		"primeng": "^4.3.0",
 		"rxjs": "^5.5.2",
 		"zone.js": "^0.8.18"
 	},
