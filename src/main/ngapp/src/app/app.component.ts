@@ -4,6 +4,8 @@ import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 // component
 import {AbstractComponent} from "./component/abstract-component";
+// service
+import {TextService} from "./service/text.service";
 // util
 import {AuthenticationUtils} from "./util/authentication-utils";
 import {Utils} from "./util/utils";
@@ -18,8 +20,8 @@ import {MessageService} from "primeng/components/common/messageservice";
 })
 export class AppComponent extends AbstractComponent {
 
-	public constructor(confirmationService: ConfirmationService, messageService: MessageService, private router: Router) {
-		super(confirmationService, messageService);
+	public constructor(textService: TextService, confirmationService: ConfirmationService, messageService: MessageService, private router: Router) {
+		super(textService, confirmationService, messageService);
 	}
 
 	private isLoggedIn(): boolean {

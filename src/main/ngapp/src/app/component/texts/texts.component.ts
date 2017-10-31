@@ -34,8 +34,8 @@ export class TextsComponent extends AbstractComponent {
 
 	private i18nValuesMap: Map<string, string> = new Map<string, string>();
 
-	public constructor(private service: TextService, confirmationService: ConfirmationService, messageService: MessageService) {
-		super(confirmationService, messageService);
+	public constructor(private service: TextService, textService: TextService, confirmationService: ConfirmationService, messageService: MessageService) {
+		super(textService, confirmationService, messageService);
 	}
 
 	private resetFilter(keyField: HTMLInputElement, valueField: HTMLInputElement): void {

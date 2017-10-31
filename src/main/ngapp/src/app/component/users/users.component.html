@@ -83,21 +83,21 @@
 			{{getMessage('STATUS')}}
 		</div>
 		<div class="ui-g-6">
-			<p-dropdown #dialogStatusBox [placeholder]="getMessage('STATUS')" [options]="statuses" [(ngModel)]="entity.status" [autoWidth]="false" [styleClass]="formComponentClass"
+			<p-dropdown [placeholder]="getMessage('STATUS')" [options]="statuses" [(ngModel)]="entity.status" [autoWidth]="false" [styleClass]="formComponentClass"
 									[disabled]="isView"></p-dropdown>
 		</div>
 		<div class="ui-g-6">
 			{{getMessage('LANGUAGE')}}
 		</div>
 		<div class="ui-g-6">
-			<p-dropdown #dialogLanguageBox [placeholder]="getMessage('LANGUAGE')" [options]="languages" [(ngModel)]="entity.language" [autoWidth]="false" [styleClass]="formComponentClass"
+			<p-dropdown [placeholder]="getMessage('LANGUAGE')" [options]="languages" [(ngModel)]="entity.language" [autoWidth]="false" [styleClass]="formComponentClass"
 									[disabled]="isView"></p-dropdown>
 		</div>
 		<div class="ui-g-6">
 			{{getMessage('USER_GROUP')}}
 		</div>
 		<div class="ui-g-6">
-			<p-dropdown #dialogUserGroupBox [placeholder]="getMessage('USER_GROUP')" [options]="userGroups" [(ngModel)]="entity.userGroup" [autoWidth]="false"
+			<p-dropdown [placeholder]="getMessage('USER_GROUP')" [options]="userGroups" [(ngModel)]="entity.userGroup" [autoWidth]="false"
 									[styleClass]="formComponentClass" [disabled]="isView"></p-dropdown>
 		</div>
 	</div>

@@ -51,7 +51,8 @@
 			{{getMessage('NAME')}}
 		</div>
 		<div class="ui-g-6">
-			<input pInputText [(ngModel)]="entity.name" [class]="formComponentClass" [disabled]="isView">
+			<p-dropdown [placeholder]="getMessage('NAME')" [options]="texts" [(ngModel)]="entity.name" [autoWidth]="false" [styleClass]="formComponentClass"
+									[disabled]="isView"></p-dropdown>
 		</div>
 		<div class="ui-g-6">
 			{{getMessage('PERMISSIONS')}}

@@ -1,5 +1,7 @@
 // angular > core
 import {OnInit} from "@angular/core";
+// model > entity
+import {Text} from "../model/entity/text";
 // model > filter
 import {AbstractFilter} from "../model/filter/abstract-filter";
 // model > enum
@@ -11,12 +13,12 @@ import {AuthenticationUtils} from "../util/authentication-utils";
 // primeng > model
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
 import {SelectItem} from "primeng/components/common/selectitem";
-// primeng > component
 // primeng > service
 import {ConfirmationService} from "primeng/components/common/confirmationservice";
 import {MessageService} from "primeng/components/common/messageservice";
 // rxjs
 import {isNumeric} from "rxjs/util/isNumeric";
+import {TextService} from "../service/text.service";
 
 export abstract class AbstractComponent implements OnInit {
 
@@ -78,6 +80,8 @@ export abstract class AbstractComponent implements OnInit {
 
 	protected readonly statuses: SelectItem[] = [];
 
+	protected readonly texts: SelectItem[] = [];
+
 	// table fields
 
 	protected tableTotalRecords: number = 0;
@@ -94,7 +98,7 @@ export abstract class AbstractComponent implements OnInit {
 
 	protected isView: boolean = false;
 
-	protected constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+	protected constructor(private textService: TextService, private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
 	public ngOnInit(): void {
 		// init languages for dropdown
@@ -110,6 +114,15 @@ export abstract class AbstractComponent implements OnInit {
 		this.statusTypes.forEach((status: string) => {
 			this.statuses.push({label: this.getMessage('STATUS_TYPE_' + status), value: status});
 		});
+
+		// init texts for dropdown
+		this.texts.push({label: null, value: null});
+
+		this.textService.getListForSelection().subscribe((texts: Text[]) => {
+			texts.forEach((text: Text) => {
+				this.texts.push({label: text.key, value: text});
+			});
+		}, (error: any) => this.handleError(error));
 	}
 
 	// check user permission
