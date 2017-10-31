@@ -1,7 +1,6 @@
 package org.test.sms.server.dao.impl.general;
 
 import org.springframework.stereotype.Repository;
-import org.test.sms.common.entity.general.I18NText;
 import org.test.sms.common.entity.general.Text;
 import org.test.sms.common.filter.general.AbstractFilter;
 import org.test.sms.common.filter.general.TextFilter;
@@ -28,8 +27,7 @@ public class TextDaoImpl extends AbstractDaoImpl<Text> implements TextDao {
 
     @Override
     protected Text init(Text entity) {
-        List<I18NText> values = entity.getValues();
-        values.size();
+        entity.getValues().size();
 
         return entity;
     }
