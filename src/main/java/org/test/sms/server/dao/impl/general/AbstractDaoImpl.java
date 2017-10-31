@@ -56,12 +56,7 @@ public abstract class AbstractDaoImpl<T extends AbstractEntity> implements Abstr
         initSubEntities(entity, now, false);
 
         try {
-            em.merge(entity);
-
-            TypedQuery<T> query = em.createQuery("SELECT new " + entityClassName + "(" + getSelect() + ") FROM " + entityClassName + " WHERE id = :id", entityClass);
-            query.setParameter("id", entity.getId());
-
-            return query.getSingleResult();
+            return em.merge(entity);
         } catch (OptimisticLockException e) {
             throw new AppException(ErrorCode.OBJECT_CHANGED);
         }
