@@ -32,11 +32,10 @@ export class LoginComponent {
 				this.loading = false;
 				this.error = 'Username or password is incorrect';
 			}
-		}, error => {
+		}, (error: any) => {
 			this.loading = false;
 			this.error = error;
 			console.error(error);
 		});
 	}
-
 }

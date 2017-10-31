@@ -1,5 +1,6 @@
 package org.test.sms.common.entity.general;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.test.sms.common.enums.general.LanguageType;
 
 import javax.persistence.Column;
@@ -29,6 +30,7 @@ public class I18NText extends AbstractEntity {
     private String value;
 
     @ManyToOne
+    @JsonIgnore
     private Text text;
 
     public I18NText() {}

@@ -1,5 +1,5 @@
 // angular > core
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 // model > entity
 import {Permission} from "../../model/entity/permission";
 import {UserGroup} from "../../model/entity/user-group";
@@ -29,7 +29,7 @@ import {MessageService} from "primeng/components/common/messageservice";
 	templateUrl: './user-groups.component.html',
 	styleUrls: ['./user-groups.component.css']
 })
-export class UserGroupsComponent extends AbstractComponent {
+export class UserGroupsComponent extends AbstractComponent implements OnInit {
 
 	private entities: UserGroup[];
 
@@ -45,6 +45,32 @@ export class UserGroupsComponent extends AbstractComponent {
 
 	public constructor(private service: UserGroupService, confirmationService: ConfirmationService, messageService: MessageService) {
 		super(confirmationService, messageService);
+	}
+
+	public ngOnInit(): void {
+		this.permissions = [];
+
+		SYSTEM_PERMISSIONS.forEach((systemPermission: SystemPermission) => {
+			let children: TreeNode[] = [];
+
+			systemPermission.types.forEach((permissionType: PermissionType) => {
+				let permissionTypeNode: TreeNode = {
+					label: PermissionType[permissionType],
+					data: PermissionType[permissionType]
+				};
+
+				children.push(permissionTypeNode);
+			});
+
+			let permissionGroupNode: TreeNode = {
+				label: PermissionGroupType[systemPermission.group],
+				data: PermissionGroupType[systemPermission.group],
+				expanded: true,
+				children: children
+			};
+
+			this.permissions.push(permissionGroupNode);
+		});
 	}
 
 	private resetFilter(idField: HTMLInputElement, nameField: HTMLInputElement): void {
@@ -73,40 +99,16 @@ export class UserGroupsComponent extends AbstractComponent {
 
 	private initAdd(): void {
 		this.entity = new UserGroup();
-		this.initPermissions();
-	}
 
-	private initPermissions(): void {
-		this.permissions = [];
 		this.selectedPermissions = [];
-
-		SYSTEM_PERMISSIONS.forEach((systemPermission: SystemPermission) => {
-			let children: TreeNode[] = [];
-
-			systemPermission.types.forEach((permissionType: PermissionType) => {
-				let permissionTypeNode: TreeNode = {
-					label: PermissionType[permissionType],
-					data: PermissionType[permissionType]
-				};
-
-				children.push(permissionTypeNode);
-			});
-
-			let permissionGroupNode: TreeNode = {
-				label: PermissionGroupType[systemPermission.group],
-				data: PermissionGroupType[systemPermission.group],
-				expanded: true,
-				children: children
-			};
-
-			this.permissions.push(permissionGroupNode);
-		});
 	}
 
 	private save(): void {
 		if (!this.isValidEntity()) {
 			return;
 		}
+
+		this.initSelectedPermissions();
 
 		if (this.isAdd) {
 			this.add();
@@ -123,17 +125,6 @@ export class UserGroupsComponent extends AbstractComponent {
 		}
 
 		return true;
-	}
-
-	private add(): void {
-		this.initSelectedPermissions();
-
-		this.service.add(this.entity).subscribe((entity: UserGroup) => {
-			this.entities.push(entity);
-			this.tableTotalRecords++;
-
-			this.showDialog = false;
-		}, (error: any) => super.handleError(error));
 	}
 
 	private initSelectedPermissions(): void {
@@ -162,9 +153,16 @@ export class UserGroupsComponent extends AbstractComponent {
 		});
 	}
 
-	private update(): void {
-		this.initSelectedPermissions();
+	private add(): void {
+		this.service.add(this.entity).subscribe((entity: UserGroup) => {
+			this.entities.push(entity);
+			this.tableTotalRecords++;
 
+			this.showDialog = false;
+		}, (error: any) => super.handleError(error));
+	}
+
+	private update(): void {
 		this.service.update(this.entity).subscribe((entity: UserGroup) => {
 			let index: number = this.entities.findIndex((element: UserGroup) => element.id === entity.id);
 			this.entities.splice(index, 1, entity);
@@ -187,7 +185,7 @@ export class UserGroupsComponent extends AbstractComponent {
 		this.service.get(entity.id).subscribe((entity: UserGroup) => {
 			this.entity = entity;
 
-			this.initPermissions();
+			this.selectedPermissions = [];
 
 			this.entity.permissions.forEach((permission: Permission) => {
 				this.permissions.forEach((permissionGroupNode: TreeNode) => {

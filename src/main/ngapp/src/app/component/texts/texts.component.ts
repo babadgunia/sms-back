@@ -1,6 +1,7 @@
 // angular > core
 import {Component} from "@angular/core";
 // model > entity
+import {I18nText} from "../../model/entity/i18n-text";
 import {Text} from "../../model/entity/text";
 // model > filter
 import {TextFilter} from "app/model/filter/text-filter";
@@ -28,6 +29,10 @@ export class TextsComponent extends AbstractComponent {
 	private entity: Text = new Text();
 
 	private filter: TextFilter;
+
+	// i18n values map
+
+	private i18nValuesMap: Map<string, string> = new Map<string, string>();
 
 	public constructor(private service: TextService, confirmationService: ConfirmationService, messageService: MessageService) {
 		super(confirmationService, messageService);
@@ -59,12 +64,31 @@ export class TextsComponent extends AbstractComponent {
 
 	private initAdd(): void {
 		this.entity = new Text();
+
+		this.initI18NValuesMap();
+	}
+
+	private initI18NValuesMap(): void {
+		this.i18nValuesMap = new Map<string, string>();
+
+		if (this.isAdd) {
+			this.languageTypes.forEach((language: string) => {
+				this.i18nValuesMap.set(language, null);
+			});
+		} else {
+			this.entity.values.forEach((value: I18nText) => {
+				this.i18nValuesMap.set(value.language, value.value);
+			});
+		}
 	}
 
 	private save(): void {
 		if (!this.isValidEntity()) {
 			return;
 		}
+
+		this.entity.key = this.entity.key.toUpperCase();
+		this.initI18NValues();
 
 		if (this.isAdd) {
 			this.add();
@@ -80,7 +104,37 @@ export class TextsComponent extends AbstractComponent {
 			return false;
 		}
 
+		let isBlankValue: boolean = true;
+		this.i18nValuesMap.forEach((value: string, key: string) => {
+			if (Utils.isBlank(value)) {
+				isBlankValue = false;
+			}
+		});
+
+		if (!isBlankValue) {
+			super.showErrorMessage('CANNOT_BE_EMPTY', this.getMessage('VALUE'));
+
+			return false;
+		}
+
 		return true;
+	}
+
+	private initI18NValues(): void {
+		if (this.isAdd) {
+			this.i18nValuesMap.forEach((value: string, key: string) => {
+				let i18nText: I18nText = new I18nText();
+
+				i18nText.language = key;
+				i18nText.value = value;
+
+				this.entity.values.push(i18nText);
+			});
+		} else {
+			this.entity.values.forEach((value: I18nText) => {
+				value.value = this.i18nValuesMap.get(value.language);
+			});
+		}
 	}
 
 	private add(): void {
@@ -114,6 +168,8 @@ export class TextsComponent extends AbstractComponent {
 	private get(entity: Text): void {
 		this.service.get(entity.id).subscribe((entity: Text) => {
 			this.entity = entity;
+
+			this.initI18NValuesMap();
 		}, (error: any) => super.handleError(error));
 	}
 

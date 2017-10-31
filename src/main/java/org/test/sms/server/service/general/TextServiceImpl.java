@@ -38,6 +38,8 @@ public class TextServiceImpl implements TextService {
 
     @Override
     public Text update(Text entity) throws AppException {
+        entity.getValues().forEach(value -> value.setText(entity));
+
         return dao.update(entity);
     }
 

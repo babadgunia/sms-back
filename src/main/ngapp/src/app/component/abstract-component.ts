@@ -68,9 +68,9 @@ export abstract class AbstractComponent implements OnInit {
 
 	// enum lists
 
-	protected readonly languageTypes: string[] = Object.keys(LanguageType).filter(key => !isNumeric(key));
+	protected readonly languageTypes: string[] = Object.keys(LanguageType).filter((key: string) => !isNumeric(key));
 
-	protected readonly statusTypes: string[] = Object.keys(StatusType).filter(key => !isNumeric(key));
+	protected readonly statusTypes: string[] = Object.keys(StatusType).filter((key: string) => !isNumeric(key));
 
 	// lists for dropdowns
 
