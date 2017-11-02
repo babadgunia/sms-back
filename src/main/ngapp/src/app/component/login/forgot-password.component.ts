@@ -1,9 +1,7 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../../service/authentication.service";
-import {AuthenticationUtils} from "../../util/authentication-utils";
 import {MessageService} from "primeng/components/common/messageservice";
-import {Message} from 'primeng/components/common/api';
 
 
 @Component({
@@ -25,7 +23,7 @@ export class ForgotPasswordComponent {
 	passwordRestorationLink() {
 		this.loading = true;
 
-		this.messageService.add({severity:'success', summary:'Password reset link was successfully sent to your mail' + this.model.emailUsername});
+		this.messageService.add({severity: 'success', summary: 'Password reset link was successfully sent to your mail' + this.model.emailUsername});
 
 		this.loading = false;
 	}
