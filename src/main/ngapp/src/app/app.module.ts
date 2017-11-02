@@ -3,7 +3,7 @@ import {NgModule} from "@angular/core";
 // angular > forms
 import {FormsModule} from "@angular/forms";
 // angular > http
-import {HttpModule} from "@angular/http";
+import {HttpClientModule} from "@angular/common/http";
 // angular > platform browser
 import {BrowserModule} from "@angular/platform-browser";
 // angular > platform browser > animations
@@ -53,7 +53,7 @@ import {MessageService} from "primeng/components/common/messageservice";
 		// angular > forms
 		FormsModule,
 		// angular > http
-		HttpModule,
+		HttpClientModule,
 		// angular > platform browser
 		BrowserModule,
 		// angular > platform browser > animations

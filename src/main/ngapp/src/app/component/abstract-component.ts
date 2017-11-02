@@ -1,6 +1,5 @@
 // angular > core
 import {OnInit} from "@angular/core";
-// model > entity
 // model > filter
 import {AbstractFilter} from "../model/filter/abstract-filter";
 // model > enum

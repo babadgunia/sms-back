@@ -1,5 +1,5 @@
 // angular > http
-import {Headers, RequestOptionsArgs} from "@angular/http";
+import {HttpHeaders} from "@angular/common/http";
 // util
 import {Utils} from "./utils";
 
@@ -15,22 +15,22 @@ export class AuthenticationUtils {
 	}
 
 	// gets http headers for rest api login call
-	public static getApiLoginHeaders(): RequestOptionsArgs {
-		let headers: Headers = new Headers({
+	public static getApiLoginHeaders(): HttpHeaders {
+		let headers: HttpHeaders = new HttpHeaders({
 			'Content-Type': 'application/json'
 		});
 
-		return {headers: headers};
+		return headers;
 	}
 
 	// gets http headers for rest api calls
-	public static getApiHeaders(): RequestOptionsArgs {
-		let headers: Headers = new Headers({
+	public static getApiHeaders(): HttpHeaders {
+		let headers: HttpHeaders = new HttpHeaders({
 			'Content-Type': 'application/json',
 			'Authorization': this.getApiToken()
 		});
 
-		return {headers: headers};
+		return headers;
 	}
 
 	// checks user permission

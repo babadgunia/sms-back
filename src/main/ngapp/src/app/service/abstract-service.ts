@@ -1,42 +1,43 @@
 // angular > http
-import {Http, RequestMethod, RequestOptionsArgs, Response} from "@angular/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+// model > enum
+import {HttpRequestType} from "../model/enum/http-request-type.enum";
 // util
 import {AuthenticationUtils} from "../util/authentication-utils";
 import {Utils} from "../util/utils";
 // rxjs
 import {Observable} from "rxjs/Observable";
-import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
 import "rxjs/add/observable/throw";
 
 export abstract class AbstractService {
 
-	protected constructor(private http: Http, private baseUrl: string) {}
+	protected constructor(private http: HttpClient, private baseUrl: string) {}
 
 	// makes an http request
-	protected httpRequest(requestMethod: RequestMethod, url: string, body?: any, headers?: RequestOptionsArgs): Observable<any> {
+	protected httpRequest(requestType: HttpRequestType, url: string, body?: any, headers?: HttpHeaders): Observable<any> {
 		url = !Utils.isBlank(url) ? `${this.baseUrl}/${url}` : this.baseUrl;
-		let requestOptions: RequestOptionsArgs = headers ? headers : AuthenticationUtils.getApiHeaders();
+		let requestOptions: HttpHeaders = headers ? headers : AuthenticationUtils.getApiHeaders();
 
-		switch (requestMethod) {
-			case RequestMethod.Get: {
-				return this.parseResponse(this.http.get(url, requestOptions));
+		switch (requestType) {
+			case HttpRequestType.GET: {
+				return this.parseResponse(this.http.get(url, {headers: requestOptions}));
 			}
-			case RequestMethod.Post: {
-				return this.parseResponse(this.http.post(url, body, requestOptions));
+			case HttpRequestType.POST: {
+				return this.parseResponse(this.http.post(url, body, {headers: requestOptions}));
 			}
-			case RequestMethod.Put: {
-				return this.handleError(this.http.put(url, body, requestOptions));
+			case HttpRequestType.PUT: {
+				return this.handleError(this.http.put(url, body, {headers: requestOptions}));
 			}
-			case RequestMethod.Delete: {
-				return this.handleError(this.http.delete(url, requestOptions));
+			case HttpRequestType.DELETE: {
+				return this.handleError(this.http.delete(url, {headers: requestOptions}));
 			}
 		}
 	}
 
 	// converts raw observable to json observable
-	private parseResponse(response: Observable<Response>): Observable<any> {
-		return this.handleError(response.map((response: Response) => response.json()));
+	private parseResponse(response: Observable<Object>): Observable<any> {
+		return this.handleError(response);
 	}
 
 	// handles service errors by throwing an error observable

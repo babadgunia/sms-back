@@ -1,7 +1,9 @@
 ﻿// angular > core
 import {Inject, Injectable} from "@angular/core";
 // angular > http
-import {Http, RequestMethod} from "@angular/http";
+import {HttpClient} from "@angular/common/http";
+// model > enum
+import {HttpRequestType} from "../model/enum/http-request-type.enum";
 // service
 import {AbstractService} from "./abstract-service";
 // util
@@ -13,11 +15,11 @@ import {Observable} from "rxjs/Observable";
 @Injectable()
 export class AuthenticationService extends AbstractService {
 
-	public constructor(http: Http, @Inject(AUTH_SERVICE_URL) baseUrl: string) {
+	public constructor(http: HttpClient, @Inject(AUTH_SERVICE_URL) baseUrl: string) {
 		super(http, baseUrl);
 	}
 
 	public login(username: string, password: string): Observable<any> {
-		return super.httpRequest(RequestMethod.Post, "", {username: username, password: password}, AuthenticationUtils.getApiLoginHeaders());
+		return super.httpRequest(HttpRequestType.POST, "", {username: username, password: password}, AuthenticationUtils.getApiLoginHeaders());
 	}
 }
