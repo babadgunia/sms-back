@@ -11,7 +11,6 @@ import {PermissionType} from "../../model/enum/permission-type.enum";
 // component
 import {AbstractComponent} from "../abstract-component";
 // service
-import {TextService} from "../../service/text.service";
 import {UserGroupService} from "../../service/user-group.service";
 // util
 import {SYSTEM_PERMISSIONS} from "../../util/system-permissions";
@@ -44,8 +43,8 @@ export class UserGroupsComponent extends AbstractComponent implements OnInit {
 
 	private selectedPermissions: TreeNode[];
 
-	public constructor(private service: UserGroupService, textService: TextService, confirmationService: ConfirmationService, messageService: MessageService) {
-		super(textService, confirmationService, messageService);
+	public constructor(private service: UserGroupService, confirmationService: ConfirmationService, messageService: MessageService) {
+		super(confirmationService, messageService);
 	}
 
 	public ngOnInit(): void {

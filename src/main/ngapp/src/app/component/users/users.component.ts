@@ -11,7 +11,6 @@ import {UserFilter} from "../../model/filter/user-filter";
 // component
 import {AbstractComponent} from "../abstract-component";
 // service
-import {TextService} from "../../service/text.service";
 import {UserGroupService} from "../../service/user-group.service";
 import {UserService} from "../../service/user.service";
 // util
@@ -41,9 +40,8 @@ export class UsersComponent extends AbstractComponent implements OnInit {
 
 	private filter: UserFilter;
 
-	public constructor(private service: UserService, private userGroupService: UserGroupService, textService: TextService, confirmationService: ConfirmationService,
-										 messageService: MessageService) {
-		super(textService, confirmationService, messageService);
+	public constructor(private service: UserService, private userGroupService: UserGroupService, confirmationService: ConfirmationService, messageService: MessageService) {
+		super(confirmationService, messageService);
 	}
 
 	public ngOnInit(): void {

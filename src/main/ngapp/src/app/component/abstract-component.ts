@@ -1,7 +1,6 @@
 // angular > core
 import {OnInit} from "@angular/core";
 // model > entity
-import {Text} from "../model/entity/text";
 // model > filter
 import {AbstractFilter} from "../model/filter/abstract-filter";
 // model > enum
@@ -18,7 +17,6 @@ import {ConfirmationService} from "primeng/components/common/confirmationservice
 import {MessageService} from "primeng/components/common/messageservice";
 // rxjs
 import {isNumeric} from "rxjs/util/isNumeric";
-import {TextService} from "../service/text.service";
 
 export abstract class AbstractComponent implements OnInit {
 
@@ -98,7 +96,7 @@ export abstract class AbstractComponent implements OnInit {
 
 	protected isView: boolean = false;
 
-	protected constructor(private textService: TextService, private confirmationService: ConfirmationService, private messageService: MessageService) {}
+	protected constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
 	public ngOnInit(): void {
 		// init languages for dropdown
@@ -116,13 +114,13 @@ export abstract class AbstractComponent implements OnInit {
 		});
 
 		// init texts for dropdown
-		this.texts.push({label: null, value: null});
-
-		this.textService.getListForSelection().subscribe((texts: Text[]) => {
-			texts.forEach((text: Text) => {
-				this.texts.push({label: text.key, value: text});
-			});
-		}, (error: any) => this.handleError(error));
+		// this.texts.push({label: null, value: null});
+		//
+		// this.textService.getTextListForSelection().subscribe((texts: Text[]) => {
+		// 	texts.forEach((text: Text) => {
+		// 		this.texts.push({label: text.key, value: text});
+		// 	});
+		// }, (error: any) => this.handleError(error));
 	}
 
 	// check user permission
