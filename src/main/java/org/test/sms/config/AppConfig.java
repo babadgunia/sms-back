@@ -21,7 +21,7 @@ import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.naming.InitialContext;
@@ -34,7 +34,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 @EnableAsync
 @PropertySource({"file:${catalina.home}/conf/jwt.properties", "file:${catalina.home}/conf/mail.properties"})
-public class AppConfig extends WebMvcConfigurerAdapter {
+public class AppConfig implements WebMvcConfigurer {
 
     private Logger log = LogManager.getLogger(AppConfig.class);
 
