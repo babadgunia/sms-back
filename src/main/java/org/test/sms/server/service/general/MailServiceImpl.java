@@ -2,12 +2,15 @@ package org.test.sms.server.service.general;
 
 import freemarker.template.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.test.sms.common.entity.general.User;
 import org.test.sms.common.service.general.MailService;
@@ -16,6 +19,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 @Service
 @Transactional
@@ -26,9 +30,32 @@ public class MailServiceImpl implements MailService {
 
     private Configuration freeMarkerConfiguration;
 
+//    @Bean
+//    public JavaMailSender javaMailSender() {
+//        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+//
+//        mailSender.setHost(environment.getRequiredProperty("mail.server"));
+//        mailSender.setPort(environment.getRequiredProperty("mail.port", Integer.class));
+//        mailSender.setUsername(environment.getRequiredProperty("mail.username"));
+//        mailSender.setPassword(environment.getRequiredProperty("mail.password"));
+//
+//        Properties properties = mailSender.getJavaMailProperties();
+//
+//        properties.put("mail.transport.protocol", environment.getRequiredProperty("mail.transport.protocol"));
+//        properties.put("mail.smtp.auth", environment.getRequiredProperty("mail.smtp.auth"));
+//        properties.put("mail.smtp.starttls.enable", environment.getRequiredProperty("mail.smtp.starttls.enable"));
+//
+//        return mailSender;
+//    }
+//
+//    @Bean
+//    public FreeMarkerConfigurationFactoryBean getFreeMarkerConfiguration() {
+//        return new FreeMarkerConfigurationFactoryBean();
+//    }
+
     @Autowired
-    public MailServiceImpl(JavaMailSender mailSender, Configuration freeMarkerConfiguration) {
-        this.mailSender = mailSender;
+    public MailServiceImpl( Configuration freeMarkerConfiguration) {
+        this.mailSender = new JavaMailSenderImpl();
 
         this.freeMarkerConfiguration = freeMarkerConfiguration;
         this.freeMarkerConfiguration.setClassForTemplateLoading(getClass(), "/email");
