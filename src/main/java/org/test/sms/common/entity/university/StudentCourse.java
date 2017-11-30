@@ -25,7 +25,7 @@ import java.util.Map;
 @SequenceGenerator(name = StudentCourse.SEQUENCE_NAME, sequenceName = StudentCourse.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
 public class StudentCourse extends AbstractEntity {
 
-    static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "STUDENT_COURSE" + SEQUENCE_SUFFIX;
+    static final String SEQUENCE_NAME = "STUDENT_COURSE" + SEQUENCE_SUFFIX;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)

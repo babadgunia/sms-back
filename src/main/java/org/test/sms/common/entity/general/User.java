@@ -16,10 +16,10 @@ import javax.persistence.Table;
 
 @Entity
 @SequenceGenerator(name = User.SEQUENCE_NAME, sequenceName = User.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
-@Table(name = "SMSUSER")
+@Table(name = "APPLICATION_USER")
 public class User extends AbstractEntity {
 
-    static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "USER" + SEQUENCE_SUFFIX;
+    static final String SEQUENCE_NAME = "APPLICATION_USER" + SEQUENCE_SUFFIX;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)

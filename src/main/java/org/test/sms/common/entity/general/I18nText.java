@@ -14,10 +14,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-@SequenceGenerator(name = I18NText.SEQUENCE_NAME, sequenceName = I18NText.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
-public class I18NText extends AbstractEntity {
+@SequenceGenerator(name = I18nText.SEQUENCE_NAME, sequenceName = I18nText.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
+public class I18nText extends AbstractEntity {
 
-    static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "I18N_TEXT" + SEQUENCE_SUFFIX;
+    static final String SEQUENCE_NAME = "I18n_TEXT" + SEQUENCE_SUFFIX;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
@@ -33,9 +33,9 @@ public class I18NText extends AbstractEntity {
     @JsonIgnore
     private Text text;
 
-    public I18NText() {}
+    public I18nText() {}
 
-    public I18NText(long id) {
+    public I18nText(long id) {
         super(id);
     }
 

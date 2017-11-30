@@ -26,7 +26,7 @@ export class TextsComponent extends AbstractComponent {
 
 	private entities: Text[];
 
-	private entity: Text = new Text();
+	private entity: Text = <Text>{};
 
 	private filter: TextFilter;
 

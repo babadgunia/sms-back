@@ -11,8 +11,6 @@ public abstract class AbstractEntity implements Serializable {
 
     public static final int SEQUENCE_ALLOCATION_SIZE = 1;
 
-    protected static final String SEQUENCE_PREFIX = "SMS_";
-
     protected static final String SEQUENCE_SUFFIX = "_SEQ";
 
     protected static final int STRING_FIELD_MAX_LENGTH = 4000;

@@ -16,7 +16,7 @@ import java.util.List;
 @SequenceGenerator(name = Module.SEQUENCE_NAME, sequenceName = Module.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
 public class Module extends AbstractEntity {
 
-    static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "MODULE" + SEQUENCE_SUFFIX;
+    static final String SEQUENCE_NAME = "MODULE" + SEQUENCE_SUFFIX;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)

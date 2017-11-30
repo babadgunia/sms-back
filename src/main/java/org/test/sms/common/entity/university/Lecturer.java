@@ -18,7 +18,7 @@ import java.util.List;
 @SequenceGenerator(name = Lecturer.SEQUENCE_NAME, sequenceName = Lecturer.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
 public class Lecturer extends UniversityMember {
 
-    static final String SEQUENCE_NAME = AbstractEntity.SEQUENCE_PREFIX + "LECTURER" + AbstractEntity.SEQUENCE_SUFFIX;
+    static final String SEQUENCE_NAME = "LECTURER" + AbstractEntity.SEQUENCE_SUFFIX;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)

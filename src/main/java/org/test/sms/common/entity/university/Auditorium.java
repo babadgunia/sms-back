@@ -16,7 +16,7 @@ import java.util.List;
 @SequenceGenerator(name = Auditorium.SEQUENCE_NAME, sequenceName = Auditorium.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
 public class Auditorium extends AbstractEntity {
 
-    static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "AUDITORIUM" + SEQUENCE_SUFFIX;
+    static final String SEQUENCE_NAME = "AUDITORIUM" + SEQUENCE_SUFFIX;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)

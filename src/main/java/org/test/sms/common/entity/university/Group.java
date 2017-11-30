@@ -19,10 +19,10 @@ import java.util.List;
 
 @Entity
 @SequenceGenerator(name = Group.SEQUENCE_NAME, sequenceName = Group.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
-@Table(name = "SMSGROUP")
+@Table(name = "UNIVERSITY_GROUP")
 public class Group extends AbstractEntity {
 
-    static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "GROUP" + SEQUENCE_SUFFIX;
+    static final String SEQUENCE_NAME = "UNIVERSITY_GROUP" + SEQUENCE_SUFFIX;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)

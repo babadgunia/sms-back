@@ -14,7 +14,7 @@ import javax.persistence.SequenceGenerator;
 @SequenceGenerator(name = ExceptionLog.SEQUENCE_NAME, sequenceName = ExceptionLog.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
 public class ExceptionLog extends AbstractEntity {
 
-    static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "EXCEPTION_LOG" + SEQUENCE_SUFFIX;
+    static final String SEQUENCE_NAME = "EXCEPTION_LOG" + SEQUENCE_SUFFIX;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)

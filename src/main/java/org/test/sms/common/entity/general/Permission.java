@@ -20,7 +20,7 @@ import java.util.List;
 @SequenceGenerator(name = Permission.SEQUENCE_NAME, sequenceName = Permission.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
 public class Permission extends AbstractEntity {
 
-    static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "PERMISSION" + SEQUENCE_SUFFIX;
+    static final String SEQUENCE_NAME = "PERMISSION" + SEQUENCE_SUFFIX;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)

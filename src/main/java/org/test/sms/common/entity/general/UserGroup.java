@@ -14,7 +14,7 @@ import java.util.List;
 @SequenceGenerator(name = UserGroup.SEQUENCE_NAME, sequenceName = UserGroup.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
 public class UserGroup extends AbstractEntity {
 
-    static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "USER_GROUP" + SEQUENCE_SUFFIX;
+    static final String SEQUENCE_NAME = "USER_GROUP" + SEQUENCE_SUFFIX;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)

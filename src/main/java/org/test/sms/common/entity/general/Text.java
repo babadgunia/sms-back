@@ -15,7 +15,7 @@ import java.util.List;
 @SequenceGenerator(name = Text.SEQUENCE_NAME, sequenceName = Text.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
 public class Text extends AbstractEntity {
 
-    static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "TEXT" + SEQUENCE_SUFFIX;
+    static final String SEQUENCE_NAME = "TEXT" + SEQUENCE_SUFFIX;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
@@ -25,7 +25,7 @@ public class Text extends AbstractEntity {
     private String key;
 
     @OneToMany(mappedBy = "text", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<I18NText> values = new ArrayList<>();
+    private List<I18nText> values = new ArrayList<>();
 
     public Text() {}
 
@@ -57,11 +57,11 @@ public class Text extends AbstractEntity {
         this.key = key;
     }
 
-    public List<I18NText> getValues() {
+    public List<I18nText> getValues() {
         return values;
     }
 
-    public void setValues(List<I18NText> values) {
+    public void setValues(List<I18nText> values) {
         this.values = values;
     }
 }

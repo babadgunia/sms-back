@@ -16,7 +16,7 @@ import java.util.List;
 @SequenceGenerator(name = Building.SEQUENCE_NAME, sequenceName = Building.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
 public class Building extends AbstractEntity {
 
-    static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "BUILDING" + SEQUENCE_SUFFIX;
+    static final String SEQUENCE_NAME = "BUILDING" + SEQUENCE_SUFFIX;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)

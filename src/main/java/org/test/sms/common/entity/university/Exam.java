@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @SequenceGenerator(name = Exam.SEQUENCE_NAME, sequenceName = Exam.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
 public class Exam extends AbstractEntity {
 
-    static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "EXAM" + SEQUENCE_SUFFIX;
+    static final String SEQUENCE_NAME = "EXAM" + SEQUENCE_SUFFIX;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)

@@ -15,7 +15,7 @@ import javax.persistence.SequenceGenerator;
 @SequenceGenerator(name = ActionLog.SEQUENCE_NAME, sequenceName = ActionLog.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
 public class ActionLog extends AbstractEntity {
 
-    static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "ACTION_LOG" + SEQUENCE_SUFFIX;
+    static final String SEQUENCE_NAME = "ACTION_LOG" + SEQUENCE_SUFFIX;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
