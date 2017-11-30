@@ -39,7 +39,7 @@ public class Permission extends AbstractEntity {
     private UserGroup userGroup;
 
     @ElementCollection
-    @Enumerated(EnumType.STRING)
+    @Getter @Setter @Enumerated(EnumType.STRING)
     private List<PermissionType> permissionTypes = new ArrayList<>();
 
     public Permission(long id) {
