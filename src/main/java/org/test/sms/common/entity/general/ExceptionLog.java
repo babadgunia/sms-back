@@ -1,6 +1,7 @@
 package org.test.sms.common.entity.general;
 
-import org.hibernate.annotations.Type;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,9 +13,10 @@ import javax.persistence.SequenceGenerator;
 
 @Entity
 @SequenceGenerator(name = ExceptionLog.SEQUENCE_NAME, sequenceName = ExceptionLog.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
+@Getter @Setter
 public class ExceptionLog extends AbstractEntity {
 
-    static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "EXCEPTION_LOG" + SEQUENCE_SUFFIX;
+    static final String SEQUENCE_NAME = "EXCEPTION_LOG" + SEQUENCE_SUFFIX;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
@@ -24,32 +26,5 @@ public class ExceptionLog extends AbstractEntity {
     private String message;
 
     @Lob
-    @Type(type = "org.hibernate.type.TextType")
     private String stackTrace;
-
-    @Override
-    public long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getStackTrace() {
-        return stackTrace;
-    }
-
-    public void setStackTrace(String stackTrace) {
-        this.stackTrace = stackTrace;
-    }
 }

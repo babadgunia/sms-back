@@ -1,5 +1,8 @@
 package org.test.sms.common.entity.university;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.test.sms.common.entity.general.AbstractEntity;
 import org.test.sms.common.enums.university.SemesterType;
 
@@ -21,9 +24,11 @@ import java.util.List;
 
 @Entity
 @SequenceGenerator(name = Course.SEQUENCE_NAME, sequenceName = Course.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
+@NoArgsConstructor
+@Getter @Setter
 public class Course extends AbstractEntity {
 
-    static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "COURSE" + SEQUENCE_SUFFIX;
+    static final String SEQUENCE_NAME = "COURSE" + SEQUENCE_SUFFIX;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
@@ -54,96 +59,13 @@ public class Course extends AbstractEntity {
     @ManyToMany
     private List<Course> prerequisites = new ArrayList<>();
 
-    public Course() {}
-
     public Course(long id) {
         super(id);
     }
 
     public Course(long id, String name) {
-        this.id = id;
+        this(id);
+
         this.name = name;
-    }
-
-    @Override
-    public long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getNumCredits() {
-        return numCredits;
-    }
-
-    public void setNumCredits(Integer numCredits) {
-        this.numCredits = numCredits;
-    }
-
-    public Integer getMaxStudents() {
-        return maxStudents;
-    }
-
-    public void setMaxStudents(Integer maxStudents) {
-        this.maxStudents = maxStudents;
-    }
-
-    public byte[] getSyllabus() {
-        return syllabus;
-    }
-
-    public void setSyllabus(byte[] syllabus) {
-        this.syllabus = syllabus;
-    }
-
-    public Faculty getFaculty() {
-        return faculty;
-    }
-
-    public void setFaculty(Faculty faculty) {
-        this.faculty = faculty;
-    }
-
-    public List<SemesterType> getSemesters() {
-        return semesters;
-    }
-
-    public void setSemesters(List<SemesterType> semesters) {
-        this.semesters = semesters;
-    }
-
-    public List<Module> getModules() {
-        return modules;
-    }
-
-    public void setModules(List<Module> modules) {
-        this.modules = modules;
-    }
-
-    public List<Exam> getExams() {
-        return exams;
-    }
-
-    public void setExams(List<Exam> exams) {
-        this.exams = exams;
-    }
-
-    public List<Course> getPrerequisites() {
-        return prerequisites;
-    }
-
-    public void setPrerequisites(List<Course> prerequisites) {
-        this.prerequisites = prerequisites;
     }
 }

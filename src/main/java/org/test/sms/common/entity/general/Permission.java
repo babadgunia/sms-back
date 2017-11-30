@@ -1,6 +1,9 @@
 package org.test.sms.common.entity.general;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.test.sms.common.enums.general.PermissionGroupType;
 import org.test.sms.common.enums.general.PermissionType;
 
@@ -18,9 +21,11 @@ import java.util.List;
 
 @Entity
 @SequenceGenerator(name = Permission.SEQUENCE_NAME, sequenceName = Permission.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
+@NoArgsConstructor
+@Getter @Setter
 public class Permission extends AbstractEntity {
 
-    static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "PERMISSION" + SEQUENCE_SUFFIX;
+    static final String SEQUENCE_NAME = "PERMISSION" + SEQUENCE_SUFFIX;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
@@ -37,43 +42,7 @@ public class Permission extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private List<PermissionType> permissionTypes = new ArrayList<>();
 
-    public Permission() {}
-
     public Permission(long id) {
         super(id);
-    }
-
-    @Override
-    public long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public PermissionGroupType getPermissionGroup() {
-        return permissionGroup;
-    }
-
-    public void setPermissionGroup(PermissionGroupType permissionGroup) {
-        this.permissionGroup = permissionGroup;
-    }
-
-    public UserGroup getUserGroup() {
-        return userGroup;
-    }
-
-    public void setUserGroup(UserGroup userGroup) {
-        this.userGroup = userGroup;
-    }
-
-    public List<PermissionType> getPermissionTypes() {
-        return permissionTypes;
-    }
-
-    public void setPermissionTypes(List<PermissionType> permissionTypes) {
-        this.permissionTypes = permissionTypes;
     }
 }

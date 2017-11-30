@@ -1,5 +1,7 @@
 package org.test.sms.common.entity.general;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.test.sms.common.enums.general.ActionType;
 
 import javax.persistence.Column;
@@ -13,9 +15,10 @@ import javax.persistence.SequenceGenerator;
 
 @Entity
 @SequenceGenerator(name = ActionLog.SEQUENCE_NAME, sequenceName = ActionLog.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
+@Getter @Setter
 public class ActionLog extends AbstractEntity {
 
-    static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "ACTION_LOG" + SEQUENCE_SUFFIX;
+    static final String SEQUENCE_NAME = "ACTION_LOG" + SEQUENCE_SUFFIX;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
@@ -30,46 +33,4 @@ public class ActionLog extends AbstractEntity {
     private String username;
 
     private String ipAddress;
-
-    @Override
-    public long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public ActionType getType() {
-        return type;
-    }
-
-    public void setType(ActionType type) {
-        this.type = type;
-    }
-
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getIpAddress() {
-        return ipAddress;
-    }
-
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
-    }
 }

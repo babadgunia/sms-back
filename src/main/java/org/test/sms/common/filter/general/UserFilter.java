@@ -1,10 +1,13 @@
 package org.test.sms.common.filter.general;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.test.sms.common.enums.general.LanguageType;
 import org.test.sms.common.enums.general.StatusType;
 
 import java.util.List;
 
+@Getter @Setter
 public class UserFilter extends AbstractFilter {
 
     private Long id;
@@ -20,60 +23,4 @@ public class UserFilter extends AbstractFilter {
     private LanguageType language;
 
     private Long userGroupId;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public List<String> getNames() {
-        return names;
-    }
-
-    public void setNames(List<String> names) {
-        this.names = names;
-    }
-
-    public StatusType getStatus() {
-        return status;
-    }
-
-    public void setStatus(StatusType status) {
-        this.status = status;
-    }
-
-    public LanguageType getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(LanguageType language) {
-        this.language = language;
-    }
-
-    public Long getUserGroupId() {
-        return userGroupId;
-    }
-
-    public void setUserGroupId(Long userGroupId) {
-        this.userGroupId = userGroupId;
-    }
 }

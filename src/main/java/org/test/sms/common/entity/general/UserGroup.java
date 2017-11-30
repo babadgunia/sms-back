@@ -1,5 +1,9 @@
 package org.test.sms.common.entity.general;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,9 +16,11 @@ import java.util.List;
 
 @Entity
 @SequenceGenerator(name = UserGroup.SEQUENCE_NAME, sequenceName = UserGroup.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
+@NoArgsConstructor
+@Getter @Setter
 public class UserGroup extends AbstractEntity {
 
-    static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "USER_GROUP" + SEQUENCE_SUFFIX;
+    static final String SEQUENCE_NAME = "USER_GROUP" + SEQUENCE_SUFFIX;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
@@ -24,8 +30,6 @@ public class UserGroup extends AbstractEntity {
 
     @OneToMany(mappedBy = "userGroup", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Permission> permissions = new ArrayList<>();
-
-    public UserGroup() {}
 
     public UserGroup(long id) {
         super(id);
@@ -39,31 +43,5 @@ public class UserGroup extends AbstractEntity {
         this(id);
 
         this.name = name;
-    }
-
-    @Override
-    public long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Permission> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(List<Permission> permissions) {
-        this.permissions = permissions;
     }
 }

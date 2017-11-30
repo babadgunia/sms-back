@@ -1,5 +1,8 @@
 package org.test.sms.common.entity.university;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.test.sms.common.entity.general.AbstractEntity;
 
 import javax.persistence.CascadeType;
@@ -14,9 +17,11 @@ import java.util.List;
 
 @Entity
 @SequenceGenerator(name = Faculty.SEQUENCE_NAME, sequenceName = Faculty.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
+@NoArgsConstructor
+@Getter @Setter
 public class Faculty extends AbstractEntity {
 
-    static final String SEQUENCE_NAME = SEQUENCE_PREFIX + "FACULTY" + SEQUENCE_SUFFIX;
+    static final String SEQUENCE_NAME = "FACULTY" + SEQUENCE_SUFFIX;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
@@ -27,40 +32,13 @@ public class Faculty extends AbstractEntity {
     @OneToMany(mappedBy = "faculty", cascade = CascadeType.MERGE)
     private List<Course> courses = new ArrayList<>();
 
-    public Faculty() {}
-
     public Faculty(long id) {
         super(id);
     }
 
     public Faculty(long id, String name) {
-        this.id = id;
+        this(id);
+
         this.name = name;
-    }
-
-    @Override
-    public long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Course> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
     }
 }
