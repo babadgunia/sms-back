@@ -1,5 +1,8 @@
 package org.test.sms.common.entity.university;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.test.sms.common.entity.general.AbstractEntity;
 
 import javax.persistence.Entity;
@@ -14,6 +17,8 @@ import java.util.List;
 
 @Entity
 @SequenceGenerator(name = Module.SEQUENCE_NAME, sequenceName = Module.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
+@NoArgsConstructor
+@Getter @Setter
 public class Module extends AbstractEntity {
 
     static final String SEQUENCE_NAME = "MODULE" + SEQUENCE_SUFFIX;
@@ -32,51 +37,7 @@ public class Module extends AbstractEntity {
     @OneToMany(mappedBy = "module")
     private List<Group> groups = new ArrayList<>();
 
-    public Module() {}
-
     public Module(long id) {
         super(id);
-    }
-
-    @Override
-    public long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getMaxGrade() {
-        return maxGrade;
-    }
-
-    public void setMaxGrade(Integer maxGrade) {
-        this.maxGrade = maxGrade;
-    }
-
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-    }
-
-    public List<Group> getGroups() {
-        return groups;
-    }
-
-    public void setGroups(List<Group> groups) {
-        this.groups = groups;
     }
 }

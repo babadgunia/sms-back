@@ -1,26 +1,14 @@
 package org.test.sms.common.filter.general;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
+@Getter @Setter
 public class UserGroupFilter extends AbstractFilter {
 
     private Long id;
 
     private List<String> names;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public List<String> getNames() {
-        return names;
-    }
-
-    public void setNames(List<String> names) {
-        this.names = names;
-    }
 }

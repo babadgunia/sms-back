@@ -1,5 +1,8 @@
 package org.test.sms.common.entity.university;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.test.sms.common.entity.general.AbstractEntity;
 
 import javax.persistence.Entity;
@@ -20,6 +23,8 @@ import java.util.List;
 @Entity
 @SequenceGenerator(name = Group.SEQUENCE_NAME, sequenceName = Group.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
 @Table(name = "UNIVERSITY_GROUP")
+@NoArgsConstructor
+@Getter @Setter
 public class Group extends AbstractEntity {
 
     static final String SEQUENCE_NAME = "UNIVERSITY_GROUP" + SEQUENCE_SUFFIX;
@@ -49,83 +54,7 @@ public class Group extends AbstractEntity {
     @ManyToMany
     private List<Student> students = new ArrayList<>();
 
-    public Group() {}
-
     public Group(long id) {
         super(id);
-    }
-
-    @Override
-    public long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public int getGroupNumber() {
-        return groupNumber;
-    }
-
-    public void setGroupNumber(int groupNumber) {
-        this.groupNumber = groupNumber;
-    }
-
-    public DayOfWeek getDay() {
-        return day;
-    }
-
-    public void setDay(DayOfWeek day) {
-        this.day = day;
-    }
-
-    public LocalTime getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public LocalTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalTime endTime) {
-        this.endTime = endTime;
-    }
-
-    public Module getModule() {
-        return module;
-    }
-
-    public void setModule(Module module) {
-        this.module = module;
-    }
-
-    public Auditorium getAuditorium() {
-        return auditorium;
-    }
-
-    public void setAuditorium(Auditorium auditorium) {
-        this.auditorium = auditorium;
-    }
-
-    public Lecturer getLecturer() {
-        return lecturer;
-    }
-
-    public void setLecturer(Lecturer lecturer) {
-        this.lecturer = lecturer;
-    }
-
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
     }
 }

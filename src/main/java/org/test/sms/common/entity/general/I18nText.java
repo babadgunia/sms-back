@@ -1,6 +1,9 @@
 package org.test.sms.common.entity.general;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.test.sms.common.enums.general.LanguageType;
 
 import javax.persistence.Column;
@@ -15,9 +18,11 @@ import javax.persistence.SequenceGenerator;
 
 @Entity
 @SequenceGenerator(name = I18nText.SEQUENCE_NAME, sequenceName = I18nText.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
+@NoArgsConstructor
+@Getter @Setter
 public class I18nText extends AbstractEntity {
 
-    static final String SEQUENCE_NAME = "I18n_TEXT" + SEQUENCE_SUFFIX;
+    static final String SEQUENCE_NAME = "I18N_TEXT" + SEQUENCE_SUFFIX;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
@@ -33,43 +38,7 @@ public class I18nText extends AbstractEntity {
     @JsonIgnore
     private Text text;
 
-    public I18nText() {}
-
     public I18nText(long id) {
         super(id);
-    }
-
-    @Override
-    public long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public LanguageType getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(LanguageType language) {
-        this.language = language;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public Text getText() {
-        return text;
-    }
-
-    public void setText(Text text) {
-        this.text = text;
     }
 }

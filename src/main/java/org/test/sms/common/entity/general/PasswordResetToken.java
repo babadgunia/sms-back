@@ -1,5 +1,9 @@
 package org.test.sms.common.entity.general;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,6 +14,8 @@ import javax.persistence.OneToOne;
 import java.util.Date;
 
 @Entity
+@NoArgsConstructor
+@Getter @Setter
 public class PasswordResetToken {
 
     private static final int EXPIRATION = 60 * 24;
@@ -25,8 +31,6 @@ public class PasswordResetToken {
     private User user;
 
     private Date expiryDate;
-
-    public PasswordResetToken() {}
 
     public PasswordResetToken(String token, User user) {
         this.token = token;

@@ -1,5 +1,10 @@
 package org.test.sms.common.entity.general;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 import java.io.Serializable;
@@ -7,6 +12,8 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @MappedSuperclass
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter @Setter
 public abstract class AbstractEntity implements Serializable {
 
     public static final int SEQUENCE_ALLOCATION_SIZE = 1;
@@ -22,34 +29,8 @@ public abstract class AbstractEntity implements Serializable {
     @Version
     private int version;
 
-    protected AbstractEntity() {}
-
     protected AbstractEntity(long id) {
         setId(id);
-    }
-
-    public LocalDateTime getCreationTime() {
-        return creationTime;
-    }
-
-    public void setCreationTime(LocalDateTime creationTime) {
-        this.creationTime = creationTime;
-    }
-
-    public LocalDateTime getLastModifiedTime() {
-        return lastModifiedTime;
-    }
-
-    public void setLastModifiedTime(LocalDateTime lastModifiedTime) {
-        this.lastModifiedTime = lastModifiedTime;
-    }
-
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
     }
 
     public abstract long getId();

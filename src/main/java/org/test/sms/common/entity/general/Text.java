@@ -1,5 +1,9 @@
 package org.test.sms.common.entity.general;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +17,8 @@ import java.util.List;
 
 @Entity
 @SequenceGenerator(name = Text.SEQUENCE_NAME, sequenceName = Text.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
+@NoArgsConstructor
+@Getter @Setter
 public class Text extends AbstractEntity {
 
     static final String SEQUENCE_NAME = "TEXT" + SEQUENCE_SUFFIX;
@@ -27,8 +33,6 @@ public class Text extends AbstractEntity {
     @OneToMany(mappedBy = "text", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<I18nText> values = new ArrayList<>();
 
-    public Text() {}
-
     public Text(long id) {
         super(id);
     }
@@ -37,31 +41,5 @@ public class Text extends AbstractEntity {
         this(id);
 
         this.key = key;
-    }
-
-    @Override
-    public long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public List<I18nText> getValues() {
-        return values;
-    }
-
-    public void setValues(List<I18nText> values) {
-        this.values = values;
     }
 }

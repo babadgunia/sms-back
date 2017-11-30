@@ -1,5 +1,8 @@
 package org.test.sms.common.entity.university;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.test.sms.common.entity.general.AbstractEntity;
 import org.test.sms.common.enums.university.SemesterType;
 
@@ -23,6 +26,8 @@ import java.util.Map;
 
 @Entity
 @SequenceGenerator(name = StudentCourse.SEQUENCE_NAME, sequenceName = StudentCourse.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
+@NoArgsConstructor
+@Getter @Setter
 public class StudentCourse extends AbstractEntity {
 
     static final String SEQUENCE_NAME = "STUDENT_COURSE" + SEQUENCE_SUFFIX;
@@ -55,83 +60,7 @@ public class StudentCourse extends AbstractEntity {
     @MapKeyJoinColumn(name = "Module_Id", referencedColumnName = "ID")
     private Map<Module, Group> groups = new HashMap<>();
 
-    public StudentCourse() {}
-
     public StudentCourse(long id) {
         super(id);
-    }
-
-    @Override
-    public long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public SemesterType getSemester() {
-        return semester;
-    }
-
-    public void setSemester(SemesterType semester) {
-        this.semester = semester;
-    }
-
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public int getAttendanceGrade() {
-        return attendanceGrade;
-    }
-
-    public void setAttendanceGrade(int attendanceGrade) {
-        this.attendanceGrade = attendanceGrade;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-    }
-
-    public List<ModuleGrade> getModuleGrades() {
-        return moduleGrades;
-    }
-
-    public void setModuleGrades(List<ModuleGrade> moduleGrades) {
-        this.moduleGrades = moduleGrades;
-    }
-
-    public List<ExamGrade> getExamGrades() {
-        return examGrades;
-    }
-
-    public void setExamGrades(List<ExamGrade> examGrades) {
-        this.examGrades = examGrades;
-    }
-
-    public Map<Module, Group> getGroups() {
-        return groups;
-    }
-
-    public void setGroups(Map<Module, Group> groups) {
-        this.groups = groups;
     }
 }

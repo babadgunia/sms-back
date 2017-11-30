@@ -1,23 +1,18 @@
 package org.test.sms.web.jwt;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 
+@NoArgsConstructor
+@Getter @Setter
 public class JwtAuthenticationResponse implements Serializable {
 
     private String token;
 
-    public JwtAuthenticationResponse() {
-    }
-
     public JwtAuthenticationResponse(String token) {
-        this.token = token;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
         this.token = token;
     }
 }

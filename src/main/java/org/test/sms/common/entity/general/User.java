@@ -1,6 +1,9 @@
 package org.test.sms.common.entity.general;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.test.sms.common.enums.general.LanguageType;
 import org.test.sms.common.enums.general.StatusType;
 
@@ -17,6 +20,8 @@ import javax.persistence.Table;
 @Entity
 @SequenceGenerator(name = User.SEQUENCE_NAME, sequenceName = User.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
 @Table(name = "APPLICATION_USER")
+@NoArgsConstructor
+@Getter @Setter
 public class User extends AbstractEntity {
 
     static final String SEQUENCE_NAME = "APPLICATION_USER" + SEQUENCE_SUFFIX;
@@ -43,8 +48,6 @@ public class User extends AbstractEntity {
     @ManyToOne
     private UserGroup userGroup;
 
-    public User() {}
-
     public User(long id) {
         super(id);
     }
@@ -68,71 +71,5 @@ public class User extends AbstractEntity {
         this.status = status;
         this.language = language;
         this.userGroup = new UserGroup(userGroupName);
-    }
-
-    @Override
-    public long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LanguageType getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(LanguageType language) {
-        this.language = language;
-    }
-
-    public StatusType getStatus() {
-        return status;
-    }
-
-    public void setStatus(StatusType status) {
-        this.status = status;
-    }
-
-    public UserGroup getUserGroup() {
-        return userGroup;
-    }
-
-    public void setUserGroup(UserGroup userGroup) {
-        this.userGroup = userGroup;
     }
 }

@@ -1,5 +1,8 @@
 package org.test.sms.common.entity.university;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.test.sms.common.entity.general.AbstractEntity;
 import org.test.sms.common.entity.general.User;
 
@@ -17,6 +20,8 @@ import java.util.List;
 
 @Entity
 @SequenceGenerator(name = Student.SEQUENCE_NAME, sequenceName = Student.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
+@NoArgsConstructor
+@Getter @Setter
 public class Student extends UniversityMember {
 
     static final String SEQUENCE_NAME = "STUDENT" + AbstractEntity.SEQUENCE_SUFFIX;
@@ -41,73 +46,14 @@ public class Student extends UniversityMember {
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StudentCourse> studentCourses = new ArrayList<>();
 
-    public Student() {}
-
     public Student(long id) {
         super(id);
     }
 
     public Student(long id, String firstName, String lastName, String personalNumber, String phoneNumber, User user) {
         super(firstName, lastName, personalNumber, phoneNumber);
+
         this.id = id;
         this.user = user;
-    }
-
-    @Override
-    public long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public int getSemester() {
-        return semester;
-    }
-
-    public void setSemester(int semester) {
-        this.semester = semester;
-    }
-
-    public int getScholarship() {
-        return scholarship;
-    }
-
-    public void setScholarship(int scholarship) {
-        this.scholarship = scholarship;
-    }
-
-    public Faculty getMajor() {
-        return major;
-    }
-
-    public void setMajor(Faculty major) {
-        this.major = major;
-    }
-
-    public Faculty getMinor() {
-        return minor;
-    }
-
-    public void setMinor(Faculty minor) {
-        this.minor = minor;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public List<StudentCourse> getStudentCourses() {
-        return studentCourses;
-    }
-
-    public void setStudentCourses(List<StudentCourse> studentCourses) {
-        this.studentCourses = studentCourses;
     }
 }

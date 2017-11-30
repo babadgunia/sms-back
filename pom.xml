@@ -196,6 +196,13 @@
             <artifactId>javax.servlet-api</artifactId>
             <version>4.0.0</version>
         </dependency>
+        <!--utils-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.18</version>
+            <scope>provided</scope>
+        </dependency>
         <!--testing-->
         <dependency>
             <groupId>junit</groupId>

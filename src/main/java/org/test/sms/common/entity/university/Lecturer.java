@@ -1,5 +1,8 @@
 package org.test.sms.common.entity.university;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.test.sms.common.entity.general.AbstractEntity;
 import org.test.sms.common.entity.general.User;
 
@@ -16,6 +19,8 @@ import java.util.List;
 
 @Entity
 @SequenceGenerator(name = Lecturer.SEQUENCE_NAME, sequenceName = Lecturer.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
+@NoArgsConstructor
+@Getter @Setter
 public class Lecturer extends UniversityMember {
 
     static final String SEQUENCE_NAME = "LECTURER" + AbstractEntity.SEQUENCE_SUFFIX;
@@ -30,41 +35,14 @@ public class Lecturer extends UniversityMember {
     @OneToMany(mappedBy = "lecturer")
     private List<Group> groups = new ArrayList<>();
 
-    public Lecturer() {}
-
     public Lecturer(long id) {
         super(id);
     }
 
     public Lecturer(long id, String firstName, String lastName, String personalNumber, String phoneNumber, User user) {
         super(firstName, lastName, personalNumber, phoneNumber);
+
         this.id = id;
-        this.user = user;
-    }
-
-    @Override
-    public long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public List<Group> getGroups() {
-        return groups;
-    }
-
-    public void setGroups(List<Group> groups) {
-        this.groups = groups;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
         this.user = user;
     }
 }
