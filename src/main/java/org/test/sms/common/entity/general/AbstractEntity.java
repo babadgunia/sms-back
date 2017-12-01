@@ -20,8 +20,6 @@ public abstract class AbstractEntity implements Serializable {
 
     protected static final String SEQUENCE_SUFFIX = "_SEQ";
 
-    protected static final int STRING_FIELD_MAX_LENGTH = 4000;
-
     private LocalDateTime creationTime;
 
     private LocalDateTime lastModifiedTime;

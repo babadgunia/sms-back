@@ -3,7 +3,6 @@ package org.test.sms.common.entity.general;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +21,7 @@ public class ExceptionLog extends AbstractEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
     private long id;
 
-    @Column(length = AbstractEntity.STRING_FIELD_MAX_LENGTH)
+    @Lob
     private String message;
 
     @Lob

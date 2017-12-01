@@ -4,13 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 import org.test.sms.common.enums.general.ActionType;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -27,7 +27,7 @@ public class ActionLog extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private ActionType type;
 
-    @Column(length = AbstractEntity.STRING_FIELD_MAX_LENGTH)
+    @Lob
     private String info;
 
     private String username;

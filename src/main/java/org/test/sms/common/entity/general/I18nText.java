@@ -6,13 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.test.sms.common.enums.general.LanguageType;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
@@ -31,7 +31,7 @@ public class I18nText extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private LanguageType language;
 
-    @Column(length = AbstractEntity.STRING_FIELD_MAX_LENGTH)
+    @Lob
     private String value;
 
     @ManyToOne
