@@ -32,9 +32,9 @@ public class UserController extends AbstractController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     @PreAuthorize("@userService.hasPermission('USER', 'ADD')")
-    public ResponseEntity<User> add(@RequestBody User entity) {
+    public ResponseEntity<UserDto> add(@RequestBody User entity) {
         try {
-            return new ResponseEntity<>(service.add(entity), HttpStatus.OK);
+            return new ResponseEntity<>(modelMapper.map(service.add(entity), UserDto.class), HttpStatus.OK);
         } catch (AppException e) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
@@ -42,9 +42,9 @@ public class UserController extends AbstractController {
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
     @PreAuthorize("@userService.hasPermission('USER', 'EDIT')")
-    public ResponseEntity<User> update(@RequestBody User entity) {
+    public ResponseEntity<UserDto> update(@RequestBody User entity) {
         try {
-            return new ResponseEntity<>(service.update(entity), HttpStatus.OK);
+            return new ResponseEntity<>(modelMapper.map(service.update(entity), UserDto.class), HttpStatus.OK);
         } catch (AppException e) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
@@ -64,10 +64,10 @@ public class UserController extends AbstractController {
 
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
     @PreAuthorize("@userService.hasPermission('USER', 'VIEW')")
-    public ResponseEntity<User> get(@PathVariable("id") long id) {
+    public ResponseEntity<UserDto> get(@PathVariable("id") long id) {
         Optional<User> entityWrapper = service.get(id);
 
-        return new ResponseEntity<>(entityWrapper.orElse(null), HttpStatus.OK);
+        return new ResponseEntity<>(modelMapper.map(entityWrapper.orElse(null), UserDto.class), HttpStatus.OK);
     }
 
     @RequestMapping(value = "getCount", method = RequestMethod.POST)

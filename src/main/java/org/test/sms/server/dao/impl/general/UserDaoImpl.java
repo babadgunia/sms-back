@@ -5,7 +5,6 @@ import org.test.sms.common.entity.general.Permission;
 import org.test.sms.common.entity.general.User;
 import org.test.sms.common.enums.general.LanguageType;
 import org.test.sms.common.enums.general.StatusType;
-import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.general.AbstractFilter;
 import org.test.sms.common.filter.general.UserFilter;
 import org.test.sms.common.utils.Utils;
@@ -20,16 +19,6 @@ import java.util.Optional;
 
 @Repository
 public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
-
-    @Override
-    public User update(User entity) throws AppException {
-        TypedQuery<String> query = em.createQuery("SELECT password FROM User WHERE id = :id", String.class);
-        query.setParameter("id", entity.getId());
-
-        entity.setPassword(query.getSingleResult());
-
-        return super.update(entity);
-    }
 
     @Override
     protected User init(User entity) {
@@ -97,6 +86,31 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
         return "username";
     }
 
+    @Override
+    public boolean exists(String username) {
+        TypedQuery<User> query = em.createQuery("SELECT new User(id) FROM User WHERE UPPER(username) = :username", User.class);
+        query.setParameter("username", username.toUpperCase());
+
+        return !Utils.isBlank(query.getResultList());
+    }
+
+    @Override
+    public boolean exists(String username, long id) {
+        TypedQuery<User> query = em.createQuery("SELECT new User(id) FROM User WHERE UPPER(username) = :username AND id != :id", User.class);
+        query.setParameter("username", username.toUpperCase());
+        query.setParameter("id", id);
+
+        return !Utils.isBlank(query.getResultList());
+    }
+
+    @Override
+    public boolean exists(long userGroupId) {
+        TypedQuery<User> query = em.createQuery("SELECT new User(id) FROM User WHERE userGroup.id = :userGroupId", User.class);
+        query.setParameter("userGroupId", userGroupId);
+
+        return !Utils.isBlank(query.getResultList());
+    }
+
 //    misc
 
     @Override
@@ -135,21 +149,5 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
         } catch (NoResultException e) {
             return Optional.empty();
         }
-    }
-
-    @Override
-    public boolean exists(String username) {
-        TypedQuery<User> query = em.createQuery("SELECT new User(id) FROM User WHERE UPPER(username) = :username", User.class);
-        query.setParameter("username", username.toUpperCase());
-
-        return !Utils.isBlank(query.getResultList());
-    }
-
-    @Override
-    public boolean exists(long userGroupId) {
-        TypedQuery<User> query = em.createQuery("SELECT new User(id) FROM User WHERE userGroup.id = :userGroupId", User.class);
-        query.setParameter("userGroupId", userGroupId);
-
-        return !Utils.isBlank(query.getResultList());
     }
 }

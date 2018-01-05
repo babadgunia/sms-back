@@ -14,6 +14,7 @@ import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.general.AbstractFilter;
 import org.test.sms.common.service.general.MailService;
 import org.test.sms.common.service.general.UserService;
+import org.test.sms.common.utils.AppUtils;
 import org.test.sms.common.utils.Utils;
 import org.test.sms.server.dao.interfaces.general.PermissionDao;
 import org.test.sms.server.dao.interfaces.general.UserDao;
@@ -57,7 +58,28 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(User entity) throws AppException {
-        return dao.update(entity);
+        long id = entity.getId();
+        Optional<User> storedEntityWrapper = dao.get(id);
+
+        if (storedEntityWrapper.isPresent()) {
+            User storedEntity = storedEntityWrapper.get();
+
+            String username = storedEntity.getUsername();
+            if (dao.exists(username, id)) {
+                throw new AppException(ErrorCodeType.USERNAME_EXISTS, username);
+            }
+
+            AppUtils.setEntityVersion(storedEntity, entity.getVersion());
+            storedEntity.setEmail(entity.getEmail());
+            storedEntity.setName(entity.getName());
+            storedEntity.setStatus(entity.getStatus());
+            storedEntity.setLanguage(entity.getLanguage());
+            storedEntity.setUserGroup(entity.getUserGroup());
+
+            return dao.update(storedEntity);
+        }
+
+        throw new AppException(ErrorCodeType.UNKNOWN_ERROR);
     }
 
     @Override

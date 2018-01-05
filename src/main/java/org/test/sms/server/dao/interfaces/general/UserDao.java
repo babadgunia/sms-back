@@ -6,13 +6,15 @@ import java.util.Optional;
 
 public interface UserDao extends AbstractDao<User> {
 
+    boolean exists(String username);
+
+    boolean exists(String username, long id);
+
+    boolean exists(long userGroupId);
+
     Optional<User> getForAuthByUsername(String username);
 
     Optional<User> getForPermissionCheckByUsername(String username);
 
     Optional<User> getForPasswordResetByEmailOrUsername(String usernameOrEmail);
-
-    boolean exists(String username);
-
-    boolean exists(long userGroupId);
 }

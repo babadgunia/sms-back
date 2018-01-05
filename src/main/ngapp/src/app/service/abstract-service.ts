@@ -21,10 +21,10 @@ export abstract class AbstractService {
 
 		switch (requestType) {
 			case HttpRequestType.GET: {
-				return this.parseResponse(this.http.get(url, {headers: requestOptions}));
+				return this.handleError(this.http.get(url, {headers: requestOptions}));
 			}
 			case HttpRequestType.POST: {
-				return this.parseResponse(this.http.post(url, body, {headers: requestOptions}));
+				return this.handleError(this.http.post(url, body, {headers: requestOptions}));
 			}
 			case HttpRequestType.PUT: {
 				return this.handleError(this.http.put(url, body, {headers: requestOptions}));
@@ -35,13 +35,8 @@ export abstract class AbstractService {
 		}
 	}
 
-	// converts raw observable to json observable
-	private parseResponse(response: Observable<Object>): Observable<any> {
-		return this.handleError(response);
-	}
-
 	// handles service errors by throwing an error observable
-	private handleError(observable: Observable<any>): Observable<any> {
+	private handleError(observable: Observable<Object>): Observable<any> {
 		return observable.catch((error: any) => Observable.throw(error));
 	}
 }
