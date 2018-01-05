@@ -1,6 +1,5 @@
 package org.test.sms.common.entity.general;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,7 +31,6 @@ public class User extends AbstractEntity {
 
     private String username;
 
-    @JsonIgnore
     private String password;
 
     private String email;

@@ -1,5 +1,6 @@
 package org.test.sms.web.controller;
 
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +14,14 @@ import org.test.sms.common.entity.general.User;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.general.UserFilter;
 import org.test.sms.common.service.general.UserService;
+import org.test.sms.web.dto.general.UserDto;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "api/user")
-public class UserController {
+public class UserController extends AbstractController {
 
     private UserService service;
 
@@ -76,7 +78,9 @@ public class UserController {
 
     @RequestMapping(value = "getList", method = RequestMethod.POST)
     @PreAuthorize("@userService.hasPermission('USER', 'VIEW')")
-    public ResponseEntity<List<User>> getList(@RequestBody(required = false) UserFilter filter) {
-        return new ResponseEntity<>(service.getList(filter), HttpStatus.OK);
+    public ResponseEntity<List<UserDto>> getList(@RequestBody(required = false) UserFilter filter) {
+        List<UserDto> result = modelMapper.map(service.getList(filter), new TypeToken<List<UserDto>>() {}.getType());
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
