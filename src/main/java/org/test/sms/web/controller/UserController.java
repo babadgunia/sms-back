@@ -32,9 +32,9 @@ public class UserController extends AbstractController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     @PreAuthorize("@userService.hasPermission('USER', 'ADD')")
-    public ResponseEntity<UserDto> add(@RequestBody User entity) {
+    public ResponseEntity<UserDto> add(@RequestBody UserDto entityDto) {
         try {
-            return new ResponseEntity<>(modelMapper.map(service.add(entity), UserDto.class), HttpStatus.OK);
+            return new ResponseEntity<>(modelMapper.map(service.add(modelMapper.map(entityDto, User.class)), UserDto.class), HttpStatus.OK);
         } catch (AppException e) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
@@ -42,9 +42,9 @@ public class UserController extends AbstractController {
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
     @PreAuthorize("@userService.hasPermission('USER', 'EDIT')")
-    public ResponseEntity<UserDto> update(@RequestBody User entity) {
+    public ResponseEntity<UserDto> update(@RequestBody UserDto entityDto) {
         try {
-            return new ResponseEntity<>(modelMapper.map(service.update(entity), UserDto.class), HttpStatus.OK);
+            return new ResponseEntity<>(modelMapper.map(service.update(modelMapper.map(entityDto, User.class)), UserDto.class), HttpStatus.OK);
         } catch (AppException e) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
