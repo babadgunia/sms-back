@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.test.sms.common.entity.general.UserGroup;
-import org.test.sms.common.enums.general.ErrorCode;
+import org.test.sms.common.enums.general.ErrorCodeType;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.general.AbstractFilter;
 import org.test.sms.common.service.general.UserGroupService;
@@ -32,7 +32,7 @@ public class UserGroupServiceImpl implements UserGroupService {
     public UserGroup add(UserGroup entity) throws AppException {
         String name = entity.getName();
         if (dao.exists(name)) {
-            throw new AppException(ErrorCode.USER_GROUP_EXISTS, name);
+            throw new AppException(ErrorCodeType.USER_GROUP_EXISTS, name);
         }
 
         entity.getPermissions().forEach(permission -> permission.setUserGroup(entity));
@@ -48,7 +48,7 @@ public class UserGroupServiceImpl implements UserGroupService {
     @Override
     public void delete(long id) throws AppException {
         if (userDao.exists(id)) {
-            throw new AppException(ErrorCode.USER_GROUP_HAS_USERS);
+            throw new AppException(ErrorCodeType.USER_GROUP_HAS_USERS);
         }
 
         dao.delete(id);

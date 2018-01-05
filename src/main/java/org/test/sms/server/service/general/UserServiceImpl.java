@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.test.sms.common.entity.general.User;
 import org.test.sms.common.entity.general.UserGroup;
-import org.test.sms.common.enums.general.ErrorCode;
+import org.test.sms.common.enums.general.ErrorCodeType;
 import org.test.sms.common.enums.general.PermissionGroupType;
 import org.test.sms.common.enums.general.PermissionType;
 import org.test.sms.common.exception.AppException;
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     public User add(User entity) throws AppException {
         String username = entity.getUsername();
         if (dao.exists(username)) {
-            throw new AppException(ErrorCode.USERNAME_EXISTS, username);
+            throw new AppException(ErrorCodeType.USERNAME_EXISTS, username);
         }
 
         String password = Utils.generateRandomPassword();

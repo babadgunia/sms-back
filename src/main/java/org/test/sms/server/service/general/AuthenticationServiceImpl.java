@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.test.sms.common.entity.general.PasswordResetToken;
 import org.test.sms.common.entity.general.User;
-import org.test.sms.common.enums.general.ErrorCode;
+import org.test.sms.common.enums.general.ErrorCodeType;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.service.general.AuthenticationService;
 import org.test.sms.common.service.general.MailService;
@@ -38,7 +38,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public void resetPassword(String usernameOrEmail, String url) throws AppException {
         Optional<User> userWrapper = userDao.getForPasswordResetByEmailOrUsername(usernameOrEmail);
         if (!userWrapper.isPresent()) {
-            throw new AppException(ErrorCode.USERNAME_NOT_FOUND);
+            throw new AppException(ErrorCodeType.USERNAME_NOT_FOUND);
         }
 
         String token = UUID.randomUUID().toString();

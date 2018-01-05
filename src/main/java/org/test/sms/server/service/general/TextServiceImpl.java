@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.test.sms.common.entity.general.Text;
-import org.test.sms.common.enums.general.ErrorCode;
+import org.test.sms.common.enums.general.ErrorCodeType;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.general.AbstractFilter;
 import org.test.sms.common.service.general.TextService;
@@ -28,7 +28,7 @@ public class TextServiceImpl implements TextService {
     public Text add(Text entity) throws AppException {
         String key = entity.getKey();
         if (dao.exists(key)) {
-            throw new AppException(ErrorCode.TEXT_EXISTS, key);
+            throw new AppException(ErrorCodeType.TEXT_EXISTS, key);
         }
 
         entity.getValues().forEach(value -> value.setText(entity));

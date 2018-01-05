@@ -3,7 +3,7 @@ package org.test.sms.server.dao.impl.university;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.test.sms.common.entity.university.Faculty;
-import org.test.sms.common.enums.general.ErrorCode;
+import org.test.sms.common.enums.general.ErrorCodeType;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.general.AbstractFilter;
 import org.test.sms.common.filter.university.CourseFilter;
@@ -35,7 +35,7 @@ public class FacultyDaoImpl extends AbstractDaoImpl<Faculty> implements FacultyD
     public Faculty add(Faculty entity) throws AppException {
         String name = entity.getName();
         if (exists(name)) {
-            throw new AppException(ErrorCode.FACULTY_EXISTS, name);
+            throw new AppException(ErrorCodeType.FACULTY_EXISTS, name);
         }
 
         return super.add(entity);
@@ -51,7 +51,7 @@ public class FacultyDaoImpl extends AbstractDaoImpl<Faculty> implements FacultyD
     @Override
     public void delete(long id) throws AppException {
         if (studentDao.exists(id)) {
-            throw new AppException(ErrorCode.FACULTY_ASSIGNED_TO_STUDENT);
+            throw new AppException(ErrorCodeType.FACULTY_ASSIGNED_TO_STUDENT);
         }
 
         super.delete(id);

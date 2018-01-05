@@ -2,7 +2,7 @@ package org.test.sms.server.dao.impl.university;
 
 import org.springframework.stereotype.Repository;
 import org.test.sms.common.entity.university.Lecturer;
-import org.test.sms.common.enums.general.ErrorCode;
+import org.test.sms.common.enums.general.ErrorCodeType;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.general.AbstractFilter;
 import org.test.sms.common.utils.Utils;
@@ -21,7 +21,7 @@ public class LecturerDaoImpl extends AbstractDaoImpl<Lecturer> implements Lectur
     public Lecturer add(Lecturer entity) throws AppException {
         String personalNumber = entity.getPersonalNumber();
         if (exists(personalNumber)) {
-            throw new AppException(ErrorCode.LECTURER_EXISTS, personalNumber);
+            throw new AppException(ErrorCodeType.LECTURER_EXISTS, personalNumber);
         }
 
         return super.add(entity);

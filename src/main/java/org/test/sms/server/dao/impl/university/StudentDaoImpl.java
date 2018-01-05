@@ -2,7 +2,7 @@ package org.test.sms.server.dao.impl.university;
 
 import org.springframework.stereotype.Repository;
 import org.test.sms.common.entity.university.Student;
-import org.test.sms.common.enums.general.ErrorCode;
+import org.test.sms.common.enums.general.ErrorCodeType;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.general.AbstractFilter;
 import org.test.sms.common.filter.university.StudentFilter;
@@ -24,7 +24,7 @@ public class StudentDaoImpl extends AbstractDaoImpl<Student> implements StudentD
     public Student add(Student entity) throws AppException {
         String personalNumber = entity.getPersonalNumber();
         if (exists(personalNumber)) {
-            throw new AppException(ErrorCode.STUDENT_EXISTS, personalNumber);
+            throw new AppException(ErrorCodeType.STUDENT_EXISTS, personalNumber);
         }
 
         return super.add(entity);

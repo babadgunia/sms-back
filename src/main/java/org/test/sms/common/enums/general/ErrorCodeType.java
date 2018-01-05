@@ -1,6 +1,6 @@
 package org.test.sms.common.enums.general;
 
-public enum ErrorCode {
+public enum ErrorCodeType {
 
     FACULTY_ASSIGNED_TO_STUDENT,
 
@@ -15,6 +15,8 @@ public enum ErrorCode {
     STUDENT_EXISTS,
 
     TEXT_EXISTS,
+
+    UNKNOWN_ERROR,
 
     USER_GROUP_EXISTS,
 
