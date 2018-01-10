@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -100,5 +101,16 @@ public class AuthenticationController {
         } catch (AppException e) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
+    }
+
+    @RequestMapping(value = "changePassword", method = RequestMethod.GET)
+    public String showChangePasswordPage(Model model,
+                                         @RequestParam("id") long id, @RequestParam("token") String token) {
+        String result = authenticationService.validatePasswordResetToken(id, token);
+        if (result != null) {
+            model.addAttribute("message", "Password Change failed");
+            return "redirect:/login";
+        }
+        return "redirect:/updatePassword";
     }
 }

@@ -18,4 +18,10 @@ public class PasswordResetTokenDaoImpl implements PasswordResetTokenDao {
         em.persist(token);
         return token;
     }
+
+    @Override
+    public PasswordResetToken findByToken(String token) {
+        return em.createQuery("FROM PasswordResetToken p WHERE p.token = :token", PasswordResetToken.class).getSingleResult();
+    }
+
 }
