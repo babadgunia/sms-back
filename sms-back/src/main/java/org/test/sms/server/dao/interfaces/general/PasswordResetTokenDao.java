@@ -7,5 +7,4 @@ public interface PasswordResetTokenDao {
     PasswordResetToken saveToken(PasswordResetToken token);
 
     PasswordResetToken findByToken(String token);
-
 }
