@@ -9,7 +9,6 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @MappedSuperclass
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -37,7 +36,7 @@ public abstract class AbstractEntity implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        return Objects.nonNull(obj) && obj instanceof AbstractEntity && ((AbstractEntity) obj).getId() == getId();
+        return obj instanceof AbstractEntity && ((AbstractEntity) obj).getId() == getId();
     }
 
     @Override
