@@ -5,12 +5,10 @@
 	"scripts": {
 		"ng": "ng",
 		"start": "ng serve --proxy-config proxy.conf.json -o",
-		"start-ka": "ng serve --proxy-config proxy.conf.json -o --i18n-file src/locale/messages.ka.xlf --i18n-format xlf --locale ka --aot",
-		"build": "ng build",
+		"build": "ng build --prod",
 		"test": "ng test",
 		"lint": "ng lint",
-		"e2e": "ng e2e",
-		"i18n": "ng xi18n -op src/locale --verbose"
+		"e2e": "ng e2e"
 	},
 	"private": true,
 	"dependencies": {

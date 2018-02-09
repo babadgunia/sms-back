@@ -1,6 +1,6 @@
 // model > entity
-import {AbstractEntity} from "./abstract-entity";
-import {Permission} from "./permission";
+import {AbstractEntity} from './abstract-entity';
+import {Permission} from './permission';
 
 export class UserGroup extends AbstractEntity {
 

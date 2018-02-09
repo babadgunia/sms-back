@@ -1,7 +1,7 @@
 // angular > http
-import {HttpHeaders} from "@angular/common/http";
+import {HttpHeaders} from '@angular/common/http';
 // util
-import {Utils} from "./utils";
+import {Utils} from './utils';
 
 export class AuthenticationUtils {
 

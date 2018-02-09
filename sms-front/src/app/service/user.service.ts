@@ -1,19 +1,19 @@
 // angular > core
-import {Inject, Injectable} from "@angular/core";
+import {Inject, Injectable} from '@angular/core';
 // angular > http
-import {HttpClient} from "@angular/common/http";
+import {HttpClient} from '@angular/common/http';
 // model > entity
-import {User} from "../model/entity/user";
+import {User} from '../model/entity/user';
 // model > filter
-import {UserFilter} from "../model/filter/user-filter";
+import {UserFilter} from '../model/filter/user-filter';
 // model > enum
-import {HttpRequestType} from "../model/enum/http-request-type.enum";
+import {HttpRequestType} from '../model/enum/http-request-type.enum';
 // service
-import {AbstractService} from "./abstract-service";
+import {AbstractService} from './abstract-service';
 // util
-import {USER_SERVICE_URL} from "../util/injectable-constants";
+import {USER_SERVICE_URL} from '../util/injectable-constants';
 // rxjs
-import {Observable} from "rxjs/Observable";
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class UserService extends AbstractService {

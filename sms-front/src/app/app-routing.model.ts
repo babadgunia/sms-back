@@ -1,15 +1,15 @@
 // angular > core
-import {NgModule} from "@angular/core";
+import {NgModule} from '@angular/core';
 // angular > router
-import {RouterModule, Routes} from "@angular/router";
+import {RouterModule, Routes} from '@angular/router';
 // component
-import {ForgotPasswordComponent} from "./component/login/forgot-password.component";
-import {LoginComponent} from "./component/login/login.component";
-import {TextsComponent} from "./component/texts/texts.component";
-import {UserGroupsComponent} from "./component/user-groups/user-groups.component";
-import {UsersComponent} from "./component/users/users.component";
+import {ForgotPasswordComponent} from './component/login/forgot-password.component';
+import {LoginComponent} from './component/login/login.component';
+import {TextsComponent} from './component/texts/texts.component';
+import {UserGroupsComponent} from './component/user-groups/user-groups.component';
+import {UsersComponent} from './component/users/users.component';
 // util
-import {CanActivateAuthGuard} from "./util/can-activate.authguard";
+import {CanActivateAuthGuard} from './util/can-activate.authguard';
 
 const routes: Routes = [
 	{path: '', redirectTo: 'userGroups', pathMatch: 'full'},

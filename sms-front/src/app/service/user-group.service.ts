@@ -1,19 +1,19 @@
 // angular > core
-import {Inject, Injectable} from "@angular/core";
+import {Inject, Injectable} from '@angular/core';
 // angular > http
-import {HttpClient} from "@angular/common/http";
+import {HttpClient} from '@angular/common/http';
 // model > entity
-import {UserGroup} from "../model/entity/user-group";
+import {UserGroup} from '../model/entity/user-group';
 // model > filter
-import {UserGroupFilter} from "../model/filter/user-group-filter";
+import {UserGroupFilter} from '../model/filter/user-group-filter';
 // model > enum
-import {HttpRequestType} from "../model/enum/http-request-type.enum";
+import {HttpRequestType} from '../model/enum/http-request-type.enum';
 // service
-import {AbstractService} from "./abstract-service";
+import {AbstractService} from './abstract-service';
 // util
-import {USER_GROUP_SERVICE_URL} from "../util/injectable-constants";
+import {USER_GROUP_SERVICE_URL} from '../util/injectable-constants';
 // rxjs
-import {Observable} from "rxjs/Observable";
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class UserGroupService extends AbstractService {

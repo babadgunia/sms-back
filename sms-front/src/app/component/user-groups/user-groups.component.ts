@@ -1,28 +1,28 @@
 // angular > core
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit} from '@angular/core';
 // model > entity
-import {Permission} from "../../model/entity/permission";
-import {UserGroup} from "../../model/entity/user-group";
+import {Permission} from '../../model/entity/permission';
+import {UserGroup} from '../../model/entity/user-group';
 // model > filter
-import {UserGroupFilter} from "../../model/filter/user-group-filter";
+import {UserGroupFilter} from '../../model/filter/user-group-filter';
 // model > enum
-import {PermissionGroupType} from "../../model/enum/permission-group-type.enum";
-import {PermissionType} from "../../model/enum/permission-type.enum";
+import {PermissionGroupType} from '../../model/enum/permission-group-type.enum';
+import {PermissionType} from '../../model/enum/permission-type.enum';
 // component
-import {AbstractComponent} from "../abstract-component";
+import {AbstractComponent} from '../abstract-component';
 // service
-import {UserGroupService} from "../../service/user-group.service";
+import {UserGroupService} from '../../service/user-group.service';
 // util
-import {SYSTEM_PERMISSIONS} from "../../util/system-permissions";
-import {SystemPermission} from "../../util/system-permission";
-import {isNullOrUndefined} from "util";
-import {Utils} from "../../util/utils";
+import {SYSTEM_PERMISSIONS} from '../../util/system-permissions';
+import {SystemPermission} from '../../util/system-permission';
+import {isNullOrUndefined} from 'util';
+import {Utils} from '../../util/utils';
 // primeng > model
-import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
-import {TreeNode} from "primeng/components/common/treenode";
+import {LazyLoadEvent} from 'primeng/components/common/lazyloadevent';
+import {TreeNode} from 'primeng/components/common/treenode';
 // primeng > service
-import {ConfirmationService} from "primeng/components/common/confirmationservice";
-import {MessageService} from "primeng/components/common/messageservice";
+import {ConfirmationService} from 'primeng/components/common/confirmationservice';
+import {MessageService} from 'primeng/components/common/messageservice';
 
 @Component({
 	selector: 'user-groups',

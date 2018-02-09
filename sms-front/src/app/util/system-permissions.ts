@@ -1,8 +1,8 @@
 // model > enum
-import {PermissionGroupType} from "../model/enum/permission-group-type.enum";
-import {PermissionType} from "../model/enum/permission-type.enum";
+import {PermissionGroupType} from '../model/enum/permission-group-type.enum';
+import {PermissionType} from '../model/enum/permission-type.enum';
 // util
-import {SystemPermission} from "app/util/system-permission";
+import {SystemPermission} from './system-permission';
 
 export const SYSTEM_PERMISSIONS: SystemPermission[] = [
 	{
