@@ -202,7 +202,4 @@ export class UsersComponent extends AbstractComponent implements OnInit {
 		}, (error: any) => super.handleError(error));
 	}
 
-	private resetPassword(): void {
-		this.service.resetPassword(this.entity.id).subscribe(() => {}, (error: any) => super.handleError(error));
-	}
 }

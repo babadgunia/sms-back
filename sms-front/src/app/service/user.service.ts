@@ -46,9 +46,4 @@ export class UserService extends AbstractService {
 		return super.httpRequest(HttpRequestType.POST, "getList", filter);
 	}
 
-	// misc
-
-	public resetPassword(id: number): Observable<void> {
-		return super.httpRequest(HttpRequestType.PUT, `resetPassword/${id}`);
-	}
 }

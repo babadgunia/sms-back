@@ -13,6 +13,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,12 +23,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.service.general.AuthenticationService;
+import org.test.sms.web.dto.general.UserDto;
 import org.test.sms.web.jwt.JwtAuthenticationRequest;
 import org.test.sms.web.jwt.JwtAuthenticationResponse;
 import org.test.sms.web.jwt.JwtTokenUtil;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
+@RequestMapping("auth")
 @RestController
 public class AuthenticationController {
 
@@ -51,12 +57,12 @@ public class AuthenticationController {
         this.authenticationService = authenticationService;
     }
 
-    @RequestMapping("/")
+    @GetMapping
     public String getIndexPage() {
         return "index";
     }
 
-    @RequestMapping(value = "auth", method = RequestMethod.POST)
+    @PostMapping
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest) {
         String token = null;
         try {
@@ -92,20 +98,20 @@ public class AuthenticationController {
         }
     }
 
-    @RequestMapping(value = "resetPassword", method = RequestMethod.POST)
-    public ResponseEntity<Void> resetPassword(HttpServletRequest request, @RequestParam("usernameOrEmail") String usernameOrEmail) {
+    @PostMapping("resetPassword/{usernameOrEmail}")
+    public ResponseEntity<Void> resetPassword(HttpServletRequest request, @PathVariable("usernameOrEmail") String usernameOrEmail) {
         try {
             authenticationService.resetPassword(usernameOrEmail, request.getContextPath());
 
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (AppException e) {
+            log.error("Error while reseting password", e);
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
 
     @RequestMapping(value = "changePassword", method = RequestMethod.GET)
-    public String showChangePasswordPage(Model model,
-                                         @RequestParam("id") long id, @RequestParam("token") String token) {
+    public String showChangePasswordPage(Model model, @RequestParam("id") long id, @RequestParam("token") String token) {
         String result = authenticationService.validatePasswordResetToken(id, token);
         if (result != null) {
             model.addAttribute("message", "Password Change failed");

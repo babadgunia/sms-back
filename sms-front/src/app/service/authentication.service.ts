@@ -22,4 +22,10 @@ export class AuthenticationService extends AbstractService {
 	public login(username: string, password: string): Observable<any> {
 		return super.httpRequest(HttpRequestType.POST, "", {username: username, password: password}, AuthenticationUtils.getApiLoginHeaders());
 	}
+
+	public resetPassword(usernameOrEmail: string): Observable<any> {
+		return super.httpRequest(HttpRequestType.POST, `resetPassword/${usernameOrEmail}`, null, AuthenticationUtils.getApiLoginHeaders());
+
+	}
+
 }

@@ -100,8 +100,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers("/auth").permitAll()
-                .antMatchers("resetPassword", "changePassword", "savePassword").hasAuthority("CHANGE_PASSWORD_PRIVILEGE")
+                .antMatchers("/auth", "/auth/resetPassword/*", "/auth/changePassword", "/auth/savePassword").permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
