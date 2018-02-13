@@ -1,6 +1,6 @@
 // model > entity
-import {AbstractEntity} from "./abstract-entity";
-import {UserGroup} from "./user-group";
+import {AbstractEntity} from './abstract-entity';
+import {UserGroup} from './user-group';
 
 export class User extends AbstractEntity {
 

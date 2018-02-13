@@ -1,7 +1,7 @@
-﻿import {Component} from "@angular/core";
-import {Router} from "@angular/router";
-import {AuthenticationService} from "../../service/authentication.service";
-import {AuthenticationUtils} from "../../util/authentication-utils";
+﻿import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {AuthenticationService} from '../../service/authentication.service';
+import {AuthenticationUtils} from '../../util/authentication-utils';
 
 @Component({
 	moduleId: module.id,

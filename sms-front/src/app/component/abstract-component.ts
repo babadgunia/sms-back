@@ -1,21 +1,21 @@
 // angular > core
-import {OnInit} from "@angular/core";
+import {OnInit} from '@angular/core';
 // model > filter
-import {AbstractFilter} from "../model/filter/abstract-filter";
+import {AbstractFilter} from '../model/filter/abstract-filter';
 // model > enum
-import {LanguageType} from "../model/enum/language-type.enum";
-import {StatusType} from "../model/enum/status-type.enum";
+import {LanguageType} from '../model/enum/language-type.enum';
+import {StatusType} from '../model/enum/status-type.enum';
 // util
-import {MESSAGES} from "../util/messages";
-import {AuthenticationUtils} from "../util/authentication-utils";
+import {MESSAGES} from '../util/messages';
+import {AuthenticationUtils} from '../util/authentication-utils';
 // primeng > model
-import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
-import {SelectItem} from "primeng/components/common/selectitem";
+import {LazyLoadEvent} from 'primeng/components/common/lazyloadevent';
+import {SelectItem} from 'primeng/components/common/selectitem';
 // primeng > service
-import {ConfirmationService} from "primeng/components/common/confirmationservice";
-import {MessageService} from "primeng/components/common/messageservice";
+import {ConfirmationService} from 'primeng/components/common/confirmationservice';
+import {MessageService} from 'primeng/components/common/messageservice';
 // rxjs
-import {isNumeric} from "rxjs/util/isNumeric";
+import {isNumeric} from 'rxjs/util/isNumeric';
 
 export abstract class AbstractComponent implements OnInit {
 

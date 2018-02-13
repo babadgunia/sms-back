@@ -1,21 +1,21 @@
 // angular > core
-import {Component} from "@angular/core";
+import {Component} from '@angular/core';
 // model > entity
-import {I18nText} from "../../model/entity/i18n-text";
-import {Text} from "../../model/entity/text";
+import {I18nText} from '../../model/entity/i18n-text';
+import {Text} from '../../model/entity/text';
 // model > filter
-import {TextFilter} from "app/model/filter/text-filter";
+import {TextFilter} from '../../model/filter/text-filter';
 // component
-import {AbstractComponent} from "../abstract-component";
+import {AbstractComponent} from '../abstract-component';
 // service
-import {TextService} from "app/service/text.service";
+import {TextService} from '../../service/text.service';
 // util
-import {Utils} from "../../util/utils";
+import {Utils} from '../../util/utils';
 // primeng > model
-import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
+import {LazyLoadEvent} from 'primeng/components/common/lazyloadevent';
 // primeng > service
-import {ConfirmationService} from "primeng/components/common/confirmationservice";
-import {MessageService} from "primeng/components/common/messageservice";
+import {ConfirmationService} from 'primeng/components/common/confirmationservice';
+import {MessageService} from 'primeng/components/common/messageservice';
 
 @Component({
 	selector: 'texts',

@@ -1,19 +1,19 @@
 // angular > core
-import {Inject, Injectable} from "@angular/core";
+import {Inject, Injectable} from '@angular/core';
 // angular > http
-import {HttpClient} from "@angular/common/http";
+import {HttpClient} from '@angular/common/http';
 // model > entity
-import {Text} from "../model/entity/text";
+import {Text} from '../model/entity/text';
 // model > filter
-import {TextFilter} from "../model/filter/text-filter";
+import {TextFilter} from '../model/filter/text-filter';
 // model > enum
-import {HttpRequestType} from "../model/enum/http-request-type.enum";
+import {HttpRequestType} from '../model/enum/http-request-type.enum';
 // service
-import {AbstractService} from "./abstract-service";
+import {AbstractService} from './abstract-service';
 // util
-import {TEXT_SERVICE_URL} from "../util/injectable-constants";
+import {TEXT_SERVICE_URL} from '../util/injectable-constants';
 // rxjs
-import {Observable} from "rxjs/Observable";
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class TextService extends AbstractService {

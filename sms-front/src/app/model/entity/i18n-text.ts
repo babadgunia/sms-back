@@ -1,5 +1,5 @@
 // model > entity
-import {AbstractEntity} from "./abstract-entity";
+import {AbstractEntity} from './abstract-entity';
 
 export class I18nText extends AbstractEntity {
 

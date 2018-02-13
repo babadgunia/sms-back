@@ -1,16 +1,16 @@
 ﻿// angular > core
-import {Inject, Injectable} from "@angular/core";
+import {Inject, Injectable} from '@angular/core';
 // angular > http
-import {HttpClient} from "@angular/common/http";
+import {HttpClient} from '@angular/common/http';
 // model > enum
-import {HttpRequestType} from "../model/enum/http-request-type.enum";
+import {HttpRequestType} from '../model/enum/http-request-type.enum';
 // service
-import {AbstractService} from "./abstract-service";
+import {AbstractService} from './abstract-service';
 // util
-import {AUTH_SERVICE_URL} from "../util/injectable-constants";
-import {AuthenticationUtils} from "app/util/authentication-utils";
+import {AUTH_SERVICE_URL} from '../util/injectable-constants';
+import {AuthenticationUtils} from '../util/authentication-utils';
 // rxjs
-import {Observable} from "rxjs/Observable";
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class AuthenticationService extends AbstractService {

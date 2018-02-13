@@ -1,5 +1,5 @@
 // util
-import {isNullOrUndefined} from "util";
+import {isNullOrUndefined} from 'util';
 
 export class Utils {
 

@@ -1,29 +1,29 @@
 // angular > core
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit} from '@angular/core';
 // model > entity
-import {User} from "../../model/entity/user";
-import {UserGroup} from "app/model/entity/user-group";
+import {User} from '../../model/entity/user';
+import {UserGroup} from '../../model/entity/user-group';
 // model > enum
-import {LanguageType} from "../../model/enum/language-type.enum";
-import {StatusType} from "app/model/enum/status-type.enum";
+import {LanguageType} from '../../model/enum/language-type.enum';
+import {StatusType} from '../../model/enum/status-type.enum';
 // model > filter
-import {UserFilter} from "../../model/filter/user-filter";
+import {UserFilter} from '../../model/filter/user-filter';
 // component
-import {AbstractComponent} from "../abstract-component";
+import {AbstractComponent} from '../abstract-component';
 // service
-import {UserGroupService} from "../../service/user-group.service";
-import {UserService} from "../../service/user.service";
+import {UserGroupService} from '../../service/user-group.service';
+import {UserService} from '../../service/user.service';
 // util
-import {Utils} from "../../util/utils";
+import {Utils} from '../../util/utils';
 // primeng > model
-import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
-import {SelectItem} from "primeng/components/common/selectitem";
+import {LazyLoadEvent} from 'primeng/components/common/lazyloadevent';
+import {SelectItem} from 'primeng/components/common/selectitem';
 // primeng > component
-import {Dropdown} from "primeng/components/dropdown/dropdown";
+import {Dropdown} from 'primeng/components/dropdown/dropdown';
 // primeng > service
-import {ConfirmationService} from "primeng/components/common/confirmationservice";
-import {MessageService} from "primeng/components/common/messageservice";
-import {isNullOrUndefined} from "util";
+import {ConfirmationService} from 'primeng/components/common/confirmationservice';
+import {MessageService} from 'primeng/components/common/messageservice';
+import {isNullOrUndefined} from 'util';
 
 @Component({
 	selector: 'users',

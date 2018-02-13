@@ -1,5 +1,5 @@
 // model > entity
-import {AbstractEntity} from "./abstract-entity";
+import {AbstractEntity} from './abstract-entity';
 
 export class Permission extends AbstractEntity {
 

@@ -1,8 +1,7 @@
-import {Component} from "@angular/core";
-import {Router} from "@angular/router";
-import {AuthenticationService} from "../../service/authentication.service";
-import {MessageService} from "primeng/components/common/messageservice";
-import {User} from "../../model/entity/user";
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {AuthenticationService} from '../../service/authentication.service';
+import {MessageService} from 'primeng/components/common/messageservice';
 
 
 @Component({
