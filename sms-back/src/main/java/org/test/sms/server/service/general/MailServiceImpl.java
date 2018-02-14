@@ -69,10 +69,10 @@ public class MailServiceImpl implements MailService {
 
             Map<String, Object> model = new HashMap<>();
 
-            model.put("url", url + "/" + token);
+            model.put("name", user.getUsername());
+            model.put("link", "http://localhost:4200/updatePassword/?token=" + token + "&id=" + user.getId());
 
-//            TODO create new template ex: passwordResetMailTemplate.ftl
-            String text = FreeMarkerTemplateUtils.processTemplateIntoString(freeMarkerConfiguration.getTemplate("credentialsMailTemplate.ftl"), model);
+            String text = FreeMarkerTemplateUtils.processTemplateIntoString(freeMarkerConfiguration.getTemplate("resetPasswordTemplate.ftl"), model);
             helper.setText(text, true);
 
             addAppIcon(helper);

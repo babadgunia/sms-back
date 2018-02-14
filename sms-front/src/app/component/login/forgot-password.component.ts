@@ -23,9 +23,8 @@ export class ForgotPasswordComponent {
 	public passwordRestorationLink() {
 		this.loading = true;
 		this.authenticationService.resetPassword(this.model.emailUsername).subscribe(() => {
-		}, (error: any) => console.log('Error While reseting password'));
-
-		this.messageService.add({severity: 'success', summary: 'Password reset link was successfully sent to your mail' + this.model.emailUsername});
+			this.messageService.add({severity: 'success', summary: 'Password reset link was successfully sent to your mail' + this.model.emailUsername});
+		}, (error: any) => this.messageService.add({severity: 'error', summary: 'Error while sending password reset link to your mail'}));
 
 		this.loading = false;
 	}

@@ -28,4 +28,8 @@ export class AuthenticationService extends AbstractService {
 
 	}
 
+	public savePassword(password: string, token: string, id: string) {
+		return super.httpRequest(HttpRequestType.POST, `changePassword/${token}/${password}/${id}`, null, AuthenticationUtils.getApiLoginHeaders());
+	}
+
 }

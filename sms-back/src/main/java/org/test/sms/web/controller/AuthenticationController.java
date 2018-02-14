@@ -102,7 +102,6 @@ public class AuthenticationController {
     public ResponseEntity<Void> resetPassword(HttpServletRequest request, @PathVariable("usernameOrEmail") String usernameOrEmail) {
         try {
             authenticationService.resetPassword(usernameOrEmail, request.getContextPath());
-
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (AppException e) {
             log.error("Error while reseting password", e);
@@ -110,13 +109,14 @@ public class AuthenticationController {
         }
     }
 
-    @RequestMapping(value = "changePassword", method = RequestMethod.GET)
-    public String showChangePasswordPage(Model model, @RequestParam("id") long id, @RequestParam("token") String token) {
-        String result = authenticationService.validatePasswordResetToken(id, token);
-        if (result != null) {
-            model.addAttribute("message", "Password Change failed");
-            return "redirect:/login";
+    @PostMapping("changePassword/{token}/{password}/{id}")
+    public ResponseEntity<Void> showChangePasswordPage(Model model, @PathVariable("token") String token, @PathVariable("password") String password, @PathVariable("id") long id) {
+        if (authenticationService.isValidPasswordResetToken(id, token)) {
+            authenticationService.saveNewPassword(id, password);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            log.error("Error while saving password");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return "redirect:/updatePassword";
     }
 }

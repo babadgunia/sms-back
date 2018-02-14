@@ -11,6 +11,7 @@ import org.test.sms.common.utils.Utils;
 import org.test.sms.server.dao.interfaces.general.UserDao;
 
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Map;
@@ -138,7 +139,7 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     }
 
     public Optional<User> getForPasswordResetByEmailOrUsername(String usernameOrEmail) {
-        TypedQuery<User> query = em.createQuery("SELECT new User(id) FROM User WHERE UPPER(email) = :email OR UPPER(username) = :username", User.class);
+        TypedQuery<User> query = em.createQuery("SELECT new User(id, username, email) FROM User WHERE UPPER(email) = :email OR UPPER(username) = :username", User.class);
 
         usernameOrEmail = usernameOrEmail.toUpperCase();
         query.setParameter("email", usernameOrEmail);
@@ -149,5 +150,14 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
         } catch (NoResultException e) {
             return Optional.empty();
         }
+    }
+
+    @Override
+    public void saveNewPassword(long userId, String password) {
+        Query query = em.createQuery("UPDATE User u SET u.password = :password WHERE u.id = :id")
+                .setParameter("password", password)
+                .setParameter("id", userId);
+
+        query.executeUpdate();
     }
 }

@@ -11,6 +11,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // component
 import {AppComponent} from './app.component';
 import {ForgotPasswordComponent} from './component/login/forgot-password.component'
+import {UpdatePasswordComponent} from "./component/login/update-password.component";
 import {LoginComponent} from './component/login/login.component';
 import {TextsComponent} from './component/texts/texts.component';
 import {UserGroupsComponent} from './component/user-groups/user-groups.component';
@@ -44,6 +45,7 @@ import {MessageService} from 'primeng/components/common/messageservice';
 		// component
 		AppComponent,
 		ForgotPasswordComponent,
+		UpdatePasswordComponent,
 		LoginComponent,
 		TextsComponent,
 		UserGroupsComponent,

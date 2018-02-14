@@ -6,6 +6,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.test.sms.common.entity.general.PasswordResetToken;
@@ -14,9 +15,11 @@ import org.test.sms.common.enums.general.ErrorCodeType;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.service.general.AuthenticationService;
 import org.test.sms.common.service.general.MailService;
+import org.test.sms.common.utils.Utils;
 import org.test.sms.server.dao.interfaces.general.PasswordResetTokenDao;
 import org.test.sms.server.dao.interfaces.general.UserDao;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Optional;
@@ -48,29 +51,33 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
 
         String token = UUID.randomUUID().toString();
-        PasswordResetToken myToken = new PasswordResetToken(token, userWrapper.get());
-        passwordResetTokenDao.saveToken(myToken);
+        PasswordResetToken passwordResetToken = new PasswordResetToken(token, userWrapper.get());
+        LocalDateTime expiryDate = LocalDateTime.now();
+        expiryDate = expiryDate.plusMinutes(60l);
+        passwordResetToken.setExpiryDate(expiryDate);
+        passwordResetTokenDao.saveToken(passwordResetToken);
 
         mailService.sendPasswordResetMail(userWrapper.get(), url, token);
     }
 
     @Override
-    public String validatePasswordResetToken(long id, String token) {
+    public boolean isValidPasswordResetToken(long id, String token) {
+        boolean isValid = true;
         PasswordResetToken passToken = passwordResetTokenDao.findByToken(token);
         if ((passToken == null) || (passToken.getUser().getId() != id)) {
-            return "invalidToken";
+            isValid = false;
         }
 
-        Calendar cal = Calendar.getInstance();
-        if ((passToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
-            return "expired";
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        if (passToken != null && passToken.getExpiryDate().isBefore(currentDateTime)){
+            isValid = false;
         }
 
-        User user = passToken.getUser();
-        Authentication auth = new UsernamePasswordAuthenticationToken(
-                user, null, Arrays.asList(
-                new SimpleGrantedAuthority("CHANGE_PASSWORD_PRIVILEGE")));
-        SecurityContextHolder.getContext().setAuthentication(auth);
-        return null;
+        return isValid;
+    }
+
+    @Override
+    public void saveNewPassword(long userId, String password) {
+        userDao.saveNewPassword(userId, new BCryptPasswordEncoder().encode(password));
     }
 }

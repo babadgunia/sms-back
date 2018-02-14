@@ -21,6 +21,8 @@ public class PasswordResetTokenDaoImpl implements PasswordResetTokenDao {
 
     @Override
     public PasswordResetToken findByToken(String token) {
-        return em.createQuery("FROM PasswordResetToken p WHERE p.token = :token", PasswordResetToken.class).getSingleResult();
+        return em.createQuery("FROM PasswordResetToken p WHERE p.token = :token", PasswordResetToken.class)
+                .setParameter("token", token)
+                .getSingleResult();
     }
 }

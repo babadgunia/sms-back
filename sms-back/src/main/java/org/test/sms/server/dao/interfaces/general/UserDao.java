@@ -17,4 +17,6 @@ public interface UserDao extends AbstractDao<User> {
     Optional<User> getForPermissionCheckByUsername(String username);
 
     Optional<User> getForPasswordResetByEmailOrUsername(String usernameOrEmail);
+
+    void saveNewPassword(long userId, String password);
 }

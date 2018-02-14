@@ -6,5 +6,7 @@ public interface AuthenticationService {
 
     void resetPassword(String usernameOrEmail, String url) throws AppException;
 
-    String validatePasswordResetToken(long id, String token);
+    boolean isValidPasswordResetToken(long id, String token);
+
+    void saveNewPassword(long userId, String password);
 }

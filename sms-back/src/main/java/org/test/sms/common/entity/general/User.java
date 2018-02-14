@@ -50,6 +50,12 @@ public class User extends AbstractEntity {
         super(id);
     }
 
+    public User(long id, String username, String email) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+    }
+
     public User(UserGroup userGroup) {
         this.userGroup = userGroup;
     }
