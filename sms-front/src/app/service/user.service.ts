@@ -45,5 +45,4 @@ export class UserService extends AbstractService {
 	public getList(filter: UserFilter): Observable<User[]> {
 		return super.httpRequest(HttpRequestType.POST, "getList", filter);
 	}
-
 }

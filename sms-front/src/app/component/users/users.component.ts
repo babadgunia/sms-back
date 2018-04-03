@@ -201,5 +201,4 @@ export class UsersComponent extends AbstractComponent implements OnInit {
 			this.loading = false;
 		}, (error: any) => super.handleError(error));
 	}
-
 }
