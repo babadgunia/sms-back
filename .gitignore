@@ -1,6 +1,7 @@
 .idea/
+*.iml
 target/
 node_modules/
-*.iml
+dist/
 rebel.xml
 .rebel.xml.bak
