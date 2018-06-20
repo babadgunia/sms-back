@@ -3,17 +3,17 @@ import {Component} from '@angular/core';
 // angular > router
 import {Router} from '@angular/router';
 // component
-import {AbstractComponent} from './component/abstract-component';
+import {AbstractComponent} from '../abstract-component';
 // service
 // util
-import {AuthenticationUtils} from './util/authentication-utils';
-import {Utils} from './util/utils';
+import {AuthenticationUtils} from '../../util/authentication-utils';
+import {Utils} from '../../util/utils';
 // primeng > service
 import {ConfirmationService} from 'primeng/components/common/confirmationservice';
 import {MessageService} from 'primeng/components/common/messageservice';
 
 @Component({
-	selector: 'app',
+	selector: 'app-root',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.css']
 })

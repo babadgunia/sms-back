@@ -10,7 +10,7 @@ import {AbstractService} from './abstract-service';
 import {AUTH_SERVICE_URL} from '../util/injectable-constants';
 import {AuthenticationUtils} from '../util/authentication-utils';
 // rxjs
-import {Observable} from 'rxjs/Observable';
+import {Observable} from "rxjs/internal/Observable";
 
 @Injectable()
 export class AuthenticationService extends AbstractService {

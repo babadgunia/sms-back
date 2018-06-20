@@ -6,9 +6,7 @@ import {HttpRequestType} from '../model/enum/http-request-type.enum';
 import {AuthenticationUtils} from '../util/authentication-utils';
 import {Utils} from '../util/utils';
 // rxjs
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
+import {Observable} from "rxjs/internal/Observable";
 
 export abstract class AbstractService {
 
@@ -21,22 +19,17 @@ export abstract class AbstractService {
 
 		switch (requestType) {
 			case HttpRequestType.GET: {
-				return this.handleError(this.http.get(url, {headers: requestOptions}));
+				return this.http.get(url, {headers: requestOptions});
 			}
 			case HttpRequestType.POST: {
-				return this.handleError(this.http.post(url, body, {headers: requestOptions}));
+				return this.http.post(url, body, {headers: requestOptions});
 			}
 			case HttpRequestType.PUT: {
-				return this.handleError(this.http.put(url, body, {headers: requestOptions}));
+				return this.http.put(url, body, {headers: requestOptions});
 			}
 			case HttpRequestType.DELETE: {
-				return this.handleError(this.http.delete(url, {headers: requestOptions}));
+				return this.http.delete(url, {headers: requestOptions});
 			}
 		}
-	}
-
-	// handles service errors by throwing an error observable
-	private handleError(observable: Observable<Object>): Observable<any> {
-		return observable.catch((error: any) => Observable.throw(error));
 	}
 }

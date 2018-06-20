@@ -13,7 +13,7 @@ import {AbstractService} from './abstract-service';
 // util
 import {TEXT_SERVICE_URL} from '../util/injectable-constants';
 // rxjs
-import {Observable} from 'rxjs/Observable';
+import {Observable} from "rxjs/internal/Observable";
 
 @Injectable()
 export class TextService extends AbstractService {

@@ -5,7 +5,7 @@ import {MessageService} from 'primeng/components/common/messageservice';
 
 
 @Component({
-	moduleId: module.id,
+	selector: 'forgotPassword',
 	templateUrl: 'forgot-password.component.html',
 	styleUrls: ['forgot-password.component.css']
 })

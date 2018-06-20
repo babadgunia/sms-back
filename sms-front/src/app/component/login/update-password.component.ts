@@ -5,6 +5,7 @@ import {MessageService} from 'primeng/components/common/messageservice';
 
 
 @Component({
+	selector: 'updatePassword',
 	templateUrl: 'update-password.component.html',
 	styleUrls: ['update-password.component.css']
 })

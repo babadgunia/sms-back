@@ -15,7 +15,7 @@ import {SelectItem} from 'primeng/components/common/selectitem';
 import {ConfirmationService} from 'primeng/components/common/confirmationservice';
 import {MessageService} from 'primeng/components/common/messageservice';
 // rxjs
-import {isNumeric} from 'rxjs/util/isNumeric';
+import {isNumeric} from "rxjs/internal-compatibility";
 
 export abstract class AbstractComponent implements OnInit {
 

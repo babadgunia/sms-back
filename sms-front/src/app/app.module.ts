@@ -9,7 +9,7 @@ import {BrowserModule} from '@angular/platform-browser';
 // angular > platform browser > animations
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // component
-import {AppComponent} from './app.component';
+import {AppComponent} from './component/app/app.component';
 import {ForgotPasswordComponent} from './component/login/forgot-password.component'
 import {UpdatePasswordComponent} from "./component/login/update-password.component";
 import {LoginComponent} from './component/login/login.component';
