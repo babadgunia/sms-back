@@ -1,6 +1,8 @@
-package org.test.sms.common.exception;
+package org.test.sms.exception;
 
-import static org.junit.Assert.assertEquals;
+import org.test.sms.common.exception.ExceptionThrower;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ExceptionAsserter {
 

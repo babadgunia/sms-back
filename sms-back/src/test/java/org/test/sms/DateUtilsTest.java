@@ -1,13 +1,13 @@
 package org.test.sms;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.test.sms.common.utils.DateUtils;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoField;
 
-import static org.junit.Assert.assertEquals;
-import static org.test.sms.common.exception.ExceptionAsserter.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.test.sms.exception.ExceptionAsserter.assertThrows;
 
 public class DateUtilsTest {
 
