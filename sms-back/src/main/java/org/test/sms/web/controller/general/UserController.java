@@ -1,4 +1,4 @@
-package org.test.sms.web.controller;
+package org.test.sms.web.controller.general;
 
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
