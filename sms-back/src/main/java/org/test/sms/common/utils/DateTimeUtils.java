@@ -8,7 +8,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Objects;
 
-public class DateUtils {
+public class DateTimeUtils {
 
     public static final long SECOND = 1000;
 
@@ -16,7 +16,7 @@ public class DateUtils {
 
     public static final long HOUR = MINUTE * 60;
 
-    private DateUtils() {}
+    private DateTimeUtils() {}
 
     public static String formatDuration(long duration) {
         if (duration < 0) {

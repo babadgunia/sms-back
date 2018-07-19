@@ -1,6 +1,6 @@
 package org.test.sms.common.log;
 
-import org.test.sms.common.utils.DateUtils;
+import org.test.sms.common.utils.DateTimeUtils;
 import org.test.sms.common.utils.Utils;
 
 import java.util.ArrayList;
@@ -70,7 +70,7 @@ public class StatisticsLogger {
                 logStageSummary(statLogger, i, lastIndex, totalDuration, currentTime);
             }
 
-            logUnderscorredMessage(statLogger, underscores, "total duration: [" + DateUtils.formatDuration(totalDuration) + "]");
+            logUnderscorredMessage(statLogger, underscores, "total duration: [" + DateTimeUtils.formatDuration(totalDuration) + "]");
         }
 
         statisticsLogger.set(null);
@@ -99,7 +99,7 @@ public class StatisticsLogger {
 
         stageSummary.append(", duration: [");
         long duration = endTime - stage.startTime;
-        stageSummary.append(DateUtils.formatDuration(duration));
+        stageSummary.append(DateTimeUtils.formatDuration(duration));
 
         stageSummary.append(" = ");
 
