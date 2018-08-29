@@ -2,9 +2,9 @@ CREATE DATABASE sms;
 \connect sms;
 CREATE SCHEMA sms;
 
-CREATE USER sms WITH PASSWORD 'sms';
+CREATE USER sms WITH SUPERUSER PASSWORD 'sms';
 
-GRANT postgres TO sms;
+GRANT all privileges on database sms to sms;
 
 CREATE TABLE sms.user_group
 (
