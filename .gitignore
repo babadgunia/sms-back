@@ -1,7 +1,5 @@
 .idea/
 *.iml
 target/
-node_modules/
-dist/
 rebel.xml
 .rebel.xml.bak
