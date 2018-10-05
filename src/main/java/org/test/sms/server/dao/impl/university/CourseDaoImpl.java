@@ -25,16 +25,6 @@ public class CourseDaoImpl extends AbstractDaoImpl<Course> implements CourseDao 
     }
 
     @Override
-    protected Course init(Course entity) {
-        return entity;
-    }
-
-    @Override
-    protected String getSelect() {
-        return null;
-    }
-
-    @Override
     protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {
         CourseFilter filter = (CourseFilter) abstractFilter;
 
@@ -43,10 +33,5 @@ public class CourseDaoImpl extends AbstractDaoImpl<Course> implements CourseDao 
             queryBuilder.append(" AND faculty = :faculty");
             params.put("faculty", faculty);
         }
-    }
-
-    @Override
-    protected String getOrderBy() {
-        return "name";
     }
 }

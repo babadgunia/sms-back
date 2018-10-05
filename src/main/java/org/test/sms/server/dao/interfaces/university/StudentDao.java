@@ -9,5 +9,7 @@ public interface StudentDao extends AbstractDao<Student> {
 
     Optional<Student> getByUserId(long userId);
 
+    boolean exists(String personalNumber);
+
     boolean exists(long facultyId);
 }

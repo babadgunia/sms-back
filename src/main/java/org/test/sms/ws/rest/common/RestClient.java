@@ -25,7 +25,8 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Map;
 
-@Log4j2 class RestClient {
+@Log4j2
+class RestClient {
 
     static <T> T sendRequest(Configuration configuration, String url, HttpMethodType httpMethod, Map<String, String> headers, Object input, Class<T> responseClass)
             throws WsException {

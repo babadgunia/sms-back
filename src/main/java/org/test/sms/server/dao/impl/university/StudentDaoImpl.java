@@ -2,8 +2,6 @@ package org.test.sms.server.dao.impl.university;
 
 import org.springframework.stereotype.Repository;
 import org.test.sms.common.entity.university.Student;
-import org.test.sms.common.enums.general.ErrorCodeType;
-import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.general.AbstractFilter;
 import org.test.sms.common.filter.university.StudentFilter;
 import org.test.sms.common.utils.Utils;
@@ -20,22 +18,7 @@ import java.util.Optional;
 @Repository
 public class StudentDaoImpl extends AbstractDaoImpl<Student> implements StudentDao {
 
-    @Override
-    public Student add(Student entity) throws AppException {
-        String personalNumber = entity.getPersonalNumber();
-        if (exists(personalNumber)) {
-            throw new AppException(ErrorCodeType.STUDENT_EXISTS, personalNumber);
-        }
-
-        return super.add(entity);
-    }
-
-    @Override
-    protected Student init(Student entity) {
-        return entity;
-    }
-
-    private boolean exists(String personalNumber) {
+    public boolean exists(String personalNumber) {
         TypedQuery<Student> query = em.createQuery("SELECT new Student(id) FROM Student WHERE UPPER(personalNumber) = :personalNumber", Student.class);
         query.setParameter("personalNumber", personalNumber);
 
@@ -63,11 +46,6 @@ public class StudentDaoImpl extends AbstractDaoImpl<Student> implements StudentD
     }
 
     @Override
-    protected String getSelect() {
-        return "id, firstName, lastName, personalNumber, phoneNumber, user";
-    }
-
-    @Override
     protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {
         StudentFilter filter = (StudentFilter) abstractFilter;
 
@@ -88,10 +66,5 @@ public class StudentDaoImpl extends AbstractDaoImpl<Student> implements StudentD
             queryBuilder.append(" AND personalNumber LIKE :personalNumber");
             params.put("personalNumber", "%" + personalNumber + "%");
         }
-    }
-
-    @Override
-    protected String getOrderBy() {
-        return "lastName";
     }
 }

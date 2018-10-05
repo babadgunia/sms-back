@@ -15,16 +15,6 @@ import java.util.Objects;
 public class AuditoriumDaoImpl extends AbstractDaoImpl<Auditorium> implements AuditoriumDao {
 
     @Override
-    protected Auditorium init(Auditorium entity) {
-        return entity;
-    }
-
-    @Override
-    protected String getSelect() {
-        return "id, name";
-    }
-
-    @Override
     protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {
         AuditoriumFilter filter = (AuditoriumFilter) abstractFilter;
 
@@ -33,10 +23,5 @@ public class AuditoriumDaoImpl extends AbstractDaoImpl<Auditorium> implements Au
             queryBuilder.append(" AND building = :building");
             params.put("building", building);
         }
-    }
-
-    @Override
-    protected String getOrderBy() {
-        return "name";
     }
 }

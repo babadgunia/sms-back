@@ -3,7 +3,6 @@ package org.test.sms;
 import org.junit.jupiter.api.Test;
 import org.test.sms.common.utils.Utils;
 
-import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -22,18 +21,12 @@ public class UtilsTest {
     public void testIsBlankForStrings() {
         String[] strings = null;
         assertTrue(Utils.isBlank(strings));
-        assertTrue(Utils.isBlank());
 
         String string = null;
         assertTrue(Utils.isBlank(string));
         assertTrue(Utils.isBlank(""));
         assertTrue(Utils.isBlank(" "));
         assertFalse(Utils.isBlank("a"));
-
-        assertTrue(Utils.isBlank("a", null));
-        assertTrue(Utils.isBlank("a", ""));
-        assertTrue(Utils.isBlank("a", " "));
-        assertFalse(Utils.isBlank("a", "a"));
     }
 
     @Test
@@ -57,40 +50,6 @@ public class UtilsTest {
                 put("a", "a");
             }
         }));
-    }
-
-    @Test
-    public void testToList() {
-        assertThrows(() -> Utils.toList(null, null, null)).expect(IllegalArgumentException.class).expectMessage("input cannot be null");
-
-        assertThrows(() -> Utils.toList("a", null, null)).expect(IllegalArgumentException.class).expectMessage("delimiter cannot be null");
-
-        assertThrows(() -> Utils.toList("a", ",", null)).expect(IllegalArgumentException.class).expectMessage("resultClass cannot be null");
-
-        assertThrows(() -> Utils.toList("a", ",", Float.class)).expect(IllegalArgumentException.class).expectMessage("unsupported resultClass type");
-
-        assertEquals(Arrays.asList(), Utils.toList("", ",", String.class));
-
-        assertEquals(Arrays.asList("a"), Utils.toList("a", ",", String.class));
-
-        assertEquals(Arrays.asList("a", "b"), Utils.toList("a,b", ",", String.class));
-
-        assertEquals(Arrays.asList(1, 2), Utils.toList("1,2", ",", Integer.class));
-    }
-
-    @Test
-    public void testToEnumList() {
-        assertThrows(() -> Utils.toEnumList(null, null, null)).expect(IllegalArgumentException.class).expectMessage("input cannot be null");
-
-        assertThrows(() -> Utils.toEnumList("MONDAY", null, null)).expect(IllegalArgumentException.class).expectMessage("delimiter cannot be null");
-
-        assertThrows(() -> Utils.toEnumList("MONDAY", ",", null)).expect(IllegalArgumentException.class).expectMessage("resultClass cannot be null");
-
-        assertEquals(Arrays.asList(), Utils.toEnumList("", ",", DayOfWeek.class));
-
-        assertEquals(Arrays.asList(DayOfWeek.MONDAY), Utils.toEnumList("MONDAY", ",", DayOfWeek.class));
-
-        assertEquals(Arrays.asList(DayOfWeek.MONDAY, DayOfWeek.TUESDAY), Utils.toEnumList("MONDAY,TUESDAY", ",", DayOfWeek.class));
     }
 
     @Test

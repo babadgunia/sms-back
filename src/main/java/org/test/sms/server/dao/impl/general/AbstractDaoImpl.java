@@ -4,11 +4,13 @@ import org.test.sms.common.entity.general.AbstractEntity;
 import org.test.sms.common.enums.general.ErrorCodeType;
 import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.general.AbstractFilter;
+import org.test.sms.common.utils.Utils;
 import org.test.sms.server.dao.interfaces.general.AbstractDao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.lang.reflect.ParameterizedType;
 import java.time.LocalDateTime;
@@ -27,14 +29,13 @@ public abstract class AbstractDaoImpl<T extends AbstractEntity> implements Abstr
 
     private String entityClassName;
 
-    @SuppressWarnings("unchecked")
     protected AbstractDaoImpl() {
         entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         entityClassName = entityClass.getSimpleName();
     }
 
     @Override
-    public T add(T entity) throws AppException {
+    public T add(T entity) {
         LocalDateTime now = LocalDateTime.now();
 
         entity.setCreationTime(now);
@@ -63,7 +64,7 @@ public abstract class AbstractDaoImpl<T extends AbstractEntity> implements Abstr
     }
 
     @Override
-    public void delete(long id) throws AppException {
+    public void delete(long id) {
         load(id).ifPresent(entity -> em.remove(entity));
     }
 
@@ -75,14 +76,16 @@ public abstract class AbstractDaoImpl<T extends AbstractEntity> implements Abstr
     public Optional<T> get(long id) {
         Optional<T> result = load(id);
 
-        result.ifPresent(this::init);
+        result.ifPresent(this::initLazyFields);
 
         return result;
     }
 
+    protected void initLazyFields(T entity) {}
+
     @Override
     public long getCount(AbstractFilter filter) {
-        StringBuilder queryBuilder = new StringBuilder("SELECT COUNT(id) FROM " + entityClassName + " e");
+        StringBuilder queryBuilder = new StringBuilder("SELECT COUNT(id) FROM " + entityClassName);
         Map<String, Object> params = new HashMap<>();
 
         if (Objects.nonNull(filter)) {
@@ -96,41 +99,62 @@ public abstract class AbstractDaoImpl<T extends AbstractEntity> implements Abstr
         return query.getSingleResult();
     }
 
+    protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {}
+
     @Override
     public List<T> getList(AbstractFilter filter) {
-        StringBuilder queryBuilder = new StringBuilder("SELECT new " + entityClassName + "(" + getSelect() + ") FROM " + entityClassName + " e");
+        StringBuilder queryBuilder = new StringBuilder(getSelect(filter) + "FROM " + entityClassName);
         Map<String, Object> params = new HashMap<>();
 
         if (Objects.nonNull(filter)) {
             queryBuilder.append(" WHERE 1 = 1");
             addFilter(queryBuilder, params, filter);
-        }
 
-        queryBuilder.append(" ORDER BY ").append(getOrderBy());
+            getOrderBy(filter, queryBuilder);
+        }
 
         TypedQuery<T> query = em.createQuery(queryBuilder.toString(), entityClass);
         params.keySet().forEach(key -> query.setParameter(key, params.get(key)));
 
-        if (Objects.nonNull(filter)) {
-            Integer offset = filter.getOffset();
-            if (Objects.nonNull(offset)) {
-                query.setFirstResult(offset);
-            }
+        addPaging(filter, query);
 
-            Integer numRows = filter.getNumRows();
-            if (Objects.nonNull(numRows)) {
-                query.setMaxResults(numRows);
+        List<T> result = query.getResultList();
+        initLazyFields(filter, result);
+
+        return result;
+    }
+
+    private String getSelect(AbstractFilter filter) {
+        if (filter != null) {
+            String fields = filter.getFields();
+            if (!Utils.isBlank(fields)) {
+                return "SELECT new " + entityClassName + "(" + fields + ") ";
             }
         }
 
-        return query.getResultList();
+        return "";
     }
 
-    protected abstract T init(T entity);
+    private void getOrderBy(AbstractFilter filter, StringBuilder queryBuilder) {
+        String orderBy = filter.getOrderBy();
+        if (!Utils.isBlank(orderBy)) {
+            queryBuilder.append(" ORDER BY ").append(orderBy);
+        }
+    }
 
-    protected abstract String getSelect();
+    private void addPaging(AbstractFilter filter, Query query) {
+        if (filter != null) {
+            Integer offset = filter.getOffset();
+            if (offset != null) {
+                query.setFirstResult(offset - 1);
+            }
 
-    protected abstract void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter);
+            Integer numRows = filter.getNumRows();
+            if (numRows != null) {
+                query.setMaxResults(numRows);
+            }
+        }
+    }
 
-    protected abstract String getOrderBy();
+    protected void initLazyFields(AbstractFilter abstractFilter, List<T> entities) {}
 }

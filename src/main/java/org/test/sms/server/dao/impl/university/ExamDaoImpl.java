@@ -19,16 +19,6 @@ import java.util.Objects;
 public class ExamDaoImpl extends AbstractDaoImpl<Exam> implements ExamDao {
 
     @Override
-    protected Exam init(Exam entity) {
-        return entity;
-    }
-
-    @Override
-    protected String getSelect() {
-        return null;
-    }
-
-    @Override
     protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {
         ExamFilter filter = (ExamFilter) abstractFilter;
 
@@ -67,10 +57,5 @@ public class ExamDaoImpl extends AbstractDaoImpl<Exam> implements ExamDao {
             queryBuilder.append(" AND type = :type");
             params.put("type", type);
         }
-    }
-
-    @Override
-    protected String getOrderBy() {
-        return "startDate";
     }
 }

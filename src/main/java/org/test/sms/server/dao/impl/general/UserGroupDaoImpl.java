@@ -28,17 +28,10 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<UserGroup> implements User
     }
 
     @Override
-    protected UserGroup init(UserGroup entity) {
+    protected void initLazyFields(UserGroup entity) {
         List<Permission> permissions = entity.getPermissions();
         permissions.size();
         permissions.forEach(permission -> permission.getPermissionTypes().size());
-
-        return entity;
-    }
-
-    @Override
-    protected String getSelect() {
-        return "id, name";
     }
 
     @Override
@@ -56,11 +49,6 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<UserGroup> implements User
             queryBuilder.append(" AND name IN(:names)");
             params.put("names", names);
         }
-    }
-
-    @Override
-    protected String getOrderBy() {
-        return "name";
     }
 
 //    misc

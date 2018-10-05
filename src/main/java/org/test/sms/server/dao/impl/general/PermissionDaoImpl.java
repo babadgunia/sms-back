@@ -4,37 +4,13 @@ import org.springframework.stereotype.Repository;
 import org.test.sms.common.entity.general.Permission;
 import org.test.sms.common.enums.general.PermissionGroupType;
 import org.test.sms.common.enums.general.PermissionType;
-import org.test.sms.common.filter.general.AbstractFilter;
 import org.test.sms.common.utils.Utils;
 import org.test.sms.server.dao.interfaces.general.PermissionDao;
 
 import javax.persistence.TypedQuery;
-import java.util.Map;
 
 @Repository
 public class PermissionDaoImpl extends AbstractDaoImpl<Permission> implements PermissionDao {
-
-    @Override
-    protected Permission init(Permission entity) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected String getSelect() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected String getOrderBy() {
-        throw new UnsupportedOperationException();
-    }
-
-//    misc
 
     @Override
     public boolean exists(long userGroupId, PermissionGroupType permissionGroup, PermissionType permissionType) {

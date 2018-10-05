@@ -7,5 +7,7 @@ import java.util.Optional;
 
 public interface LecturerDao extends AbstractDao<Lecturer> {
 
+    boolean exists(String personalNumber);
+
     Optional<Lecturer> getByUserId(long userId);
 }
