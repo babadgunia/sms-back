@@ -18,14 +18,14 @@ public class Utils {
 
     private Utils() {}
 
-//	is blank
+//    is blank
 
-    public static boolean isBlank(String... strings) {
-        if (Objects.isNull(strings) || strings.length == 0) {
-            return true;
-        }
+    public static boolean isBlank(String string) {
+        return Objects.isNull(string) || string.isEmpty();
+    }
 
-        return Arrays.stream(strings).anyMatch(string -> (Objects.isNull(string) || string.trim().isEmpty()));
+    public static <T> boolean isBlank(T[] array) {
+        return array == null || array.length == 0;
     }
 
     public static <T> boolean isBlank(Collection<T> collection) {
@@ -36,64 +36,26 @@ public class Utils {
         return Objects.isNull(map) || map.isEmpty();
     }
 
-//	to list
+//    to string
 
-    public static <T> List<T> toList(String input, String delimiter, Class<T> resultClass) {
-        validateToListArguments(input, delimiter, resultClass);
-
-        List<T> result = new ArrayList<>();
-
-        for (String token : input.split(delimiter)) {
-            if (isBlank(token = token.trim())) {
-                continue;
-            }
-
-            Object object;
-
-            if (resultClass == String.class) {
-                object = token;
-            } else if (resultClass == Integer.class) {
-                object = Integer.parseInt(token);
-            } else if (resultClass == Long.class) {
-                object = Long.parseLong(token);
-            } else if (resultClass == Double.class) {
-                object = Double.parseDouble(token);
-            } else {
-                throw new IllegalArgumentException("unsupported resultClass type");
-            }
-
-            result.add(resultClass.cast(object));
-        }
-
-        return result;
+    public static String toString(Object object) {
+        return (object == null) ? "" : object.toString();
     }
 
-    private static <T> void validateToListArguments(String input, String delimiter, Class<T> resultClass) {
-        if (Objects.isNull(input)) {
-            throw new IllegalArgumentException("input cannot be null");
+    public static <T> String toString(T[] array, String delimiter) {
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < array.length; i++) {
+            String element = toString(array[i]);
+
+            result.append(i == array.length - 1 ? element : element + delimiter);
         }
-        if (Objects.isNull(delimiter)) {
-            throw new IllegalArgumentException("delimiter cannot be null");
-        }
-        if (Objects.isNull(resultClass)) {
-            throw new IllegalArgumentException("resultClass cannot be null");
-        }
+
+        return result.toString();
     }
 
-    public static <T extends Enum<T>> List<T> toEnumList(String input, String delimiter, Class<T> resultClass) {
-        validateToListArguments(input, delimiter, resultClass);
-
-        List<T> result = new ArrayList<>();
-
-        for (String token : input.split(delimiter)) {
-            if (isBlank(token = token.trim())) {
-                continue;
-            }
-
-            result.add(Enum.valueOf(resultClass, token));
-        }
-
-        return result;
+    public static <T> String toString(Collection<T> collection, String delimiter) {
+        return toString(collection.toArray(), delimiter);
     }
 
 //	misc

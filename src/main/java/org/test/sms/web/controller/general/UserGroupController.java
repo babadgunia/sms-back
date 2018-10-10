@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "api/userGroup")
+@RequestMapping("api/userGroup")
 public class UserGroupController {
 
     private UserGroupService service;
@@ -28,13 +29,13 @@ public class UserGroupController {
         this.service = service;
     }
 
-    @RequestMapping(value = "add", method = RequestMethod.POST)
+    @PostMapping("add")
     @PreAuthorize("@userService.hasPermission('USER_GROUP', 'ADD')")
     public ResponseEntity<UserGroup> add(@RequestBody UserGroup entity) {
         try {
-            return new ResponseEntity<>(service.add(entity), HttpStatus.OK);
+            return ResponseEntity.ok(service.add(entity));
         } catch (AppException e) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 

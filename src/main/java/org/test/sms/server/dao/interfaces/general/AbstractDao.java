@@ -9,11 +9,11 @@ import java.util.Optional;
 
 public interface AbstractDao<T extends AbstractEntity> {
 
-    T add(T entity) throws AppException;
+    T add(T entity);
 
     T update(T entity) throws AppException;
 
-    void delete(long id) throws AppException;
+    void delete(long id);
 
     Optional<T> get(long id);
 

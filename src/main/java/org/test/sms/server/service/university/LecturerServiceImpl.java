@@ -4,57 +4,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.test.sms.common.entity.university.Lecturer;
+import org.test.sms.common.enums.general.ErrorCodeType;
 import org.test.sms.common.exception.AppException;
-import org.test.sms.common.filter.general.AbstractFilter;
 import org.test.sms.common.service.university.LecturerService;
 import org.test.sms.server.dao.interfaces.university.LecturerDao;
+import org.test.sms.server.service.general.AbstractServiceImpl;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
-public class LecturerServiceImpl implements LecturerService {
-
-    private LecturerDao dao;
+public class LecturerServiceImpl extends AbstractServiceImpl<Lecturer> implements LecturerService {
 
     @Autowired
     public LecturerServiceImpl(LecturerDao dao) {
-        this.dao = dao;
+        super(dao);
     }
 
     @Override
-    public Lecturer add(Lecturer entity) throws AppException {
-        return dao.add(entity);
-    }
-
-    @Override
-    public Lecturer update(Lecturer entity) throws AppException {
-        return dao.update(entity);
-    }
-
-    @Override
-    public void delete(long id) throws AppException {
-        dao.delete(id);
-    }
-
-    @Override
-    public Optional<Lecturer> get(long id) {
-        return dao.get(id);
-    }
-
-    @Override
-    public long getCount(AbstractFilter filter) {
-        return dao.getCount(filter);
-    }
-
-    @Override
-    public List<Lecturer> getList(AbstractFilter filter) {
-        return dao.getList(filter);
+    protected void validateSave(Lecturer entity) throws AppException {
+        String personalNumber = entity.getPersonalNumber();
+        if (((LecturerDao) dao).exists(personalNumber)) {
+            throw new AppException(ErrorCodeType.LECTURER_EXISTS, personalNumber);
+        }
     }
 
     @Override
     public Optional<Lecturer> getByUserId(long userId) {
-        return dao.getByUserId(userId);
+        return ((LecturerDao) dao).getByUserId(userId);
     }
 }

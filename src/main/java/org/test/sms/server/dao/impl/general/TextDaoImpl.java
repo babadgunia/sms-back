@@ -26,15 +26,8 @@ public class TextDaoImpl extends AbstractDaoImpl<Text> implements TextDao {
     }
 
     @Override
-    protected Text init(Text entity) {
+    protected void initLazyFields(Text entity) {
         entity.getValues().size();
-
-        return entity;
-    }
-
-    @Override
-    protected String getSelect() {
-        return "id, key";
     }
 
     @Override
@@ -52,11 +45,6 @@ public class TextDaoImpl extends AbstractDaoImpl<Text> implements TextDao {
             queryBuilder.append(" AND EXISTS (SELECT new I18NText(id) FROM e.values WHERE UPPER(value) LIKE :value)");
             params.put("value", "%" + value.toUpperCase() + "%");
         }
-    }
-
-    @Override
-    protected String getOrderBy() {
-        return "key";
     }
 
     @Override

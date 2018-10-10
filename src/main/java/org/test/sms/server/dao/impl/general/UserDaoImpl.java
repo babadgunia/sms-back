@@ -22,17 +22,10 @@ import java.util.Optional;
 public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 
     @Override
-    protected User init(User entity) {
+    protected void initLazyFields(User entity) {
         List<Permission> permissions = entity.getUserGroup().getPermissions();
         permissions.size();
         permissions.forEach(permission -> permission.getPermissionTypes().size());
-
-        return entity;
-    }
-
-    @Override
-    protected String getSelect() {
-        return "id, username, email, name, status, language, userGroup.name";
     }
 
     @Override
@@ -83,11 +76,6 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     }
 
     @Override
-    protected String getOrderBy() {
-        return "username";
-    }
-
-    @Override
     public boolean exists(String username) {
         TypedQuery<User> query = em.createQuery("SELECT new User(id) FROM User WHERE UPPER(username) = :username", User.class);
         query.setParameter("username", username.toUpperCase());
@@ -120,7 +108,7 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
         query.setParameter("username", username.toUpperCase());
 
         try {
-            return Optional.of(init(query.getSingleResult()));
+            return Optional.of(query.getSingleResult());
         } catch (NoResultException e) {
             return Optional.empty();
         }

@@ -10,11 +10,19 @@ import java.util.Objects;
 
 public class DateTimeUtils {
 
-    public static final long SECOND = 1000;
+    public static final int MILLIS_IN_SECOND = 1000;
 
-    public static final long MINUTE = SECOND * 60;
+    public static final int SECONDS_IN_MINUTE = 60;
 
-    public static final long HOUR = MINUTE * 60;
+    public static final int MINUTES_IN_HOUR = 60;
+
+    public static final int HOURS_IN_DAY = 24;
+
+    public static final long MILLIS_IN_MINUTE = MILLIS_IN_SECOND * SECONDS_IN_MINUTE;
+
+    public static final long MILLIS_IN_HOUR = MILLIS_IN_MINUTE * MINUTES_IN_HOUR;
+
+    public static final long MILLIS_IN_DAY = MILLIS_IN_HOUR * HOURS_IN_DAY;
 
     private DateTimeUtils() {}
 
@@ -25,14 +33,14 @@ public class DateTimeUtils {
 
         String result;
 
-        if (duration < SECOND) {
+        if (duration < MILLIS_IN_SECOND) {
             result = duration + "ms";
-        } else if (duration < MINUTE) {
-            result = (duration / SECOND) + "s " + formatDuration(duration % SECOND);
-        } else if (duration < HOUR) {
-            result = (duration / MINUTE) + "m " + formatDuration(duration % MINUTE);
+        } else if (duration < MILLIS_IN_MINUTE) {
+            result = (duration / MILLIS_IN_SECOND) + "s " + formatDuration(duration % MILLIS_IN_SECOND);
+        } else if (duration < MILLIS_IN_HOUR) {
+            result = (duration / MILLIS_IN_MINUTE) + "m " + formatDuration(duration % MILLIS_IN_MINUTE);
         } else {
-            result = (duration / HOUR) + "h " + formatDuration(duration % HOUR);
+            result = (duration / MILLIS_IN_HOUR) + "h " + formatDuration(duration % MILLIS_IN_HOUR);
         }
 
         return result;

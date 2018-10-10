@@ -17,11 +17,11 @@ public class DateUtilsTest {
 
         assertEquals("999ms", DateTimeUtils.formatDuration(999));
 
-        assertEquals("1s 1ms", DateTimeUtils.formatDuration(DateTimeUtils.SECOND + 1));
+        assertEquals("1s 1ms", DateTimeUtils.formatDuration(DateTimeUtils.MILLIS_IN_SECOND + 1));
 
-        assertEquals("1m 1s 1ms", DateTimeUtils.formatDuration(DateTimeUtils.MINUTE + DateTimeUtils.SECOND + 1));
+        assertEquals("1m 1s 1ms", DateTimeUtils.formatDuration(DateTimeUtils.MILLIS_IN_MINUTE + DateTimeUtils.MILLIS_IN_SECOND + 1));
 
-        assertEquals("1h 1m 1s 1ms", DateTimeUtils.formatDuration(DateTimeUtils.HOUR + DateTimeUtils.MINUTE + DateTimeUtils.SECOND + 1));
+        assertEquals("1h 1m 1s 1ms", DateTimeUtils.formatDuration(DateTimeUtils.MILLIS_IN_HOUR + DateTimeUtils.MILLIS_IN_MINUTE + DateTimeUtils.MILLIS_IN_SECOND + 1));
     }
 
     @Test

@@ -11,7 +11,6 @@ import org.test.sms.common.enums.general.ErrorCodeType;
 import org.test.sms.common.enums.general.PermissionGroupType;
 import org.test.sms.common.enums.general.PermissionType;
 import org.test.sms.common.exception.AppException;
-import org.test.sms.common.filter.general.AbstractFilter;
 import org.test.sms.common.service.general.MailService;
 import org.test.sms.common.service.general.UserService;
 import org.test.sms.common.utils.AppUtils;
@@ -19,14 +18,11 @@ import org.test.sms.common.utils.Utils;
 import org.test.sms.server.dao.interfaces.general.PermissionDao;
 import org.test.sms.server.dao.interfaces.general.UserDao;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service("userService")
 @Transactional
-public class UserServiceImpl implements UserService {
-
-    private UserDao dao;
+public class UserServiceImpl extends AbstractServiceImpl<User> implements UserService {
 
     private PermissionDao permissionDao;
 
@@ -34,26 +30,29 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     public UserServiceImpl(UserDao dao, PermissionDao permissionDao, MailService mailService) {
-        this.dao = dao;
+        super(dao);
+
         this.permissionDao = permissionDao;
         this.mailService = mailService;
     }
 
     @Override
-    public User add(User entity) throws AppException {
-        String username = entity.getUsername();
-        if (dao.exists(username)) {
-            throw new AppException(ErrorCodeType.USERNAME_EXISTS, username);
-        }
-
+    protected void processEntity(User entity) {
         String password = Utils.generateRandomPassword();
         entity.setPassword(new BCryptPasswordEncoder().encode(password));
+    }
 
-        User user = dao.add(entity);
+    @Override
+    protected void validateSave(User entity) throws AppException {
+        String username = entity.getUsername();
+        if (((UserDao) dao).exists(username)) {
+            throw new AppException(ErrorCodeType.USERNAME_EXISTS, username);
+        }
+    }
 
-        mailService.sendCredentialsMail(entity, password);
-
-        return user;
+    @Override
+    protected void performAdditionalActionsPostAdd(User entity) {
+        mailService.sendCredentialsMail(entity, entity.getPassword());
     }
 
     @Override
@@ -65,7 +64,7 @@ public class UserServiceImpl implements UserService {
             User storedEntity = storedEntityWrapper.get();
 
             String username = storedEntity.getUsername();
-            if (dao.exists(username, id)) {
+            if (((UserDao) dao).exists(username, id)) {
                 throw new AppException(ErrorCodeType.USERNAME_EXISTS, username);
             }
 
@@ -83,12 +82,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(long id) throws AppException {
-//        TODO maybe some checks needed?
-        dao.delete(id);
-    }
-
-    @Override
     public Optional<User> get(long id) {
         Optional<User> result = dao.get(id);
 
@@ -100,25 +93,13 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
-    @Override
-    public long getCount(AbstractFilter filter) {
-//        TODO implement name filter
-        return dao.getCount(filter);
-    }
-
-    @Override
-    public List<User> getList(AbstractFilter filter) {
-//        TODO implement name filter
-        return dao.getList(filter);
-    }
-
 //    misc
 
     @Override
     public boolean hasPermission(PermissionGroupType permissionGroup, PermissionType permissionType) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        Optional<User> userWrapper = dao.getForPermissionCheckByUsername(username);
+        Optional<User> userWrapper = ((UserDao) dao).getForPermissionCheckByUsername(username);
         if (userWrapper.isPresent()) {
             return permissionDao.exists(userWrapper.get().getUserGroup().getId(), permissionGroup, permissionType);
         }

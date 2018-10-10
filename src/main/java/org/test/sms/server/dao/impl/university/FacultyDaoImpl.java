@@ -3,8 +3,6 @@ package org.test.sms.server.dao.impl.university;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.test.sms.common.entity.university.Faculty;
-import org.test.sms.common.enums.general.ErrorCodeType;
-import org.test.sms.common.exception.AppException;
 import org.test.sms.common.filter.general.AbstractFilter;
 import org.test.sms.common.filter.university.CourseFilter;
 import org.test.sms.common.utils.Utils;
@@ -15,7 +13,6 @@ import org.test.sms.server.dao.interfaces.university.StudentDao;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -31,30 +28,11 @@ public class FacultyDaoImpl extends AbstractDaoImpl<Faculty> implements FacultyD
         this.courseDao = courseDao;
     }
 
-    @Override
-    public Faculty add(Faculty entity) throws AppException {
-        String name = entity.getName();
-        if (exists(name)) {
-            throw new AppException(ErrorCodeType.FACULTY_EXISTS, name);
-        }
-
-        return super.add(entity);
-    }
-
-    private boolean exists(String name) {
+    public boolean exists(String name) {
         TypedQuery<Faculty> query = em.createQuery("SELECT new Faculty(id) FROM Faculty WHERE UPPER(name) = :name", Faculty.class);
         query.setParameter("name", name.toUpperCase());
 
         return !Utils.isBlank(query.getResultList());
-    }
-
-    @Override
-    public void delete(long id) throws AppException {
-        if (studentDao.exists(id)) {
-            throw new AppException(ErrorCodeType.FACULTY_ASSIGNED_TO_STUDENT);
-        }
-
-        super.delete(id);
     }
 
     @Override
@@ -78,23 +56,5 @@ public class FacultyDaoImpl extends AbstractDaoImpl<Faculty> implements FacultyD
         });
 
         return result;
-    }
-
-    @Override
-    protected Faculty init(Faculty entity) {
-        return entity;
-    }
-
-    @Override
-    protected String getSelect() {
-        return "id, name";
-    }
-
-    @Override
-    protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {}
-
-    @Override
-    protected String getOrderBy() {
-        return "name";
     }
 }
