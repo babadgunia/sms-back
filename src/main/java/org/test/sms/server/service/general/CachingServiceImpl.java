@@ -40,17 +40,17 @@ public class CachingServiceImpl implements CachingService {
 
     private UserGroupService userGroupService;
 
-    private List<Building> buildings = new ArrayList<>();
+    private List<Building> buildings = CollectionUtil.createList();
+    
+    private List<Course> courses = CollectionUtil.createList();
 
-    private List<Course> courses = new ArrayList<>();
+    private List<Faculty> faculties = CollectionUtil.createList();
 
-    private List<Faculty> faculties = new ArrayList<>();
+    private List<Lecturer> lecturers = CollectionUtil.createList();
 
-    private List<Lecturer> lecturers = new ArrayList<>();
+    private List<Text> texts = CollectionUtil.createList();
 
-    private List<Text> texts = new ArrayList<>();
-
-    private List<UserGroup> userGroups = new ArrayList<>();
+    private List<UserGroup> userGroups = CollectionUtil.createList();
 
     @PostConstruct
     private void init() {
