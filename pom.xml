@@ -8,19 +8,17 @@
     <groupId>org.test.sms</groupId>
     <artifactId>sms-back</artifactId>
     <version>1.0</version>
-    <packaging>jar</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
+        <version>2.0.6.RELEASE</version>
     </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <kotlin.version>1.2.51</kotlin.version>
         <liquibase.version>3.6.2</liquibase.version>
     </properties>
 
@@ -31,7 +29,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.0.3.RELEASE</version>
+                <version>2.0.6.RELEASE</version>
                 <executions>
                     <execution>
                         <goals>
@@ -39,45 +37,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <artifactId>kotlin-maven-plugin</artifactId>
-                <groupId>org.jetbrains.kotlin</groupId>
-                <version>${kotlin.version}</version>
-                <configuration>
-                    <compilerPlugins>
-                        <plugin>spring</plugin>
-                    </compilerPlugins>
-                    <jvmTarget>${maven.compiler.target}</jvmTarget>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>compile</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <sourceDirs>
-                                <sourceDir>src/main/kotlin</sourceDir>
-                            </sourceDirs>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>test-compile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>test-compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.jetbrains.kotlin</groupId>
-                        <artifactId>kotlin-maven-allopen</artifactId>
-                        <version>${kotlin.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.liquibase</groupId>
@@ -95,14 +54,7 @@
             <dependency>
                 <groupId>com.fasterxml.jackson</groupId>
                 <artifactId>jackson-bom</artifactId>
-                <version>2.9.6</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-bom</artifactId>
-                <version>2.11.0</version>
+                <version>2.9.7</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -110,7 +62,7 @@
     </dependencyManagement>
 
     <dependencies>
-        <!--spring-->
+        <!--spring boot-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
@@ -144,25 +96,15 @@
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-kotlin</artifactId>
         </dependency>
-        <!--logging-->
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-        </dependency>
         <!--database-->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.2.4</version>
+            <version>42.2.5</version>
         </dependency>
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-            <version>${liquibase.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-maven-plugin</artifactId>
             <version>${liquibase.version}</version>
         </dependency>
         <!--security-->
@@ -176,17 +118,24 @@
             <artifactId>passay</artifactId>
             <version>1.3.1</version>
         </dependency>
-        <!--Kotlin-->
+        <!--logging-->
         <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib</artifactId>
-            <version>${kotlin.version}</version>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.11.1</version>
+        </dependency>
+        <!--testing-->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.3.1</version>
+            <scope>test</scope>
         </dependency>
         <!--mail-->
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
-            <version>1.6.1</version>
+            <version>1.6.2</version>
         </dependency>
         <dependency>
             <groupId>org.freemarker</groupId>
@@ -203,12 +152,12 @@
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
-            <version>2.3.0</version>
+            <version>2.3.1</version>
         </dependency>
         <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
-            <version>2.1.0</version>
+            <version>2.3.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -219,13 +168,6 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.6</version>
-        </dependency>
-        <!--testing-->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.2.0</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
