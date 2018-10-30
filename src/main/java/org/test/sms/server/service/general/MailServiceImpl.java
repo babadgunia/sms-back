@@ -31,7 +31,7 @@ public class MailServiceImpl implements MailService {
         this.mailSender = mailSender;
 
         this.freeMarkerConfiguration = freeMarkerConfiguration;
-        this.freeMarkerConfiguration.setClassForTemplateLoading(getClass(), "/email");
+        this.freeMarkerConfiguration.setClassForTemplateLoading(getClass(), "/templates");
     }
 
     @Override
@@ -56,7 +56,7 @@ public class MailServiceImpl implements MailService {
     }
 
     private void addAppIcon(MimeMessageHelper helper) throws MessagingException {
-        helper.addInline("appIcon", new ClassPathResource("email/appIcon.png"));
+        helper.addInline("appIcon", new ClassPathResource("images/appIcon.png"));
     }
 
     @Override
