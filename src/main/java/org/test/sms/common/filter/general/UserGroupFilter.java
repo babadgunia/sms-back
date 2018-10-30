@@ -8,7 +8,5 @@ import java.util.List;
 @Getter @Setter
 public class UserGroupFilter extends AbstractFilter {
 
-    private Long id;
-
     private List<String> names;
 }

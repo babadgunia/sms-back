@@ -13,7 +13,6 @@ import org.test.sms.server.dao.interfaces.university.StudentDao;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class FacultyDaoImpl extends AbstractDaoImpl<Faculty> implements FacultyDao {
@@ -36,15 +35,6 @@ public class FacultyDaoImpl extends AbstractDaoImpl<Faculty> implements FacultyD
     }
 
     @Override
-    public Optional<Faculty> get(long id) {
-        Optional<Faculty> result = super.get(id);
-
-        result.ifPresent(faculty -> faculty.getCourses().size());
-
-        return result;
-    }
-
-    @Override
     public List<Faculty> getList(AbstractFilter filter) {
         List<Faculty> result = super.getList(filter);
 
@@ -56,5 +46,10 @@ public class FacultyDaoImpl extends AbstractDaoImpl<Faculty> implements FacultyD
         });
 
         return result;
+    }
+
+    @Override
+    protected void initLazyFields(AbstractFilter abstractFilter, Faculty entity) {
+        entity.getCourses().size();
     }
 }

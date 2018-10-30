@@ -15,7 +15,7 @@ import java.util.Objects;
 public class AuditoriumDaoImpl extends AbstractDaoImpl<Auditorium> implements AuditoriumDao {
 
     @Override
-    protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {
+    protected void addFilter(AbstractFilter abstractFilter, StringBuilder queryBuilder, Map<String, Object> params) {
         AuditoriumFilter filter = (AuditoriumFilter) abstractFilter;
 
         Building building = filter.getBuilding();

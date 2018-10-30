@@ -54,6 +54,7 @@ public abstract class AbstractDaoImpl<T extends AbstractEntity> implements Abstr
     public T update(T entity) throws AppException {
         LocalDateTime now = LocalDateTime.now();
         entity.setLastModifiedTime(now);
+
         initSubEntities(entity, now, false);
 
         try {
@@ -65,23 +66,18 @@ public abstract class AbstractDaoImpl<T extends AbstractEntity> implements Abstr
 
     @Override
     public void delete(long id) {
-        load(id).ifPresent(entity -> em.remove(entity));
-    }
-
-    private Optional<T> load(long id) {
-        return Optional.ofNullable(em.find(entityClass, id));
+        T entity = em.find(entityClass, id);
+        if (Objects.nonNull(entity)) {
+            em.remove(entity);
+        }
     }
 
     @Override
-    public Optional<T> get(long id) {
-        Optional<T> result = load(id);
+    public Optional<T> get(AbstractFilter filter) {
+        List<T> resultList = getList(filter);
 
-        result.ifPresent(this::initLazyFields);
-
-        return result;
+        return !Utils.isBlank(resultList) ? Optional.of(resultList.get(0)) : Optional.empty();
     }
-
-    protected void initLazyFields(T entity) {}
 
     @Override
     public long getCount(AbstractFilter filter) {
@@ -90,16 +86,16 @@ public abstract class AbstractDaoImpl<T extends AbstractEntity> implements Abstr
 
         if (Objects.nonNull(filter)) {
             queryBuilder.append(" WHERE 1 = 1");
-            addFilter(queryBuilder, params, filter);
+            addFilter(filter, queryBuilder, params);
         }
 
         TypedQuery<Long> query = em.createQuery(queryBuilder.toString(), Long.class);
-        params.keySet().forEach(key -> query.setParameter(key, params.get(key)));
+        params.forEach(query::setParameter);
 
         return query.getSingleResult();
     }
 
-    protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {}
+    protected void addFilter(AbstractFilter abstractFilter, StringBuilder queryBuilder, Map<String, Object> params) {}
 
     @Override
     public List<T> getList(AbstractFilter filter) {
@@ -108,18 +104,23 @@ public abstract class AbstractDaoImpl<T extends AbstractEntity> implements Abstr
 
         if (Objects.nonNull(filter)) {
             queryBuilder.append(" WHERE 1 = 1");
-            addFilter(queryBuilder, params, filter);
+            addFilter(filter, queryBuilder, params);
 
             getOrderBy(filter, queryBuilder);
         }
 
         TypedQuery<T> query = em.createQuery(queryBuilder.toString(), entityClass);
-        params.keySet().forEach(key -> query.setParameter(key, params.get(key)));
+        params.forEach(query::setParameter);
 
         addPaging(filter, query);
 
         List<T> result = query.getResultList();
-        initLazyFields(filter, result);
+
+        if (filter != null) {
+            for (T entity : result) {
+                initLazyFields(filter, entity);
+            }
+        }
 
         return result;
     }
@@ -156,5 +157,5 @@ public abstract class AbstractDaoImpl<T extends AbstractEntity> implements Abstr
         }
     }
 
-    protected void initLazyFields(AbstractFilter abstractFilter, List<T> entities) {}
+    protected void initLazyFields(AbstractFilter abstractFilter, T entity) {}
 }

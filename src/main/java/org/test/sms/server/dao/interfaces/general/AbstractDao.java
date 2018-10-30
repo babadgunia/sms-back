@@ -15,7 +15,7 @@ public interface AbstractDao<T extends AbstractEntity> {
 
     void delete(long id);
 
-    Optional<T> get(long id);
+    Optional<T> get(AbstractFilter filter);
 
     long getCount(AbstractFilter filter);
 

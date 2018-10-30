@@ -15,4 +15,6 @@ public class AbstractFilter implements Serializable {
     private Integer offset;
 
     private Integer numRows;
+
+    private Long id;
 }

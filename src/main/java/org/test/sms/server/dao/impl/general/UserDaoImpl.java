@@ -22,14 +22,14 @@ import java.util.Optional;
 public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 
     @Override
-    protected void initLazyFields(User entity) {
+    protected void initLazyFields(AbstractFilter abstractFilter, User entity) {
         List<Permission> permissions = entity.getUserGroup().getPermissions();
         permissions.size();
         permissions.forEach(permission -> permission.getPermissionTypes().size());
     }
 
     @Override
-    protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {
+    protected void addFilter(AbstractFilter abstractFilter, StringBuilder queryBuilder, Map<String, Object> params) {
         UserFilter filter = (UserFilter) abstractFilter;
 
         Long id = filter.getId();

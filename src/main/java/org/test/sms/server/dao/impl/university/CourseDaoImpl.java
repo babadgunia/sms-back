@@ -10,22 +10,17 @@ import org.test.sms.server.dao.interfaces.university.CourseDao;
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 @Repository
 public class CourseDaoImpl extends AbstractDaoImpl<Course> implements CourseDao {
 
     @Override
-    public Optional<Course> get(long id) {
-        Optional<Course> result = super.get(id);
-
-        result.ifPresent(course -> course.getModules().size());
-
-        return result;
+    protected void initLazyFields(AbstractFilter abstractFilter, Course entity) {
+        entity.getModules().size();
     }
 
     @Override
-    protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {
+    protected void addFilter(AbstractFilter abstractFilter, StringBuilder queryBuilder, Map<String, Object> params) {
         CourseFilter filter = (CourseFilter) abstractFilter;
 
         Faculty faculty = filter.getFaculty();

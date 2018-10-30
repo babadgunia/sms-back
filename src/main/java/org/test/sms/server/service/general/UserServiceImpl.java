@@ -11,6 +11,8 @@ import org.test.sms.common.enums.general.ErrorCodeType;
 import org.test.sms.common.enums.general.PermissionGroupType;
 import org.test.sms.common.enums.general.PermissionType;
 import org.test.sms.common.exception.AppException;
+import org.test.sms.common.filter.general.AbstractFilter;
+import org.test.sms.common.filter.general.UserFilter;
 import org.test.sms.common.service.general.MailService;
 import org.test.sms.common.service.general.UserService;
 import org.test.sms.common.utils.AppUtils;
@@ -51,14 +53,18 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
     }
 
     @Override
-    protected void performAdditionalActionsPostAdd(User entity) {
+    protected void performAdditionalOperationsPostAdd(User entity) {
         mailService.sendCredentialsMail(entity, entity.getPassword());
     }
 
     @Override
     public User update(User entity) throws AppException {
         long id = entity.getId();
-        Optional<User> storedEntityWrapper = dao.get(id);
+
+        UserFilter userFilter = new UserFilter();
+        userFilter.setId(id);
+
+        Optional<User> storedEntityWrapper = dao.get(userFilter);
 
         if (storedEntityWrapper.isPresent()) {
             User storedEntity = storedEntityWrapper.get();
@@ -82,8 +88,8 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
     }
 
     @Override
-    public Optional<User> get(long id) {
-        Optional<User> result = dao.get(id);
+    public Optional<User> get(AbstractFilter abstractFilter) {
+        Optional<User> result = dao.get(abstractFilter);
 
         result.ifPresent(user -> {
             UserGroup userGroup = user.getUserGroup();

@@ -64,7 +64,10 @@ public class UserGroupController {
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
     @PreAuthorize("@userService.hasPermission('USER_GROUP', 'VIEW')")
     public ResponseEntity<UserGroup> get(@PathVariable("id") long id) {
-        Optional<UserGroup> entityWrapper = service.get(id);
+        UserGroupFilter userGroupFilter = new UserGroupFilter();
+        userGroupFilter.setId(id);
+
+        Optional<UserGroup> entityWrapper = service.get(userGroupFilter);
 
         return new ResponseEntity<>(entityWrapper.orElse(null), HttpStatus.OK);
     }

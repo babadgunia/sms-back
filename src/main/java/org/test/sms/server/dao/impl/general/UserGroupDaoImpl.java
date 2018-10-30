@@ -28,14 +28,14 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<UserGroup> implements User
     }
 
     @Override
-    protected void initLazyFields(UserGroup entity) {
+    protected void initLazyFields(AbstractFilter abstractFilter, UserGroup entity) {
         List<Permission> permissions = entity.getPermissions();
         permissions.size();
         permissions.forEach(permission -> permission.getPermissionTypes().size());
     }
 
     @Override
-    protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {
+    protected void addFilter(AbstractFilter abstractFilter, StringBuilder queryBuilder, Map<String, Object> params) {
         UserGroupFilter filter = (UserGroupFilter) abstractFilter;
 
         Long id = filter.getId();

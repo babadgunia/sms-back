@@ -26,12 +26,12 @@ public class TextDaoImpl extends AbstractDaoImpl<Text> implements TextDao {
     }
 
     @Override
-    protected void initLazyFields(Text entity) {
+    protected void initLazyFields(AbstractFilter abstractFilter, Text entity) {
         entity.getValues().size();
     }
 
     @Override
-    protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {
+    protected void addFilter(AbstractFilter abstractFilter, StringBuilder queryBuilder, Map<String, Object> params) {
         TextFilter filter = (TextFilter) abstractFilter;
 
         String key = filter.getKey();

@@ -68,7 +68,10 @@ public class UserController extends AbstractController {
     @GetMapping("get/{id}")
     @PreAuthorize("@userService.hasPermission('USER', 'VIEW')")
     public ResponseEntity<UserDto> get(@PathVariable("id") long id) {
-        Optional<User> entityWrapper = service.get(id);
+        UserFilter userFilter = new UserFilter();
+        userFilter.setId(id);
+
+        Optional<User> entityWrapper = service.get(userFilter);
 
         return ResponseEntity.ok(modelMapper.map(entityWrapper.orElse(null), UserDto.class));
     }

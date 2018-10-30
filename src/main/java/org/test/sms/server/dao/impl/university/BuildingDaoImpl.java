@@ -11,7 +11,6 @@ import org.test.sms.server.dao.interfaces.university.AuditoriumDao;
 import org.test.sms.server.dao.interfaces.university.BuildingDao;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class BuildingDaoImpl extends AbstractDaoImpl<Building> implements BuildingDao {
@@ -24,16 +23,10 @@ public class BuildingDaoImpl extends AbstractDaoImpl<Building> implements Buildi
     }
 
     @Override
-    public Optional<Building> get(long id) {
-        Optional<Building> result = super.get(id);
-
-        result.ifPresent(building -> {
-            List<Auditorium> auditoriums = building.getAuditoriums();
-            auditoriums.size();
-            auditoriums.forEach(auditorium -> auditorium.getSeats().size());
-        });
-
-        return result;
+    protected void initLazyFields(AbstractFilter abstractFilter, Building entity) {
+        List<Auditorium> auditoriums = entity.getAuditoriums();
+        auditoriums.size();
+        auditoriums.forEach(auditorium -> auditorium.getSeats().size());
     }
 
     @Override

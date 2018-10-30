@@ -22,14 +22,17 @@ public abstract class AbstractServiceImpl<T extends AbstractEntity> implements A
         processEntity(entity);
         validateSave(entity);
 
-        return dao.add(entity);
+        T result = dao.add(entity);
+        performAdditionalOperationsPostAdd(result);
+
+        return result;
     }
 
     protected void processEntity(T entity) {}
 
     protected void validateSave(T entity) throws AppException {}
 
-    protected void performAdditionalActionsPostAdd(T entity) {}
+    protected void performAdditionalOperationsPostAdd(T entity) {}
 
     @Override
     public T update(T entity) throws AppException {
@@ -49,8 +52,8 @@ public abstract class AbstractServiceImpl<T extends AbstractEntity> implements A
     protected void validateDelete(long id) throws AppException {}
 
     @Override
-    public Optional<T> get(long id) {
-        return dao.get(id);
+    public Optional<T> get(AbstractFilter filter) {
+        return dao.get(filter);
     }
 
     @Override

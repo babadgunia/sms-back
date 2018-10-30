@@ -15,7 +15,7 @@ public interface AbstractService<T extends AbstractEntity> {
 
     void delete(long id) throws AppException;
 
-    Optional<T> get(long id);
+    Optional<T> get(AbstractFilter filter);
 
     long getCount(AbstractFilter filter);
 

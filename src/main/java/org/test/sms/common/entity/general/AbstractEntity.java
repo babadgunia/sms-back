@@ -24,7 +24,7 @@ public abstract class AbstractEntity implements Serializable {
     private LocalDateTime lastModifiedTime;
 
     @Version
-    private int version;
+    private long version;
 
     protected AbstractEntity(long id) {
         setId(id);

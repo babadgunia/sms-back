@@ -8,7 +8,7 @@ public class AppUtils {
 
     private AppUtils() {}
 
-    public static void setEntityVersion(AbstractEntity abstractEntity, int newVersion) throws AppException {
+    public static void setEntityVersion(AbstractEntity abstractEntity, long newVersion) throws AppException {
         if (abstractEntity.getVersion() != newVersion) {
             throw new AppException(ErrorCodeType.OBJECT_CHANGED);
         }

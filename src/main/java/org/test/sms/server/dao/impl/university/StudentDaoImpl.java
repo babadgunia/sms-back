@@ -46,7 +46,7 @@ public class StudentDaoImpl extends AbstractDaoImpl<Student> implements StudentD
     }
 
     @Override
-    protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {
+    protected void addFilter(AbstractFilter abstractFilter, StringBuilder queryBuilder, Map<String, Object> params) {
         StudentFilter filter = (StudentFilter) abstractFilter;
 
         List<String> firstNames = filter.getFirstNames();

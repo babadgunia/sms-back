@@ -19,7 +19,7 @@ import java.util.Objects;
 public class ExamDaoImpl extends AbstractDaoImpl<Exam> implements ExamDao {
 
     @Override
-    protected void addFilter(StringBuilder queryBuilder, Map<String, Object> params, AbstractFilter abstractFilter) {
+    protected void addFilter(AbstractFilter abstractFilter, StringBuilder queryBuilder, Map<String, Object> params) {
         ExamFilter filter = (ExamFilter) abstractFilter;
 
         Faculty faculty = filter.getFaculty();

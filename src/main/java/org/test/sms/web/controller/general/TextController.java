@@ -63,7 +63,10 @@ public class TextController {
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
     @PreAuthorize("@userService.hasPermission('TEXT', 'VIEW')")
     public ResponseEntity<Text> get(@PathVariable("id") long id) {
-        Optional<Text> entityWrapper = service.get(id);
+        TextFilter textFilter = new TextFilter();
+        textFilter.setId(id);
+
+        Optional<Text> entityWrapper = service.get(textFilter);
 
         return new ResponseEntity<>(entityWrapper.orElse(null), HttpStatus.OK);
     }
