@@ -6,12 +6,12 @@ import org.passay.PasswordGenerator;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class Utils {
 
@@ -55,6 +55,39 @@ public class Utils {
 
     public static <T> String toString(Collection<T> collection, String delimiter) {
         return toString(collection.toArray(), delimiter);
+    }
+
+    //    to list
+    public static <T> List<T> toList(String input, String delimiter, Class<T> resultClass) {
+        List<T> result = new ArrayList<>();
+        if (isBlank(input)) {
+            return result;
+        }
+
+        for (String token : input.split(delimiter)) {
+            token = token.trim();
+            if (isBlank(token)) {
+                continue;
+            }
+
+            Object object = token;
+
+            if (resultClass == Integer.class) {
+                object = Integer.parseInt(token);
+            } else if (resultClass == Long.class) {
+                object = Long.parseLong(token);
+            } else if (resultClass == Double.class) {
+                object = Double.parseDouble(token);
+            }
+
+            result.add(resultClass.cast(object));
+        }
+
+        return result;
+    }
+
+    public static Object[] toStringArray(Object... array) {
+        return Arrays.stream(array).map(Object::toString).toArray();
     }
 
 //	misc
@@ -103,10 +136,6 @@ public class Utils {
         }
 
         return findRelevantCause(cause);
-    }
-
-    public static Object[] toStringArray(Object... array) {
-        return Arrays.stream(array).map(Object::toString).collect(Collectors.toList()).toArray();
     }
 
     //    generates a random password using the passay library

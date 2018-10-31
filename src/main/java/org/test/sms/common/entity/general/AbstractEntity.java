@@ -5,25 +5,29 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @MappedSuperclass
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter @Setter
 public abstract class AbstractEntity implements Serializable {
 
-    public static final int SEQUENCE_ALLOCATION_SIZE = 1;
+    protected static final String SEQUENCE_PREFIX = "SQ_";
 
-    protected static final String SEQUENCE_SUFFIX = "_SEQ";
+    protected static final int SEQUENCE_ALLOCATION_SIZE = 1;
 
-    private LocalDateTime creationTime;
+    @Column(name = "CREATED")
+    private ZonedDateTime created;
 
-    private LocalDateTime lastModifiedTime;
+    @Column(name = "LAST_MODIFIED")
+    private ZonedDateTime lastModified;
 
     @Version
+    @Column(name = "VERSION")
     private long version;
 
     protected AbstractEntity(long id) {

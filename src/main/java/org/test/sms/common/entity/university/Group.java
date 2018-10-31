@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.test.sms.common.entity.general.AbstractEntity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -21,16 +22,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@SequenceGenerator(name = Group.SEQUENCE_NAME, sequenceName = Group.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
-@Table(name = "UNIVERSITY_GROUP")
+@Table(name = Group.TABLE_NAME)
 @NoArgsConstructor
 @Getter @Setter
 public class Group extends AbstractEntity {
 
-    static final String SEQUENCE_NAME = "UNIVERSITY_GROUP" + SEQUENCE_SUFFIX;
+    static final String TABLE_NAME = "UNI_GROUP";
+
+    private static final String SEQUENCE_NAME = SEQUENCE_PREFIX + TABLE_NAME;
 
     @Id
+    @SequenceGenerator(name = SEQUENCE_NAME, sequenceName = SEQUENCE_NAME, allocationSize = SEQUENCE_ALLOCATION_SIZE)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
+    @Column(name = "ID")
     private long id;
 
     private int groupNumber;

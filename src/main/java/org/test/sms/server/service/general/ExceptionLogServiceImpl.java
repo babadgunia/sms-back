@@ -23,7 +23,7 @@ public class ExceptionLogServiceImpl extends AbstractServiceImpl<ExceptionLog> i
         ExceptionLog exceptionLog = new ExceptionLog();
 
         Throwable cause = Utils.findRelevantCause(t);
-        exceptionLog.setMessage(cause.getClass().getName() + ": " + cause.getMessage());
+        exceptionLog.setInfo(cause.getClass().getName() + ": " + cause.getMessage());
         exceptionLog.setStackTrace(Utils.getStackTrace(t));
 
         return add(exceptionLog);

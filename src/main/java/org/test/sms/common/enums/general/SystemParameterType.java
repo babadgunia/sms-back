@@ -12,5 +12,5 @@ public enum SystemParameterType {
 
     DOUBLE,
 
-    STRING_LIST
+    LIST_STRING
 }

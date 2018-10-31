@@ -13,7 +13,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.lang.reflect.ParameterizedType;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,10 +36,10 @@ public abstract class AbstractDaoImpl<T extends AbstractEntity> implements Abstr
 
     @Override
     public T add(T entity) {
-        LocalDateTime now = LocalDateTime.now();
+        ZonedDateTime now = ZonedDateTime.now();
 
-        entity.setCreationTime(now);
-        entity.setLastModifiedTime(now);
+        entity.setCreated(now);
+        entity.setLastModified(now);
 
         initSubEntities(entity, now, true);
 
@@ -48,12 +48,12 @@ public abstract class AbstractDaoImpl<T extends AbstractEntity> implements Abstr
         return entity;
     }
 
-    protected void initSubEntities(T entity, LocalDateTime now, boolean isAdd) {}
+    protected void initSubEntities(T entity, ZonedDateTime now, boolean isAdd) {}
 
     @Override
     public T update(T entity) throws AppException {
-        LocalDateTime now = LocalDateTime.now();
-        entity.setLastModifiedTime(now);
+        ZonedDateTime now = ZonedDateTime.now();
+        entity.setLastModified(now);
 
         initSubEntities(entity, now, false);
 

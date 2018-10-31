@@ -1,44 +1,50 @@
 package org.test.sms.common.entity.general;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.test.sms.common.enums.general.LanguageType;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
-@SequenceGenerator(name = I18nText.SEQUENCE_NAME, sequenceName = I18nText.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
+@Table(name = I18NText.TABLE_NAME)
 @NoArgsConstructor
 @Getter @Setter
-public class I18nText extends AbstractEntity {
+public class I18NText extends AbstractEntity {
 
-    static final String SEQUENCE_NAME = "I18N_TEXT" + SEQUENCE_SUFFIX;
+    static final String TABLE_NAME = "I18N_TEXT";
+
+    private static final String SEQUENCE_NAME = SEQUENCE_PREFIX + TABLE_NAME;
 
     @Id
+    @SequenceGenerator(name = SEQUENCE_NAME, sequenceName = SEQUENCE_NAME, allocationSize = SEQUENCE_ALLOCATION_SIZE)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
+    @Column(name = "ID")
     private long id;
 
-    @Enumerated(EnumType.STRING)
-    private LanguageType language;
-
-    @Lob
+    @Column(name = "VALUE")
     private String value;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "LANGUAGE")
+    private LanguageType language;
+
     @ManyToOne
-    @JsonIgnore
+    @JoinColumn(name = "TEXT_ID")
     private Text text;
 
-    public I18nText(long id) {
+    public I18NText(long id) {
         super(id);
     }
 }

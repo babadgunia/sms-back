@@ -7,6 +7,7 @@ import org.test.sms.common.entity.general.AbstractEntity;
 import org.test.sms.common.enums.university.SemesterType;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,19 +20,24 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@SequenceGenerator(name = Course.SEQUENCE_NAME, sequenceName = Course.SEQUENCE_NAME, allocationSize = AbstractEntity.SEQUENCE_ALLOCATION_SIZE)
+@Table(name = Course.TABLE_NAME)
 @NoArgsConstructor
 @Getter @Setter
 public class Course extends AbstractEntity {
 
-    static final String SEQUENCE_NAME = "COURSE" + SEQUENCE_SUFFIX;
+    static final String TABLE_NAME = "COURSE";
+
+    private static final String SEQUENCE_NAME = SEQUENCE_PREFIX + TABLE_NAME;
 
     @Id
+    @SequenceGenerator(name = SEQUENCE_NAME, sequenceName = SEQUENCE_NAME, allocationSize = SEQUENCE_ALLOCATION_SIZE)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
+    @Column(name = "ID")
     private long id;
 
     private String name;
