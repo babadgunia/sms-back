@@ -33,7 +33,10 @@ public class UserServiceImplTest {
     public void whenValidUsername_thenUserShouldBeFound() {
         String name = "Firstname Lastname";
 
-        UserGroup userGroup = new UserGroup(1, "UserGroup");
+        UserGroup userGroup = new UserGroup();
+
+        userGroup.setId(1);
+        userGroup.setName("UserGroup");
 
         User user = new User();
         user.setUsername("test");
@@ -48,5 +51,4 @@ public class UserServiceImplTest {
 
         assertEquals(foundUser.get().getName(), name);
     }
-
 }
