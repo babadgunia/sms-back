@@ -6,7 +6,6 @@ import org.passay.PasswordGenerator;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -21,7 +20,7 @@ public class Utils {
 //    is blank
 
     public static boolean isBlank(String string) {
-        return Objects.isNull(string) || string.isEmpty();
+        return Objects.isNull(string) || string.trim().isEmpty();
     }
 
     public static <T> boolean isBlank(T[] array) {
