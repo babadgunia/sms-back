@@ -33,18 +33,13 @@ public class Faculty extends AbstractEntity {
     @Column(name = "ID")
     private long id;
 
+    @Column(name = "NAME")
     private String name;
 
-    @OneToMany(mappedBy = "faculty", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "faculty", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Course> courses = new ArrayList<>();
 
     public Faculty(long id) {
         super(id);
-    }
-
-    public Faculty(long id, String name) {
-        this(id);
-
-        this.name = name;
     }
 }

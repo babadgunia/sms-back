@@ -12,6 +12,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
@@ -37,26 +39,34 @@ public class Group extends AbstractEntity {
     @Column(name = "ID")
     private long id;
 
-    private int groupNumber;
+    @Column(name = "NUMBER")
+    private int number;
 
     @Enumerated(EnumType.STRING)
-    private DayOfWeek day;
+    @Column(name = "DAY_OF_WEEK")
+    private DayOfWeek dayOfWeek;
 
+    @Column(name = "START_TIME")
     private LocalTime startTime;
 
+    @Column(name = "END_TIME")
     private LocalTime endTime;
 
+    @ManyToMany
+    @JoinTable(name = "UNI_GROUP_STUDENT", joinColumns = @JoinColumn(name = "GROUP_ID"), inverseJoinColumns = @JoinColumn(name = "STUDENT_ID"))
+    private List<Student> students = new ArrayList<>();
+
     @ManyToOne
+    @JoinColumn(name = "MODULE_ID")
     private Module module;
 
     @ManyToOne
+    @JoinColumn(name = "AUDITORIUM_ID")
     private Auditorium auditorium;
 
     @ManyToOne
+    @JoinColumn(name = "LECTURER_ID")
     private Lecturer lecturer;
-
-    @ManyToMany
-    private List<Student> students = new ArrayList<>();
 
     public Group(long id) {
         super(id);

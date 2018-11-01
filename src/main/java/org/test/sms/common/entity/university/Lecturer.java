@@ -5,12 +5,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.test.sms.common.entity.general.User;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -34,20 +34,14 @@ public class Lecturer extends UniversityMember {
     @Column(name = "ID")
     private long id;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
-    private User user;
-
     @OneToMany(mappedBy = "lecturer")
     private List<Group> groups = new ArrayList<>();
 
+    @OneToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
+
     public Lecturer(long id) {
         super(id);
-    }
-
-    public Lecturer(long id, String firstName, String lastName, String personalNumber, String phoneNumber, User user) {
-        super(firstName, lastName, personalNumber, phoneNumber);
-
-        this.id = id;
-        this.user = user;
     }
 }

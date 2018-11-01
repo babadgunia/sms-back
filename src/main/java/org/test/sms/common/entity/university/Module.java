@@ -5,11 +5,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.test.sms.common.entity.general.AbstractEntity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -33,15 +35,18 @@ public class Module extends AbstractEntity {
     @Column(name = "ID")
     private long id;
 
+    @Column(name = "NAME")
     private String name;
 
+    @Column(name = "MAX_GRADE")
     private Integer maxGrade;
 
-    @ManyToOne
-    private Course course;
-
-    @OneToMany(mappedBy = "module")
+    @OneToMany(mappedBy = "module", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Group> groups = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "COURSE_ID")
+    private Course course;
 
     public Module(long id) {
         super(id);

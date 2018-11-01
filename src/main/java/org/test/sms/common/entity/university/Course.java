@@ -7,6 +7,7 @@ import org.test.sms.common.entity.general.AbstractEntity;
 import org.test.sms.common.enums.university.SemesterType;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -15,6 +16,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -40,38 +43,40 @@ public class Course extends AbstractEntity {
     @Column(name = "ID")
     private long id;
 
+    @Column(name = "NAME")
     private String name;
 
+    @Column(name = "NUM_CREDITS")
     private Integer numCredits;
 
+    @Column(name = "MAX_STUDENTS")
     private Integer maxStudents;
 
     @Lob
+    @Column(name = "SYLLABUS")
     private byte[] syllabus;
-
-    @ManyToOne
-    private Faculty faculty;
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "COURSE_SEMESTER", joinColumns = @JoinColumn(name = "COURSE_ID"))
+    @Column(name = "SEMESTER")
     private List<SemesterType> semesters = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "COURSE_PREREQUISITE", joinColumns = @JoinColumn(name = "COURSE_ID"), inverseJoinColumns = @JoinColumn(name = "PREREQUISITE_ID"))
+    private List<Course> prerequisites = new ArrayList<>();
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Module> modules = new ArrayList<>();
 
-    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Exam> exams = new ArrayList<>();
 
-    @ManyToMany
-    private List<Course> prerequisites = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "FACULTY_ID")
+    private Faculty faculty;
 
     public Course(long id) {
         super(id);
-    }
-
-    public Course(long id, String name) {
-        this(id);
-
-        this.name = name;
     }
 }

@@ -33,12 +33,16 @@ public class Building extends AbstractEntity {
     @Column(name = "ID")
     private long id;
 
+    @Column(name = "NAME")
     private String name;
 
+    @Column(name = "ADDRESS")
     private String address;
 
+    @Column(name = "LAT")
     private Double lat;
 
+    @Column(name = "LON")
     private Double lon;
 
     @OneToMany(mappedBy = "building", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -46,14 +50,5 @@ public class Building extends AbstractEntity {
 
     public Building(long id) {
         super(id);
-    }
-
-    public Building(long id, String name, String address, Double lat, Double lon) {
-        this(id);
-
-        this.name = name;
-        this.address = address;
-        this.lat = lat;
-        this.lon = lon;
     }
 }

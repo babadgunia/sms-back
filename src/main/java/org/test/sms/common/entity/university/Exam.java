@@ -13,10 +13,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = Exam.TABLE_NAME)
@@ -35,21 +36,28 @@ public class Exam extends AbstractEntity {
     private long id;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "TYPE")
     private ExamType type;
 
+    @Column(name = "MAX_GRADE")
     private Integer maxGrade;
 
-    private LocalDateTime startDate;
+    @Column(name = "START_DATE")
+    private ZonedDateTime startDate;
 
-    private LocalDateTime endDate;
+    @Column(name = "END_DATE")
+    private ZonedDateTime endDate;
 
+    @Column(name = "NUM_STUDENTS")
     private Integer numStudents;
 
     @ManyToOne
+    @JoinColumn(name = "COURSE_ID")
     private Course course;
 
     @ManyToOne
-    private Building building;
+    @JoinColumn(name = "AUDITORIUM_ID")
+    private Auditorium auditorium;
 
     public Exam(long id) {
         super(id);

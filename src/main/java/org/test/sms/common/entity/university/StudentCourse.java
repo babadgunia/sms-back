@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.test.sms.common.entity.general.AbstractEntity;
 import org.test.sms.common.enums.university.SemesterType;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -43,28 +44,35 @@ public class StudentCourse extends AbstractEntity {
     private long id;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "SEMESTER")
     private SemesterType semester;
 
+    @Column(name = "YEAR")
     private String year;
 
+    @Column(name = "ATTENDANCE_GRADE")
     private int attendanceGrade;
 
-    @ManyToOne
-    private Student student;
-
-    @ManyToOne
-    private Course course;
-
     @ElementCollection
+    @CollectionTable(name = "STUDENT_COURSE_MODULE_GRADE", joinColumns = @JoinColumn(name = "STUDENT_COURSE_ID"))
     private List<ModuleGrade> moduleGrades = new ArrayList<>();
 
     @ElementCollection
+    @CollectionTable(name = "STUDENT_COURSE_EXAM_GRADE", joinColumns = @JoinColumn(name = "STUDENT_COURSE_ID"))
     private List<ExamGrade> examGrades = new ArrayList<>();
 
     @ManyToMany
-    @JoinTable(name = "StudentCourse_Groups", inverseJoinColumns = @JoinColumn(name = "Group_Id"))
-    @MapKeyJoinColumn(name = "Module_Id", referencedColumnName = "ID")
-    private Map<Module, Group> groups = new HashMap<>();
+    @JoinTable(name = "STUDENT_COURSE_MODULE_GROUP", joinColumns = @JoinColumn(name = "STUDENT_COURSE_ID"), inverseJoinColumns = @JoinColumn(name = "GROUP_ID"))
+    @MapKeyJoinColumn(name = "MODULE_ID")
+    private Map<Module, Group> moduleGroups = new HashMap<>();
+
+    @ManyToOne
+    @JoinColumn(name = "STUDENT_ID")
+    private Student student;
+
+    @ManyToOne
+    @JoinColumn(name = "COURSE_ID")
+    private Course course;
 
     public StudentCourse(long id) {
         super(id);

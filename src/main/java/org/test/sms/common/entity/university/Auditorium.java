@@ -5,12 +5,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.test.sms.common.entity.general.AbstractEntity;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -33,21 +35,18 @@ public class Auditorium extends AbstractEntity {
     @Column(name = "ID")
     private long id;
 
+    @Column(name = "NAME")
     private String name;
 
-    @ManyToOne
-    private Building building;
-
     @ElementCollection
+    @CollectionTable(name = "AUDITORIUM_SEAT", joinColumns = @JoinColumn(name = "AUDITORIUM_ID"))
     private List<ExamSeat> seats = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "BUILDING_ID")
+    private Building building;
 
     public Auditorium(long id) {
         super(id);
-    }
-
-    public Auditorium(long id, String name) {
-        this(id);
-
-        this.name = name;
     }
 }

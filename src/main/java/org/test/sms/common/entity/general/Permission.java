@@ -42,15 +42,15 @@ public class Permission extends AbstractEntity {
     @Column(name = "GROUP_TYPE")
     private PermissionGroupType group;
 
-    @ManyToOne
-    @JoinColumn(name = "USER_GROUP_ID")
-    private UserGroup userGroup;
-
     @ElementCollection
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "PERMISSION_PERMISSION_TYPE", joinColumns = @JoinColumn(name = "PERMISSION_ID"))
     @Column(name = "PERMISSION_TYPE")
     private List<PermissionType> permissionTypes = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "USER_GROUP_ID")
+    private UserGroup userGroup;
 
     public Permission(long id) {
         super(id);

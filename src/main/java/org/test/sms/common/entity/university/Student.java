@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -35,17 +36,22 @@ public class Student extends UniversityMember {
     @Column(name = "ID")
     private long id;
 
+    @Column(name = "SEMESTER")
     private int semester;
 
+    @Column(name = "SCHOLARSHIP")
     private int scholarship;
 
     @ManyToOne
+    @JoinColumn(name = "major_ID")
     private Faculty major;
 
     @ManyToOne
+    @JoinColumn(name = "minor_ID")
     private Faculty minor;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne
+    @JoinColumn(name = "USER_ID")
     private User user;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -53,12 +59,5 @@ public class Student extends UniversityMember {
 
     public Student(long id) {
         super(id);
-    }
-
-    public Student(long id, String firstName, String lastName, String personalNumber, String phoneNumber, User user) {
-        super(firstName, lastName, personalNumber, phoneNumber);
-
-        this.id = id;
-        this.user = user;
     }
 }
