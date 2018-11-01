@@ -9,7 +9,7 @@ import org.test.sms.common.utils.Utils;
 import org.test.sms.server.dao.interfaces.general.UserGroupDao;
 
 import javax.persistence.TypedQuery;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -18,12 +18,12 @@ import java.util.Objects;
 public class UserGroupDaoImpl extends AbstractDaoImpl<UserGroup> implements UserGroupDao {
 
     @Override
-    protected void initSubEntities(UserGroup entity, LocalDateTime now, boolean isAdd) {
+    protected void initSubEntities(UserGroup entity, ZonedDateTime now, boolean isAdd) {
         entity.getPermissions().forEach(permission -> {
             if (isAdd) {
-                permission.setCreationTime(now);
+                permission.setCreated(now);
             }
-            permission.setLastModifiedTime(now);
+            permission.setLastModified(now);
         });
     }
 

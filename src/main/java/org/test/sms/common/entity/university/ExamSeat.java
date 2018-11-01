@@ -3,6 +3,7 @@ package org.test.sms.common.entity.university;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
@@ -10,7 +11,9 @@ import java.io.Serializable;
 @Getter @Setter
 public class ExamSeat implements Serializable {
 
+    @Column(name = "SEAT")
     private int seat;
 
-    private boolean isVacant;
+    @Column(name = "VACANT")
+    private boolean vacant;
 }

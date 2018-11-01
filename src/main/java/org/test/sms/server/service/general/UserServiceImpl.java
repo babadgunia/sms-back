@@ -6,12 +6,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.test.sms.common.entity.general.User;
-import org.test.sms.common.entity.general.UserGroup;
 import org.test.sms.common.enums.general.ErrorCodeType;
 import org.test.sms.common.enums.general.PermissionGroupType;
 import org.test.sms.common.enums.general.PermissionType;
 import org.test.sms.common.exception.AppException;
-import org.test.sms.common.filter.general.AbstractFilter;
 import org.test.sms.common.filter.general.UserFilter;
 import org.test.sms.common.service.general.MailService;
 import org.test.sms.common.service.general.UserService;
@@ -85,18 +83,6 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
         }
 
         throw new AppException(ErrorCodeType.UNKNOWN_ERROR);
-    }
-
-    @Override
-    public Optional<User> get(AbstractFilter abstractFilter) {
-        Optional<User> result = dao.get(abstractFilter);
-
-        result.ifPresent(user -> {
-            UserGroup userGroup = user.getUserGroup();
-            user.setUserGroup(new UserGroup(userGroup.getId(), userGroup.getName()));
-        });
-
-        return result;
     }
 
 //    misc

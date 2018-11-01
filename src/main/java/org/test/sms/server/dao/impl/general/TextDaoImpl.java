@@ -8,7 +8,7 @@ import org.test.sms.common.utils.Utils;
 import org.test.sms.server.dao.interfaces.general.TextDao;
 
 import javax.persistence.TypedQuery;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -16,12 +16,12 @@ import java.util.Map;
 public class TextDaoImpl extends AbstractDaoImpl<Text> implements TextDao {
 
     @Override
-    protected void initSubEntities(Text entity, LocalDateTime now, boolean isAdd) {
+    protected void initSubEntities(Text entity, ZonedDateTime now, boolean isAdd) {
         entity.getValues().forEach(value -> {
             if (isAdd) {
-                value.setCreationTime(now);
+                value.setCreated(now);
             }
-            value.setLastModifiedTime(now);
+            value.setLastModified(now);
         });
     }
 

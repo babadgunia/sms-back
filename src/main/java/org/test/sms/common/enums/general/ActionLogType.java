@@ -1,6 +1,6 @@
 package org.test.sms.common.enums.general;
 
-public enum ActionType {
+public enum ActionLogType {
 
     DELETE,
 
