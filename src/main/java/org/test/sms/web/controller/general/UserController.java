@@ -1,7 +1,6 @@
 package org.test.sms.web.controller.general;
 
 import org.modelmapper.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,7 +27,6 @@ public class UserController extends AbstractController {
 
     private UserService service;
 
-    @Autowired
     public UserController(UserService service) {
         this.service = service;
     }
@@ -39,7 +37,7 @@ public class UserController extends AbstractController {
         try {
             return ResponseEntity.ok(modelMapper.map(service.add(modelMapper.map(entityDto, User.class)), UserDto.class));
         } catch (AppException e) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
 
@@ -49,7 +47,7 @@ public class UserController extends AbstractController {
         try {
             return ResponseEntity.ok(modelMapper.map(service.update(modelMapper.map(entityDto, User.class)), UserDto.class));
         } catch (AppException e) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
 
@@ -59,9 +57,9 @@ public class UserController extends AbstractController {
         try {
             service.delete(id);
 
-            return new ResponseEntity<>(HttpStatus.OK);
+            return ResponseEntity.status(HttpStatus.OK).build();
         } catch (AppException e) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
 
