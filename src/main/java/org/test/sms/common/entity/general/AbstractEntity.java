@@ -7,6 +7,9 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreRemove;
+import javax.persistence.PreUpdate;
 import javax.persistence.Version;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
@@ -47,4 +50,13 @@ public abstract class AbstractEntity implements Serializable {
     public int hashCode() {
         return Long.valueOf(getId()).hashCode();
     }
+
+    @PrePersist
+    private void prePersist() {}
+
+    @PreUpdate
+    private void preUpdate() {}
+
+    @PreRemove
+    private void preRemove() {}
 }
