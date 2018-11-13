@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ComponentScan(basePackages = {"org.test.sms"})
-public class TestUserDao {
+public class UserDaoTest {
 
   @Autowired
   private TestEntityManager entityManager;
