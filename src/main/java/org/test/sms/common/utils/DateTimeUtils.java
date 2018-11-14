@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class DateTimeUtils {
 
-    public static final int MILLIS_IN_SECOND = 1000;
+    public static final int MILLIS_IN_SECOND = 1_000;
 
     public static final int SECONDS_IN_MINUTE = 60;
 
