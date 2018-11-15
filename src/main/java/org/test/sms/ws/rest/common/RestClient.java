@@ -2,6 +2,8 @@ package org.test.sms.ws.rest.common;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
@@ -26,6 +28,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 @Log4j2
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 class RestClient {
 
     static <T> T sendRequest(Configuration configuration, String url, HttpMethodType httpMethod, Map<String, String> headers, Object input, Class<T> responseClass)
@@ -81,22 +84,17 @@ class RestClient {
 
     private static HttpRequestBase createRequest(String url, HttpMethodType httpMethod) {
         switch (httpMethod) {
-            case DELETE: {
+            case DELETE:
                 return new HttpDelete(url);
-            }
             default:
-            case GET: {
+            case GET:
                 return new HttpGet(url);
-            }
-            case PATCH: {
+            case PATCH:
                 return new HttpPatch(url);
-            }
-            case POST: {
+            case POST:
                 return new HttpPost(url);
-            }
-            case PUT: {
+            case PUT:
                 return new HttpPut(url);
-            }
         }
     }
 
