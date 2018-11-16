@@ -1,6 +1,7 @@
 package org.test.sms.ws.rest.common;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -37,6 +38,7 @@ class RestClient {
             String requestUrl = initRequestUrl(configuration, url);
 
             ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
             HttpRequestBase request = initRequest(requestUrl, httpMethod, headers, input, objectMapper);
 
