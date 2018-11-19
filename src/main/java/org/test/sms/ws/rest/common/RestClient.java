@@ -77,9 +77,9 @@ class RestClient {
         log.info("request url [" + request.toString() + "]");
 
         headers.forEach(request::setHeader);
-        log.info("request headers " + Arrays.toString(request.getAllHeaders()));
-
         setRequestInput(request, httpMethod, input, objectMapper);
+
+        log.info("request headers " + Arrays.toString(request.getAllHeaders()));
 
         return request;
     }
@@ -107,6 +107,8 @@ class RestClient {
 
             StringEntity inputEntity = new StringEntity(inputString, "UTF-8");
             ((HttpEntityEnclosingRequestBase) request).setEntity(inputEntity);
+
+            request.setHeader("Content-type", "application/json");
         }
     }
 

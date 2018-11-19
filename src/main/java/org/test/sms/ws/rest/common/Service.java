@@ -11,8 +11,16 @@ public abstract class Service {
 
     protected abstract String getUrl();
 
+    protected <T> T sendRequest(String url, HttpMethodType httpMethod) throws WsException {
+        return sendRequest(url, httpMethod, new HashMap<>(), null, null);
+    }
+
     protected <T> T sendRequest(String url, HttpMethodType httpMethod, Class<T> responseClass) throws WsException {
         return sendRequest(url, httpMethod, new HashMap<>(), null, responseClass);
+    }
+
+    protected <T> T sendRequest(String url, HttpMethodType httpMethod, Object input) throws WsException {
+        return sendRequest(url, httpMethod, new HashMap<>(), input, null);
     }
 
     protected <T> T sendRequest(String url, HttpMethodType httpMethod, Map<String, String> headers, Object input, Class<T> responseClass) throws WsException {
