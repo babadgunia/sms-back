@@ -17,7 +17,7 @@ import java.time.ZonedDateTime;
 @MappedSuperclass
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter @Setter
-public abstract class AbstractEntity implements Serializable {
+public abstract class AbstractEntity implements Comparable<AbstractEntity>, Serializable {
 
     protected static final String SEQUENCE_PREFIX = "SQ_";
 
@@ -40,6 +40,11 @@ public abstract class AbstractEntity implements Serializable {
     public abstract long getId();
 
     public abstract void setId(long id);
+
+    @Override
+    public int compareTo(AbstractEntity o) {
+        return Long.compare(getId(), o.getId());
+    }
 
     @Override
     public boolean equals(Object obj) {
