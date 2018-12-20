@@ -4,3 +4,15 @@ jdk:
 
 script:
 - mvn clean package
+
+services:
+  - docker
+  
+before_install:
+- docker build -t babadgunia/sms-back .
+
+deploy:
+  provider: script
+  script: bash docker_push
+  on:
+    branch: master
