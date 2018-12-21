@@ -9,7 +9,7 @@ services:
 before_install:
 - mvn clean package
 - docker build -t babadgunia/sms-back .
-- docker build -t babadgunia/sms-db -f src/main/resources/db .
+- docker build -t babadgunia/sms-db -f src/main/resources/db/Dockerfile .
 
 deploy:
   provider: script
