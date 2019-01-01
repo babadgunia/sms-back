@@ -2,5 +2,17 @@ language: java
 jdk:
 - oraclejdk8
 
-script:
+
+services:
+  - docker
+  
+before_install:
 - mvn clean package
+- docker build -t babadgunia/sms-back .
+- docker build -t babadgunia/sms-db -f src/main/resources/db/Dockerfile .
+
+deploy:
+  provider: script
+  script: bash docker_push
+  on:
+    branch: master

@@ -3,6 +3,8 @@ package org.test.sms.common.entity.general;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.test.sms.common.enums.general.SystemParameterGroupType;
 import org.test.sms.common.enums.general.SystemParameterType;
 import org.test.sms.common.enums.general.SystemParameterUnitType;
@@ -21,6 +23,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = SystemParameter.TABLE_NAME)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @NoArgsConstructor
 @Getter @Setter
 public class SystemParameter extends AbstractEntity {
