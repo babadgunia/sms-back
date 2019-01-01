@@ -58,8 +58,8 @@
         </dependency>
         <!--database-->
         <dependency>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-ehcache</artifactId>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-ehcache</artifactId>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
