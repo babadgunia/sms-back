@@ -79,8 +79,6 @@ class RestClient {
         headers.forEach(request::setHeader);
         setRequestInput(request, httpMethod, input, objectMapper);
 
-        log.info("request headers " + Arrays.toString(request.getAllHeaders()));
-
         return request;
     }
 
@@ -120,7 +118,6 @@ class RestClient {
         log.info("response code [" + responseCode + "]");
 
         String responseBody = readResponseBody(response);
-        log.info("response body [" + responseBody + "]");
 
         if (!configuration.getSuccessfulResponseCodes().contains(responseCode)) {
             throw new HttpException("response code [" + responseCode + "], response body [" + responseBody + "]");
