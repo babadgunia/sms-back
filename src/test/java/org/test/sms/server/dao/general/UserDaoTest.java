@@ -10,42 +10,39 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.test.sms.common.entity.general.User;
 import org.test.sms.common.entity.general.UserGroup;
 import org.test.sms.server.dao.impl.general.UserDaoImpl;
-import org.test.sms.server.dao.interfaces.general.UserDao;
 
-import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ComponentScan(basePackages = {"org.test.sms"})
 public class UserDaoTest {
 
-  @Autowired
-  private TestEntityManager entityManager;
+    @Autowired
+    private TestEntityManager entityManager;
 
-  @Autowired
-  private UserDaoImpl userDao;
+    @Autowired
+    private UserDaoImpl userDao;
 
-  @Test
-  public void whenUsernameExists_thenReturnTrue() {
-    User u = new User();
-    u.setUsername("Test");
-    u.setCreated(ZonedDateTime.now());
-    u.setLastModified(ZonedDateTime.now());
+    @Test
+    public void whenUsernameExists_thenReturnTrue() {
+        User u = new User();
+        u.setUsername("Test");
+        u.setCreated(ZonedDateTime.now());
+        u.setLastModified(ZonedDateTime.now());
 
-    UserGroup ug = new UserGroup();
-    ug.setCreated(ZonedDateTime.now());
-    ug.setLastModified(ZonedDateTime.now());
-    entityManager.persist(ug);
-    entityManager.flush();
-    u.setUserGroup(ug);
+        UserGroup ug = new UserGroup();
+        ug.setCreated(ZonedDateTime.now());
+        ug.setLastModified(ZonedDateTime.now());
+        entityManager.persist(ug);
+        entityManager.flush();
+        u.setUserGroup(ug);
 
-    entityManager.persist(u);
-    entityManager.flush();
+        entityManager.persist(u);
+        entityManager.flush();
 
-    assertTrue(userDao.exists(u.getUsername()));
-  }
-
+        assertTrue(userDao.exists(u.getUsername()));
+    }
 }
