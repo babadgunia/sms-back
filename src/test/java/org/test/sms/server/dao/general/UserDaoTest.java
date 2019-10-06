@@ -9,6 +9,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.test.sms.common.entity.general.User;
 import org.test.sms.common.entity.general.UserGroup;
+import org.test.sms.common.exception.AppException;
+import org.test.sms.common.filter.general.UserFilter;
 import org.test.sms.server.dao.impl.general.UserDaoImpl;
 
 import java.time.ZonedDateTime;
@@ -44,5 +46,30 @@ public class UserDaoTest {
         entityManager.flush();
 
         assertTrue(userDao.exists(u.getUsername()));
+    }
+
+    @Test
+    public void testUserUpdate() throws AppException {
+        User u = new User();
+        u.setUsername("Test");
+        u.setName("Name");
+        u.setCreated(ZonedDateTime.now());
+        u.setLastModified(ZonedDateTime.now());
+
+        UserGroup ug = new UserGroup();
+        ug.setCreated(ZonedDateTime.now());
+        ug.setLastModified(ZonedDateTime.now());
+        entityManager.persist(ug);
+        entityManager.flush();
+        u.setUserGroup(ug);
+
+        entityManager.persist(u);
+        entityManager.flush();
+
+        u.setName("NewName");
+        userDao.update(u);
+        UserFilter userFilter = new UserFilter();
+        userFilter.setId(u.getId());
+        assertTrue(userDao.get(userFilter).get().getName().equals("NewName"));
     }
 }
