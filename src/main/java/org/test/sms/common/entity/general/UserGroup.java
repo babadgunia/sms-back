@@ -3,6 +3,7 @@ package org.test.sms.common.entity.general;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.cache.annotation.Cacheable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,6 +21,7 @@ import java.util.List;
 @Table(name = UserGroup.TABLE_NAME)
 @NoArgsConstructor
 @Getter @Setter
+@Cacheable("UserGroup")
 public class UserGroup extends AbstractEntity {
 
     static final String TABLE_NAME = "USER_GROUP";

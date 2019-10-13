@@ -3,6 +3,7 @@ package org.test.sms.common.entity.general;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.cache.annotation.Cacheable;
 import org.test.sms.common.enums.general.LanguageType;
 import org.test.sms.common.enums.general.StatusType;
 
@@ -22,6 +23,7 @@ import javax.persistence.Table;
 @Table(name = User.TABLE_NAME)
 @NoArgsConstructor
 @Getter @Setter
+@Cacheable("User")
 public class User extends AbstractEntity {
 
     static final String TABLE_NAME = "APP_USER";

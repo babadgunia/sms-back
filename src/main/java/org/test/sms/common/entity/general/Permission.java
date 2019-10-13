@@ -3,6 +3,7 @@ package org.test.sms.common.entity.general;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.cache.annotation.Cacheable;
 import org.test.sms.common.enums.general.PermissionGroupType;
 import org.test.sms.common.enums.general.PermissionType;
 
@@ -26,6 +27,7 @@ import java.util.List;
 @Table(name = Permission.TABLE_NAME)
 @NoArgsConstructor
 @Getter @Setter
+@Cacheable("Permission")
 public class Permission extends AbstractEntity {
 
     static final String TABLE_NAME = "PERMISSION";
