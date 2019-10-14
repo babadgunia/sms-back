@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.cache.annotation.CachePut;
 import org.test.sms.common.enums.general.SystemParameterGroupType;
 import org.test.sms.common.enums.general.SystemParameterType;
 import org.test.sms.common.enums.general.SystemParameterUnitType;
@@ -26,6 +27,7 @@ import javax.persistence.Table;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @NoArgsConstructor
 @Getter @Setter
+@CachePut("SystemParameter")
 public class SystemParameter extends AbstractEntity {
 
     static final String TABLE_NAME = "SYSTEM_PARAMETER";
