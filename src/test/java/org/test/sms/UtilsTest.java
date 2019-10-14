@@ -68,9 +68,6 @@ public class UtilsTest {
     @Test
     public void testGetStackTrace() {
         assertThrows(() -> Utils.getStackTrace(null)).expect(IllegalArgumentException.class).expectMessage("throwable cannot be null");
-
-//        assertThat(Utils.getStackTrace(new RuntimeException("a")),
-//                allOf(containsString("java.lang.RuntimeException"), containsString("a"), containsString("at org.test.sms.UtilsTest.testGetStackTrace")));
     }
 
     @Test
