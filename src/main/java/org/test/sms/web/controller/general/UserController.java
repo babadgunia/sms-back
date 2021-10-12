@@ -17,7 +17,6 @@ import org.test.sms.common.filter.general.UserFilter;
 import org.test.sms.common.service.general.UserService;
 import org.test.sms.web.dto.general.UserDto;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +32,7 @@ public class UserController extends AbstractController {
 
     @PostMapping("add")
     @PreAuthorize("@userService.hasPermission('USER', 'ADD')")
-    public ResponseEntity<UserDto> add(@RequestBody @Valid UserDto entityDto) {
+    public ResponseEntity<UserDto> add(@RequestBody UserDto entityDto) {
         try {
             return ResponseEntity.ok(modelMapper.map(service.add(modelMapper.map(entityDto, User.class)), UserDto.class));
         } catch (AppException e) {
@@ -43,7 +42,7 @@ public class UserController extends AbstractController {
 
     @PostMapping("update")
     @PreAuthorize("@userService.hasPermission('USER', 'EDIT')")
-    public ResponseEntity<UserDto> update(@RequestBody @Valid UserDto entityDto) {
+    public ResponseEntity<UserDto> update(@RequestBody UserDto entityDto) {
         try {
             return ResponseEntity.ok(modelMapper.map(service.update(modelMapper.map(entityDto, User.class)), UserDto.class));
         } catch (AppException e) {

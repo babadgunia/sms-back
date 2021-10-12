@@ -1,12 +1,12 @@
 package org.test.sms.server.dao.general;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.test.sms.common.entity.general.User;
 import org.test.sms.common.entity.general.UserGroup;
 import org.test.sms.common.exception.AppException;
@@ -17,7 +17,7 @@ import java.time.ZonedDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @DataJpaTest
 @ComponentScan(basePackages = {"org.test.sms"})
 public class UserDaoTest {
@@ -30,7 +30,7 @@ public class UserDaoTest {
 
     @Test
     public void whenUsernameExists_thenReturnTrue() {
-        User u = new User();
+        User u = new User(1);
         u.setUsername("Test");
         u.setCreated(ZonedDateTime.now());
         u.setLastModified(ZonedDateTime.now());
@@ -50,7 +50,7 @@ public class UserDaoTest {
 
     @Test
     public void testUserUpdate() throws AppException {
-        User u = new User();
+        User u = new User(1);
         u.setUsername("Test");
         u.setName("Name");
         u.setCreated(ZonedDateTime.now());

@@ -1,10 +1,11 @@
 package org.test.sms.server.service.general;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.test.sms.common.entity.general.User;
 import org.test.sms.common.entity.general.UserGroup;
@@ -16,7 +17,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class UserServiceImplTest {
 
     private UserService userService;
@@ -24,7 +25,7 @@ public class UserServiceImplTest {
     @MockBean
     private UserDao userDao;
 
-    @Before
+    @BeforeAll
     public void setUp() {
         userService = new UserServiceImpl(userDao, null, null);
     }
@@ -38,7 +39,7 @@ public class UserServiceImplTest {
         userGroup.setId(1);
         userGroup.setName("UserGroup");
 
-        User user = new User();
+        User user = new User(1);
         user.setUsername("test");
         user.setName(name);
         user.setUserGroup(userGroup);
