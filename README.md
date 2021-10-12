@@ -2,7 +2,7 @@
 SMS-back is monolith web application backend to manage university students, faculties, exams, courses etc.
 
 **Technology stack**
-Java 8
+Java 17
 Spring boot
 Docker
 Postgresql
